@@ -1,0 +1,342 @@
+% MuonScope: rivelatore di muoni cosmici a fotodiodi PIN al silicio
+% Compilazione: pdflatex muonscope && bibtex muonscope && pdflatex muonscope && pdflatex muonscope
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+
+\geometry{margin=25mm}
+\sisetup{output-decimal-marker={,}, group-separator={.}, per-mode=symbol}
+
+\newcommand{\dadefinire}[1]{\textcolor{red!70!black}{[\emph{#1}]}}
+
+\title{MuonScope: rivelazione diretta di muoni cosmici\\con fotodiodi PIN al silicio commerciali}
+\author{Michele Bigi}
+\date{Bozza del \today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Questo lavoro descrive il progetto MuonScope, un rivelatore di muoni cosmici a più piani basato su fotodiodi PIN al silicio commerciali usati come rivelatori diretti di particelle ionizzanti, senza scintillatore. Dopo una base teorica sul flusso dei muoni, sulla perdita di energia nel silicio, sulla raccolta di carica e sul rumore dell'elettronica di lettura, si presenta una scheda di test (PianoTest) con rete di retroazione e polarizzazione regolabili via software, pensata per determinare sperimentalmente i parametri ottimali del front-end. Infine si descrive l'architettura del rivelatore completo: piani di sensori collegati da un bus con indirizzamento automatico, modulo di alimentazione e unità di controllo su SoC Allwinner A133 con riferimento temporale GNSS.
+\end{abstract}
+
+\tableofcontents
+
+%======================================================================
+\section{Introduzione}
+%======================================================================
+
+I muoni cosmici sono la componente carica più abbondante della radiazione cosmica al livello del mare. Sono prodotti negli sciami generati dall'interazione dei raggi cosmici primari con l'alta atmosfera e, grazie alla vita media dilatata relativisticamente e al basso potere frenante, raggiungono il suolo con un flusso dell'ordine di un muone per centimetro quadrato al minuto su un rivelatore orizzontale~\cite{pdg2024,gaisser2016}.
+
+I rivelatori didattici e amatoriali più diffusi usano scintillatori plastici letti da fotomoltiplicatori al silicio (SiPM)~\cite{axani2016,axani2018}. Un'alternativa più semplice ed economica è usare come rivelatore diretto un fotodiodo PIN al silicio commerciale, polarizzato in inversa: la particella attraversa la zona svuotata e vi genera coppie elettrone-lacuna, raccolte come un impulso di carica. Questa tecnica è nota per la rivelazione di particelle alfa e beta~\cite{knoll2010,physicsopenlab2020}. Per i muoni è più impegnativa, perché la carica depositata in poche decine di micrometri di silicio è dell'ordine del femtocoulomb.
+
+Gli obiettivi di MuonScope sono:
+\begin{enumerate}
+  \item verificare sperimentalmente la rivelazione diretta di muoni con fotodiodi PIN commerciali e determinare i parametri ottimali dell'elettronica di lettura (retroazione, formatura, tensione di polarizzazione);
+  \item realizzare un rivelatore a più piani in coincidenza, modulare, con piani collegati da un bus comune e riconosciuti automaticamente;
+  \item datare gli eventi con riferimento GNSS, per applicazioni di misura del flusso, della distribuzione angolare e di correlazione temporale.
+\end{enumerate}
+
+Il documento è organizzato come segue. La sezione~\ref{sec:teoria} riassume la base teorica. La sezione~\ref{sec:test} descrive la scheda di test e, quando disponibili, i dati sperimentali. La sezione~\ref{sec:muonscope} descrive la realizzazione del rivelatore completo, le cui scelte discendono dai risultati della sezione~\ref{sec:test}.
+
+%======================================================================
+\section{Base teorica}\label{sec:teoria}
+%======================================================================
+
+\subsection{I muoni cosmici al livello del suolo}
+
+I raggi cosmici primari, in prevalenza protoni e nuclei, interagiscono con i nuclei dell'atmosfera a quote di \SIrange{15}{20}{\kilo\metre} producendo soprattutto pioni e kaoni. I mesoni carichi decadono in muoni e neutrini, per esempio $\pi^{+}\to\mu^{+}\nu_{\mu}$. Il muone ha massa $m_\mu c^2 \simeq \SI{105.7}{\mega\electronvolt}$ e vita media propria $\tau_\mu \simeq \SI{2.2}{\micro\second}$~\cite{pdg2024}: senza dilatazione relativistica percorrerebbe in media circa \SI{660}{\metre}, mentre alle energie tipiche di qualche GeV la vita media nel sistema del laboratorio è aumentata di un fattore $\gamma$ di alcune decine e il muone raggiunge il suolo.
+
+Al livello del mare l'energia media dei muoni è di circa \SI{4}{\giga\electronvolt}, l'intensità verticale per energie superiori a \SI{1}{\giga\electronvolt} è di circa \SI{70}{\per\square\metre\per\second\per\steradian} e la distribuzione angolare segue approssimativamente $I(\theta)\propto\cos^2\theta$, con $\theta$ angolo zenitale. Il flusso integrato su un rivelatore orizzontale è dell'ordine di $\SI{1}{\per\square\centi\metre\per\minute}$~\cite{pdg2024,gaisser2016}.
+
+Questo dato ha una conseguenza pratica immediata: un singolo fotodiodo con area sensibile di \SI{7.5}{\square\milli\metre} vede in media circa \num{0.075} muoni al minuto, cioè circa quattro all'ora. Le misure su muoni richiedono quindi tempi di acquisizione lunghi o più sensori, mentre la caratterizzazione dell'elettronica va fatta con stimoli artificiali (iniezione di carica, impulsi luminosi, sorgenti radioattive).
+
+\subsection{Perdita di energia per ionizzazione}
+
+Una particella carica pesante e veloce perde energia nella materia soprattutto per collisioni con gli elettroni atomici. La perdita media per unità di percorso è descritta dalla formula di Bethe~\cite{bethe1930,pdg2024}:
+\begin{equation}
+  \left\langle -\frac{dE}{dx} \right\rangle = K z^2 \frac{Z}{A}\frac{1}{\beta^2}\left[\frac{1}{2}\ln\frac{2 m_e c^2 \beta^2\gamma^2 W_{\max}}{I^2} - \beta^2 - \frac{\delta(\beta\gamma)}{2}\right],
+  \label{eq:bethe}
+\end{equation}
+dove $K = 4\pi N_A r_e^2 m_e c^2 \simeq \SI{0.307}{\mega\electronvolt\square\centi\metre\per\mole}$, $z$ è la carica della particella, $Z/A$ il rapporto tra numero atomico e massa atomica del mezzo, $I$ l'energia media di eccitazione, $W_{\max}$ il massimo trasferimento di energia in una singola collisione e $\delta$ la correzione di densità.
+
+La funzione ha un minimo largo attorno a $\beta\gamma \approx 3$--$4$; le particelle in questa regione sono dette \emph{al minimo di ionizzazione} (MIP). I muoni cosmici al suolo sono in buona approssimazione MIP. Per il silicio il minimo vale $\SI{1.664}{\mega\electronvolt\square\centi\metre\per\gram}$~\cite{pdg2024,groom2001}; con densità $\rho = \SI{2.33}{\gram\per\cubic\centi\metre}$ si ottiene
+\begin{equation}
+  \left\langle -\frac{dE}{dx} \right\rangle_{\mathrm{Si,\,MIP}} \simeq \SI{3.88}{\mega\electronvolt\per\centi\metre} = \SI{0.388}{\kilo\electronvolt\per\micro\metre}.
+\end{equation}
+
+\subsection{Fluttuazioni: distribuzione di Landau in strati sottili}
+
+L'equazione~\eqref{eq:bethe} dà un valore medio. In uno strato sottile il numero di collisioni è piccolo e l'energia depositata fluttua in modo fortemente asimmetrico: rare collisioni con grande trasferimento di energia (raggi $\delta$) producono una lunga coda verso le alte energie. La distribuzione è descritta dalla teoria di Landau~\cite{landau1944} e, per il silicio sottile, in modo più accurato dai calcoli di Bichsel~\cite{bichsel1988}.
+
+Due conseguenze sono importanti per il progetto:
+\begin{itemize}
+  \item il valore più probabile $\Delta_p$ è sensibilmente inferiore al valore medio; per spessori di silicio di \SIrange{100}{300}{\micro\metre} il rapporto $\Delta_p/\langle\Delta\rangle$ vale circa \numrange{0.65}{0.75}~\cite{bichsel1988,pdg2024};
+  \item il rapporto $\Delta_p/x$ diminuisce al diminuire dello spessore $x$: per \SI{300}{\micro\metre} si ottiene il valore spesso citato di circa \num{22000}--\num{24000} coppie, cioè circa \num{80} coppie per micrometro, mentre per strati più sottili il valore per micrometro è minore~\cite{bichsel1988}.
+\end{itemize}
+La soglia di rivelazione va quindi confrontata con il valore più probabile e non con la media.
+
+\subsection{Generazione di coppie elettrone-lacuna nel silicio}
+
+L'energia media necessaria per creare una coppia elettrone-lacuna nel silicio a temperatura ambiente è $w \simeq \SI{3.6}{\electronvolt}$ (valore tipico \SI{3.62}{\electronvolt} a \SI{300}{\kelvin}), indipendente dal tipo e dall'energia della particella~\cite{klein1968,knoll2010}. È circa tre volte l'energia della banda proibita, perché parte dell'energia va in fononi. La fluttuazione del numero di coppie è ridotta rispetto alla statistica di Poisson dal fattore di Fano $F\approx0.1$~\cite{fano1947}; per i depositi qui considerati è trascurabile rispetto alle fluttuazioni di Landau e al rumore elettronico.
+
+Il numero medio di coppie generate in uno spessore $W$ di zona svuotata da una MIP è
+\begin{equation}
+  \langle N \rangle = \frac{\langle -dE/dx \rangle\, W}{w} \simeq \frac{\SI{388}{\electronvolt\per\micro\metre}}{\SI{3.62}{\electronvolt}}\,W \simeq 107\,\frac{W}{\si{\micro\metre}},
+\end{equation}
+e la carica corrispondente è $Q = \langle N\rangle q$, con $q=\SI{1.602e-19}{\coulomb}$.
+
+\subsection{Il fotodiodo PIN come rivelatore di particelle}
+
+\subsubsection{Zona svuotata e capacità}
+
+In una giunzione polarizzata in inversa la regione di svuotamento è priva di portatori liberi e vi è presente un campo elettrico. Per una giunzione brusca con il lato poco drogato di concentrazione efficace $N_{\mathrm{eff}}$ lo spessore svuotato è~\cite{sze2007,knoll2010,lutz1999}
+\begin{equation}
+  W = \sqrt{\frac{2\varepsilon_{\mathrm{Si}}\,(V_R + V_{bi})}{q\,N_{\mathrm{eff}}}} = \sqrt{2\varepsilon_{\mathrm{Si}}\,\mu\,\rho_s\,(V_R+V_{bi})},
+  \label{eq:W}
+\end{equation}
+dove $V_R$ è la tensione inversa applicata, $V_{bi}\approx\SI{0.6}{\volt}$ il potenziale di contatto, $\varepsilon_{\mathrm{Si}} = 11.9\,\varepsilon_0 \simeq \SI{1.05e-12}{\farad\per\centi\metre}$, $\mu$ la mobilità dei portatori maggioritari e $\rho_s$ la resistività del substrato. Lo spessore cresce come $\sqrt{V_R}$ fino a quando la zona svuotata raggiunge lo spessore fisico del dispositivo (svuotamento totale).
+
+La capacità di giunzione è quella di un condensatore piano di area $A$ e spessore $W$:
+\begin{equation}
+  C_d = \frac{\varepsilon_{\mathrm{Si}} A}{W}.
+  \label{eq:Cd}
+\end{equation}
+La misura di $C_d(V_R)$ è quindi il modo più diretto per conoscere lo spessore attivo di un fotodiodo commerciale, per il quale il costruttore non dichiara né la resistività né lo spessore svuotato.
+
+\subsubsection{Stima per il BPW34}
+
+Il fotodiodo BPW34 (e la versione SMD VBPW34S) ha area sensibile $A = \SI{7.5}{\square\milli\metre}$, tensione inversa massima di \SI{60}{\volt} e capacità tipica di \SI{70}{\pico\farad} a \SI{0}{\volt} e \SI{25}{\pico\farad} a \SI{3}{\volt}~\cite{bpw34}. Dalla~\eqref{eq:Cd}, a \SI{3}{\volt}:
+\begin{equation}
+  W(\SI{3}{\volt}) = \frac{\varepsilon_{\mathrm{Si}}A}{C_d} \simeq \frac{\SI{1.05e-12}{\farad\per\centi\metre}\times\SI{0.075}{\square\centi\metre}}{\SI{25}{\pico\farad}} \simeq \SI{31}{\micro\metre}.
+\end{equation}
+Scalando con la~\eqref{eq:W}, $W\propto\sqrt{V_R+V_{bi}}$:
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+$V_R$ [\si{\volt}] & $W$ [\si{\micro\metre}] & $C_d$ [\si{\pico\farad}] & $\langle N\rangle$ MIP [coppie] \\
+\midrule
+3  & 31 & 25  & \num{3300} \\
+10 & 53 & 15  & \num{5700} \\
+30 & 90 & 8.7 & \num{9600} \\
+36 & 99 & 8.0 & \num{10600} \\
+\bottomrule
+\end{tabular}
+\end{center}
+La concentrazione efficace che ne deriva è $N_{\mathrm{eff}} \approx \SI{5e12}{\per\cubic\centi\metre}$, corrispondente a una resistività dell'ordine di \SI{1}{\kilo\ohm\centi\metre}; con questi valori lo svuotamento totale di un chip spesso circa \SI{300}{\micro\metre} richiederebbe una tensione dell'ordine di \SI{300}{\volt}, ben oltre il limite del componente.
+
+Questa stima è coerente con la letteratura divulgativa, che indica circa \SI{50}{\micro\metre} di svuotamento a circa \SI{8}{\volt}~\cite{physicsopenlab2020}: scalando con $\sqrt{V}$ si ottengono circa \SI{100}{\micro\metre} a \SI{30}{\volt}. Si assume quindi come caso di progetto $W \approx \SI{90}{}$--$\SI{100}{\micro\metre}$, con un segnale medio di circa \num{10000} elettroni (\SI{1.6}{\femto\coulomb}) e un valore più probabile di circa \num{6000}--\num{7000} elettroni (circa \SI{1}{\femto\coulomb}). La verifica sperimentale di $C_d(V_R)$ è il primo obiettivo della sezione~\ref{sec:dati}.
+
+\subsubsection{Formazione del segnale}
+
+Le cariche generate derivano nel campo della zona svuotata verso gli elettrodi. La corrente indotta sugli elettrodi è data dal teorema di Shockley--Ramo~\cite{shockley1938,ramo1939}: la carica totale indotta, a raccolta completa, è pari alla carica generata, indipendentemente dalla posizione di generazione. Con campi di qualche \si{\kilo\volt\per\centi\metre} e spessori di \SI{100}{\micro\metre} i tempi di raccolta sono di qualche decina di nanosecondi~\cite{spieler2005}, molto più brevi delle costanti di formatura scelte; il rivelatore può quindi essere modellato come una sorgente di corrente impulsiva di carica $Q$ in parallelo alla capacità $C_d$.
+
+La carica generata fuori dalla zona svuotata, nella regione neutra, viene raccolta solo in parte e lentamente per diffusione e contribuisce poco al segnale formato.
+
+\subsubsection{Corrente di buio}
+
+In polarizzazione inversa il diodo è attraversato da una corrente di buio $I_d$, dovuta alla generazione termica nella zona svuotata e alle correnti superficiali. Per il BPW34 il valore tipico è di qualche \si{\nano\ampere} a \SI{10}{\volt}~\cite{bpw34}; cresce con il volume svuotato e raddoppia circa ogni \SIrange{7}{8}{\kelvin}~\cite{lutz1999,spieler2005}. Contribuisce al rumore (rumore shot) e va misurata in funzione di tensione e temperatura.
+
+\subsection{Elettronica di lettura}
+
+\subsubsection{Preamplificatore di carica}
+
+Il preamplificatore sensibile alla carica (CSA) è un amplificatore invertente ad alto guadagno con un condensatore di retroazione $C_f$. Una carica $Q$ iniettata sul nodo d'ingresso viene trasferita su $C_f$ e produce in uscita un gradino di ampiezza
+\begin{equation}
+  V_{\mathrm{out}} = -\frac{Q}{C_f},
+\end{equation}
+indipendente, entro i limiti del guadagno ad anello aperto, dalla capacità del rivelatore~\cite{knoll2010,spieler2005}. Una resistenza $R_f$ in parallelo a $C_f$ scarica il condensatore con costante di tempo $\tau_f = R_f C_f$ e fornisce il percorso in continua per la corrente di buio.
+
+Per $Q=\SI{1}{\femto\coulomb}$ e $C_f=\SI{1}{\pico\farad}$ l'uscita è di circa \SI{1}{\milli\volt}: è necessario uno stadio di guadagno successivo. Valori di $C_f$ troppo piccoli rispetto alla capacità d'ingresso riducono il margine di fase dell'anello e possono rendere instabile il preamplificatore; la scelta di $C_f$ è quindi un compromesso tra guadagno e stabilità, da verificare sperimentalmente.
+
+\subsubsection{Formatura}
+
+Il segnale del preamplificatore viene filtrato da un formatore che limita la banda per migliorare il rapporto segnale/rumore e accorcia l'impulso per ridurre gli accumuli. Il formatore più semplice è il CR-RC: un derivatore e un integratore con la stessa costante di tempo $\tau$, che trasformano il gradino in un impulso con picco a $t=\tau$~\cite{knoll2010,spieler2005}. Con $n$ integratori (CR-RC$^n$) l'impulso diventa più simmetrico. La compensazione polo-zero elimina il sottoelongamento dovuto alla scarica di $C_f$ attraverso $R_f$.
+
+\subsubsection{Rumore e carica equivalente di rumore}
+
+Il rumore si esprime come carica equivalente di rumore (ENC), cioè la carica all'ingresso che produce in uscita un segnale pari al rumore RMS. Per un formatore CR-RC con tempo di picco $\tau$ i contributi principali sono~\cite{radeka1988,spieler2005}:
+\begin{align}
+  \mathrm{ENC}_{s}^2 &= F_v\,\frac{e_n^2\,C_{\mathrm{tot}}^2}{\tau}, \label{eq:encs}\\
+  \mathrm{ENC}_{p}^2 &= F_i\,i_n^2\,\tau, \qquad i_n^2 = 2qI_d + \frac{4kT}{R_f} + i_{n,\mathrm{amp}}^2, \label{eq:encp}
+\end{align}
+con $F_v = F_i = e^2/8 \simeq 0.92$ per il CR-RC, $e_n$ densità spettrale del rumore di tensione dell'amplificatore, $C_{\mathrm{tot}}$ capacità totale sul nodo d'ingresso (rivelatore, ingresso dell'amplificatore, $C_f$, interruttori e parassitiche), $I_d$ corrente di buio e $R_f$ resistenza di retroazione. Si aggiunge un termine $1/f$ indipendente da $\tau$. Il rumore serie cresce con la capacità e diminuisce con $\tau$; quello parallelo cresce con $\tau$: esiste un tempo di formatura ottimo.
+
+\subsubsection{Stima per la catena di test}
+
+Con un amplificatore operazionale OPA4172 ($e_n \approx \SI{7}{\nano\volt\per\sqrt\hertz}$~\cite{opa4172}), $C_{\mathrm{tot}} \approx \SI{20}{\pico\farad}$, $\tau = \SI{1}{\micro\second}$, $I_d = \SI{2}{\nano\ampere}$ e $R_f=\SI{100}{\mega\ohm}$ a \SI{300}{\kelvin}:
+\begin{itemize}
+  \item rumore serie: $\mathrm{ENC}_s \approx \num{840}$ elettroni;
+  \item rumore parallelo: $\mathrm{ENC}_p \approx \num{170}$ elettroni (di cui circa \num{80} da $R_f$);
+  \item totale: $\mathrm{ENC} \approx \num{860}$ elettroni RMS.
+\end{itemize}
+Con un valore più probabile di circa \num{6000}--\num{7000} elettroni il rapporto segnale/rumore atteso è dell'ordine di \num{7}--\num{8}: sufficiente per la rivelazione, con margine limitato. Il termine dominante è il rumore serie: un primo stadio a JFET discreto a basso rumore (per esempio BF862, con $e_n$ inferiore a \SI{1}{\nano\volt\per\sqrt\hertz}) potrebbe ridurre l'ENC di diverse volte, a parità di capacità. Con $R_f=\SI{10}{\mega\ohm}$ il solo contributo di $R_f$ salirebbe a circa \num{250} elettroni.
+
+Queste stime vanno considerate indicative: la capacità d'ingresso effettiva, il rumore $1/f$ e le perdite delle superfici e dei componenti vicini al nodo d'ingresso si determinano solo sperimentalmente.
+
+\subsection{Coincidenza tra piani}
+
+Il rumore elettronico e la radioattività ambientale producono impulsi anche in assenza di muoni. Richiedendo che due o più piani sovrapposti rivelino un impulso entro una finestra temporale $\Delta t$, la frequenza delle coincidenze casuali tra due piani con frequenze di conteggio singole $r_1$ e $r_2$ è $r_{\mathrm{acc}} \simeq 2\,\Delta t\,r_1 r_2$~\cite{knoll2010}, mentre i muoni che attraversano entrambi i piani sono rivelati in coincidenza vera. La coincidenza consente quindi di abbassare la soglia dei singoli piani e di definire la direzione di provenienza della particella.
+
+%======================================================================
+\section{Attuazione sperimentale di test}\label{sec:test}
+%======================================================================
+
+\subsection{Il circuito di test: scelte e motivazioni}
+
+\subsubsection{Obiettivi della scheda di test}
+
+La scheda di test (PianoTest) ha lo scopo di misurare, prima di progettare la matrice di sensori:
+\begin{enumerate}
+  \item la capacità e la corrente di buio del fotodiodo in funzione della tensione di polarizzazione e della temperatura;
+  \item la risposta del preamplificatore al variare di $R_f$ e $C_f$, per trovare la combinazione con il miglior rapporto segnale/rumore e una stabilità adeguata;
+  \item l'effetto del tempo di formatura e del guadagno;
+  \item la rivelazione di muoni reali, singola e in coincidenza con un secondo piano.
+\end{enumerate}
+Per questo la scheda privilegia la flessibilità: retroazione, polarizzazione e stimolo sono regolabili via software, e i punti significativi della catena sono accessibili con un oscilloscopio. La scheda è realizzata come un piano del bus MIKILAB (sezione~\ref{sec:bus}), così da collaudare anche l'interfaccia del rivelatore finale.
+
+\subsubsection{Sensore}
+
+Il sensore è un fotodiodo PIN VBPW34S, polarizzato in inversa. È economico, facilmente reperibile e ha un'area sensibile relativamente grande per un componente commerciale. Il contenitore deve essere schermato dalla luce: alla luce ambiente la fotocorrente supera di ordini di grandezza la corrente di buio.
+
+\subsubsection{Preamplificatore di carica}
+
+Il preamplificatore usa un canale di un OPA4172 in configurazione CSA, con l'ingresso non invertente a una tensione di riferimento di \SI{1.25}{\volt} bufferizzata, così da lavorare con alimentazione singola. Sono sempre presenti $C_f = \SI{1}{\pico\farad}$ e $R_f = \SI{100}{\mega\ohm}$: garantiscono un percorso in continua e un guadagno definito anche quando gli interruttori della rete variabile sono tutti aperti, per esempio all'accensione. Il valore di \SI{100}{\mega\ohm} è scelto per contenere il rumore parallelo, come mostrato in~\eqref{eq:encp}.
+
+\subsubsection{Rete di retroazione variabile}
+
+L'idea centrale della scheda è una rete di retroazione selezionabile via SPI, per trovare sperimentalmente i valori migliori:
+\begin{itemize}
+  \item \textbf{Resistenze} da \SI{10}{\kilo\ohm} a \SI{10}{\mega\ohm}, commutate da due interruttori analogici TMUX1112, con pull-down sui comandi così che all'accensione siano tutti aperti.
+  \item \textbf{Condensatori} da \SI{0.5}{\pico\farad} a \SI{100}{\pico\farad}, commutati da due interruttori SP4T BGSA142GN12. Questo componente nasce come interruttore d'antenna, ma la sua capacità a porta aperta di circa \SI{110}{\femto\farad}~\cite{bgsa142} è più di un ordine di grandezza inferiore a quella degli interruttori analogici di precisione, che è di alcuni picofarad: con $C_f$ di \SI{0.5}{}--\SI{1}{\pico\farad} un interruttore comune falserebbe il valore di retroazione.
+  \item Il BGSA142 non deve vedere tensione continua sulle porte. Ogni ramo è quindi realizzato come: ingresso invertente, $C_f$, porta del commutatore, comune, condensatore di blocco da \SI{10}{\nano\farad} C0G, uscita del preamplificatore; le porte e il comune sono riportati a massa in continua con resistenze da \SI{100}{\mega\ohm}. Il condensatore di blocco, in serie a $C_f$, ne altera il valore di meno dello \SI{0.01}{\percent}.
+  \item I comandi provengono da un espansore MCP23S17; i comandi del BGSA142 passano da un partitore resistivo per rispettarne il livello logico massimo.
+\end{itemize}
+La capacità residua delle porte aperte fissa un limite inferiore alla $C_f$ effettiva, stimato in qualche decimo di picofarad, da misurare.
+
+\subsubsection{Formatore e acquisizione}
+
+Seguono un formatore CR-RC con $\tau\approx\SI{1}{\micro\second}$ e guadagno complessivo $\times 50$ su due stadi, realizzati con i canali restanti dell'OPA4172, e un convertitore ADS8326 a 16 bit con filtro d'ingresso \SI{47}{\ohm}/\SI{1}{\nano\farad}. Le uscite del preamplificatore e del formatore sono disponibili su connettori SMA e punti di test, per l'osservazione diretta degli impulsi.
+
+È prevista un'opzione, non montata, con un primo stadio a JFET BF862 in configurazione cascode, selezionabile con ponticelli, per valutare la riduzione del rumore serie stimata nella sezione~\ref{sec:teoria}.
+
+\subsubsection{Polarizzazione del sensore}
+
+La tensione di polarizzazione è generata localmente sul piano. Il modulo di alimentazione fornisce una tensione fissa di circa \SI{36}{\volt} (VHV\_36V), prodotta da un convertitore boost LT8330~\cite{lt8330} e abilitata da un segnale del bus, con scarica dell'uscita a convertitore spento. Sul piano:
+\begin{itemize}
+  \item un DAC61402~\cite{dac61402}, alimentato da VHV\_36V attraverso un filtro RC, genera la tensione di polarizzazione regolabile;
+  \item un INA239~\cite{ina239} misura la corrente del diodo su uno shunt da \SI{10}{\kilo\ohm}, con risoluzione di circa \SI{125}{\pico\ampere} per bit e fondo scala di circa \SI{4}{\micro\ampere}, adatta alla corrente di buio;
+  \item un filtro RC \SI{1}{\kilo\ohm}/\SI{100}{\nano\farad} vicino al diodo riduce il rumore residuo; i condensatori sul percorso misurato sono C0G, perché i dielettrici X7R a \SI{30}{\volt} hanno perdite dell'ordine del nanoampere, confrontabili con la grandezza da misurare;
+  \item un sensore di temperatura TMP117 vicino al diodo permette di correlare corrente di buio e rumore con la temperatura.
+\end{itemize}
+La regolazione locale, invece che sul modulo di alimentazione, riduce il rumore raccolto lungo il cavo e permette nella matrice finale una tensione diversa per ogni piano.
+
+\subsubsection{Stimolo}
+
+Per caratterizzare la catena senza attendere i muoni, la scheda include un emettitore a LED infrarosso VSMY2940 pilotato da un generatore di impulsi LTC6993, con durata regolabile da un potenziometro digitale AD5245 e innesco dall'MCP23S17 o da un connettore esterno. Il LED è alimentato da una tensione fissa, indipendente dalla polarizzazione del diodo.
+
+\dadefinire{Da valutare: iniezione di carica di test attraverso un piccolo condensatore calibrato sul nodo d'ingresso, per una calibrazione assoluta in femtocoulomb.}
+
+\subsubsection{Interfaccia con il bus}
+
+La scheda si collega al bus MIKILAB con due connettori FPC a 28 pin (ingresso e uscita) e implementa la logica di indirizzamento automatico descritta nella sezione~\ref{sec:bus}. I dispositivi SPI del piano (ADC, DAC, INA239, espansore, memoria di identificazione) ricevono il proprio segnale di selezione da un decodificatore abilitato solo quando il piano è indirizzato.
+
+\subsubsection{Accorgimenti di layout}
+
+Il nodo d'ingresso del preamplificatore è il punto più critico: vi confluiscono il diodo, $R_f$, la rete di $C_f$ e l'ingresso dell'amplificatore. Seguendo~\cite{spieler2005,ott2009}:
+\begin{itemize}
+  \item anello di guardia attorno al nodo d'ingresso, pilotato al potenziale di riferimento, senza solder mask e con pulizia accurata;
+  \item collegamenti più corti possibile tra diodo, rete di retroazione e amplificatore;
+  \item convertitore boost e sue correnti di commutazione lontani dal front-end, con piano di massa continuo;
+  \item filtro della polarizzazione fisicamente vicino al diodo.
+\end{itemize}
+
+\subsection{Risultati sperimentali}\label{sec:dati}
+
+\dadefinire{Sezione da completare con i dati sperimentali. Le misure previste sono elencate di seguito; i risultati giustificheranno le scelte della sezione~\ref{sec:muonscope}.}
+
+\subsubsection{Capacità e corrente di buio in funzione della polarizzazione}
+\dadefinire{Misura di $C_d(V_R)$ con LCR meter a \SIlist{0;5;10;20;30;36}{\volt}; calcolo di $W(V_R)$ con la~\eqref{eq:Cd} e confronto con la stima della sezione~\ref{sec:teoria}. Misura di $I_d(V_R,T)$ con l'INA239 e il TMP117.}
+
+\subsubsection{Risposta del preamplificatore al variare di $R_f$ e $C_f$}
+\dadefinire{Ampiezza, tempo di salita, costante di decadimento e stabilità per le combinazioni significative; individuazione della $C_f$ minima stabile.}
+
+\subsubsection{Rumore}
+\dadefinire{Rumore RMS all'uscita del formatore in funzione di $C_f$, $R_f$, $V_R$ e tempo di formatura; conversione in ENC e confronto con le~\eqref{eq:encs}--\eqref{eq:encp}. Confronto tra primo stadio OPA4172 e JFET.}
+
+\subsubsection{Rivelazione di muoni}
+\dadefinire{Spettro delle ampiezze con acquisizione lunga; identificazione del picco di Landau; frequenza di conteggio confrontata con il flusso atteso; coincidenze con un secondo piano.}
+
+\subsubsection{Scelte derivate}
+\dadefinire{Valori di $R_f$, $C_f$, tempo di formatura, polarizzazione e soglia adottati per la matrice.}
+
+%======================================================================
+\section{Realizzazione del MuonScope}\label{sec:muonscope}
+%======================================================================
+
+\dadefinire{Le scelte di questa sezione sono provvisorie e saranno confermate o modificate dai risultati della sezione~\ref{sec:dati}.}
+
+\subsection{Architettura generale}
+
+Il MuonScope è composto da:
+\begin{itemize}
+  \item una pila di \emph{piani} di rivelazione, ciascuno con i propri sensori, l'elettronica di lettura e la regolazione locale della polarizzazione;
+  \item un \emph{modulo di alimentazione}, che fornisce le tensioni di servizio, i riferimenti analogici e la tensione fissa per la polarizzazione;
+  \item un'\emph{unità di controllo} basata sul SoC Allwinner A133 con Linux, che gestisce i piani, acquisisce gli eventi, li data con riferimento GNSS e li rende disponibili in rete.
+\end{itemize}
+I moduli sono collegati da due bus: BUS\_POWER, per alimentazioni e controllo del modulo di alimentazione, e il bus principale MIKILAB a 28 poli in catena (\emph{daisy chain}) tra i piani.
+
+\subsection{Il bus MIKILAB e l'indirizzamento automatico dei piani}\label{sec:bus}
+
+Il bus principale trasporta un bus SPI condiviso (SCLK, MOSI, MISO) a logica \SI{3.3}{\volt}, un bus I\textsuperscript{2}C, le alimentazioni e i riferimenti, e le linee di indirizzamento. Ogni dispositivo è selezionato da due gruppi di tre linee:
+\begin{itemize}
+  \item tre linee PREFIX, pilotate dal controllore, che scelgono il piano;
+  \item tre linee ADDR, pilotate dal controllore, che scelgono uno degli otto dispositivi del piano.
+\end{itemize}
+L'identità del piano non è impostata a mano. Tre linee ID partono dal controllore a livello basso (valore 000); ogni piano somma 1 al valore ricevuto con un sommatore 74HC283 e lo passa al piano successivo, quindi il primo piano ha identità 1, il secondo 2 e così via. Un comparatore 74HC85 confronta l'identità locale con il PREFIX; quando coincidono abilita un decodificatore 74HC138, che converte ADDR negli otto segnali di selezione locali. Un'ulteriore linea, CS\_MASTER, è usata come abilitazione temporale del decodificatore: il controllore imposta PREFIX e ADDR e poi abbassa CS\_MASTER, così che nessun dispositivo venga selezionato durante il cambio di indirizzo. Un segnale ALERT\# a collettore aperto, comune a tutti i piani, segnala eventi o guasti al controllore.
+
+Con tre bit di identità il sistema supporta fino a otto indirizzi di piano. Ogni piano può ospitare una memoria con identificativo univoco per il riconoscimento automatico del tipo di scheda.
+
+\subsection{Modulo di alimentazione}
+
+Il modulo di alimentazione è alimentato a \SI{12}{\volt} e genera:
+\begin{itemize}
+  \item \SI{5}{\volt} e \SI{3.3}{\volt} di servizio con convertitori buck;
+  \item riferimenti di tensione di precisione (\SI{2.5}{\volt} e \SI{1.25}{\volt}) bufferizzati;
+  \item la tensione fissa di circa \SI{36}{\volt} per la polarizzazione, con fusibile, filtro, interruttore di abilitazione e scarica a convertitore spento.
+\end{itemize}
+L'ingresso è protetto con fusibile ripristinabile, protezione dall'inversione di polarità e soppressore di transitori.
+
+\subsection{Unità di controllo}
+
+L'unità di controllo è una scheda Linux su SoC Allwinner A133 con \SI{2}{\giga\byte} di LPDDR4, eMMC, Ethernet Gigabit, Wi-Fi e Bluetooth. Il bus MIKILAB è collegato all'SPI del SoC, con il segnale di selezione hardware usato come CS\_MASTER e linee GPIO per PREFIX e ADDR. Un ricevitore GNSS u-blox NEO-F10T fornisce l'impulso al secondo (PPS) e un ingresso di marcatura temporale, per datare gli eventi con riferimento al tempo universale.
+
+\subsection{Matrice di sensori e logica di coincidenza}
+
+\dadefinire{Numero e disposizione dei sensori per piano, eventuale collegamento in parallelo di più diodi (maggiore area ma maggiore capacità e rumore), distanza tra i piani, logica di coincidenza (hardware o software), finestra temporale, accettanza geometrica.}
+
+\subsection{Software di acquisizione}
+
+\dadefinire{Struttura del software: configurazione dei piani, acquisizione, soglie, datazione GNSS, registrazione e pubblicazione dei dati.}
+
+%======================================================================
+\section{Conclusioni}
+%======================================================================
+
+\dadefinire{Da scrivere a misure completate.}
+
+\bibliographystyle{unsrt}
+\bibliography{bibliografia}
+
+\end{document}
