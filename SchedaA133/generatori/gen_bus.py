@@ -83,13 +83,13 @@ OUT, IN = "output", "input"
 DIR = {"MAIN_SPI_MISO": OUT, "MAIN_SPI_ALERT_N": OUT, "PWR_SPI_MISO": OUT, "DAC61402_FAULT": OUT,
        "MAIN_I2C_SDA": "bidirectional", "MAIN_I2C_SCL": "bidirectional", "BUS_3V3": "passive", "VIN_SYS": "passive"}
 
-# MAIN 28 pin, BPS-MIKILAB-2026-REV5.0 (scheda A133 = J_OUT, testa della catena)
+# MAIN 28 pin, BPS-MIKILAB-2026-REV5.1 (pin 28 = HIT#; scheda A133 = J_OUT, testa della catena)
 MAIN = {1: "GND_D", 2: "BUS_5V", 3: "BUS_3V3", 4: "GND_D", 5: "BUS_2V5_REF", 6: "BUS_1V25_REF", 7: "GND_A",
         8: "BUS_VBIAS_1", 9: "BUS_VBIAS_2", 10: "GND_D", 11: "MAIN_SPI_SCLK", 12: "MAIN_SPI_MOSI",
         13: "MAIN_SPI_MISO", 14: "MAIN_I2C_SDA", 15: "MAIN_I2C_SCL", 16: "GND_D", 17: "MAIN_SPI_CS_MASTER",
         18: "MAIN_SPI_ADDR_0", 19: "MAIN_SPI_ADDR_1", 20: "MAIN_SPI_ADDR_2", 21: "MAIN_SPI_PREFIX_0",
         22: "MAIN_SPI_PREFIX_1", 23: "MAIN_SPI_PREFIX_2", 24: "MAIN_SPI_ALERT_N", 25: "SPI_ID_0",
-        26: "SPI_ID_1", 27: "SPI_ID_2", 28: "GND_D", "MP": "GND_D"}
+        26: "SPI_ID_1", 27: "SPI_ID_2", 28: "MAIN_HIT_N", "MP": "GND_D"}
 # BUS_POWER_MIKILAB 22 pin (pinout di Michele)
 PWR = {1: "GND_A", 2: "BUS_VBIAS_1", 3: "BUS_VBIAS_2", 4: "GND_A", 5: "BUS_2V5_REF", 6: "BUS_1V25_REF",
        7: "GND_A", 8: "BUS_5V", 9: "BUS_3V3", 10: "GND_D", 11: "PWR_SPI_SCLK", 12: "PWR_SPI_MOSI",
@@ -129,7 +129,7 @@ for i, (ref, top, bot) in enumerate([("R1", "SPI_ID_0", "GND_D"), ("R2", "SPI_ID
 
 text("J1 BUS_POWER 30 pin (Hirose FH12-30S): pin 1-22 come J3 del modulo Power, 24-26 VIN_SYS 12 V, 29 secondo 3V3. Rail BUS_* passanti verso J2, non collegati ai rail della scheda.", 25.4, 25.4)
 text("VIN_SYS -> buck TPS563201 (12->5 V, 3 A) -> ideal diode LM66100 -> nodo jack DC a monte del TPS2121 (foglio alimentazione). BUS_5V va solo a J2 pin 2.", 25.4, 30.48)
-text("J2 MAIN 28 pin secondo BPS-MIKILAB-2026-REV5.0 (spec: XUNPU FPC-05F-28PH20; footprint A133:FPC-05F-28PH20 da EasyEDA C2856807).", 25.4, 35.56)
+text("J2 MAIN 28 pin secondo BPS-MIKILAB-2026-REV5.1 (pin 28 = HIT#) (spec: XUNPU FPC-05F-28PH20; footprint A133:FPC-05F-28PH20 da EasyEDA C2856807).", 25.4, 35.56)
 text("Da aggiungere sul foglio CPU: 33R serie su SPI, 100R su ADDR/PREFIX, pull-up 4.7k su ALERT, 2.2k su I2C, 10k sui CS, ESD TPD4E05U06.", 25.4, 40.64)
 text("R4 0R: ponte GND_A-GND_D, DNP di default (sul modulo Power GND_A e GND_D sono gia la stessa net). R1-R3: ID iniziale 000 (scheda = J_OUT, testa della catena).", 25.4, 45.72)
 

@@ -1,6 +1,6 @@
 # PianoTest
 
-Piano di test MuonScope per il bus **MIKILAB REV5.0**. Serve a trovare sperimentalmente i valori migliori della rete di retroazione (Rf/Cf), della formatura e del bias per il fotodiodo, prima di progettare la matrice dei sensori.
+Piano di test MuonScope per il bus **MIKILAB REV5.1**. Serve a trovare sperimentalmente i valori migliori della rete di retroazione (Rf/Cf), della formatura e del bias per il fotodiodo, prima di progettare la matrice dei sensori.
 
 Progetto KiCad 10: `PianoTest.kicad_pro`. Simboli locali in `PianoTest.kicad_sym`. Schema esportato in `PianoTest-schema.pdf`.
 
@@ -22,13 +22,13 @@ Progetto KiCad 10: `PianoTest.kicad_pro`. Simboli locali in `PianoTest.kicad_sym
 - MCP23S17: configurare MIRROR=1 (INTA riassume entrambe le porte). Indirizzo hardware 000 (il CS è già decodificato per piano).
 - Guasti (FAULT del DAC, ALERT di INA239 e TMP117) in wired-OR su PL_FAULT → GPA6 dell'MCP → ALERT#.
 - Evento: HIT_LATCH → GPA7 dell'MCP → ALERT#. Sequenza del master: legge l'MCP, converte con l'ADS8326 (Y0) il valore di picco, poi fa un accesso all'indirizzo 3 (CS_Y3) che azzera il picco e il latch. Indirizzo 4 (CS_Y4): impulso del LED di test.
-- La specifica REV5.0 non prevede una linea dedicata alle coincidenze: HIT esce solo su TP104 e SMA J103.
+- REV5.1: pin 28 = HIT# (coincidenze). HIT del comparatore → monostabile 74LVC1G123 (2k + 27 pF, circa 170–200 ns) → 74LVC1G06 open-drain su HIT#, passante J_IN → J_OUT. HIT anche su TP104 e SMA J103.
 
 ## Stato (2026-10-14)
 
 - Schema: **ERC 0 violazioni**.
 - PCB: 4 strati (F.Cu segnali, In1 GND, In2 PWR, B.Cu segnali), 120 × 90 mm. J_IN sul lato sinistro, J_OUT sul destro. Componenti piazzati a gruppi per foglio, **non sbrogliato**.
-- DRC: 477 violazioni + 499 non connessi, attesi senza sbroglio. Sono soprattutto serigrafie sovrapposte, clearance interne ai footprint MIKILAB a passo fine e courtyard malformati di quei footprint.
+- DRC: 483 violazioni + 499 non connessi, attesi senza sbroglio. Sono soprattutto serigrafie sovrapposte, clearance interne ai footprint MIKILAB a passo fine e courtyard malformati di quei footprint.
 - FPC J401/J402: XUNPU FPC-05F-28PH20 (LCSC C2856807), footprint e modello 3D importati da EasyEDA in `PianoTest.pretty` e `PianoTest.3dshapes` (pad 0.30 × 1.25 mm, passo 0.5 mm, pin 1–28 su 13.5 mm, ancoraggi 2.0 × 2.5 mm a ±8.44 mm).
 
 ## Punti aperti

@@ -68,7 +68,7 @@ SYMS = {
 }
 PINS = {k: pins(v) for k, v in SYMS.items() if k != "A133:A133"}
 
-GLOBAL = {"GND_D"}
+GLOBAL = {"GND_D", "MAIN_HIT_N"}
 GLOBAL_PREFIX = ("DRAM_", "EMMC_", "SD_", "WL_", "BT_", "RGMII_", "PHY_", "GNSS_", "WIFI_", "USB1_")  # bus delle memorie: etichette globali verso il foglio Memorie
 RAILS = ["VDD-CPU", "VDD-CPUFB", "VDD-SYS", "VDD-SYSFB", "VDD-CPUS", "VCC-DRAM", "VCC-PLL", "VCC-PE", "VCC-PL", "VCC-PG",
          "VCC-PC", "VCC-IO", "VCC-RTC", "AP-RESET", "AP-NMI", "PMU-SCK", "PMU-SDA", "USB0_DP", "USB0_DM", "3V3_SYS",
@@ -173,7 +173,7 @@ GPIO = {
     "PB9": "UART0_TX", "PB10": "UART0_RX",
     "PC0": "EMMC_DS", "PC1": "EMMC_RST", "PC5": "EMMC_CLK", "PC6": "EMMC_CMD", "PC8": "EMMC_D3", "PC9": "EMMC_D4",
     "PC10": "EMMC_D0", "PC11": "EMMC_D5", "PC13": "EMMC_D1", "PC14": "EMMC_D6", "PC15": "EMMC_D2", "PC16": "EMMC_D7",
-    "PD0": "MAIN_SPI_ALERT_N", "PD1": "DAC61402_FAULT", "PD2": "USB1_VBUS_EN", "PD3": "USB1_OC_N", "PD10": "MAIN_SPI_CS_MASTER", "PD11": "SOC_MAIN_SCLK",
+    "PD0": "MAIN_SPI_ALERT_N", "PD1": "DAC61402_FAULT", "PD2": "USB1_VBUS_EN", "PD3": "USB1_OC_N", "PD4": "MAIN_HIT_N", "PD10": "MAIN_SPI_CS_MASTER", "PD11": "SOC_MAIN_SCLK",
     "PD12": "SOC_MAIN_MOSI", "PD13": "MAIN_SPI_MISO", "PD14": "GNSS_UART3_TX", "PD15": "GNSS_UART3_RX",
     "PD16": "SOC_ADDR_0", "PD17": "SOC_ADDR_1", "PD18": "SOC_ADDR_2", "PD19": "SOC_PREFIX_0", "PD20": "SOC_PREFIX_1",
     "PD21": "SOC_PREFIX_2", "PD22": "MAIN_I2C_SCL", "PD23": "MAIN_I2C_SDA",
@@ -290,14 +290,14 @@ pu = [("R21", "10k", "VCC-IO", "PWR_SPI_INA239A_CS"), ("R22", "10k", "VCC-IO", "
       ("R24", "10k", "GND_D", "VREF_ENABLE"), ("R25", "100k", "VBIAS_ENABLE", "GND_D"), ("R26", "10k", "VCC-IO", "DAC61402_FAULT"),
       ("R27", "10k", "VCC-IO", "MAIN_SPI_CS_MASTER"), ("R28", "4.7k", "VCC-IO", "MAIN_SPI_ALERT_N"), ("R29", "2.2k", "VCC-IO", "MAIN_I2C_SCL"),
       ("R30", "2.2k", "VCC-IO", "MAIN_I2C_SDA"), ("R31", "2.2k", "VCC-PL", "PD_I2C_SCL"), ("R32", "2.2k", "VCC-PL", "PD_I2C_SDA"),
-      ("R33", "10k", "VCC-PL", "PD_INT_N"), ("R34", "10k", "VCC-PL", "PWR_SRC_ST"), ("R35", "0R", "VCC-PL", "3V3_SYS")]
+      ("R33", "10k", "VCC-PL", "PD_INT_N"), ("R34", "10k", "VCC-PL", "PWR_SRC_ST"), ("R35", "0R", "VCC-PL", "3V3_SYS"), ("R36", "4.7k", "VCC-IO", "MAIN_HIT_N")]
 for i, (ref, val, a, b) in enumerate(pu):
     R(ref, val, X + 10 * (i % 8), Y + 20 * (i // 8), a, b)
 
 # ---------------- ESD sulle linee dei connettori -----------------------------------------------------
 X, Y = 230, 360
 text("ESD bassa capacita TPD4E05U06DQA (0.5 pF, 5.5 V) sulle linee logiche di J1/J2, da piazzare vicino ai connettori. Nessuna protezione sui V_BIAS (30 V) e sui riferimenti.", X - 10, Y - 15)
-esd = BUSNETS[:]
+esd = BUSNETS[:] + ["MAIN_HIT_N"]
 for k in range(6):
     group = esd[4 * k: 4 * k + 4]
     nets = {"1": group[0], "2": group[1], "4": group[2] if len(group) > 2 else "NC", "5": group[3] if len(group) > 3 else "NC",

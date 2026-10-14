@@ -1,7 +1,8 @@
 # SPECIFICA TECNICA DEL SISTEMA: BUS MIKILAB™
 **Protocollo di Comunicazione, Alimentazione e Indirizzamento Modulare in Cascata per Rivelatori di Particelle e Strumentazione Scientifica**
 
-* **Documento ID:** BPS-MIKILAB-2026-REV5.0  
+* **Documento ID:** BPS-MIKILAB-2026-REV5.1  
+* **Revisione 5.1 (2026-10-14):** il pin 28 del connettore MAIN, prima GND ridondante, diventa la linea di coincidenza `HIT#` (sezione 4.1).  
 * **Stato della specifica:** Approvata / Definitiva  
 * **Frequenza di Bus SPI Supportata:** Fino a 20 MHz  
 * **Target Hardware:** ESP32 NodeMCU / Sistemi di Acquisizione Distribuiti  
@@ -67,6 +68,14 @@ La gestione delle richieste di attenzione provenienti dai sensori distribuiti (f
 * Quando un modulo richiede attenzione, "apre un canale interno" e scarica la linea globale direttamente a massa (`GND_D`), portandola a **0V**. Essendo collegamenti Open-Drain in parallelo, non si verifica alcuna collisione elettrica se più piani si attivano contemporaneamente.
 * **Smaltimento della Coda:** Il Master esegue un polling sequenziale interrogando l'indirizzo `07` di ciascun piano. L'azione fisica della lettura del registro SPI resetta i flag interni dell'MCP23S17 del piano servito, il quale si stacca dalla massa. Se un altro modulo era in attesa nella Daisy Chain, la linea `SPI_ALERT#` rimane fissa a 0V e il Master passa istantaneamente a interrogare il livello successivo, gestendo la coda in modo rigoroso.
 
+### 4.1 Linea di coincidenza HIT# (REV5.1)
+
+La richiesta di attenzione su `SPI_ALERT#` passa dal polling SPI e non porta un'informazione di tempo precisa. Per le coincidenze tra piani il bus dispone di una linea dedicata, **`HIT#`** (Pin 28):
+* **Elettrica:** linea OR-cablata **open-drain, attiva bassa**, come `SPI_ALERT#`. Un'unica resistenza di pull-up da **4.7 kΩ a 3.3 V** sulla scheda Master; nessun pull-up sui piani. Ogni piano la pilota con un buffer open-drain (per esempio 74LVC1G06/07) ed è passante da `J_IN` a `J_OUT`.
+* **Impulso:** ogni evento sopra soglia di un piano genera un impulso basso di durata definita, **100–200 ns** (monostabile sul piano), indipendente dalla durata del segnale analogico.
+* **Memoria locale:** ogni piano memorizza l'evento in un latch locale letto tramite l'MCP23S17 (indirizzo `07`) e lo azzera con un comando SPI dedicato.
+* **Logica di coincidenza:** il Master marca il tempo del fronte di discesa di `HIT#` (ingresso con interrupt e, se disponibile, ingresso *time mark* del ricevitore GNSS). Poi legge i latch dei piani: i piani con il latch attivo entro la finestra dello stesso fronte formano la coincidenza. Più piani colpiti dalla stessa particella producono impulsi sovrapposti che si fondono in un unico fronte sulla linea.
+
 ---
 
 ## 5. ASSEGNAZIONE PIEDINATURA (PINOUT) - CONNETTORE STANDARD FPC 28 PIN
@@ -100,4 +109,4 @@ La gestione delle richieste di attenzione provenienti dai sensori distribuiti (f
 | **25** | `SPI_ID_0` | Speciale IN/OUT | Bit 0 ID Piano: Ingressi XOR/Sommatore su `J_IN` → Interrotto → Uscita Somma su `J_OUT` |
 | **26** | `SPI_ID_1` | Speciale IN/OUT | Bit 1 ID Piano: Ingressi XOR/Sommatore su `J_IN` → Interrotto → Uscita Somma su `J_OUT` |
 | **27** | `SPI_ID_2` | Speciale IN/OUT | Bit 2 ID Piano: Ingressi XOR/Sommatore su `J_IN` → Interrotto → Uscita Somma su `J_OUT` |
-| **28** | `GND` | - | Massa di chiusura finale. Schermatura del bordo esterno contro i disturbi RF |
+| **28** | `HIT#` | Uscita Open-Drain | (REV5.1, prima GND) Linea di coincidenza, attiva bassa, impulso 100–200 ns per evento. OR-cablata, pull-up unico 4.7 kΩ sul Master, passante `J_IN` → `J_OUT` |

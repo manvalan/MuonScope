@@ -2,7 +2,7 @@
 
 Data 2026-10-13, rev. 4 (BUS_POWER a 30 pin, opzione C). Fonti:
 - BUS_POWER_MIKILAB: pinout a 22 pin inviato da Michele, portato a 30 pin il 2026-10-13 (`bus-power-30pin.md`).
-- BUS MIKILAB MAIN (28 pin): `MuonScope/docs/mikilab_bus_protocol`, documento BPS-MIKILAB-2026-REV5.0 (approvato).
+- BUS MIKILAB MAIN (28 pin): `MuonScope/docs/mikilab_bus_protocol`, documento BPS-MIKILAB-2026-REV5.1 (REV5.0 approvata + linea di coincidenza HIT# sul pin 28, 2026-10-14).
 - Pin dell'A133: tabella pinmux del kernel mainline (`pinctrl-sun50i-a100.c`).
 
 La scheda A133 prende il posto della Mainboard Command ESP32. Fa da master SPI su entrambi i bus ed è la testa della daisy chain.
@@ -33,7 +33,7 @@ La scheda A133 prende il posto della Mainboard Command ESP32. Fa da master SPI s
 | UART3 | PD14 TX, PD15 RX | GNSS NEO-F10T |
 | GPIO | PB4-PB8 | CS ed enable del BUS_POWER |
 | GPIO | PD16-PD21 | ADDR e PREFIX del BUS MAIN |
-| GPIO con interrupt | PD0, PD1 | SPI_ALERT#, DAC61402_FAULT |
+| GPIO con interrupt | PD0, PD1, PD4 | SPI_ALERT#, DAC61402_FAULT, HIT# (PD_EINT4) |
 
 Tutti i pin del banco PD hanno l'interrupt esterno (IRQ bank 2 nel driver). Il banco PD (LCD/LVDS/DSI, non usati) va alimentato a 3.3 V.
 
@@ -57,7 +57,7 @@ Il 2026-10-13 Michele ha scelto il connettore a 30 pin (opzione C, `bus-power-30
 | 15 | SPI_INA239A_CS | PB4 (cs-gpios) | Pull-up 10 kΩ: CS disattivo durante il boot |
 | 16 | SPI_INA239B_CS | PB5 (cs-gpios) | Pull-up 10 kΩ |
 | 17 | SPI_DAC_CS | PB6 (cs-gpios) | Pull-up 10 kΩ |
-| 18 | VREF_ENABLE | PB7, uscita (meglio open-drain, vedi §5) | Attivo basso: sul modulo Power il gate del BSS84 (Q2) ha 10 kΩ verso 3.3 V, quindi a riposo è alto e il REF5025 è spento |
+| 18 | VREF_ENABLE | PB7, uscita | **Attivo alto** (modulo Power rivisto il 2026-10-14: BSS138 Q3 con pull-up del gate di Q2 a 5 V). Pull-down 10 kΩ (R324): a riposo i riferimenti sono spenti |
 | 19 | VBIAS_ENABLE | PB8, uscita | Pull-down 100 kΩ: bias spento finché Linux non lo abilita |
 | 20 | DAC61402_FAULT | PD1, ingresso con interrupt | Open-drain: pull-up 10 kΩ sul nostro lato |
 | 24, 25, 26 | VIN_SYS | Ingresso del buck locale a 5 V | 3 pin in parallelo |
@@ -66,7 +66,7 @@ Il 2026-10-13 Michele ha scelto il connettore a 30 pin (opzione C, `bus-power-30
 
 | Pin | Segnale | Lato A133 | Note |
 |---|---|---|---|
-| 1, 4, 10, 16, 28 | GND | GND_D | Pin 16 è lo schermo centrale della piattina |
+| 1, 4, 10, 16 | GND | GND_D | Pin 16 è lo schermo centrale della piattina. Il pin 28 non è più GND dalla REV5.1 |
 | 2 | 5V | Dal BUS_POWER pin 8 | |
 | 3 | 3V3 | Dal BUS_POWER pin 9 e 29 | Alimenta i 74HC dei piani |
 | 5 | 2V5_REF | Dal BUS_POWER pin 5 | |
@@ -84,10 +84,13 @@ Il 2026-10-13 Michele ha scelto il connettore a 30 pin (opzione C, `bus-power-30
 | 21-23 | SPI_PREFIX_0..2 | PD19, PD20, PD21 | Uscite GPIO, 100 Ω serie |
 | 24 | SPI_ALERT# | PD0, interrupt sul fronte di discesa | **Unico** pull-up della linea, 4.7 kΩ a 3.3 V |
 | 25-27 | SPI_ID_0..2 | GND tramite 0 Ω | ID iniziale 000: il primo piano ha ID 0 e passa 1 al successivo |
+| 28 | HIT# (REV5.1) | PD4 (PD_EINT4), interrupt sul fronte di discesa | Linea di coincidenza open-drain, attiva bassa, impulso 100-200 ns per evento. **Unico** pull-up 4.7 kΩ a 3.3 V (R336), ESD su U307. R337 0 Ω DNP la porta anche sull'ingresso time mark (EXTINT) del NEO-F10T: da montare solo senza STROBE esterno |
 
 Sequenza di una transazione (come nel firmware ESP32): scrivi PREFIX e ADDR sui GPIO, poi trasferimento `spidev` su SPI1: il CS hardware abbassa E1/E2 del 74HC138 del piano scelto. L'MCP23S17 dei piani è sempre ADDR = 7 e va a massimo 10 MHz. Il bus regge fino a 20 MHz, ma conviene partire da 4-8 MHz su piattina lunga e salire dopo le misure.
 
 Gestione di SPI_ALERT#: interrupt su PD0, poi polling dei piani in ordine all'indirizzo 07. La lettura del registro dell'MCP23S17 rilascia la linea; se resta bassa si passa al piano successivo (§4 della specifica).
+
+Gestione di HIT# (§4.1 della specifica): interrupt su PD4 al fronte di discesa, con il tempo del fronte preso dal kernel (o dal time mark del GNSS se R337 è montata). Poi lettura dei latch dei piani tramite gli MCP23S17: i piani con il latch attivo formano la coincidenza. Infine azzeramento di picco e latch (accesso all'indirizzo 3 di ogni piano colpito).
 
 ## 5. Alimentazioni e protezioni
 
