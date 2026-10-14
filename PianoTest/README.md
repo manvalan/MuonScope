@@ -8,10 +8,10 @@ Progetto KiCad 10: `PianoTest.kicad_pro`. Simboli locali in `PianoTest.kicad_sym
 
 | Foglio | Contenuto |
 |---|---|
-| Rivelatore | Fotodiodo VBPW34S. Preamplificatore di carica OPA4172 A (Cf 1 pF, Rf 100M di default). Shaper CR-RC τ ≈ 1 µs: C invertente ×10, D non invertente ×5 (totale ×50). Base 1V25 bufferizzata da B. ADS8326 con filtro 47 Ω + 1 nF. TMP117. SMA e test point su CSA_OUT e SHAPER_OUT. Opzione JFET BF862 in cascode, non montata, con jumper 0R. |
+| Rivelatore | Fotodiodo VBPW34S. Preamplificatore di carica OPA4172 A (Cf 1 pF, Rf 100M di default). Shaper CR-RC τ ≈ 1 µs: C invertente ×10, D non invertente ×5 (totale ×50). Base 1V25 bufferizzata da B. Comparatore TLV3501 su SHAPER_OUT con soglia VTH dal DAC (OUTB), evento memorizzato nel latch 74LVC1G74 (HIT_LATCH). Rilevatore di picco OPA2365 + BAS416 + hold 1 nF C0G prima dell'ADS8326 (R135; R136 DNP lo scavalca). ADS8326 con filtro 47 Ω + 1 nF. TMP117. SMA e test point su CSA_OUT e SHAPER_OUT. Opzione JFET BF862 in cascode, non montata, con jumper 0R. |
 | RetroactionNetwork | MCP23S17. Rf da 10k a 10M su 2× TMUX1112 (pull-down: aperti al reset). Cf da 0.5 a 100 pF su 2× BGSA142: −IN → Cf → RFx → RFC → 10 nF C0G → uscita, con 100M verso GND su ogni porta. CTL con partitore 10k/22k. |
-| EmettitoreTest | LTC6993-2 con AD5245 (I2C, 0x2C) + 47k sul SET. BSS138 → LED IR alimentato da +5V. TRIG dall'MCP (GPA7) o da J301. |
-| BiasDiodo | DAC61402 alimentato da VHV_36V (RC 100 Ω + 2×1 µF/100 V). OUTA → shunt 10k (INA239) → RC 1k/100 nF vicino al diodo. OUTB di riserva. |
+| EmettitoreTest | LTC6993-2 con AD5245 (I2C, 0x2C) + 47k sul SET. BSS138 → LED IR alimentato da +5V. TRIG dallo strobe CS_Y4 (accesso SPI all'indirizzo 4) o da J301. |
+| BiasDiodo | DAC61402 alimentato da VHV_36V (RC 100 Ω + 2×1 µF/100 V). OUTA → shunt 10k (INA239) → RC 1k/100 nF vicino al diodo. OUTB (range 0–5 V) con partitore 22k/10k e BAT54S fa da soglia VTH del comparatore. |
 | bus-pnp | J_IN/J_OUT FPC 28 pin. 74HC283 (ID+1), 74HC85 (PREFIX = ID), 74HC138 (Y0 ADC, Y1 DAC, Y2 INA, Y3–Y5 TP, Y6 EEPROM 25AA02E48, Y7 MCP). Buffer 2G17 su SCLK/MOSI, 1G125 su MISO, 1G07 su ALERT#. ESD TPD1E10B06. |
 
 ## Bus
@@ -21,12 +21,14 @@ Progetto KiCad 10: `PianoTest.kicad_pro`. Simboli locali in `PianoTest.kicad_sym
 - I2C (pin 14/15): AD5245 0x2C, TMP117 0x48. Le pull-up sono sulla scheda master.
 - MCP23S17: configurare MIRROR=1 (INTA riassume entrambe le porte). Indirizzo hardware 000 (il CS è già decodificato per piano).
 - Guasti (FAULT del DAC, ALERT di INA239 e TMP117) in wired-OR su PL_FAULT → GPA6 dell'MCP → ALERT#.
+- Evento: HIT_LATCH → GPA7 dell'MCP → ALERT#. Sequenza del master: legge l'MCP, converte con l'ADS8326 (Y0) il valore di picco, poi fa un accesso all'indirizzo 3 (CS_Y3) che azzera il picco e il latch. Indirizzo 4 (CS_Y4): impulso del LED di test.
+- La specifica REV5.0 non prevede una linea dedicata alle coincidenze: HIT esce solo su TP104 e SMA J103.
 
 ## Stato (2026-10-14)
 
 - Schema: **ERC 0 violazioni**.
 - PCB: 4 strati (F.Cu segnali, In1 GND, In2 PWR, B.Cu segnali), 120 × 90 mm. J_IN sul lato sinistro, J_OUT sul destro. Componenti piazzati a gruppi per foglio, **non sbrogliato**.
-- DRC: 472 violazioni + 499 non connessi, attesi senza sbroglio. Sono soprattutto serigrafie sovrapposte, clearance interne ai footprint MIKILAB a passo fine e courtyard malformati di quei footprint.
+- DRC: 477 violazioni + 499 non connessi, attesi senza sbroglio. Sono soprattutto serigrafie sovrapposte, clearance interne ai footprint MIKILAB a passo fine e courtyard malformati di quei footprint.
 - FPC J401/J402: XUNPU FPC-05F-28PH20 (LCSC C2856807), footprint e modello 3D importati da EasyEDA in `PianoTest.pretty` e `PianoTest.3dshapes` (pad 0.30 × 1.25 mm, passo 0.5 mm, pin 1–28 su 13.5 mm, ancoraggi 2.0 × 2.5 mm a ±8.44 mm).
 
 ## Punti aperti

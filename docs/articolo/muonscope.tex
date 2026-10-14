@@ -228,7 +228,14 @@ La capacità residua delle porte aperte fissa un limite inferiore alla $C_f$ eff
 
 \subsubsection{Formatore e acquisizione}
 
-Seguono un formatore CR-RC con $\tau\approx\SI{1}{\micro\second}$ e guadagno complessivo $\times 50$ su due stadi, realizzati con i canali restanti dell'OPA4172, e un convertitore ADS8326 a 16 bit con filtro d'ingresso \SI{47}{\ohm}/\SI{1}{\nano\farad}. Le uscite del preamplificatore e del formatore sono disponibili su connettori SMA e punti di test, per l'osservazione diretta degli impulsi.
+Seguono un formatore CR-RC con $\tau\approx\SI{1}{\micro\second}$ e guadagno complessivo $\times 50$ su due stadi, realizzati con i canali restanti dell'OPA4172. Il formatore ha il massimo dopo circa $\tau$ dall'arrivo della carica. L'ADS8326 a 16 bit converte al massimo a 250~kSPS, cioè un campione ogni \SI{4}{\micro\second}: campionando a caso, l'uscita del formatore verrebbe letta quasi sempre lontano dal picco e la misura dell'ampiezza sarebbe persa. Per questo la catena di acquisizione prevede due blocchi tra il formatore e l'ADC.
+
+\begin{description}
+  \item[Discriminatore.] Un comparatore veloce TLV3501 (tempo di propagazione \SI{4.5}{\nano\second}, isteresi interna di \SI{6}{\milli\volt}) confronta l'uscita del formatore con una soglia $V_{TH}$. La soglia è generata dal secondo canale del DAC61402, impostato sull'intervallo \SIrange{0}{5}{\volt} e ridotto da un partitore \SI{22}{\kilo\ohm}/\SI{10}{\kilo\ohm}, per una risoluzione di circa \SI{0.4}{\milli\volt} attorno alla linea di base del formatore; un doppio diodo Schottky protegge l'ingresso del comparatore da una programmazione errata del DAC. Il fronte del comparatore è memorizzato in un flip-flop 74LVC1G74, la cui uscita arriva a un ingresso dell'MCP23S17 e quindi, come prevede la specifica del bus, alla linea comune di richiesta di attenzione. Il segnale del comparatore è disponibile anche su un punto di test e su un connettore SMA, per le misure di coincidenza con strumentazione esterna: la specifica attuale del bus non prevede una linea dedicata alle coincidenze.
+  \item[Rilevatore di picco.] Un rilevatore di picco a operazionale (OPA2365, \SI{50}{\mega\hertz}) con diodo nell'anello di retroazione carica un condensatore C0G da \SI{1}{\nano\farad} al valore massimo dell'impulso e lo mantiene finché l'ADC non lo converte. Un secondo diodo evita la saturazione dell'operazionale tra un impulso e l'altro. Il condensatore e il flip-flop sono azzerati insieme da un accesso SPI a un indirizzo dedicato del piano, tramite un MOSFET in parallelo al condensatore. Un ponticello \SI{0}{\ohm} permette di scavalcare il rilevatore e di collegare l'ADC direttamente al formatore.
+\end{description}
+
+La sequenza di lettura è quindi: evento sopra soglia, richiesta di attenzione, lettura dell'MCP23S17 da parte del controllore, conversione del picco con l'ADS8326 (filtro d'ingresso \SI{47}{\ohm}/\SI{1}{\nano\farad}) e azzeramento. Il tempo morto per evento è di qualche decina di microsecondi, trascurabile rispetto al flusso di muoni su un singolo diodo. Le uscite del preamplificatore e del formatore sono disponibili su connettori SMA e punti di test, per l'osservazione diretta degli impulsi.
 
 È prevista un'opzione, non montata, con un primo stadio a JFET BF862 in configurazione cascode, selezionabile con ponticelli, per valutare la riduzione del rumore serie stimata nella sezione~\ref{sec:teoria}.
 
@@ -245,7 +252,7 @@ La regolazione locale, invece che sul modulo di alimentazione, riduce il rumore 
 
 \subsubsection{Stimolo}
 
-Per caratterizzare la catena senza attendere i muoni, la scheda include un emettitore a LED infrarosso VSMY2940 pilotato da un generatore di impulsi LTC6993, con durata regolabile da un potenziometro digitale AD5245 e innesco dall'MCP23S17 o da un connettore esterno. Il LED è alimentato da una tensione fissa, indipendente dalla polarizzazione del diodo.
+Per caratterizzare la catena senza attendere i muoni, la scheda include un emettitore a LED infrarosso VSMY2940 pilotato da un generatore di impulsi LTC6993, con durata regolabile da un potenziometro digitale AD5245 e innesco da un accesso SPI a un indirizzo dedicato del piano o da un connettore esterno. Il LED è alimentato da una tensione fissa, indipendente dalla polarizzazione del diodo.
 
 \dadefinire{Da valutare: iniezione di carica di test attraverso un piccolo condensatore calibrato sul nodo d'ingresso, per una calibrazione assoluta in femtocoulomb.}
 
