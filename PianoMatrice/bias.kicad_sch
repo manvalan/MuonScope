@@ -1,0 +1,416 @@
+(kicad_sch (version 20260306) (generator "eeschema") (generator_version "10.0") (uuid "1d49f2a2-2ae3-4c40-a166-d725ee98a334") (paper "A2") (lib_symbols (symbol "Device:R"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "R"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R res resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "Device:C"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0.254)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 0.9652 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "100nF"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762) (xy 2.032 0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -2.032 -0.762) (xy 2.032 -0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "PianoTest:DAC61402" (pin_names (offset 0.762)) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (duplicate_pin_numbers_are_jumpers no) (property "Reference" "U" (at 0 25.40 0) (effects (font (size 1.27 1.27)))) (property "Value" "DAC61402" (at 0 -27.94 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "DAC61402 2 canali 12 bit alta tensione, VQFN-32" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (symbol "DAC61402_1_1" (rectangle (start -17.78 22.86) (end 17.78 -25.40) (stroke (width 0.254) (type default)) (fill (type background))) (pin passive line (at -20.32 20.32 0) (length 2.54) (name "AVDD" (effects (font (size 1.016 1.016)))) (number "28" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 17.78 0) (length 2.54) (name "DVDD" (effects (font (size 1.016 1.016)))) (number "30" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 15.24 0) (length 2.54) (name "IOVDD" (effects (font (size 1.016 1.016)))) (number "15" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 12.70 0) (length 2.54) (name "REFIO" (effects (font (size 1.016 1.016)))) (number "26" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 10.16 0) (length 2.54) (name "REFGND" (effects (font (size 1.016 1.016)))) (number "25" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 7.62 0) (length 2.54) (name "AVSS" (effects (font (size 1.016 1.016)))) (number "27" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 5.08 0) (length 2.54) (name "AGND" (effects (font (size 1.016 1.016)))) (number "29" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 2.54 0) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "14" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 0.00 0) (length 2.54) (name "EP" (effects (font (size 1.016 1.016)))) (number "33" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 -2.54 0) (length 2.54) (name "~{SYNC}" (effects (font (size 1.016 1.016)))) (number "12" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 -5.08 0) (length 2.54) (name "SCLK" (effects (font (size 1.016 1.016)))) (number "10" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 -7.62 0) (length 2.54) (name "SDIN" (effects (font (size 1.016 1.016)))) (number "11" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 -10.16 0) (length 2.54) (name "SDO" (effects (font (size 1.016 1.016)))) (number "9" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 -12.70 0) (length 2.54) (name "~{LDAC}" (effects (font (size 1.016 1.016)))) (number "13" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 -15.24 0) (length 2.54) (name "~{CLR}" (effects (font (size 1.016 1.016)))) (number "16" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 -17.78 0) (length 2.54) (name "~{RST}" (effects (font (size 1.016 1.016)))) (number "32" (effects (font (size 1.016 1.016))))) (pin passive line (at -20.32 -20.32 0) (length 2.54) (name "~{FAULT}" (effects (font (size 1.016 1.016)))) (number "31" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 20.32 180) (length 2.54) (name "OUTA" (effects (font (size 1.016 1.016)))) (number "8" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 17.78 180) (length 2.54) (name "SENSEPA" (effects (font (size 1.016 1.016)))) (number "6" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 15.24 180) (length 2.54) (name "SENSENA" (effects (font (size 1.016 1.016)))) (number "5" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 12.70 180) (length 2.54) (name "CCOMPA" (effects (font (size 1.016 1.016)))) (number "7" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 10.16 180) (length 2.54) (name "OUTB" (effects (font (size 1.016 1.016)))) (number "17" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 7.62 180) (length 2.54) (name "SENSEPB" (effects (font (size 1.016 1.016)))) (number "19" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 5.08 180) (length 2.54) (name "SENSENB" (effects (font (size 1.016 1.016)))) (number "20" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 2.54 180) (length 2.54) (name "CCOMPB" (effects (font (size 1.016 1.016)))) (number "18" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 0.00 180) (length 2.54) (name "NC" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 -2.54 180) (length 2.54) (name "NC" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 -5.08 180) (length 2.54) (name "NC" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 -7.62 180) (length 2.54) (name "NC" (effects (font (size 1.016 1.016)))) (number "4" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 -10.16 180) (length 2.54) (name "NC" (effects (font (size 1.016 1.016)))) (number "21" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 -12.70 180) (length 2.54) (name "NC" (effects (font (size 1.016 1.016)))) (number "22" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 -15.24 180) (length 2.54) (name "NC" (effects (font (size 1.016 1.016)))) (number "23" (effects (font (size 1.016 1.016))))) (pin passive line (at 20.32 -17.78 180) (length 2.54) (name "NC" (effects (font (size 1.016 1.016)))) (number "24" (effects (font (size 1.016 1.016))))) ) (embedded_fonts no)) (symbol "PianoTest:INA239" (pin_names (offset 0.762)) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (duplicate_pin_numbers_are_jumpers no) (property "Reference" "U" (at 0 12.70 0) (effects (font (size 1.27 1.27)))) (property "Value" "INA239" (at 0 -15.24 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "INA239 monitor 85 V SPI, VSSOP-10" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (symbol "INA239_1_1" (rectangle (start -15.24 10.16) (end 15.24 -12.70) (stroke (width 0.254) (type default)) (fill (type background))) (pin passive line (at -17.78 7.62 0) (length 2.54) (name "VS" (effects (font (size 1.016 1.016)))) (number "6" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 5.08 0) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "7" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 2.54 0) (length 2.54) (name "CS" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 0.00 0) (length 2.54) (name "SCLK" (effects (font (size 1.016 1.016)))) (number "5" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -2.54 0) (length 2.54) (name "MOSI" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -5.08 0) (length 2.54) (name "MISO" (effects (font (size 1.016 1.016)))) (number "4" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -7.62 0) (length 2.54) (name "ALERT" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 7.62 180) (length 2.54) (name "IN+" (effects (font (size 1.016 1.016)))) (number "10" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 5.08 180) (length 2.54) (name "IN-" (effects (font (size 1.016 1.016)))) (number "9" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 2.54 180) (length 2.54) (name "VBUS" (effects (font (size 1.016 1.016)))) (number "8" (effects (font (size 1.016 1.016))))) ) (embedded_fonts no)) (symbol "PianoTest:TMP117" (pin_names (offset 0.762)) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (duplicate_pin_numbers_are_jumpers no) (property "Reference" "U" (at 0 8.89 0) (effects (font (size 1.27 1.27)))) (property "Value" "TMP117" (at 0 -11.43 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "TMP117 I2C, WSON-6" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (symbol "TMP117_1_1" (rectangle (start -15.24 6.35) (end 15.24 -8.89) (stroke (width 0.254) (type default)) (fill (type background))) (pin passive line (at -17.78 3.81 0) (length 2.54) (name "V+" (effects (font (size 1.016 1.016)))) (number "5" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 1.27 0) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -1.27 0) (length 2.54) (name "ADD0" (effects (font (size 1.016 1.016)))) (number "4" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -3.81 0) (length 2.54) (name "EP" (effects (font (size 1.016 1.016)))) (number "7" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 3.81 180) (length 2.54) (name "SCL" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 1.27 180) (length 2.54) (name "SDA" (effects (font (size 1.016 1.016)))) (number "6" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -1.27 180) (length 2.54) (name "ALERT" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016))))) ) (embedded_fonts no)) (symbol "PianoTest:BAT54S" (pin_names (offset 0.762)) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (duplicate_pin_numbers_are_jumpers no) (property "Reference" "U" (at 0 6.35 0) (effects (font (size 1.27 1.27)))) (property "Value" "BAT54S" (at 0 -8.89 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "BAT54S doppio Schottky in serie, SOT-23" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (symbol "BAT54S_1_1" (rectangle (start -5.08 3.81) (end 5.08 -6.35) (stroke (width 0.254) (type default)) (fill (type background))) (pin passive line (at -7.62 1.27 0) (length 2.54) (name "K1/A2" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016))))) (pin passive line (at 7.62 1.27 180) (length 2.54) (name "A1" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016))))) (pin passive line (at 7.62 -1.27 180) (length 2.54) (name "K2" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016))))) ) (embedded_fonts no)) (symbol "Connector:TestPoint"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0.762)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "TP"
+			(at 0 6.858 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 0 5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 5.08 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 5.08 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "test point"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "test point tp"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Pin* Test*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "TestPoint_0_1"
+			(circle
+				(center 0 3.302)
+				(radius 0.762)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "TestPoint_1_1"
+			(pin passive line
+				(at 0 0 90)
+				(length 2.54)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)) (text "BIAS: DAC61402 OUTA (V_BIAS nominale ${VBIAS}) -> shunt 10k (INA239, 125 pA/LSB) -> VBIAS_SH -> 16 filtri RC per diodo (1k + 100 nF C0G nei fogli dei canali)." (exclude_from_sim no) (at 25.40 15.24 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "fad93b6a-84f8-4ddb-936f-186c3cd6a19e")) (text "SOGLIA: OUTB in range 0-5 V -> partitore 22k/10k -> VTH (0-1.56 V, ~0.4 mV/LSB), unica per il piano. TMP117 da piazzare al centro della matrice (lato sensori)." (exclude_from_sim no) (at 25.40 20.32 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "b0ce750a-9435-4524-9871-b6d38b9a86fa")) (wire (pts (xy 50.80 40.64) (xy 45.72 40.64)) (stroke (width 0) (type default)) (uuid "ee5d77f8-2ece-4b48-aacc-8d69ed44fd32")) (label "AVDD_DAC" (at 45.72 40.64 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "56381f2e-a03d-47f1-bf3a-64d81b4dfbdc")) (wire (pts (xy 50.80 43.18) (xy 45.72 43.18)) (stroke (width 0) (type default)) (uuid "d46ec6cc-3667-438c-82d9-66f04e77c5da")) (global_label "+5V" (shape passive) (at 45.72 43.18 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ae01c282-6cdc-458d-863a-045037004f72")) (wire (pts (xy 50.80 45.72) (xy 45.72 45.72)) (stroke (width 0) (type default)) (uuid "4d6dca9e-5430-4817-abfc-f3c5c2684921")) (global_label "+3V3" (shape passive) (at 45.72 45.72 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "edd870ff-3a6d-460f-b5a7-380ced893077")) (wire (pts (xy 50.80 48.26) (xy 45.72 48.26)) (stroke (width 0) (type default)) (uuid "2bd9805f-e31c-4fed-8abf-26e0dc222c92")) (label "DAC_REF" (at 45.72 48.26 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "b79868cb-4efd-4556-aae9-a587ee12253e")) (wire (pts (xy 50.80 50.80) (xy 45.72 50.80)) (stroke (width 0) (type default)) (uuid "89c666b6-558a-4493-af26-2451ea741e88")) (global_label "GND" (shape passive) (at 45.72 50.80 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1c37da93-f517-497b-b5ef-01839b2337dc")) (wire (pts (xy 50.80 53.34) (xy 45.72 53.34)) (stroke (width 0) (type default)) (uuid "736562e9-ffa2-49c1-81d6-12fdff1114ea")) (global_label "GND" (shape passive) (at 45.72 53.34 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "8673daa6-c9ac-479e-8fb4-7ee6804f0eb7")) (wire (pts (xy 50.80 55.88) (xy 45.72 55.88)) (stroke (width 0) (type default)) (uuid "a9bddfab-a1f4-40cf-860b-726ab3968e5b")) (global_label "GND" (shape passive) (at 45.72 55.88 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "bf17205f-1026-41b3-aab1-63c2a3a70bdf")) (wire (pts (xy 50.80 58.42) (xy 45.72 58.42)) (stroke (width 0) (type default)) (uuid "bc1c42d7-8f47-48be-9a66-7d9b70717661")) (global_label "GND" (shape passive) (at 45.72 58.42 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c1736080-1b21-46d4-9f13-83798a09824d")) (wire (pts (xy 50.80 60.96) (xy 45.72 60.96)) (stroke (width 0) (type default)) (uuid "8d4c8eed-5d58-42a2-b1c3-fcb9f9ff513d")) (global_label "GND" (shape passive) (at 45.72 60.96 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e368de27-aa08-4905-8a7a-ec99583c3609")) (wire (pts (xy 50.80 63.50) (xy 45.72 63.50)) (stroke (width 0) (type default)) (uuid "31151ee0-4bb1-4836-a662-7080880f9b42")) (global_label "CS_DAC" (shape passive) (at 45.72 63.50 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5aa1dea6-abbd-481d-b3e2-d52dae55a61d")) (wire (pts (xy 50.80 66.04) (xy 45.72 66.04)) (stroke (width 0) (type default)) (uuid "c9315e1f-7904-4b2f-92f0-4c4f97050b37")) (global_label "SCLK_L" (shape passive) (at 45.72 66.04 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6bdf5fe4-7002-48f7-9c80-223a72bb2c9f")) (wire (pts (xy 50.80 68.58) (xy 45.72 68.58)) (stroke (width 0) (type default)) (uuid "81daa604-e695-4389-b74a-02f112cf2acb")) (global_label "MOSI_L" (shape passive) (at 45.72 68.58 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d9bfae48-f599-45ee-9ca7-00b5dc1fa502")) (wire (pts (xy 50.80 71.12) (xy 45.72 71.12)) (stroke (width 0) (type default)) (uuid "c5d68be2-1174-4392-a5c2-1c132eb2974b")) (global_label "MISO_L" (shape passive) (at 45.72 71.12 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "90ec08a5-b4ba-4427-a841-0a94bd499e34")) (wire (pts (xy 50.80 73.66) (xy 45.72 73.66)) (stroke (width 0) (type default)) (uuid "64a49d60-115e-4ace-9486-575ab2109ae2")) (global_label "GND" (shape passive) (at 45.72 73.66 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a119b00a-f36a-4baa-a6d8-0de1186e6cad")) (wire (pts (xy 50.80 76.20) (xy 45.72 76.20)) (stroke (width 0) (type default)) (uuid "28502871-7f2f-4d7f-9058-d005c687a4f2")) (global_label "+3V3" (shape passive) (at 45.72 76.20 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a714f7d1-a0b5-4162-9bb6-347cd4ab7985")) (wire (pts (xy 50.80 78.74) (xy 45.72 78.74)) (stroke (width 0) (type default)) (uuid "55b4d407-39f0-4535-ab9d-54add9b5fcdc")) (global_label "+3V3" (shape passive) (at 45.72 78.74 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "705274cf-e0ec-4477-a4a3-5bf4669066f5")) (wire (pts (xy 50.80 81.28) (xy 45.72 81.28)) (stroke (width 0) (type default)) (uuid "dc29ffef-829f-4cd4-918d-9fed4049e81c")) (global_label "PL_FAULT" (shape passive) (at 45.72 81.28 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "366989e0-77f4-46c2-a35d-aa78a63ff40c")) (wire (pts (xy 91.44 40.64) (xy 96.52 40.64)) (stroke (width 0) (type default)) (uuid "58af7490-9e2d-4384-881b-7a6143d5fa14")) (label "DAC_OUTA" (at 96.52 40.64 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "48875f5d-16fe-41ef-b223-4c45b3734650")) (wire (pts (xy 91.44 43.18) (xy 96.52 43.18)) (stroke (width 0) (type default)) (uuid "141fe605-7a03-438b-82e6-41a529b76d0a")) (label "DAC_OUTA" (at 96.52 43.18 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "37bc7e0b-18e0-4235-8f9e-643a844030ce")) (wire (pts (xy 91.44 45.72) (xy 96.52 45.72)) (stroke (width 0) (type default)) (uuid "ae456c0a-cb8a-43a0-95e8-540fc006821f")) (global_label "GND" (shape passive) (at 96.52 45.72 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "734009f6-4a9d-4065-bd33-2f3c8a7c83b6")) (wire (pts (xy 91.44 48.26) (xy 96.52 48.26)) (stroke (width 0) (type default)) (uuid "e803ab71-0aec-417d-a546-b834861defab")) (label "CCOMPA" (at 96.52 48.26 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "b1cd6cb8-3887-454d-9ca0-8b4da0344d57")) (wire (pts (xy 91.44 50.80) (xy 96.52 50.80)) (stroke (width 0) (type default)) (uuid "da80a13e-e9be-4ccd-b615-69b0115b0673")) (label "DAC_OUTB" (at 96.52 50.80 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "b49de44d-cce6-42b2-9704-11109e8ff2e6")) (wire (pts (xy 91.44 53.34) (xy 96.52 53.34)) (stroke (width 0) (type default)) (uuid "dcf1b18c-1b57-4f98-bc92-10bae75a8c16")) (label "DAC_OUTB" (at 96.52 53.34 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "cb888cb1-85ce-4db4-bfeb-62147c39f2b8")) (wire (pts (xy 91.44 55.88) (xy 96.52 55.88)) (stroke (width 0) (type default)) (uuid "50e858bd-9ce9-47b0-a3a2-59e335967c02")) (global_label "GND" (shape passive) (at 96.52 55.88 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ad0f6069-02d9-4ef3-b005-aa06c5c2b902")) (wire (pts (xy 91.44 58.42) (xy 96.52 58.42)) (stroke (width 0) (type default)) (uuid "55d9ee96-21fc-4406-89b6-d8e63155510c")) (label "CCOMPB" (at 96.52 58.42 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "fb739754-958b-444b-b7f2-a600e399a605")) (no_connect (at 91.44 60.96) (uuid "8d75cccb-d880-42e6-a492-8fa5ed83c11d")) (no_connect (at 91.44 63.50) (uuid "dc78aa71-e39e-42c0-bf8e-78dc7d229edf")) (no_connect (at 91.44 66.04) (uuid "788378fc-dfb1-4470-9dca-bd384df0e2e8")) (no_connect (at 91.44 68.58) (uuid "13a0ef18-a784-4ad2-a8cc-d31d9049b0b0")) (no_connect (at 91.44 71.12) (uuid "e2b4435e-4596-4fda-a41b-87260b7ec531")) (no_connect (at 91.44 73.66) (uuid "4fff3199-7847-4e74-b7cd-1b41b567c028")) (no_connect (at 91.44 76.20) (uuid "e8065b79-78dd-4ab8-875d-c72c1a6ce235")) (no_connect (at 91.44 78.74) (uuid "a0327c50-38ea-4fde-a8a7-3bbcb62b003b")) (symbol (lib_id "PianoTest:DAC61402") (at 71.12 60.96 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "db132936-d95c-443b-8b30-212f217c93fe") (property "Reference" "U1101" (at 63.50 33.02 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "DAC61402RHBR" (at 63.50 35.56 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "MIKILAB_DAC61402RHBR:VQFN32_RHB_TEX" (at 71.12 60.96 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 71.12 60.96 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 71.12 60.96 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "MPN" "DAC61402RHBR" (at 71.12 60.96 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "28" (uuid "1fe7c6e0-ab5b-42df-bde6-bad40a0bbe73")) (pin "30" (uuid "e2ad8bad-b5d5-4eda-af87-8292659f133b")) (pin "15" (uuid "5f8e12c0-874b-4ef4-a41c-097270155614")) (pin "26" (uuid "b0031777-33bf-48f4-8877-64479e241024")) (pin "25" (uuid "73329ea7-6962-4f8b-9197-eec37a7d85d0")) (pin "27" (uuid "cc67c3be-0a11-4c3e-96ae-7570eb114dea")) (pin "29" (uuid "328d6086-1837-4a74-8128-8b4788f66c66")) (pin "14" (uuid "0739d130-d5d4-4403-b107-275c9f2f20ac")) (pin "33" (uuid "6afee485-02d4-4273-adec-7eeb6d0cd974")) (pin "12" (uuid "0480be6a-6b36-478b-a62a-293d6df2e0ad")) (pin "10" (uuid "d3f03c90-b5c9-49f2-843c-87234b068217")) (pin "11" (uuid "728e2ee6-450d-4489-bf4f-83e6f8b7987c")) (pin "9" (uuid "771290d6-f170-4ab6-b988-c4a3865c4c59")) (pin "13" (uuid "998ba4a4-65a3-4377-879b-61d803902ba0")) (pin "16" (uuid "affe5224-6736-4365-8e37-5da442f41417")) (pin "32" (uuid "1fcd979c-43b2-4617-8946-71988d9b0ebc")) (pin "31" (uuid "c02ae175-36bb-4006-b367-897659fca04d")) (pin "8" (uuid "2cca4100-027c-4743-addf-e45c2f1aeabd")) (pin "6" (uuid "0bdf0086-7d40-4db3-be8b-0e5940ec43a9")) (pin "5" (uuid "dcbd4036-0033-4970-9e94-2c541752dd17")) (pin "7" (uuid "c2409691-003a-4bf0-9615-d6419855cd37")) (pin "17" (uuid "ceb32cb5-4338-44b9-95a9-9b412fb01eef")) (pin "19" (uuid "e9096381-85ae-45ea-ab01-a2f59504254c")) (pin "20" (uuid "fcb03540-0829-42cb-bcf7-47c196739b33")) (pin "18" (uuid "0ee66822-8abf-40f4-9e15-9292f6f1d0d5")) (pin "1" (uuid "b21869a1-0890-41c1-86b0-7628082a2c10")) (pin "2" (uuid "daa43ce1-6ccc-46b7-81a4-df6ac25d33f0")) (pin "3" (uuid "9b17379c-8ead-48a7-a2ed-775dd62c9ae1")) (pin "4" (uuid "fd9305e0-142e-4933-ae20-b3f15f9f394e")) (pin "21" (uuid "6d0b25cd-53b0-4bbd-b227-822f0bd6a534")) (pin "22" (uuid "b9a7536d-4921-4343-8669-7114e0aff15a")) (pin "23" (uuid "685a1571-655b-481f-b320-d539d319031a")) (pin "24" (uuid "19957989-d4f5-474e-8a92-eb1be945388d")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "U1101") (unit 1))))) (wire (pts (xy 50.80 101.60) (xy 45.72 101.60)) (stroke (width 0) (type default)) (uuid "28fb85f5-0a52-4b82-ab8a-51442d581b61")) (global_label "+3V3" (shape passive) (at 45.72 101.60 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a6d213bc-31fe-49ba-ac84-737dcc68eae3")) (wire (pts (xy 50.80 104.14) (xy 45.72 104.14)) (stroke (width 0) (type default)) (uuid "03559325-c0c3-4bf6-974b-ee6421a7d1cf")) (global_label "GND" (shape passive) (at 45.72 104.14 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2c14ca58-efb9-4818-8a6e-e681989f3a08")) (wire (pts (xy 50.80 106.68) (xy 45.72 106.68)) (stroke (width 0) (type default)) (uuid "9dd4965d-efa6-417f-aeba-f2f3c08f1ee8")) (global_label "CS_INA" (shape passive) (at 45.72 106.68 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f3f9dd73-854f-4f1c-ad55-b5a7c94c05b7")) (wire (pts (xy 50.80 109.22) (xy 45.72 109.22)) (stroke (width 0) (type default)) (uuid "90872868-ea1a-4fa1-8787-a087854caf21")) (global_label "SCLK_L" (shape passive) (at 45.72 109.22 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "df2c90be-2651-4de3-b020-c7377004ece0")) (wire (pts (xy 50.80 111.76) (xy 45.72 111.76)) (stroke (width 0) (type default)) (uuid "598489c7-22fa-4b64-8669-11953aaef4bb")) (global_label "MOSI_L" (shape passive) (at 45.72 111.76 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1996bb9e-302a-425b-ad62-50ade82475ca")) (wire (pts (xy 50.80 114.30) (xy 45.72 114.30)) (stroke (width 0) (type default)) (uuid "ba538e50-7aef-46fe-881a-d38765ee9f20")) (global_label "MISO_L" (shape passive) (at 45.72 114.30 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "deaea0e0-f5d3-4bdb-ae76-d397c2b2d55e")) (wire (pts (xy 50.80 116.84) (xy 45.72 116.84)) (stroke (width 0) (type default)) (uuid "e1e2dbc7-6b2e-479d-bbba-4d2b0eff837e")) (global_label "PL_FAULT" (shape passive) (at 45.72 116.84 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "389dbef8-ae5d-4b25-ae97-ab6f6bcecf0c")) (wire (pts (xy 86.36 101.60) (xy 91.44 101.60)) (stroke (width 0) (type default)) (uuid "7c2d9652-7cbf-48f3-833e-820eb30a8ac1")) (label "DAC_OUTA" (at 91.44 101.60 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "74974fe2-ab24-4c11-918c-37697bfeffaa")) (wire (pts (xy 86.36 104.14) (xy 91.44 104.14)) (stroke (width 0) (type default)) (uuid "4ece1fcc-36ea-4c48-bd20-253ed333a70d")) (global_label "VBIAS_SH" (shape passive) (at 91.44 104.14 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "af14a6e5-78be-4cd4-a854-a6e5916f4795")) (wire (pts (xy 86.36 106.68) (xy 91.44 106.68)) (stroke (width 0) (type default)) (uuid "5ca06085-4004-489b-b7b3-6961b33a7359")) (global_label "VBIAS_SH" (shape passive) (at 91.44 106.68 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "9afa400b-d15e-42e3-aee7-dfc6f46b3315")) (symbol (lib_id "PianoTest:INA239") (at 68.58 109.22 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "c6e94967-6d69-4ceb-83d0-8bff754bade4") (property "Reference" "U1102" (at 60.96 93.98 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "INA239AIDGSR" (at 60.96 96.52 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "MIKILAB_INA239AIDGSR:VSSOP_9AIDGST_TEX" (at 68.58 109.22 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 68.58 109.22 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 68.58 109.22 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "MPN" "INA239AIDGSR" (at 68.58 109.22 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "6" (uuid "f3ea1514-bd58-4b97-bcbd-2348391d1fc5")) (pin "7" (uuid "de61db23-8c82-4f1a-a569-20a7807086d5")) (pin "1" (uuid "d4f5852f-103b-4e00-a073-114586b518f2")) (pin "5" (uuid "3460c7db-6618-40b9-9f55-d5a62aa99749")) (pin "2" (uuid "ebc4952a-9b2f-48b6-947d-071c1f3fb002")) (pin "4" (uuid "89530faf-225f-4f4e-921f-58ea5d59495f")) (pin "3" (uuid "975e4015-44cf-4a47-ae78-c27ade58e459")) (pin "10" (uuid "eae9c370-d1ff-41e3-93c2-f04d80f8f4ca")) (pin "9" (uuid "03e377f8-2766-4150-b74f-0feebd7db702")) (pin "8" (uuid "48ba27dd-6e8c-4aad-82ea-42a85020f79d")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "U1102") (unit 1))))) (wire (pts (xy 50.80 135.89) (xy 45.72 135.89)) (stroke (width 0) (type default)) (uuid "dcb017ad-332d-478f-aa2e-9490e017f6e8")) (global_label "+3V3" (shape passive) (at 45.72 135.89 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c09f1a49-96a1-4657-95a9-3b15e590a581")) (wire (pts (xy 50.80 138.43) (xy 45.72 138.43)) (stroke (width 0) (type default)) (uuid "d4a5a1e5-d508-407d-9093-add4280ee016")) (global_label "GND" (shape passive) (at 45.72 138.43 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "fb210493-688c-412d-93af-a0ae4ed9db4d")) (wire (pts (xy 50.80 140.97) (xy 45.72 140.97)) (stroke (width 0) (type default)) (uuid "c85cafb3-f0ef-43b5-acf0-a23e808c7353")) (global_label "GND" (shape passive) (at 45.72 140.97 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ce39a77f-5c41-4ef1-aa3d-373c304e6da9")) (wire (pts (xy 50.80 143.51) (xy 45.72 143.51)) (stroke (width 0) (type default)) (uuid "e1bee804-5876-42dd-9e9f-67ff7f8b8553")) (global_label "GND" (shape passive) (at 45.72 143.51 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ffb17ddf-6645-489a-8d82-f43b0ae5dae9")) (wire (pts (xy 86.36 135.89) (xy 91.44 135.89)) (stroke (width 0) (type default)) (uuid "d1feb0d2-feec-49fd-bcae-d25522bed70d")) (global_label "I2C_SCL" (shape passive) (at 91.44 135.89 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "539312d8-0518-4fc9-93c0-fc9bfb154eab")) (wire (pts (xy 86.36 138.43) (xy 91.44 138.43)) (stroke (width 0) (type default)) (uuid "179d6210-7af2-4407-bf46-bbcd241fa574")) (global_label "I2C_SDA" (shape passive) (at 91.44 138.43 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "3a027311-b5cf-49d6-95f9-49e2bc0c3404")) (wire (pts (xy 86.36 140.97) (xy 91.44 140.97)) (stroke (width 0) (type default)) (uuid "732408c9-f27f-4889-bd98-d7b4e8895c7a")) (global_label "PL_FAULT" (shape passive) (at 91.44 140.97 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "53419271-cf5a-42bb-b766-514b33d1acb9")) (symbol (lib_id "PianoTest:TMP117") (at 68.58 139.70 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "f9c6a22e-f54e-44d0-8659-81d9cfd47e7e") (property "Reference" "U1103" (at 60.96 128.27 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "TMP117AIDRVR" (at 60.96 130.81 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Package_SON:WSON-6-1EP_2x2mm_P0.65mm_EP1x1.6mm" (at 68.58 139.70 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 68.58 139.70 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 68.58 139.70 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "MPN" "TMP117AIDRVR" (at 68.58 139.70 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "5" (uuid "6d68a818-85d3-4df7-a779-ce85bdf426a4")) (pin "2" (uuid "1279e8ed-70ba-4402-9f35-a8da1f875cd6")) (pin "4" (uuid "60cfbfc6-8f6a-45e8-bfda-62ca793ca8ef")) (pin "7" (uuid "2c55322b-6082-46cb-8332-32be549ce2ba")) (pin "1" (uuid "62382b49-ae8a-4821-b48e-2a413cfc64ba")) (pin "6" (uuid "9f295ecf-a7c7-4225-acc2-f01e9c861e48")) (pin "3" (uuid "2bc3a980-f2cd-4565-903e-2099843f0957")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "U1103") (unit 1))))) (wire (pts (xy 151.13 50.80) (xy 151.13 48.26)) (stroke (width 0) (type default)) (uuid "e308a817-815a-4d5e-8c09-08492123a3ab")) (global_label "VHV_36V" (shape passive) (at 151.13 48.26 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f093ed60-cd79-41a9-a7da-dbdc5a56ceb9")) (wire (pts (xy 151.13 58.42) (xy 151.13 60.96)) (stroke (width 0) (type default)) (uuid "03d1852c-7670-467a-918d-d37392d4cf6b")) (label "AVDD_DAC" (at 151.13 60.96 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "17a4326a-abbf-492e-94ef-ffa7f6c0e41d")) (symbol (lib_id "Device:R") (at 151.13 54.61 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "3d308440-0602-43f9-a7f9-0577a524086f") (property "Reference" "R1101" (at 153.67 53.34 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100R" (at 153.67 55.88 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 151.13 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 151.13 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 151.13 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "4b00d710-2896-476e-9aa9-a9c2a43f80e5")) (pin "2" (uuid "204f803b-e70f-479b-930d-8e6e50de281c")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "R1101") (unit 1))))) (wire (pts (xy 151.13 97.79) (xy 151.13 95.25)) (stroke (width 0) (type default)) (uuid "4fff0925-4d19-4c88-aafb-096142764668")) (label "AVDD_DAC" (at 151.13 95.25 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "a28eee68-d73e-4354-a6de-ac723f97758b")) (wire (pts (xy 151.13 105.41) (xy 151.13 107.95)) (stroke (width 0) (type default)) (uuid "f9bf3fae-aa57-4a61-aa67-ad5c2b31c203")) (global_label "GND" (shape passive) (at 151.13 107.95 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f3cd3c8a-9a46-4aae-b761-57b0d0a6e7ec")) (symbol (lib_id "Device:C") (at 151.13 101.60 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "d7f62b36-ba1e-46e1-aaff-cda23bf59ecd") (property "Reference" "C1101" (at 153.67 100.33 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "1uF/100V" (at 153.67 102.87 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 151.13 101.60 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 151.13 101.60 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 151.13 101.60 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "d6768de1-6576-4cb4-98a1-18d1c668e762")) (pin "2" (uuid "f73b46f4-b182-42f5-88d1-c5ff5d40b09c")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1101") (unit 1))))) (wire (pts (xy 151.13 146.05) (xy 151.13 143.51)) (stroke (width 0) (type default)) (uuid "ddf13344-076f-4794-a353-51adce63e694")) (label "AVDD_DAC" (at 151.13 143.51 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "302aa00b-4767-4cfb-99f9-d90a250ddd5d")) (wire (pts (xy 151.13 153.67) (xy 151.13 156.21)) (stroke (width 0) (type default)) (uuid "a281cf1b-d032-4e38-a9c1-95079ecd7a2f")) (global_label "GND" (shape passive) (at 151.13 156.21 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "69033b20-9fd7-4bc2-a6f3-997b84caed4f")) (symbol (lib_id "Device:C") (at 151.13 149.86 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "cafb1db1-bb72-42ca-87c6-bd128c6d3949") (property "Reference" "C1102" (at 153.67 148.59 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "1uF/100V" (at 153.67 151.13 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 151.13 149.86 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 151.13 149.86 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 151.13 149.86 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "c1a602e8-de1e-4180-b611-0f0e942d8d9c")) (pin "2" (uuid "3f62b546-d878-4955-b9d1-dd3e8b33d5ab")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1102") (unit 1))))) (wire (pts (xy 151.13 193.04) (xy 151.13 190.50)) (stroke (width 0) (type default)) (uuid "ae440db1-14bf-4ec6-8e6d-6ddd9eb36767")) (label "AVDD_DAC" (at 151.13 190.50 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "f663dfc2-8de4-45a4-a7dc-ddb7bdb41382")) (wire (pts (xy 151.13 200.66) (xy 151.13 203.20)) (stroke (width 0) (type default)) (uuid "75d42c3c-e0f2-4f40-8130-88c12a859e36")) (global_label "GND" (shape passive) (at 151.13 203.20 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b24b9e70-addc-45fd-8d41-6c8c6223b264")) (symbol (lib_id "Device:C") (at 151.13 196.85 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "a6507538-a94f-47d6-98b4-d8702018c5c5") (property "Reference" "C1103" (at 153.67 195.58 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100nF/100V" (at 153.67 198.12 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 151.13 196.85 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 151.13 196.85 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 151.13 196.85 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "fd690426-bbd7-43b7-a2da-e64ba586d7cd")) (pin "2" (uuid "6103a771-9377-47af-9d30-2bd75e81a452")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1103") (unit 1))))) (wire (pts (xy 151.13 241.30) (xy 151.13 238.76)) (stroke (width 0) (type default)) (uuid "244918b2-7145-4cdf-bc51-c7b2fbd30725")) (label "CCOMPA" (at 151.13 238.76 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "28882504-3f60-4fbf-acbd-fb3075cb6a20")) (wire (pts (xy 151.13 248.92) (xy 151.13 251.46)) (stroke (width 0) (type default)) (uuid "e5b5169d-fcb3-446d-9040-9c9aab2ac54d")) (label "DAC_OUTA" (at 151.13 251.46 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "cbc6eab0-2b93-492c-80f3-f5720c796ddc")) (symbol (lib_id "Device:C") (at 151.13 245.11 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp yes) (uuid "8fc70664-ae07-437d-a1fe-9f91f5119f63") (property "Reference" "C1104" (at 153.67 243.84 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "470pF/100V" (at 153.67 246.38 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 151.13 245.11 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 151.13 245.11 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 151.13 245.11 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "c232d5b7-5e7c-416e-8d1f-293b18a110db")) (pin "2" (uuid "359e66de-0d22-411f-9c9d-e2d56c75ad2f")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1104") (unit 1))))) (wire (pts (xy 151.13 288.29) (xy 151.13 285.75)) (stroke (width 0) (type default)) (uuid "62068ea7-9d04-4747-be6b-3c9aa3453385")) (label "CCOMPB" (at 151.13 285.75 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "619ac22c-4cdf-49d7-9fd0-baebe5173cd4")) (wire (pts (xy 151.13 295.91) (xy 151.13 298.45)) (stroke (width 0) (type default)) (uuid "ad8c9cb8-522c-439f-9088-aec2f46ac3aa")) (label "DAC_OUTB" (at 151.13 298.45 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "6cc5b03f-9d0b-498d-8f56-01977902de04")) (symbol (lib_id "Device:C") (at 151.13 292.10 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp yes) (uuid "5ea75085-2199-4ccc-935b-235fb47b890c") (property "Reference" "C1105" (at 153.67 290.83 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "470pF/100V" (at 153.67 293.37 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 151.13 292.10 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 151.13 292.10 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 151.13 292.10 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "bc5b32e7-7506-440e-9a0b-184d98fd7070")) (pin "2" (uuid "f6a4aabb-c959-4ccf-ab57-81fc1e463600")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1105") (unit 1))))) (wire (pts (xy 151.13 336.55) (xy 151.13 334.01)) (stroke (width 0) (type default)) (uuid "00cafb2d-4581-4221-a0c0-b5c5692d520b")) (label "DAC_OUTA" (at 151.13 334.01 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "bbfa078b-feaa-45dc-8782-6973a8d83e61")) (wire (pts (xy 151.13 344.17) (xy 151.13 346.71)) (stroke (width 0) (type default)) (uuid "8d80aa1c-6c75-4f17-a598-d167e7ae3021")) (global_label "VBIAS_SH" (shape passive) (at 151.13 346.71 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d4bdb165-4101-4fda-84c6-3861c9606e54")) (symbol (lib_id "Device:R") (at 151.13 340.36 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "eb92418a-c400-4414-825a-5bd12e9e80c0") (property "Reference" "R1102" (at 153.67 339.09 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "10k 0.1%" (at 153.67 341.63 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (at 151.13 340.36 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 151.13 340.36 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 151.13 340.36 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "MPN" "ERA-6ARB103V" (at 151.13 340.36 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "855226a5-128f-4c0d-b366-dfd345199793")) (pin "2" (uuid "1211b994-7baf-4bec-9bbe-a442b3a48ece")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "R1102") (unit 1))))) (wire (pts (xy 210.82 50.80) (xy 210.82 48.26)) (stroke (width 0) (type default)) (uuid "1c9d3959-67d3-48a5-bb61-210e8d894b6d")) (global_label "VBIAS_SH" (shape passive) (at 210.82 48.26 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f883aa8b-28f6-488c-95c7-31532251ab79")) (wire (pts (xy 210.82 58.42) (xy 210.82 60.96)) (stroke (width 0) (type default)) (uuid "13a9f85d-84d7-45c4-8ca6-b1c684b0bfae")) (global_label "GND" (shape passive) (at 210.82 60.96 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ccddc783-b119-4ed6-a78e-cd72dac6c4c4")) (symbol (lib_id "Device:C") (at 210.82 54.61 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "80412789-ca57-4026-b357-557d30063bef") (property "Reference" "C1106" (at 213.36 53.34 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100nF/100V C0G" (at 213.36 55.88 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_1206_3216Metric" (at 210.82 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 210.82 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 210.82 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "MPN" "C3216C0G2A104J160AE" (at 210.82 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "a75d0287-e222-4669-a911-923b2ff6d234")) (pin "2" (uuid "79be7554-902c-480c-98a2-728cb1d94b25")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1106") (unit 1))))) (wire (pts (xy 270.51 50.80) (xy 270.51 48.26)) (stroke (width 0) (type default)) (uuid "4a1b4180-2550-4950-9a78-053fcf770d1d")) (label "DAC_OUTB" (at 270.51 48.26 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "a879b322-b49b-4853-ac9e-12174c1b346a")) (wire (pts (xy 270.51 58.42) (xy 270.51 60.96)) (stroke (width 0) (type default)) (uuid "4335548b-6597-4e16-a4c4-f9ff6eee428e")) (global_label "VTH" (shape passive) (at 270.51 60.96 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "99c24cc4-6b3f-4a07-9c17-83c7400356a2")) (symbol (lib_id "Device:R") (at 270.51 54.61 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "ba5fe5eb-ad49-499f-90d6-097ce23100c4") (property "Reference" "R1103" (at 273.05 53.34 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "22k" (at 273.05 55.88 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 270.51 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 270.51 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 270.51 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "ab4baead-7a3c-4322-bdc0-125f8d081e24")) (pin "2" (uuid "98657ef3-0cf9-4d04-b9df-bc33973bd1f1")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "R1103") (unit 1))))) (wire (pts (xy 270.51 97.79) (xy 270.51 95.25)) (stroke (width 0) (type default)) (uuid "a4017930-e7f3-49aa-aa7c-427e5d7f3b1c")) (global_label "VTH" (shape passive) (at 270.51 95.25 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d6918500-0ec2-4c23-a00d-c632131d1a3b")) (wire (pts (xy 270.51 105.41) (xy 270.51 107.95)) (stroke (width 0) (type default)) (uuid "946feff9-d509-4525-8fe6-fb670996089c")) (global_label "GND" (shape passive) (at 270.51 107.95 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5f4b67b0-08ba-47bf-92ad-d8d79972a9d1")) (symbol (lib_id "Device:R") (at 270.51 101.60 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "8ec40539-eee5-466c-9c37-ff52e3465dff") (property "Reference" "R1104" (at 273.05 100.33 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "10k" (at 273.05 102.87 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 270.51 101.60 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 270.51 101.60 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 270.51 101.60 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "3744618f-cceb-40e8-ba53-2083757bcd15")) (pin "2" (uuid "47a7c8ff-5c4d-465f-a77d-1a7a27299d50")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "R1104") (unit 1))))) (wire (pts (xy 270.51 146.05) (xy 270.51 143.51)) (stroke (width 0) (type default)) (uuid "8a3fb4c8-eab3-40f0-b419-0187e7bf0583")) (global_label "VTH" (shape passive) (at 270.51 143.51 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "367dc148-4fa1-45ed-837c-db7b6759e95b")) (wire (pts (xy 270.51 153.67) (xy 270.51 156.21)) (stroke (width 0) (type default)) (uuid "86635754-b4c5-43ba-9e26-ecd1e6d87b31")) (global_label "GND" (shape passive) (at 270.51 156.21 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6b2bd83d-c5fb-4618-a301-15d7f133e7d4")) (symbol (lib_id "Device:C") (at 270.51 149.86 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "343311e7-db69-4833-9a0f-3b2d00b3fab9") (property "Reference" "C1107" (at 273.05 148.59 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100nF" (at 273.05 151.13 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 270.51 149.86 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 270.51 149.86 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 270.51 149.86 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "1961e61c-9bb8-4e1e-bbdc-f212e27da6b9")) (pin "2" (uuid "95bd5712-296c-4c6e-a88f-d6338c29eb96")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1107") (unit 1))))) (wire (pts (xy 270.51 182.88) (xy 265.43 182.88)) (stroke (width 0) (type default)) (uuid "efd5947a-b8e2-48f0-aabd-797e408283c9")) (global_label "VTH" (shape passive) (at 265.43 182.88 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "e3861965-1a99-47b7-95f7-2186e5986e48")) (wire (pts (xy 285.75 182.88) (xy 290.83 182.88)) (stroke (width 0) (type default)) (uuid "f1f6a807-1f1a-43ff-a2b9-b8e619adf5f9")) (global_label "GND" (shape passive) (at 290.83 182.88 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "5c9a5952-971d-4d5f-a892-141e437b58d6")) (wire (pts (xy 285.75 185.42) (xy 290.83 185.42)) (stroke (width 0) (type default)) (uuid "ea491783-7482-4664-9ff1-9d80da1a542d")) (global_label "+3V3" (shape passive) (at 290.83 185.42 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "3db88f07-c197-421f-807e-96a18abdd00e")) (symbol (lib_id "PianoTest:BAT54S") (at 278.13 184.15 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "405d40c0-03df-406a-89fd-d498ee2549af") (property "Reference" "D1101" (at 270.51 175.26 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "BAT54S" (at 270.51 177.80 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Package_TO_SOT_SMD:SOT-23" (at 278.13 184.15 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 278.13 184.15 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 278.13 184.15 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "MPN" "BAT54S" (at 278.13 184.15 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "3" (uuid "c9569971-73da-4c09-84b8-85ffcf72ee30")) (pin "1" (uuid "57d6f41a-143a-4ba8-96e0-7513e86ca761")) (pin "2" (uuid "e6a07f24-6eac-43b5-a3f2-ef34d57ec709")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "D1101") (unit 1))))) (wire (pts (xy 270.51 215.90) (xy 270.51 213.36)) (stroke (width 0) (type default)) (uuid "c33e7d4d-1576-4817-8355-4e3dca8ee3f7")) (global_label "+3V3" (shape passive) (at 270.51 213.36 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8a40a97d-bb75-4469-82ca-2081fdc8334a")) (wire (pts (xy 270.51 223.52) (xy 270.51 226.06)) (stroke (width 0) (type default)) (uuid "6bf01e7f-eaa3-45fb-8c9a-106c465d9623")) (global_label "PL_FAULT" (shape passive) (at 270.51 226.06 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0d9a10ea-b344-432f-b4bb-30ee9e7fd8b2")) (symbol (lib_id "Device:R") (at 270.51 219.71 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "511f016b-ea54-4387-a462-81336d3d9404") (property "Reference" "R1105" (at 273.05 218.44 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "10k" (at 273.05 220.98 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 270.51 219.71 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 270.51 219.71 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 270.51 219.71 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "83948766-082e-4ae8-acc5-d6c4e9f0fae9")) (pin "2" (uuid "bd1711ed-58bd-4f36-8679-d7e28c97a870")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "R1105") (unit 1))))) (wire (pts (xy 270.51 254.00) (xy 270.51 259.08)) (stroke (width 0) (type default)) (uuid "f76f0b72-1601-4a35-be3e-e73dafc1f827")) (global_label "VBIAS_SH" (shape passive) (at 270.51 259.08 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "8564565e-1471-409d-9e3a-4ee96cc7bd87")) (symbol (lib_id "Connector:TestPoint") (at 270.51 254.00 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "e3310ee6-c613-483f-a55b-30f3f4e1c7a7") (property "Reference" "TP1101" (at 262.89 246.38 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "VBIAS_SH" (at 262.89 248.92 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 270.51 254.00 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 270.51 254.00 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 270.51 254.00 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "793e0780-56bd-4bbd-b4bc-9ebac49b101d")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "TP1101") (unit 1))))) (wire (pts (xy 270.51 273.05) (xy 270.51 278.13)) (stroke (width 0) (type default)) (uuid "177ff169-e4bd-4b0d-98d1-8dfbf427dc95")) (global_label "VTH" (shape passive) (at 270.51 278.13 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "94a7b79a-30ed-4067-8ce2-a39ad22805ab")) (symbol (lib_id "Connector:TestPoint") (at 270.51 273.05 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "bedb5ac6-e9e5-4408-ae95-6efe1cf0af39") (property "Reference" "TP1102" (at 262.89 265.43 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "VTH" (at 262.89 267.97 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm" (at 270.51 273.05 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 270.51 273.05 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 270.51 273.05 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "29fcedd3-d49a-484e-80bc-1157ab3e7276")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "TP1102") (unit 1))))) (wire (pts (xy 346.71 50.80) (xy 346.71 48.26)) (stroke (width 0) (type default)) (uuid "0d05ffed-05be-491b-9743-b7ab73cfd232")) (global_label "+5V" (shape passive) (at 346.71 48.26 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "fc2326c6-02bf-48d2-a683-608c44c94a71")) (wire (pts (xy 346.71 58.42) (xy 346.71 60.96)) (stroke (width 0) (type default)) (uuid "3d441488-18c7-49e7-9314-051436537d29")) (global_label "GND" (shape passive) (at 346.71 60.96 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "38d63960-6da1-43a1-a708-72ad432debc6")) (symbol (lib_id "Device:C") (at 346.71 54.61 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "9207eaa4-f8aa-447d-b3fe-af3cbb0b6bff") (property "Reference" "C1108" (at 349.25 53.34 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100nF" (at 349.25 55.88 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 346.71 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 346.71 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 346.71 54.61 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "eb3672b4-22c5-4f3b-a621-d51a2740350b")) (pin "2" (uuid "cadcf532-8319-442e-af27-8bbe382e1868")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1108") (unit 1))))) (wire (pts (xy 346.71 97.79) (xy 346.71 95.25)) (stroke (width 0) (type default)) (uuid "d5710b1d-8b1a-4025-b8a8-85406f06581b")) (global_label "+3V3" (shape passive) (at 346.71 95.25 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7ed3eaa9-92c2-4f95-be0f-739156cbed9a")) (wire (pts (xy 346.71 105.41) (xy 346.71 107.95)) (stroke (width 0) (type default)) (uuid "39632ba4-43b7-4561-9a29-b5ef745b0c79")) (global_label "GND" (shape passive) (at 346.71 107.95 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ab205a03-b829-416e-a63c-ef73a2a2c19f")) (symbol (lib_id "Device:C") (at 346.71 101.60 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "1a85febf-da96-4dbf-9cd3-65e96e4f531e") (property "Reference" "C1109" (at 349.25 100.33 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100nF" (at 349.25 102.87 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 346.71 101.60 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 346.71 101.60 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 346.71 101.60 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "15f4a368-8ac1-4a1e-ae25-77e276ed9b83")) (pin "2" (uuid "314745cd-ccf6-4f86-99c1-c1a5dd834cc2")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1109") (unit 1))))) (wire (pts (xy 346.71 146.05) (xy 346.71 143.51)) (stroke (width 0) (type default)) (uuid "d3f659a2-3c78-4cb6-9bc6-e3d9e0aa6577")) (label "DAC_REF" (at 346.71 143.51 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "7ae717f9-021a-4555-8f8a-e2a3e1311230")) (wire (pts (xy 346.71 153.67) (xy 346.71 156.21)) (stroke (width 0) (type default)) (uuid "14f0de67-ffbf-42f4-b176-ea50150fba6d")) (global_label "GND" (shape passive) (at 346.71 156.21 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9a5316af-929e-4c63-b7a5-acb4f2445639")) (symbol (lib_id "Device:C") (at 346.71 149.86 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "f1f8db35-16d6-4709-add4-f4e990b02c92") (property "Reference" "C1110" (at 349.25 148.59 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100nF" (at 349.25 151.13 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 346.71 149.86 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 346.71 149.86 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 346.71 149.86 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "bf219be1-bdef-400f-9348-136f8353b470")) (pin "2" (uuid "68d1cd71-4f88-4273-bc94-e5be9c47b2df")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1110") (unit 1))))) (wire (pts (xy 346.71 193.04) (xy 346.71 190.50)) (stroke (width 0) (type default)) (uuid "d9836525-5cb9-4bb1-a9f2-bdd9ea7f3991")) (global_label "+3V3" (shape passive) (at 346.71 190.50 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4fcd4608-a0b5-4d18-a5be-1ac04d8feec4")) (wire (pts (xy 346.71 200.66) (xy 346.71 203.20)) (stroke (width 0) (type default)) (uuid "6fde3d4f-ef5f-4b60-b0ce-c05380f4538f")) (global_label "GND" (shape passive) (at 346.71 203.20 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "33b73fa3-d433-4254-bf02-d7fcc9af204c")) (symbol (lib_id "Device:C") (at 346.71 196.85 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "0ebc8c36-e3df-454a-b2d8-2a39d1ca8f7a") (property "Reference" "C1111" (at 349.25 195.58 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100nF" (at 349.25 198.12 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 346.71 196.85 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 346.71 196.85 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 346.71 196.85 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "cc46e713-bf87-4b56-af6b-fef201daf386")) (pin "2" (uuid "de97c537-991c-4020-8da1-048f6fa6c792")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1111") (unit 1))))) (wire (pts (xy 346.71 241.30) (xy 346.71 238.76)) (stroke (width 0) (type default)) (uuid "42e96c82-fb63-4e40-b807-4a2085f4978b")) (global_label "+3V3" (shape passive) (at 346.71 238.76 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d28b9a34-aa54-4e92-bfdb-821d73698dc8")) (wire (pts (xy 346.71 248.92) (xy 346.71 251.46)) (stroke (width 0) (type default)) (uuid "ae8406fe-46fa-4f0f-b430-11042ee9adc8")) (global_label "GND" (shape passive) (at 346.71 251.46 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "7f354303-fc46-40b2-b285-7a6ae5fcfbd9")) (symbol (lib_id "Device:C") (at 346.71 245.11 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "e8ed5682-16e6-4925-a2e2-44eaa8ed8392") (property "Reference" "C1112" (at 349.25 243.84 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100nF" (at 349.25 246.38 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 346.71 245.11 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 346.71 245.11 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 346.71 245.11 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "cf150d80-3f6c-4a56-b287-2b7e2a69464e")) (pin "2" (uuid "ec44d4fa-4cd9-470a-bb74-cbac4c5ea623")) (instances (project "PianoMatrice" (path "/bdf6c3c8-ee70-4029-b037-ca9b9ba6169f/1d49f2a2-2ae3-4c40-a166-d725ee98a334" (reference "C1112") (unit 1))))) (embedded_fonts no))
