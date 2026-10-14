@@ -37,9 +37,9 @@ Scheda Linux basata su **Allwinner A133** per il progetto MuonScope (rivelatore 
 
 ## Punti aperti
 
+- VREF_ENABLE è attivo alto (modulo Power rivisto il 2026-10-14): R324 è un pull-down da 10k, quindi a riposo i riferimenti sono spenti.
 - Footprint A133 LFBGA-346 ricavato dalla ball map e dal passo del product brief: da confrontare con il disegno meccanico ufficiale.
 - Pinout del NEO-F10T (formato NEO) e ball map di LPDDR4/eMMC da verificare sui datasheet.
 - AXP717: variante senza suffisso (come il reference Allwinner e la TrimUI Smart Pro A133), oggi non a magazzino su LCSC.
 - Valori da confermare: partitori e induttori dei buck, quarzi (carico), RSET del PHY, bias dell'antenna GNSS, rete π del Wi-Fi.
-- Correzione VREF_ENABLE e fusibile sul modulo Power (progetto MuonScope) da decidere.
 - SDIO del Wi-Fi a 3.3 V (SDIO 2.0): passare a 1.8 V richiede di spostare PPS e UART BT.

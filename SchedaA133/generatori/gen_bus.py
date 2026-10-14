@@ -117,7 +117,7 @@ def place_conn(lib_id, symtext, ref, val, fp, x, y, netmap):
 place_conn("Connector_Generic_MountingPin:Conn_01x30_MountingPin", C22, "J1", "BUS_POWER_MIKILAB",
            "Connector_FFC-FPC:Hirose_FH12-30S-0.5SH_1x30-1MP_P0.50mm_Horizontal", 86.36, 86.36, PWR)
 place_conn("Connector_Generic_MountingPin:Conn_01x28_MountingPin", C28, "J2", "BUS_MIKILAB_MAIN",
-           "Connector_FFC-FPC:Hirose_FH12-28S-0.5SH_1x28-1MP_P0.50mm_Horizontal", 182.88, 86.36, MAIN)
+           "A133:FPC-05F-28PH20", 182.88, 86.36, MAIN)
 
 # ID iniziale 000 su J_OUT: SPI_ID_0..2 a massa tramite 0 ohm; ponte GND_A-GND_D apribile
 for i, (ref, top, bot) in enumerate([("R1", "SPI_ID_0", "GND_D"), ("R2", "SPI_ID_1", "GND_D"),
@@ -129,7 +129,7 @@ for i, (ref, top, bot) in enumerate([("R1", "SPI_ID_0", "GND_D"), ("R2", "SPI_ID
 
 text("J1 BUS_POWER 30 pin (Hirose FH12-30S): pin 1-22 come J3 del modulo Power, 24-26 VIN_SYS 12 V, 29 secondo 3V3. Rail BUS_* passanti verso J2, non collegati ai rail della scheda.", 25.4, 25.4)
 text("VIN_SYS -> buck TPS563201 (12->5 V, 3 A) -> ideal diode LM66100 -> nodo jack DC a monte del TPS2121 (foglio alimentazione). BUS_5V va solo a J2 pin 2.", 25.4, 30.48)
-text("J2 MAIN 28 pin secondo BPS-MIKILAB-2026-REV5.0 (spec: XUNPU FPC-05F-28PH20; footprint Hirose FH12-28S provvisorio, da verificare).", 25.4, 35.56)
+text("J2 MAIN 28 pin secondo BPS-MIKILAB-2026-REV5.0 (spec: XUNPU FPC-05F-28PH20; footprint A133:FPC-05F-28PH20 da EasyEDA C2856807).", 25.4, 35.56)
 text("Da aggiungere sul foglio CPU: 33R serie su SPI, 100R su ADDR/PREFIX, pull-up 4.7k su ALERT, 2.2k su I2C, 10k sui CS, ESD TPD4E05U06.", 25.4, 40.64)
 text("R4 0R: ponte GND_A-GND_D, DNP di default (sul modulo Power GND_A e GND_D sono gia la stessa net). R1-R3: ID iniziale 000 (scheda = J_OUT, testa della catena).", 25.4, 45.72)
 

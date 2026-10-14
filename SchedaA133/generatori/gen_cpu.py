@@ -284,10 +284,10 @@ for i in range(3):
     R(f"R{15 + i}", "100R", X + 50 + 12 * i, Y, f"SOC_ADDR_{i}", f"MAIN_SPI_ADDR_{i}")
     R(f"R{18 + i}", "100R", X + 86 + 12 * i, Y, f"SOC_PREFIX_{i}", f"MAIN_SPI_PREFIX_{i}")
 X, Y = 230, 295
-text("Livelli di riposo sicuri: CS e CS_MASTER alti (10k), VREF_ENABLE alto = riferimento spento (attivo basso, 10k), VBIAS_ENABLE basso = bias spento (100k a GND).", X - 10, Y - 12)
+text("Livelli di riposo sicuri: CS e CS_MASTER alti (10k), VREF_ENABLE basso = riferimenti spenti (attivo alto, 10k a GND), VBIAS_ENABLE basso = bias spento (100k a GND).", X - 10, Y - 12)
 text("ALERT# 4.7k unico pull-up del bus. DAC61402_FAULT 10k (open-drain). I2C0 del bus 2.2k. S_TWI1 del FUSB302B 2.2k a VCC-PL, PD_INT_N 10k.", X - 10, Y - 7)
 pu = [("R21", "10k", "VCC-IO", "PWR_SPI_INA239A_CS"), ("R22", "10k", "VCC-IO", "PWR_SPI_INA239B_CS"), ("R23", "10k", "VCC-IO", "PWR_SPI_DAC_CS"),
-      ("R24", "10k", "VCC-IO", "VREF_ENABLE"), ("R25", "100k", "VBIAS_ENABLE", "GND_D"), ("R26", "10k", "VCC-IO", "DAC61402_FAULT"),
+      ("R24", "10k", "GND_D", "VREF_ENABLE"), ("R25", "100k", "VBIAS_ENABLE", "GND_D"), ("R26", "10k", "VCC-IO", "DAC61402_FAULT"),
       ("R27", "10k", "VCC-IO", "MAIN_SPI_CS_MASTER"), ("R28", "4.7k", "VCC-IO", "MAIN_SPI_ALERT_N"), ("R29", "2.2k", "VCC-IO", "MAIN_I2C_SCL"),
       ("R30", "2.2k", "VCC-IO", "MAIN_I2C_SDA"), ("R31", "2.2k", "VCC-PL", "PD_I2C_SCL"), ("R32", "2.2k", "VCC-PL", "PD_I2C_SDA"),
       ("R33", "10k", "VCC-PL", "PD_INT_N"), ("R34", "10k", "VCC-PL", "PWR_SRC_ST"), ("R35", "0R", "VCC-PL", "3V3_SYS")]
