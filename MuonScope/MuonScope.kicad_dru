@@ -1,0 +1,5 @@
+(version 1)
+# Connettori FPC/FFC a passo 0.5 mm: clearance ridotta solo tra i pad del connettore
+(rule "FPC passo 0.5 mm"
+  (condition "A.Type == 'pad' && B.Type == 'pad' && A.Parent.Reference == B.Parent.Reference && A.Parent.Footprint == 'Connector_FFC-FPC:*'")
+  (constraint clearance (min 0.15mm)))
