@@ -39,7 +39,7 @@ Questo lavoro descrive il progetto MuonScope, un rivelatore di muoni cosmici a p
 
 I muoni cosmici sono la componente carica più abbondante della radiazione cosmica al livello del mare. Sono prodotti negli sciami generati dall'interazione dei raggi cosmici primari con l'alta atmosfera e, grazie alla vita media dilatata relativisticamente e al basso potere frenante, raggiungono il suolo con un flusso dell'ordine di un muone per centimetro quadrato al minuto su un rivelatore orizzontale~\cite{pdg2024,gaisser2016}.
 
-I rivelatori didattici e amatoriali più diffusi usano scintillatori plastici letti da fotomoltiplicatori al silicio (SiPM)~\cite{axani2016,axani2018}. Un'alternativa più semplice ed economica è usare come rivelatore diretto un fotodiodo PIN al silicio commerciale, polarizzato in inversa: la particella attraversa la zona svuotata e vi genera coppie elettrone-lacuna, raccolte come un impulso di carica. Questa tecnica è nota per la rivelazione di particelle alfa e beta~\cite{knoll2010,physicsopenlab2020}. Per i muoni è più impegnativa, perché la carica depositata in poche decine di micrometri di silicio è dell'ordine del femtocoulomb.
+I rivelatori didattici e amatoriali più diffusi usano scintillatori plastici letti da fotomoltiplicatori al silicio (SiPM)~\cite{axani2017,axani2018}. Un'alternativa più semplice ed economica è usare come rivelatore diretto un fotodiodo PIN al silicio commerciale, polarizzato in inversa: la particella attraversa la zona svuotata e vi genera coppie elettrone-lacuna, raccolte come un impulso di carica. Questa tecnica è nota da tempo per la spettroscopia di particelle alfa con fotodiodi economici~\cite{gooda1987} ed è usata nel rivelatore didattico per particelle alfa e beta sviluppato al CERN~\cite{keller2019,physicsopenlab2020}; la fisica di base è trattata in~\cite{knoll2010}. Per i muoni è più impegnativa, perché la carica depositata in poche decine di micrometri di silicio è dell'ordine del femtocoulomb.
 
 Gli obiettivi di MuonScope sono:
 \begin{enumerate}
@@ -98,6 +98,7 @@ Il numero medio di coppie generate in uno spessore $W$ di zona svuotata da una M
 e la carica corrispondente è $Q = \langle N\rangle q$, con $q=\SI{1.602e-19}{\coulomb}$.
 
 \subsection{Il fotodiodo PIN come rivelatore di particelle}
+I fotodiodi PIN commerciali, nati per rivelare luce, funzionano anche come rivelatori diretti di particelle cariche quando la radiazione raggiunge il chip: lo hanno mostrato per le particelle alfa Gooda e Gilboy~\cite{gooda1987}, e il principio è alla base del rivelatore DIY del CERN~\cite{keller2019}.
 
 \subsubsection{Zona svuotata e capacità}
 
