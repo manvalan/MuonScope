@@ -1,0 +1,1386 @@
+{
+"AA17": [
+"SA0",
+"A"
+],
+"AB13": [
+"SA1",
+"A"
+],
+"AA12": [
+"SA2",
+"A"
+],
+"U15": [
+"SA3",
+"A"
+],
+"U13": [
+"SA4",
+"A"
+],
+"W13": [
+"SA5",
+"A"
+],
+"Y13": [
+"SA6",
+"A"
+],
+"W17": [
+"SA7",
+"A"
+],
+"AB18": [
+"SA8",
+"A"
+],
+"AA19": [
+"SA9",
+"A"
+],
+"AC17": [
+"SA10",
+"A"
+],
+"AC19": [
+"SA11",
+"A"
+],
+"Y17": [
+"SA12",
+"A"
+],
+"AB16": [
+"SA13",
+"A"
+],
+"AC13": [
+"SA14",
+"A"
+],
+"AB12": [
+"SA15",
+"A"
+],
+"AB15": [
+"SA16",
+"A"
+],
+"W15": [
+"SBA0",
+"A"
+],
+"Y15": [
+"SBA1",
+"A"
+],
+"AB17": [
+"SBG0",
+"A"
+],
+"AB20": [
+"SBG1",
+"A"
+],
+"AA20": [
+"SACT",
+"A"
+],
+"AC15": [
+"SCS0",
+"A"
+],
+"AB19": [
+"SCS1",
+"A"
+],
+"AA21": [
+"SODT0",
+"A"
+],
+"AC21": [
+"SODT1",
+"A"
+],
+"AA14": [
+"SCKP",
+"A"
+],
+"AB14": [
+"SCKN",
+"A"
+],
+"AA16": [
+"SCKE0",
+"A"
+],
+"AA15": [
+"SCKE1",
+"A"
+],
+"U17": [
+"SRST",
+"A"
+],
+"Y2": [
+"SDQS0P",
+"A"
+],
+"Y3": [
+"SDQS0N",
+"A"
+],
+"AB2": [
+"SDQS1P",
+"A"
+],
+"AC2": [
+"SDQS1N",
+"A"
+],
+"AB7": [
+"SDQS2P",
+"A"
+],
+"AC7": [
+"SDQS2N",
+"A"
+],
+"AB10": [
+"SDQS3P",
+"A"
+],
+"AA10": [
+"SDQS3N",
+"A"
+],
+"U7": [
+"SDQM0",
+"A"
+],
+"AA5": [
+"SDQM1",
+"A"
+],
+"AA9": [
+"SDQM2",
+"A"
+],
+"U11": [
+"SDQM3",
+"A"
+],
+"Y7": [
+"SDQ0",
+"A"
+],
+"V7": [
+"SDQ1",
+"A"
+],
+"Y5": [
+"SDQ2",
+"A"
+],
+"W7": [
+"SDQ3",
+"A"
+],
+"W1": [
+"SDQ4",
+"A"
+],
+"W4": [
+"SDQ5",
+"A"
+],
+"W2": [
+"SDQ6",
+"A"
+],
+"W3": [
+"SDQ7",
+"A"
+],
+"AA1": [
+"SDQ8",
+"A"
+],
+"AB4": [
+"SDQ9",
+"A"
+],
+"AB1": [
+"SDQ10",
+"A"
+],
+"AB3": [
+"SDQ11",
+"A"
+],
+"AC3": [
+"SDQ12",
+"A"
+],
+"AA4": [
+"SDQ13",
+"A"
+],
+"AA3": [
+"SDQ14",
+"A"
+],
+"AA2": [
+"SDQ15",
+"A"
+],
+"AC9": [
+"SDQ16",
+"A"
+],
+"AB9": [
+"SDQ17",
+"A"
+],
+"AA8": [
+"SDQ18",
+"A"
+],
+"AB8": [
+"SDQ19",
+"A"
+],
+"AC5": [
+"SDQ20",
+"A"
+],
+"AB5": [
+"SDQ21",
+"A"
+],
+"AA6": [
+"SDQ22",
+"A"
+],
+"AB6": [
+"SDQ23",
+"A"
+],
+"Y11": [
+"SDQ24",
+"A"
+],
+"W9": [
+"SDQ25",
+"A"
+],
+"V9": [
+"SDQ26",
+"A"
+],
+"Y9": [
+"SDQ27",
+"A"
+],
+"AC11": [
+"SDQ28",
+"A"
+],
+"W11": [
+"SDQ29",
+"A"
+],
+"AB11": [
+"SDQ30",
+"A"
+],
+"V11": [
+"SDQ31",
+"A"
+],
+"Y19": [
+"SZQ",
+"A"
+],
+"R9": [
+"VCC_DRAM1",
+"A"
+],
+"R10": [
+"VCC_DRAM2",
+"A"
+],
+"R11": [
+"VCC_DRAM3",
+"A"
+],
+"R12": [
+"VCC_DRAM4",
+"A"
+],
+"R13": [
+"VCC_DRAM5",
+"A"
+],
+"R14": [
+"VCC_DRAM6",
+"A"
+],
+"R15": [
+"VDD18_DRAM",
+"A"
+],
+"E5": [
+"PB0/UART2_TX/SPI2_CS/JTAG_MS/PB_EINT0",
+"B"
+],
+"D4": [
+"PB1/UART2_RX/SPI2_CLK/JTAG_CK/PB_EINT1",
+"B"
+],
+"G4": [
+"PB2/UART2_RTS/SPI2_MOSI/JTAG_DO/PB_EINT2",
+"B"
+],
+"D5": [
+"PB3/UART2_CTS/SPI2_MISO/JTAG_DI/PB_EINT3",
+"B"
+],
+"D3": [
+"PB4/TWI1_SCK/I2S0_MCLK/JTAG_MS_GPU/PB_EINT4",
+"B"
+],
+"D2": [
+"PB5/TWI1_SDA/I2S0_BCLK/JTAG_CK_GPU/PB_EINT5",
+"B"
+],
+"E3": [
+"PB6/I2S0_LRCK/JTAG_DO_GPU/PB_EINT6",
+"B"
+],
+"E2": [
+"PB7/SPDIF_IN/I2S0_DOUT0/I2S0_DIN1/PB_EINT7",
+"B"
+],
+"E1": [
+"PB8/SPDIF_OUT/I2S0_DIN0/I2S0_DOUT1/PB_EINT8",
+"B"
+],
+"F2": [
+"PB9/UART0_TX/TWI0_SCK/JTAG_DI_GPU/PB_EINT9",
+"B"
+],
+"F3": [
+"PB10/UART0_RX/TWI0_SDA/PWM1/PB_EINT10",
+"B"
+],
+"N19": [
+"PC0/NAND_WE/SDC2_DS/PC_EINT0",
+"B"
+],
+"P22": [
+"PC1/NAND_ALE/SDC2_RST/PC_EINT1",
+"B"
+],
+"M21": [
+"PC2/NAND_CLE/SPI0_MOSI/PC_EINT2",
+"B"
+],
+"M22": [
+"PC3/NAND_CE1/SPI0_CS0/PC_EINT3",
+"B"
+],
+"L23": [
+"PC4/NAND_CE0/SPI0_MISO/PC_EINT4",
+"B"
+],
+"N23": [
+"PC5/NAND_RE/SDC2_CLK/PC_EINT5",
+"B"
+],
+"L22": [
+"PC6/NAND_RB0/SDC2_CMD/PC_EINT6",
+"B"
+],
+"N20": [
+"PC7/NAND_RB1/SPI0_CS1/PC_EINT7",
+"B"
+],
+"P21": [
+"PC8/NAND_DQ7/SDC2_D3/PC_EINT8",
+"B"
+],
+"N21": [
+"PC9/NAND_DQ6/SDC2_D4/PC_EINT9",
+"B"
+],
+"K22": [
+"PC10/NAND_DQ5/SDC2_D0/PC_EINT10",
+"B"
+],
+"J22": [
+"PC11/NAND_DQ4/SDC2_D5/PC_EINT11",
+"B"
+],
+"L19": [
+"PC12/NAND_DQS/SPI0_CLK/PC_EINT12",
+"B"
+],
+"L21": [
+"PC13/NAND_DQ3/SDC2_D1/PC_EINT13",
+"B"
+],
+"K21": [
+"PC14/NAND_DQ2/SDC2_D6/PC_EINT14",
+"B"
+],
+"J23": [
+"PC15/NAND_DQ1/SDC2_D2/SPI0_WP/PC_EINT15",
+"B"
+],
+"L20": [
+"PC16/NAND_DQ0/SDC2_D7/SPI0_HOLD/PC_EINT16",
+"B"
+],
+"L18": [
+"VCC_PC",
+"B"
+],
+"V22": [
+"PD0/LCD0_D2/LVDS0_D0P/DSI_DP0/PD_EINT0",
+"B"
+],
+"V23": [
+"PD1/LCD0_D3/LVDS0_D0N/DSI_DM0/PD_EINT1",
+"B"
+],
+"W22": [
+"PD2/LCD0_D4/LVDS0_D1P/DSI_DP1/PD_EINT2",
+"B"
+],
+"W23": [
+"PD3/LCD0_D5/LVDS0_D1N/DSI_DM1/PD_EINT3",
+"B"
+],
+"AA22": [
+"PD4/LCD0_D6/LVDS0_D2P/DSI_CKP/PD_EINT4",
+"B"
+],
+"AA23": [
+"PD5/LCD0_D7/LVDS0_D2N/DSI_CKM/PD_EINT5",
+"B"
+],
+"Y22": [
+"PD6/LCD0_D10/LVDS0_CKP/DSI_DP2/PD_EINT6",
+"B"
+],
+"Y23": [
+"PD7/LCD0_D11/LVDS0_CKN/DSI_DM2/PD_EINT7",
+"B"
+],
+"AB22": [
+"PD8/LCD0_D12/LVDS0_D3P/DSI_DP3/PD_EINT8",
+"B"
+],
+"AB23": [
+"PD9/LCD0_D13/LVDS0_D3N/DSI_DM3/PD_EINT9",
+"B"
+],
+"R22": [
+"PD10/LCD0_D14/LVDS1_D0P/SPI1_CS/PD_EINT10",
+"B"
+],
+"R23": [
+"PD11/LCD0_D15/LVDS1_D0N/SPI1_CLK/PD_EINT11",
+"B"
+],
+"T21": [
+"PD12/LCD0_D18/LVDS1_D1P/SPI1_MOSI/PD_EINT12",
+"B"
+],
+"T22": [
+"PD13/LCD0_D19/LVDS1_D1N/SPI1_MISO/PD_EINT13",
+"B"
+],
+"U22": [
+"PD14/LCD0_D20/LVDS1_D2P/UART3_TX/PD_EINT14",
+"B"
+],
+"U23": [
+"PD15/LCD0_D21/LVDS1_D2N/UART3_RX/PD_EINT15",
+"B"
+],
+"U21": [
+"PD16/LCD0_D22/LVDS1_CKP/PLL_TEST_CKP/UART3_RTS/PD_EINT16",
+"B"
+],
+"U20": [
+"PD17/LCD0_D23/LVDS1_CKN/PLL_TEST_CKN/UART3_CTS/PD_EINT17",
+"B"
+],
+"W21": [
+"PD18/LCD0_CLK/LVDS1_D3P/UART4_TX/PD_EINT18",
+"B"
+],
+"W20": [
+"PD19/LCD0_DE/LVDS1_D3N/UART4_RX/PD_EINT19",
+"B"
+],
+"U19": [
+"PD20/LCD0_HSYNC /PWM2/UART4_RTS/PD_EINT20",
+"B"
+],
+"U18": [
+"PD21/LCD0_VSYNC/PWM3/UART4_CTS/PD_EINT21",
+"B"
+],
+"R20": [
+"PD22/PWM1/TWI0_SCK/PD_EINT22",
+"B"
+],
+"R19": [
+"PD23/PWM0/TWI0_SDA/PD_EINT23",
+"B"
+],
+"R18": [
+"VCC_PD",
+"B"
+],
+"N18": [
+"VCC_LVDS",
+"B"
+],
+"E23": [
+"PE0/MIPI_MCLK0/PE_EINT0",
+"B"
+],
+"E20": [
+"PE1/TWI2_SCK/PE_EINT1",
+"B"
+],
+"G20": [
+"PE2/TWI2_SDA/PE_EINT2",
+"B"
+],
+"D19": [
+"PE3/TWI3_SCK/PE_EINT3",
+"B"
+],
+"G21": [
+"PE4/TWI3_SDA/PE_EINT4",
+"B"
+],
+"G19": [
+"PE5/MIPI_MCLK1/PLL_LOCK_DBG/I2S2_MCLK/LEDC/PE_EINT5",
+"B"
+],
+"F22": [
+"PE6/BIST_RESULT0/I2S2_BCLK/PE_EINT6",
+"B"
+],
+"E22": [
+"PE7/CSI_SM_VS/BIST_RESULT1/I2S2_LRCK/TCON_TRIG/PE_EINT7",
+"B"
+],
+"F23": [
+"PE8/BIST_RESULT2/I2S2_DOUT0/PE_EINT8",
+"B"
+],
+"E21": [
+"PE9/BIST_RESULT3/I2S2_DIN0/PE_EINT9",
+"B"
+],
+"E17": [
+"VCC_PE",
+"B"
+],
+"B10": [
+"PF0/SDC0_D1/JTAG_MS/JTAG_MS_GPU/PF_EINT0",
+"B"
+],
+"C9": [
+"PF1/SDC0_D0/JTAG_DI/JTAG_DI_GPU/PF_EINT1",
+"B"
+],
+"A9": [
+"PF2/SDC0_CLK/UART0_TX/PF_EINT2",
+"B"
+],
+"B9": [
+"PF3/SDC0_CMD/JTAG_DO/JTAG_DO_GPU/PF_EINT3",
+"B"
+],
+"B8": [
+"PF4/SDC0_D3/UART0_RX/PF_EINT4",
+"B"
+],
+"C8": [
+"PF5/SDC0_D2/JTAG_CK/JTAG_CK_GPU/PF_EINT5",
+"B"
+],
+"C10": [
+"PF6/PF_EINT6",
+"B"
+],
+"J2": [
+"PG0/SDC1_CLK/PG_EINT0",
+"B"
+],
+"H2": [
+"PG1/SDC1_CMD/PG_EINT1",
+"B"
+],
+"G1": [
+"PG2/SDC1_D0/PG_EINT2",
+"B"
+],
+"G3": [
+"PG3/SDC1_D1/PG_EINT3",
+"B"
+],
+"G2": [
+"PG4/SDC1_D2/PG_EINT4",
+"B"
+],
+"H3": [
+"PG5/SDC1_D3/PG_EINT5",
+"B"
+],
+"K2": [
+"PG6/UART1_TX/PG_EINT6",
+"B"
+],
+"J5": [
+"PG7/UART1_RX/PG_EINT7",
+"B"
+],
+"K3": [
+"PG8/UART1_RTS/PG_EINT8",
+"B"
+],
+"L3": [
+"PG9/UART1_CTS/I2S1_MCLK/PG_EINT9",
+"B"
+],
+"J1": [
+"PG10/I2S1_BCLK/PG_EINT10",
+"B"
+],
+"G5": [
+"PG11/I2S1_LRCK/PG_EINT11",
+"B"
+],
+"G6": [
+"PG12/I2S1_DOUT0/I2S1_DIN1/PG_EINT12",
+"B"
+],
+"J4": [
+"PG13/I2S1_DIN0/I2S1_DOUT1/PG_EINT13",
+"B"
+],
+"J6": [
+"VCC_PG",
+"B"
+],
+"C7": [
+"PH0/TWI0_SCK/RGMII0_RXD1/RMII0_RXD1/PH_EINT0",
+"B"
+],
+"A5": [
+"PH1/TWI0_SDA/RGMII0_RXD0/RMII0_RXD0/PH_EINT1",
+"B"
+],
+"B6": [
+"PH2/TWI1_SCK/CPU_CUR_W/RGMII0_RXCTL/RMII0_CRS_DV/PH_EINT2",
+"B"
+],
+"B5": [
+"PH3/TWI1_SDA/CIR_OUT/RGMII0_CLKIN/RMII0_RXER/PH_EINT3",
+"B"
+],
+"C6": [
+"PH4/UART3_TX/SPI1_CS/CPU_CUR_W/RGMII0_TXD1/RMII0_TXD1/PH_EINT4",
+"B"
+],
+"C5": [
+"PH5/UART3_RX/SPI1_CLK/LEDC/RGMII0_TXD0/RMII0_TXD0/PH_EINT5",
+"B"
+],
+"F9": [
+"PH6/UART3_RTS/SPI1_MOSI/SPDIF_IN/RGMII0_TXCK/RMII0_TXCK/PH_EINT6",
+"B"
+],
+"C4": [
+"PH7/UART3_CTS/SPI1_MISO/SPDIF_OUT/RGMII0_TXCTL/RMII0_TXEN/PH_EINT7",
+"B"
+],
+"E9": [
+"PH8/DMIC_CLK/SPI2_CS/I2S2_MCLK/I2S2_DIN2/PH_EINT8",
+"B"
+],
+"D9": [
+"PH9/DMIC_DATA0/SPI2_CLK/I2S2_BCLK/MDC0/PH_EINT9",
+"B"
+],
+"B4": [
+"PH10/DMIC_DATA1/SPI2_MOSI/I2S2_LRCK/MDIO0/PH_EINT10",
+"B"
+],
+"D7": [
+"PH11/DMIC_DATA2/SPI2_MISO/I2S2_DOUT0/I2S2_DIN1/PH_EINT11",
+"B"
+],
+"A3": [
+"PH12/DMIC_DATA3/TWI3_SCK/I2S2_DIN0/I2S2_DOUT1/PH_EINT12",
+"B"
+],
+"B2": [
+"PH13/TWI3_SDA/I2S3_MCLK/EPHY0_25/PH_EINT13",
+"B"
+],
+"C1": [
+"PH14/I2S3_BCLK/RGMII0_RXD3/RMII0_NULL/PH_EINT14",
+"B"
+],
+"B3": [
+"PH15/I2S3_LRCK/RGMII0_RXD2/RMII0_NULL/PH_EINT15",
+"B"
+],
+"C3": [
+"PH16/I2S3_DOUT0/I2S3_DIN1/RGMII0_RXCK/RMII0_NULL/PH_EINT16",
+"B"
+],
+"A2": [
+"PH17/I2S3_DOUT1/I2S3_DIN0/RGMII0_TXD3/RMII0_NULL/PH_EINT17",
+"B"
+],
+"C2": [
+"PH18/CIR_OUT/I2S3_DOUT2/I2S3_DIN2/RGMII0_TXD2/RMII0_NULL/PH_EINT18",
+"B"
+],
+"B1": [
+"PH19/CIR_IN/I2S3_DOUT3/I2S3_DIN3/LEDC/PH_EINT19",
+"B"
+],
+"N5": [
+"PL0/S_TWI0_SCK/S_PL_EINT0",
+"B"
+],
+"L6": [
+"PL1/S_TWI0_SDA/S_PL_EINT1",
+"B"
+],
+"P3": [
+"PL2/S_UART_TX/S_PL_EINT2",
+"B"
+],
+"N1": [
+"PL3/S_UART_RX/S_PL_EINT3",
+"B"
+],
+"R4": [
+"PL4/S_JTAG_MS/S_PL_EINT4",
+"B"
+],
+"N3": [
+"PL5/S_JTAG_CK/S_PL_EINT5",
+"B"
+],
+"N2": [
+"PL6/S_JTAG_DO/S_PL_EINT6",
+"B"
+],
+"L2": [
+"PL7/S_JTAG_DI/S_PL_EINT7",
+"B"
+],
+"L1": [
+"PL8/S_TWI1_SCK/S_PL_EINT8",
+"B"
+],
+"M3": [
+"PL9/S_TWI1_SDA/S_PL_EINT9",
+"B"
+],
+"U4": [
+"PL10/S_PWM/S_PL_EINT10",
+"B"
+],
+"M2": [
+"PL11/S_CPU_CUR_W/S_CIR_IN/S_PL_EINT11",
+"B"
+],
+"G22": [
+"USB0_DM",
+"C"
+],
+"G23": [
+"USB0_DP",
+"C"
+],
+"H22": [
+"USB1_DM",
+"C"
+],
+"H23": [
+"USB1_DP",
+"C"
+],
+"J20": [
+"VCC_USB",
+"C"
+],
+"J18": [
+"VDD_USB",
+"C"
+],
+"B16": [
+"HBIAS",
+"C"
+],
+"B15": [
+"MBIAS",
+"C"
+],
+"A15": [
+"MIC_DET",
+"C"
+],
+"C11": [
+"HP_DET",
+"C"
+],
+"A13": [
+"MICIN1N",
+"C"
+],
+"B13": [
+"MICIN1P",
+"C"
+],
+"A12": [
+"MICIN2N",
+"C"
+],
+"B12": [
+"MICIN2P",
+"C"
+],
+"E13": [
+"VRA2",
+"C"
+],
+"D13": [
+"AVCC",
+"C"
+],
+"A14": [
+"LINEOUTLP",
+"C"
+],
+"B14": [
+"LINEOUTLN",
+"C"
+],
+"D11": [
+"AGND",
+"C"
+],
+"B17": [
+"HPOUTFB",
+"C"
+],
+"E15": [
+"CPVEE",
+"C"
+],
+"D15": [
+"VEE",
+"C"
+],
+"A16": [
+"HPOUTR",
+"C"
+],
+"A17": [
+"HPOUTL",
+"C"
+],
+"C13": [
+"CPVIN",
+"C"
+],
+"C15": [
+"CPVDD",
+"C"
+],
+"E11": [
+"LRADC",
+"C"
+],
+"B11": [
+"GPADC0",
+"C"
+],
+"A11": [
+"GPADC1",
+"C"
+],
+"D21": [
+"MCSIA_D0N",
+"C"
+],
+"D22": [
+"MCSIA_D0P",
+"C"
+],
+"C22": [
+"MCSIA_D1N",
+"C"
+],
+"C23": [
+"MCSIA_D1P",
+"C"
+],
+"B21": [
+"MCSIA_D2N",
+"C"
+],
+"C21": [
+"MCSIA_D2P",
+"C"
+],
+"B22": [
+"MCSIA_D3N",
+"C"
+],
+"B23": [
+"MCSIA_D3P",
+"C"
+],
+"A22": [
+"MCSIA_CKN",
+"C"
+],
+"A21": [
+"MCSIA_CKP",
+"C"
+],
+"D17": [
+"VCC_MCSI",
+"C"
+],
+"B20": [
+"MCSIB_D0N",
+"C"
+],
+"C20": [
+"MCSIB_D0P",
+"C"
+],
+"B18": [
+"MCSIB_D1N",
+"C"
+],
+"C18": [
+"MCSIB_D1P",
+"C"
+],
+"A19": [
+"MCSIB_CKN",
+"C"
+],
+"B19": [
+"MCSIB_CKP",
+"C"
+],
+"A7": [
+"FEL",
+"C"
+],
+"F11": [
+"BOOT_SEL",
+"C"
+],
+"B7": [
+"JTAG_SEL",
+"C"
+],
+"R5": [
+"NMI",
+"C"
+],
+"R6": [
+"RESET",
+"C"
+],
+"J19": [
+"VCC_EFUSE",
+"C"
+],
+"T2": [
+"X32KIN",
+"C"
+],
+"T3": [
+"X32KOUT",
+"C"
+],
+"U3": [
+"X32KFOUT",
+"C"
+],
+"L5": [
+"VCC_RTC",
+"C"
+],
+"N6": [
+"VCC_PLL",
+"C"
+],
+"R2": [
+"DXIN",
+"C"
+],
+"R1": [
+"DXOUT",
+"C"
+],
+"R3": [
+"REFCLK_OUT",
+"C"
+],
+"U1": [
+"DXLDO_OUT",
+"C"
+],
+"F13": [
+"VRA1",
+"C"
+],
+"P2": [
+"RTCVIO",
+"C"
+],
+"N4": [
+"VDD_CPUS",
+"D"
+],
+"H13": [
+"VDD_SYS1",
+"D"
+],
+"H14": [
+"VDD_SYS2",
+"D"
+],
+"H15": [
+"VDD_SYS3",
+"D"
+],
+"H16": [
+"VDD_SYS4",
+"D"
+],
+"J16": [
+"VDD_SYS5",
+"D"
+],
+"H12": [
+"VDD_SYSFB",
+"D"
+],
+"K8": [
+"VDD_CPU1",
+"D"
+],
+"K9": [
+"VDD_CPU2",
+"D"
+],
+"L8": [
+"VDD_CPU3",
+"D"
+],
+"M8": [
+"VDD_CPU4",
+"D"
+],
+"N8": [
+"VDD_CPU5",
+"D"
+],
+"P8": [
+"VDD_CPUFB",
+"D"
+],
+"E7": [
+"VCC_IO",
+"D"
+],
+"A1": [
+"GND1",
+"D"
+],
+"A23": [
+"GND2",
+"D"
+],
+"C17": [
+"GND3",
+"D"
+],
+"C19": [
+"GND4",
+"D"
+],
+"H8": [
+"GND5",
+"D"
+],
+"H9": [
+"GND6",
+"D"
+],
+"H10": [
+"GND7",
+"D"
+],
+"H11": [
+"GND8",
+"D"
+],
+"J3": [
+"GND9",
+"D"
+],
+"J8": [
+"GND10",
+"D"
+],
+"J9": [
+"GND11",
+"D"
+],
+"J10": [
+"GND12",
+"D"
+],
+"J15": [
+"GND13",
+"D"
+],
+"J21": [
+"GND14",
+"D"
+],
+"K10": [
+"GND15",
+"D"
+],
+"K11": [
+"GND16",
+"D"
+],
+"K12": [
+"GND17",
+"D"
+],
+"K13": [
+"GND18",
+"D"
+],
+"K14": [
+"GND19",
+"D"
+],
+"K15": [
+"GND20",
+"D"
+],
+"K16": [
+"GND21",
+"D"
+],
+"L9": [
+"GND22",
+"D"
+],
+"L10": [
+"GND23",
+"D"
+],
+"L14": [
+"GND24",
+"D"
+],
+"L15": [
+"GND25",
+"D"
+],
+"L16": [
+"GND26",
+"D"
+],
+"M9": [
+"GND27",
+"D"
+],
+"M10": [
+"GND28",
+"D"
+],
+"M11": [
+"GND29",
+"D"
+],
+"M12": [
+"GND30",
+"D"
+],
+"M13": [
+"GND31",
+"D"
+],
+"M14": [
+"GND32",
+"D"
+],
+"M15": [
+"GND33",
+"D"
+],
+"M16": [
+"GND34",
+"D"
+],
+"N9": [
+"GND35",
+"D"
+],
+"N15": [
+"GND36",
+"D"
+],
+"N16": [
+"GND37",
+"D"
+],
+"N22": [
+"GND38",
+"D"
+],
+"P9": [
+"GND39",
+"D"
+],
+"P10": [
+"GND40",
+"D"
+],
+"P11": [
+"GND41",
+"D"
+],
+"P12": [
+"GND42",
+"D"
+],
+"P13": [
+"GND43",
+"D"
+],
+"P14": [
+"GND44",
+"D"
+],
+"P15": [
+"GND45",
+"D"
+],
+"P16": [
+"GND46",
+"D"
+],
+"R8": [
+"GND47",
+"D"
+],
+"R16": [
+"GND48",
+"D"
+],
+"R21": [
+"GND49",
+"D"
+],
+"U5": [
+"GND50",
+"D"
+],
+"U9": [
+"GND51",
+"D"
+],
+"V2": [
+"GND52",
+"D"
+],
+"V3": [
+"GND53",
+"D"
+],
+"V13": [
+"GND54",
+"D"
+],
+"V15": [
+"GND55",
+"D"
+],
+"V17": [
+"GND56",
+"D"
+],
+"Y4": [
+"GND57",
+"D"
+],
+"AA7": [
+"GND58",
+"D"
+],
+"AA11": [
+"GND59",
+"D"
+],
+"AA13": [
+"GND60",
+"D"
+],
+"AA18": [
+"GND61",
+"D"
+],
+"AC1": [
+"GND62",
+"D"
+],
+"AC22": [
+"GND63",
+"D"
+],
+"AC23": [
+"GND64",
+"D"
+],
+"U2": [
+"WREQIN",
+"C"
+],
+"L4": [
+"VCC_PL",
+"B"
+]
+}

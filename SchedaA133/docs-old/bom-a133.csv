@@ -1,0 +1,36 @@
+ref,funzione,mpn,produttore,package,qta,lcsc,lcsc_verificato,note
+U1,SoC,A133,Allwinner,LFBGA-346 12x12 passo 0.5,1,C2997892,si,117 pz a stock 2026-10-13 circa 4.69 USD
+U2,PMIC,AXP707,X-Powers,QFN-68-EP 8x8,1,C2913551,si,Stock LCSC incerto (pagina 'Notify Me'); circa 2 USD; strap DC5SET per 1.2 V
+U3,RAM LPDDR4 16Gb x32 (2 GB),MT53E512M32D1ZW-046 IT:B,Micron,TFBGA-200 10x14.5,1,C5330502,si,"Scelta 2026-10-13. Industriale; VDD1 1.8 V, VDD2/VDDQ 1.1 V (verificare che il chip accetti VDDQ 1.1 LPDDR4); 240 Ω ZQ; LCSC esaurito al 2026-10-13; variante WT:B C5330500 a stock"
+U5,eMMC 5.1 256 GB,EMMC256-TY29-5B101,Kingston,FBGA-153 11.5x13,1,C17590684,si,"Industriale -40/+85 °C, HS400; versione commerciale EMMC256-TY29-5B101; verificare VCCQ 1.8 V; IY29 industriale non su LCSC: codice della versione commerciale TY29, esaurita al 2026-10-13. IY29 da Mouser/DigiKey"
+U6,EEPROM MAC EUI-48,25AA02E48T-I/OT,Microchip,SOT-23-6,1,C145570,si,Alternativa I2C 24AA02E48T-I/OT (SOT-23-5); Alternativa I2C 24AA02E48T-I/OT = C38987
+U7,PHY Gigabit RGMII,RTL8211F-CG,Realtek,QFN-40 5x5,1,C187932,si,Regolatore interno: induttore su REG_OUT come da datasheet
+J1,RJ45 con magnetici,HR911130C,HanRun,THT,1,C50933,si,Verificare che sia versione 1000BASE-T (4 coppie) con LED; HR911130A (C54408) esaurito; verificare LED sul datasheet
+Y1,Quarzo 25 MHz,X322525MOB4SI,YXC,3225,1,C9006,si,Codice ripreso dalla BOM RK3308B; 2x18 pF C0G
+U8,Modulo Wi-Fi/BT AMPAK dual band,AP6256,AMPAK,LGA 12x12 (47 pin),1,,non su LCSC,"Scelto 2026-10-13. Wi-Fi 5 dual band 2.4/5 GHz 802.11ac 1x1 (433 Mbps) + BT 5.2; SDIO 3.0 + UART HCI 4 Mbps; VBAT 3.0-4.4 V (picco 1 A), VDDIO 1.8/3.3 V; LPO 32.768 kHz ±30 ppm; -30/+85 °C. Driver mainline brcmfmac (firmware brcmfmac43456-sdio) + btbcm, usato su Orange Pi 3 (H6). NON su LCSC: Mouser/DigiKey/distributori AMPAK"
+J2,Connettore antenna Wi-Fi,U.FL-R-SMT-1(80),Hirose,SMD,1,C88374,si,
+J3,USB Type-C 16 pin,TYPE-C-31-M-12,Korean Hroparts,SMD,1,C165948,si,DRP: CC verso FUSB302B (niente 5.1 kΩ fissi)
+U9,ESD USB,USBLC6-2SC6,ST,SOT-23-6,1,C7519,si,
+U15,Controller USB-C CC/PD,FUSB302BMPX,onsemi,WQFN-14 2.5x2.5,1,C132291,si,"Driver mainline fusb302+tcpm; piano B TUSB320LAI (DRP, uscita ID)"
+U16,Switch VBUS source,SY6280AAC,Silergy,SOT-23-5,1,C55136,si,Limite corrente impostato a ~1 A
+U17,Power mux ingressi,TPS2121RUXR,TI,VQFN-12,1,C485916,si,"Priorità al jack DC, poi USB-C VBUS"
+J7,Jack DC 5 V,DC-005-5A-2.0,,THT,1,C381116,si,Alimentatore 5 V / 4 A per uso host senza hub PD; XKB; NON usare C381115 (pin 2.5 mm). Alternativa C431533
+U18,ESD CC1/CC2,TPD2EUSB30ADRTR,TI,SOT-3,1,C94934,si,TPD2EUSB30DRTR (C97502) esaurito; versione A stesso package
+J8,USB-A host (opzionale),903-131A1011D10100,,THT,1,C46407,si,Su USB1 host del SoC + switch VBUS dedicato; USB-A THT 90°
+D1,TVS VBUS,SMF5.0A (Littelfuse),,SOD-123F,1,C151296,si,
+F1,Fusibile resettabile 3 A,1812L300MR,,1812,1,C127824,si,"3 A hold, max 6 V: ok per ingressi 5 V"
+U10,Modulo GNSS timing,NEO-F10T,u-blox,LCC-24 12.2x16,1,,non su LCSC,"PPS su EINT SoC; EXTINT (time mark) per strobe camera, risoluzione ns; Non su LCSC: Mouser/DigiKey (NEO-F10T-00B)"
+C1,Supercap backup GNSS,CPH3225A,Seiko,SMD 3.2x2.5,1,,non su LCSC,Diodo Schottky + 1 kΩ dal 3.3 V; alternativa portabatteria CR1220; CPH3225A non su LCSC: DigiKey/Farnell
+J4,Connettore antenna GNSS,BWSMA-KE-P001,,,1,C496550,si,Bias antenna attiva 3.3 V con induttore e limitazione; SMA 50 Ω; verificare montaggio a bordo scheda sul footprint
+J9,Connettore ingresso time mark (strobe camera),BWSMA-KE-P001,,,1,C496550,si,Verso EXTINT del NEO-F10T tramite buffer
+J10,Uscita PPS bufferizzata,BWSMA-KE-P001,,,1,C496550,si,
+U19;U20,Buffer Schmitt 3.3 V (EXTINT e PPS out),SN74LVC1G17DBVR,TI,SOT-23-5,2,C7836,si,Ingressi tolleranti 5 V; ritardo ~3-4 ns calibrabile
+D2;D3,ESD linee timing,ESD9B5.0ST5G,onsemi,SOD-923,2,C111566,si,+ 100 Ω serie
+J5,Slot microSD push-push,DM3AT-SF-PEJM5,Hirose,SMD,1,C114218,si,SMHC0 (PF0-PF6)
+Y2,Quarzo 24 MHz,X322524MOB4SI,YXC,3225,1,C70590,si,CL 12 pF
+Y3,Quarzo 32.768 kHz,Q13FC13500004,Epson,3215,1,C32346,si,CL 12.5 pF
+U12,Buck 3.3 V 2 A (Wi-Fi/GNSS/PHY),SY8089AAAC,Silergy,SOT-23-5,1,C78988,si,"Alimenta Wi-Fi (picco 1 A), GNSS e PHY: 2 A sufficienti"
+U14,Batteria backup RTC SoC (opz.),CR1220-2 (portabatteria),Seiko,SMD,1,C70381,si,Su pin BACKUP dell'AXP707; ML414H non su LCSC: portabatteria CR1220 SMD
+SW1;SW2,Pulsanti FEL e reset,TS-1088-AR02016,,SMD 3x4,2,C720477,si,Tattile SMD 3.9x3 mm
+J6,Header debug UART0,2.54-1*3P,,2.54 mm 3 pin,1,C49257,si,
+R/C,Passivi,,,0201/0402,n,,generici,ZQ 240 Ω 1% (x3); VREFCA partitore 1%; disaccoppiamento secondo schema di riferimento A133

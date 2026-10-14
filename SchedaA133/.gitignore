@@ -1,0 +1,11 @@
+# KiCad
+*-backups/
+*.lck
+fp-info-cache
+*.kicad_prl
+_autosave-*
+~*
+# file vuoto del primo progetto, non piu referenziato
+progetto-kicad/cpu-unit.kicad_sch
+# Python
+__pycache__/
