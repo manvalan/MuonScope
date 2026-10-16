@@ -35,7 +35,7 @@ units = [sorted(u, key=natkey) for u in units]
 H616_SYM, H616_PINS = multi_symbol("H616", "H616", units, "Allwinner H616, TFBGA-284 14x12 mm passo 0.65 mm", w=22.86, titles=TITLES)
 
 RAILS = ["VDD-CPU", "VDD-CPUFB", "VDD-SYS", "VDD-SYSFB", "VCC-DRAM", "VCC-1V8", "VCC-1V8-EMMC", "VCC-IO", "AP-RESET", "PMU-SCK", "PMU-SDA",
-         "USB0_DP", "USB0_DM", "3V3_SYS", "PD_INT_N", "VBUS_SRC_EN", "PWR_SRC_ST", "EFUSE_FLT_N"]
+         "USB0_DP", "USB0_DM", "3V3_SYS", "PD_INT_N", "VBUS_SRC_EN", "PWR_SRC_ST"]
 BUSNETS = ["PWR_SPI_SCLK", "PWR_SPI_MOSI", "PWR_SPI_MISO", "PWR_SPI_INA239A_CS", "PWR_SPI_INA239B_CS", "PWR_SPI_DAC_CS",
            "VREF_ENABLE", "VBIAS_ENABLE", "DAC61402_FAULT", "MAIN_SPI_SCLK", "MAIN_SPI_MOSI", "MAIN_SPI_MISO", "MAIN_I2C_SDA",
            "MAIN_I2C_SCL", "MAIN_SPI_CS_MASTER", "MAIN_SPI_ADDR_0", "MAIN_SPI_ADDR_1", "MAIN_SPI_ADDR_2", "MAIN_SPI_PREFIX_0",
@@ -194,17 +194,17 @@ s.place("H616:TCA6416APWR", "U8", "TCA6416APWR", "Package_SO:TSSOP-24_4.4x7.8mm_
     "2": "VCC-1V8", "24": "VCC-IO", "22": "PMU-SCK", "23": "PMU-SDA", "1": "IOX_INT_N", "3": "IOX_RESET_N", "21": "GND_D", "12": "GND_D",
     "4": "VREF_ENABLE", "5": "VBIAS_ENABLE", "6": "DAC61402_FAULT", "7": "USB1_VBUS_EN", "8": "VBUS_SRC_EN", "9": "PWR_SRC_ST",
     "10": "PHY_RST_N", "11": "PHY_INT_N", "13": "WL_REG_ON", "14": "BT_REG_ON", "15": "BT_WAKE", "16": "BT_HOST_WAKE",
-    "17": "WL_HOST_WAKE", "18": "SD_DET", "19": "PHY_EE_CS_N", "20": "EFUSE_FLT_N"}, mpn="TCA6416APWR")
+    "17": "WL_HOST_WAKE", "18": "SD_DET", "19": "PHY_EE_CS_N", "20": "NC"}, mpn="TCA6416APWR")
 X2 = X + 55
 for i, (ref, val, a, b) in enumerate([("R28", "2.2k", "VCC-1V8", "PMU-SCK"), ("R29", "2.2k", "VCC-1V8", "PMU-SDA"),
                                       ("R30", "10k", "VCC-1V8-EMMC", "IOX_INT_N"), ("R31", "10k", "VCC-1V8", "IOX_RESET_N"),
                                       ("R32", "10k", "VCC-1V8-EMMC", "PD_INT_N"), ("R33", "10k", "VCC-1V8-EMMC", "USB1_OC_N"),
-                                      ("R34", "10k", "VCC-IO", "PWR_SRC_ST"), ("R35", "10k", "VCC-IO", "EFUSE_FLT_N"),
+                                      ("R34", "10k", "VCC-IO", "PWR_SRC_ST"),
                                       ("R36", "0R", "VCC-IO", "3V3_SYS")]):
     s.R(ref, val, X2 + 10 * i, Y - 25, a, b)
 s.C("C32", "0.1uF", X2, Y + 5, "VCC-1V8", "GND_D")
 s.C("C33", "0.1uF", X2 + 10, Y + 5, "VCC-IO", "GND_D")
 s.text("Porte: P00 VREF_ENABLE, P01 VBIAS_ENABLE, P02 DAC61402_FAULT (in), P03 USB1_VBUS_EN, P04 VBUS_SRC_EN, P05 PWR_SRC_ST (in), P06 PHY_RST_N, P07 PHY_INT_N (in),", X - 60, Y + 45)
-s.text("P10 WL_REG_ON, P11 BT_REG_ON, P12 BT_WAKE, P13 BT_HOST_WAKE (in), P14 WL_HOST_WAKE (in), P15 SD_DET (in), P16 PHY_EE_CS_N, P17 EFUSE_FLT_N (in).", X - 60, Y + 50)
+s.text("P10 WL_REG_ON, P11 BT_REG_ON, P12 BT_WAKE, P13 BT_HOST_WAKE (in), P14 WL_HOST_WAKE (in), P15 SD_DET (in), P16 PHY_EE_CS_N, P17 libera.", X - 60, Y + 50)
 s.text("R336: 3V3_SYS (VDD del FUSB302B) da VCC-IO.", X - 60, Y + 55)
 print("porte:", s.write(PRJ, 330.2, 38.1, f"{PRJ}/H616.kicad_sym"))

@@ -318,7 +318,7 @@ def try_place(ref, cx, cy, sides, maxr=30, first=True):
 # ordine: prima i circuiti integrati e i componenti medi, poi i passivi, ognuno vicino al suo "proprietario"
 placed = set(PLACE)
 MED = {  # componenti medi con zona preferita (cx, cy, lati)
-    "U106": (14, 11, "T"), "U101": (22, 13, "T"), "U103": (13, 15, "B"), "U104": (9, 13, "B"), "U105": (17, 15, "B"),
+    "U101": (22, 13, "T"), "U103": (13, 15, "B"), "U104": (9, 13, "B"), "U105": (17, 15, "B"),
     "U107": (5, 15, "B"), "U108": (17, 17, "B"), "D101": (12, 24, "T"), "D102": (5, 12, "B"),
     "U201": (17.5, 20, "T"), "L201": (12.5, 21.5, "T"), "L202": (14, 26.5, "T"), "L203": (14.5, 31, "T"), "U202": (30, 12, "T"),
     "L204": (31, 16, "T"), "U203": (5, 26, "B"),

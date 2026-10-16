@@ -18,7 +18,7 @@ Immagini: `../pcb-placement-h616.pdf` (pagina 1 top, pagina 2 bottom vista da so
 | Centro | top | H616 (U301), LPDDR4 subito sotto (U401) sul lato delle sfere DRAM (righe N-V) |
 | Sotto le sfere H616 e LPDDR4 | bottom | Disaccoppiamento: 26/26 condensatori dell'H616 e 14/14 della LPDDR4 |
 | Bordo alto | top / bottom | J1 BUS_POWER 30 pin (top) e J2 MAIN 28 pin (bottom), ingresso cavo sul bordo |
-| In alto a sinistra | top | eFuse TPS259470 e buck TPS56637 + L101 vicino al BUS_POWER; sul bottom i due TPS2121 (U103 e U108, vicini tra loro e al jack) e il FUSB302B |
+| In alto a sinistra | top | buck TPS56637 + L101 vicino al BUS_POWER; sul bottom i due TPS2121 (U103 e U108, vicini tra loro e al jack) e il FUSB302B |
 | Bordo sinistro | top | USB-C di alimentazione J104, jack 5 V J103, AP6256 (U601) con U.FL J601 sul bordo |
 | Tra jack e H616 | top | AXP313A (U201) con L201-L203 vicino alle sfere VDD |
 | Sinistra, sotto l'AP6256 | bottom | eMMC (U402), vicina ai pin PC (lato sinistro dell'H616) |
@@ -34,14 +34,14 @@ I passivi sono messi in automatico vicino al componente con cui condividono più
 ## Esito
 
 - **DRC**: 0 violazioni. Restano 499 collegamenti non fatti (nessuna pista). Parità schema/PCB: 0 problemi.
-- **Componenti**: piazzati tutti e 360 (128 top, 232 bottom). Nessun footprint mancante.
+- **Componenti**: piazzati tutti e 352 (122 top, 230 bottom). Nessun footprint mancante.
 - **Libreria H616.pretty corretta**:
   - serigrafia tolta dove finiva sui pad (footprint EasyEDA e AP6256);
   - pioli di centraggio di RJ45 e portapila diventati NPTH.
 
 ## Da rivedere in layout
 
-- La scheda è molto piena: 232 componenti stanno sul bottom, quindi il montaggio è su due lati.
+- La scheda è molto piena: 230 componenti stanno sul bottom, quindi il montaggio è su due lati.
 - Il PHY RTL8211F è a circa 15 mm dall'RJ45: le coppie MDI vanno tenute corte e accoppiate, oppure si sposta il PHY.
 - L'AXP313A e i buck sono a 5-10 mm dal NEO-M9N: serve un piano di massa continuo e il percorso RF corto verso J701.
-- Il footprint RPW0010A del TPS259470 è da verificare sulle quote TI. Lo stackup a 6 strati è quello di default di KiCad e va allineato a quello di JLCPCB.
+- Lo stackup a 6 strati è quello di default di KiCad e va allineato a quello di JLCPCB.

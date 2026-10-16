@@ -128,7 +128,7 @@ for i, (ref, top, bot) in enumerate([("R1", "SPI_ID_0", "GND_D"), ("R2", "SPI_ID
     wire(x, y + 3.81, x, y + 8.89); label(bot, x, y + 8.89, 90)
 
 text("J1 BUS_POWER 30 pin (Hirose FH12-30S): pin 1-22 come J3 del modulo Power, 24-26 VIN_SYS 12 V, 29 secondo 3V3. Rail BUS_* passanti verso J2, non collegati ai rail della scheda.", 25.4, 25.4)
-text("VIN_SYS -> eFuse TPS259470 -> buck TPS56637 12->5 V (foglio Alimentazione). BUS_5V va solo a J2 pin 2.", 25.4, 30.48)
+text("VIN_SYS -> buck TPS56637 12->5 V, senza eFuse (foglio Alimentazione). BUS_5V va solo a J2 pin 2.", 25.4, 30.48)
 text("J2 MAIN 28 pin secondo BPS-MIKILAB-2026-REV5.1 (pin 28 = HIT#) (spec: XUNPU FPC-05F-28PH20; footprint H616:FPC-05F-28PH20 da EasyEDA C2856807).", 25.4, 35.56)
 text("Sul foglio CPU: SPI1 condiviso BUS_POWER/MAIN con 33R serie per ramo, 100R su ADDR/PREFIX, pull-up 4.7k su ALERT#/HIT#, 2.2k su I2C, 10k sui CS, ESD TPD4E05U06.", 25.4, 40.64)
 text("R4 0R: ponte GND_A-GND_D, DNP di default (sul modulo Power GND_A e GND_D sono gia la stessa net). R1-R3: ID iniziale 000 (scheda = J_OUT, testa della catena).", 25.4, 45.72)

@@ -13,7 +13,6 @@ Le voci **[NON VERIFICATO]** sono da controllare prima del layout.
 | AXP313A | Datasheet X-Powers v1.0 (LCSC C5365290): tabella pin, limiti, note applicative |
 | LPDDR4 | Chip e ball map già usati sulla SchedaA133 (MT53E512M32D1ZW-046 IT:B); mappa CA/CS ricavata da U-Boot (vedi sotto) |
 | NEO-M9N | Data sheet u-blox UBX-19014285 R08, tabella 9 |
-| TPS259470 | Datasheet TI SLVSFC9C (pin, soglie UVLO/OVLO, ILIM, land pattern RPW0010A) |
 | TCA6416A | Datasheet TI, tabella 5-1 |
 | 25AA02E48 | Datasheet Microchip DS20002123G, tabella 4-1 |
 | FUSB302B | Datasheet onsemi: I2C VIH 1.32 V, pull-up tra 1.71 V e VDD (va bene a 1.8 V), dead battery supportato |
@@ -27,7 +26,7 @@ La Zero2 ha DDR3 e AXP305, quindi non dice nulla su LPDDR4 e AXP313A.
 1. Radice
 2. **CPU** (3xx): H616 in 5 unità, quarzo 24 MHz, RESET/FEL, UART0, SPI1 condiviso con le serie, pull-up/pull-down del bus, ESD, espansore TCA6416A
 3. **Bus MIKILAB**: J1 BUS_POWER 30 pin, J2 MAIN 28 pin REV5.1 (HIT# sul pin 28), invariato rispetto alla A133
-4. **Alimentazione** (1xx): eFuse TPS259470 sui 12 V, TPS56637 5 V, jack con TPS2121 U108, USB-C con FUSB302B e TPD2EUSB30A, TPS2121, SY6280AAC
+4. **Alimentazione** (1xx): TPS56637 5 V direttamente dai 12 V, jack con TPS2121 U108, USB-C con FUSB302B e TPD2EUSB30A, TPS2121, SY6280AAC
 5. **PMIC** (2xx): AXP313A, buck TPS563201 3V3_PERI
 6. **Memorie** (4xx): LPDDR4 x32 2 GB, eMMC FORESEE FEMDNN064G-C9A61 64 GB 8 bit, microSD
 7. **Rete** (5xx): RTL8211F, HR911130C, EEPROM MAC 25AA02E48
@@ -46,7 +45,7 @@ La Zero2 ha DDR3 e AXP305, quindi non dice nulla su LPDDR4 e AXP313A.
 
 | Rail | Sorgente | Utenti |
 |---|---|---|
-| VIN_SYS 12 V | BUS_POWER pin 24-26 | eFuse TPS259470 (3 A, UVLO 9.7 V, OVLO 15.1 V, blocco inverso) |
+| VIN_SYS 12 V | BUS_POWER pin 24-26 | ingresso del buck TPS56637 (senza eFuse) |
 | 5V_BUCK | TPS56637 6 A (FCCM) | IN1 del TPS2121 U108 |
 | 5V_JACK | jack 5 V, TVS D101 | IN2 del TPS2121 U108 |
 | 5V_EXT | TPS2121 U108 (bus con priorità, poi jack) | IN1 del TPS2121 U103, SY6280AAC |
@@ -59,8 +58,14 @@ La Zero2 ha DDR3 e AXP305, quindi non dice nulla su LPDDR4 e AXP313A.
 | VCC-IO 3.3 V | AXP313A DLDO1 (500 mA) | VCC_IO, VCC_PG, VCC_PI, VCC_USB, VCC_EPHY, VDDIO AP6256, VCCP TCA6416A, pull-up del bus, VDD FUSB302B |
 | 3V3_PERI | TPS563201 3 A (EN da VCC-IO) | AP6256 VBAT, RTL8211F, NEO-M9N, VCC eMMC, microSD, EEPROM, LDO VCC-1V8-EMMC |
 
-Fusibili: F101 era già stato sostituito dall'eFuse. Su richiesta di Michele sono tolti anche quello del jack (F102) e
-quello del VBUS USB-C (il 1812L300 indicato come F1 nella BOM). LM74700 e Q101 sono tolti, il blocco verso il bus lo fa l'eFuse.
+Fusibili: su richiesta di Michele sono tolti F101 (12 V), F102 (jack) e quello del VBUS USB-C (il 1812L300 indicato come F1 nella BOM). Anche LM74700 e Q101 sono tolti.
+
+**eFuse tolto** (richiesta di Michele, 2026-10-16): eliminati il TPS259470 (U106) e i suoi componenti dedicati (partitore UVLO/OVLO 430k/22k/39k, RILM 1.11k, dVdT 22 nF, 1 uF d'ingresso). Quindi:
+
+- VIN_SYS (BUS_POWER pin 24-26) va direttamente all'ingresso del TPS56637. Restano i suoi condensatori: C101/C102 10 uF/25 V e C125 100 nF.
+- **L'ingresso a 12 V non ha più limitazione di corrente, protezione da sovratensione né blocco inverso.** Non c'è nemmeno una TVS sui 12 V (non c'era prima e non è stata aggiunta). Le protezioni restano sul modulo Power del bus.
+- Verso il bus non rientra corrente dal jack o dall'USB-C, perché il TPS2121 U108 separa l'uscita del buck dal resto (blocco inverso RCB). Resta solo la tensione a vuoto dell'uscita del buck.
+- La porta P17 del TCA6416A (era il FLT dell'eFuse) è libera.
 
 **Jack 5 V con secondo TPS2121 (U108)** (scelta di Michele, 2026-10-16). Con il jack direttamente su IN1 del TPS2121 U103, jack e buck
 finivano in parallelo: il blocco rapido della corrente inversa (RCB, paragrafo 9.3.6) separa gli ingressi dall'uscita, ma non due
@@ -77,7 +82,7 @@ sorgenti sullo stesso IN1. Ora la catena è:
   - ST (basso = uscita dal jack) con 100k a 5V_EXT e test point TP101.
 - **TPS56637 di nuovo in FCCM** (R114 DNP): il buck è isolato da U108 e non vede corrente inversa. FCCM dà frequenza fissa e ripple basso,
   meglio vicino al GNSS. L'Eco-mode serviva solo con il jack in parallelo.
-- Con solo il jack, il buck è spento e la sua uscita è separata da U108. L'eFuse continua a bloccare verso il bus.
+- Con solo il jack, il buck è spento e la sua uscita è separata da U108, quindi niente arriva sul bus.
 
 ## Assegnazione GPIO
 
@@ -100,7 +105,7 @@ La tabella completa, sfera per sfera, è in [pinmap-h616.md](pinmap-h616.md). In
 restano 14 GPIO a 3.3 V, esattamente quanti ne servono per CS, I2C, ADDR/PREFIX, ALERT#, HIT#, PPS ed EXTINT.
 Le linee lente vanno quindi su un TCA6416A a doppia alimentazione (I2C a 1.8 V, porte a 3.3 V):
 VREF_ENABLE, VBIAS_ENABLE, DAC61402_FAULT, USB1_VBUS_EN, VBUS_SRC_EN, PWR_SRC_ST, PHY_RST_N, PHY_INT_N, WL/BT_REG_ON,
-BT_WAKE, BT/WL_HOST_WAKE, SD_DET, CS dell'EEPROM MAC, FLT dell'eFuse. Al reset le porte sono ingressi, e i pull-up/pull-down
+BT_WAKE, BT/WL_HOST_WAKE, SD_DET, CS dell'EEPROM MAC (P17 libera). Al reset le porte sono ingressi, e i pull-up/pull-down
 esterni mettono tutto nello stato sicuro: riferimenti e bias spenti, radio spenta, USB spenta, EEPROM deselezionata.
 
 ## LPDDR4: mappa CA/CS
@@ -168,8 +173,8 @@ SA6-SA16, SBA, SBG, SACT e SODT non sono usati.
 8. **CR1220**: l'H616 non ha un pin VCC_RTC e l'AXP313A non ha un pin di backup. La pila resta solo sul V_BCKP del NEO-M9N (D701/D704).
 9. **NEO-M9N**: V_USB a GND con la USB non usata, da confermare sull'integration manual.
 10. **SPI1 condiviso**: le MISO di BUS_POWER, MAIN ed EEPROM sono in parallelo. Tutti gli slave devono mettere SDO in alta impedenza quando il loro CS è alto.
-11. **Footprint**: RPW0010A (TPS259470) disegnato in scala dal land pattern TI, da rifare con le quote. Da scegliere gli induttori dei DCDC dell'AXP313A. Il footprint H616 viene da EasyEDA (pad 0.256 mm su sfere da 0.35 mm): da confrontare con la figura 7-2.
-12. **Valori da confermare**: condensatore dVdT dell'eFuse, carico del quarzo 24 MHz (ora 12 pF per lato come la Zero3), rete π del Wi-Fi, bias dell'antenna GNSS.
+11. **Footprint**: da scegliere gli induttori dei DCDC dell'AXP313A. Il footprint H616 viene da EasyEDA (pad 0.256 mm su sfere da 0.35 mm): da confrontare con la figura 7-2.
+12. **Valori da confermare**: carico del quarzo 24 MHz (ora 12 pF per lato come la Zero3), rete π del Wi-Fi, bias dell'antenna GNSS.
 14. **Dalla Zero3, applicato il 2026-10-16**: RESET dell'H616 con 10k a VCC-1V8, 1 nF e 100R in serie verso il PWROK (AP-RESET); AC_AVCC 10 uF (2.2 uF sulla Zero2); quarzo 24 MHz con 12 pF; REXT 150k 1% confermato.
 15. **Differenze volute rispetto alla Zero3**:
     - VCC_PG è a 3.3 V (sulla Zero3 è a 1.8 V da ALDO1): l'AP6256 lavora con VDDIO 3.3 V.

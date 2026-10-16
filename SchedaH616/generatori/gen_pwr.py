@@ -42,9 +42,6 @@ SYMS = {
     "H616:TPS56637": custom("TPS56637", [("8", "VIN", "power_in"), ("1", "EN", "input"), ("10", "MODE", "input"), ("5", "NC", "passive")],
                             [("6", "SW", "passive"), ("7", "BOOT", "passive"), ("2", "FB", "input"), ("4", "PG", "output")],
                             [("3", "AGND", "power_in"), ("9", "PGND", "power_in")]),
-    "H616:TPS259470": custom("TPS259470", [("5", "IN", "power_in"), ("1", "EN/UVLO", "input"), ("2", "OVLO", "input"), ("9", "ILM", "passive"), ("10", "ITIMER", "passive")],
-                             [("6", "OUT", "power_out"), ("4", "~{FLT}", "open_collector"), ("3", "AUXOFF", "open_collector"), ("7", "DVDT", "passive")],
-                             [("8", "GND", "power_in")]),
     "Power_Protection:TPD2EUSB30A": extract("Power_Protection", "TPD2EUSB30A"),
     "Interface_USB:FUSB302BMPX": extract("Interface_USB", "FUSB302BMPX"),
     "Connector:USB_C_Receptacle_USB2.0_16P": extract("Connector", "USB_C_Receptacle_USB2.0_16P"),
@@ -69,7 +66,7 @@ PINS = {k: pins(v) for k, v in SYMS.items()}
 GLOBAL = {"GND_D"}
 HIER = {"VIN_SYS": "passive", "5V_SYS": "passive", "3V3_SYS": "passive", "USB0_DP": "bidirectional",
         "USB0_DM": "bidirectional", "PMU-SDA": "bidirectional", "PMU-SCK": "bidirectional",
-        "PD_INT_N": "output", "VBUS_SRC_EN": "input", "PWR_SRC_ST": "output", "EFUSE_FLT_N": "output"}
+        "PD_INT_N": "output", "VBUS_SRC_EN": "input", "PWR_SRC_ST": "output"}
 items, hier = [], []
 
 
@@ -129,27 +126,17 @@ R0603, C0603, C0805, C1206 = "Resistor_SMD:R_0603_1608Metric", "Capacitor_SMD:C_
 R = lambda ref, val, x, y, a, b, **k: place("Device:R", ref, val, R0603, x, y, {"1": a, "2": b}, **k)
 C = lambda ref, val, x, y, a, b, fp=C0603: place("Device:C", ref, val, fp, x, y, {"1": a, "2": b})
 
-# --- 1. VIN_SYS 12 V -> eFuse TPS259470 -> TPS56637 6 A -> 5V_BUCK ----------------------------------
+# --- 1. VIN_SYS 12 V -> TPS56637 6 A -> 5V_BUCK ----------------------------------
 X, Y = 30, 70
-text("1) VIN_SYS 12 V dal BUS_POWER (pin 24-26) -> eFuse TPS259470 (3 A, UVLO/OVLO, blocco inverso) -> buck TPS56637 12 -> 5 V / 6 A -> 5V_BUCK -> TPS2121 U108 (IN1, priorita)", X, Y - 22)
-place("H616:TPS259470", "U6", "TPS259470ARPWR", "H616:Texas_RPW0010A_VQFN-HR-10_2x2mm_P0.5mm", X + 10, Y - 2,
-      {"5": "VIN_SYS", "1": "EFUSE_EN", "2": "EFUSE_OV", "9": "EFUSE_ILM", "10": "NC", "6": "VIN_12V", "4": "EFUSE_FLT_N", "3": "NC",
-       "7": "EFUSE_DVDT", "8": "GND_D"}, extra_props=(("MPN", "TPS259470ARPWR"),))
-R("R17", "430k 1%", X - 25, Y - 12, "VIN_SYS", "EFUSE_EN")
-R("R18", "22k 1%", X - 25, Y + 3, "EFUSE_EN", "EFUSE_OV")
-R("R19", "39k 1%", X - 25, Y + 18, "EFUSE_OV", "GND_D")
-R("R20", "1.11k 1%", X - 12, Y + 25, "EFUSE_ILM", "GND_D")
-C("C30", "22nF", X - 2, Y + 25, "EFUSE_DVDT", "GND_D")
-C("C31", "1uF/25V", X - 38, Y + 3, "VIN_SYS", "GND_D", C0805)
+text("1) VIN_SYS 12 V dal BUS_POWER (pin 24-26) direttamente nel buck TPS56637 (eFuse tolto su richiesta di Michele: niente limite di corrente, OVP ne' blocco inverso) 12 -> 5 V / 6 A -> 5V_BUCK -> TPS2121 U108 (IN1, priorita)", X, Y - 22)
 X = X + 45
-text("eFuse: RILM 1.11k = 3 A (3334/RILM). UVLO 1.2 V x 491k/61k = 9.7 V, OVLO 1.2 V x 491k/39k = 15.1 V. dVdT 22 nF. FLT open-drain verso l'espansore (pull-up sul foglio CPU).", X - 75, Y + 48)
-C("C1", "10uF/25V", X + 12.7, Y, "VIN_12V", "GND_D", C1206)
-C("C2", "10uF/25V", X + 22.86, Y, "VIN_12V", "GND_D", C1206)
-C("C25", "100nF/50V", X + 33.02, Y, "VIN_12V", "GND_D")
-R("R1", "169k 1%", X + 43.18, Y - 7.62, "VIN_12V", "BUCK_EN")
+C("C1", "10uF/25V", X + 12.7, Y, "VIN_SYS", "GND_D", C1206)
+C("C2", "10uF/25V", X + 22.86, Y, "VIN_SYS", "GND_D", C1206)
+C("C25", "100nF/50V", X + 33.02, Y, "VIN_SYS", "GND_D")
+R("R1", "169k 1%", X + 43.18, Y - 7.62, "VIN_SYS", "BUCK_EN")
 R("R2", "36.1k 1%", X + 43.18, Y + 7.62, "BUCK_EN", "GND_D")
 place("H616:TPS56637", "U1", "TPS56637RPAR", "H616:Texas_RPA0010A_VQFN-HR-10_3x3mm", X + 75, Y,
-      {"8": "VIN_12V", "1": "BUCK_EN", "2": "BUCK_FB", "10": "BUCK_MODE", "4": "BUCK_PG", "5": "NC", "7": "BUCK_BST",
+      {"8": "VIN_SYS", "1": "BUCK_EN", "2": "BUCK_FB", "10": "BUCK_MODE", "4": "BUCK_PG", "5": "NC", "7": "BUCK_BST",
        "6": "BUCK_SW", "3": "GND_D", "9": "GND_D"}, extra_props=(("MPN", "TPS56637RPAR"),))
 R("R14", "10k", X + 60, Y + 25, "BUCK_MODE", "GND_D", dnp=True)
 R("R15", "100k", X + 72, Y + 25, "5V_BUCK", "BUCK_PG")
