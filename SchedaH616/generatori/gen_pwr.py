@@ -46,7 +46,6 @@ SYMS = {
                              [("6", "OUT", "power_out"), ("4", "~{FLT}", "open_collector"), ("3", "AUXOFF", "open_collector"), ("7", "DVDT", "passive")],
                              [("8", "GND", "power_in")]),
     "Power_Protection:TPD2EUSB30A": extract("Power_Protection", "TPD2EUSB30A"),
-    "Device:D_Schottky": extract("Device", "D_Schottky"),
     "Interface_USB:FUSB302BMPX": extract("Interface_USB", "FUSB302BMPX"),
     "Connector:USB_C_Receptacle_USB2.0_16P": extract("Connector", "USB_C_Receptacle_USB2.0_16P"),
     "Connector:Barrel_Jack_Switch": extract("Connector", "Barrel_Jack_Switch"),
@@ -151,7 +150,7 @@ R("R2", "36.1k 1%", X + 43.18, Y + 7.62, "BUCK_EN", "GND_D")
 place("H616:TPS56637", "U1", "TPS56637RPAR", "H616:Texas_RPA0010A_VQFN-HR-10_3x3mm", X + 75, Y,
       {"8": "VIN_12V", "1": "BUCK_EN", "2": "BUCK_FB", "10": "BUCK_MODE", "4": "BUCK_PG", "5": "NC", "7": "BUCK_BST",
        "6": "BUCK_SW", "3": "GND_D", "9": "GND_D"}, extra_props=(("MPN", "TPS56637RPAR"),))
-R("R14", "10k", X + 60, Y + 25, "BUCK_MODE", "GND_D", dnp=True)
+R("R14", "10k", X + 60, Y + 25, "BUCK_MODE", "GND_D")
 R("R15", "100k", X + 72, Y + 25, "5V_EXT", "BUCK_PG")
 C("C3", "100nF", X + 100, Y - 12, "BUCK_BST", "BUCK_SW")
 place("Device:L", "L1", "3.3uH/8A", "Inductor_SMD:L_Coilcraft_XAL6030-XXX", X + 112, Y - 12, {"1": "BUCK_SW", "2": "5V_EXT"}, extra_props=(("MPN", "XAL6030-332"),))
@@ -162,15 +161,14 @@ C("C26", "100pF", X + 134, Y + 2, "BUCK_FF", "BUCK_FB")
 for i, ref in enumerate(["C4", "C5", "C27", "C28"]):
     C(ref, "22uF/10V", X + 144 + 10 * i, Y, "5V_EXT", "GND_D", C1206)
 text("TPS56637 (tabella 4 del datasheet, Vout 5 V): Vfb 0.6 V, R103/R104 73.2k/10k = 4.99 V, L 3.3 uH, Cout 4x22 uF, feed-forward R116 20k + C126 100 pF.", X - 45, Y + 38)
-text("EN: 169k/36.1k (schema tipico TI). MODE libero = FCCM, R114 DNP per Eco-mode. Niente ideal diode: il blocco inverso lo fa l'eFuse, il jack entra con lo Schottky D103.", X - 45, Y + 43)
+text("EN: 169k/36.1k (schema tipico TI). MODE con R114 10k a GND = Eco-mode: il buck non assorbe corrente inversa (in FCCM fino a 3 A) se il jack tiene 5V_EXT piu alto.", X - 45, Y + 43)
 
-# --- 2. Jack DC 5 V sul nodo 5V_EXT tramite Schottky -----------------------------------------
+# --- 2. Jack DC 5 V diretto sul nodo 5V_EXT (IN1 del TPS2121) ---------------------------------
 X2, Y2 = 30, 130
-text("2) Jack DC 5 V (DC-005-5A-2.0) su 5V_EXT tramite Schottky D103 (SS54): impedisce al jack di spingere corrente nell'uscita del buck. Nessun fusibile.", X2, Y2 - 12)
+text("2) Jack DC 5 V (DC-005-5A-2.0) diretto su 5V_EXT = IN1 del TPS2121, TVS D101, nessun fusibile. Jack e buck in parallelo: vince il piu alto (buck in Eco-mode, eFuse blocca verso il bus).", X2, Y2 - 12)
 place("Connector:Barrel_Jack_Switch", "J3", "DC-005-5A-2.0", "Connector_BarrelJack:BarrelJack_Horizontal", X2, Y2,
-      {"1": "5V_JACK", "2": "GND_D", "3": "GND_D"})
-place("Device:D_TVS", "D1", "SMF5.0A", "Diode_SMD:D_SMF", X2 + 20, Y2, {"1": "5V_JACK", "2": "GND_D"}, rot=90)
-place("Device:D_Schottky", "D3", "SS54", "Diode_SMD:D_SMC", X2 + 35, Y2, {"2": "5V_JACK", "1": "5V_EXT"}, rot=90, extra_props=(("MPN", "SS54"),))
+      {"1": "5V_EXT", "2": "GND_D", "3": "GND_D"})
+place("Device:D_TVS", "D1", "SMF5.0A", "Diode_SMD:D_SMF", X2 + 20, Y2, {"1": "5V_EXT", "2": "GND_D"}, rot=90)
 C("C6", "22uF/10V", X2 + 47, Y2, "5V_EXT", "GND_D", C0805)
 
 # --- 3. USB-C con FUSB302B, fusibile e TVS su VBUS ------------------------------------------

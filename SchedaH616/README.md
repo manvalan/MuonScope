@@ -3,10 +3,10 @@
 Scheda Linux basata su **Allwinner H616** per il progetto MuonScope. Prende il posto della SchedaA133 (archiviata in `../SchedaA133`) sul **bus MIKILAB**.
 
 - SoC H616 (TFBGA-284, 0.65 mm), PMIC **AXP313A** come su Orange Pi Zero3
-- **LPDDR4 2 GB** x32 MT53E512M32D1ZW (1 chip, niente VTT): provvisoria finché non si sceglie il tipo di DRAM, vedi punti aperti
+- **LPDDR4 2 GB** x32 MT53E512M32D1ZW (1 chip, niente VTT), scelta definitiva
 - eMMC 64 GB su SMHC2 (8 bit, 1.8 V), microSD su SMHC0
 - Ethernet Gigabit RTL8211F + HR911130C con EEPROM MAC 25AA02E48, Wi-Fi/BT AP6256 su SMHC1 + UART1, GNSS NEO-M9N (PPS e time mark su EINT)
-- Alimentazione: 12 V dal BUS_POWER con eFuse TPS259470 e buck TPS56637, jack 5 V, USB-C con FUSB302B, TPS2121, 3V3_PERI dal TPS563201; porta USB-A host con TPS2553
+- Alimentazione: 12 V dal BUS_POWER con eFuse TPS259470 e buck TPS56637 (Eco-mode), jack 5 V diretto, USB-C con FUSB302B, TPS2121, 3V3_PERI dal TPS563201, LDO 1.8 V dedicato a eMMC e banco PC; porta USB-C host con TPS2553
 - Bus MIKILAB: BUS_POWER 30 pin e MAIN 28 pin REV5.1 (HIT# sul pin 28), SPI1 condiviso tra i due connettori
 - Espansore I/O TCA6416A per le linee lente: l'H616 non ha abbastanza GPIO
 
@@ -16,14 +16,17 @@ Scheda Linux basata su **Allwinner H616** per il progetto MuonScope. Prende il p
 |---|---|
 | `progetto-kicad/` | Progetto KiCad 10 `SchedaH616.kicad_pro`, libreria simboli `H616.kicad_sym`, footprint `H616.pretty`, modelli 3D `H616.3dshapes` |
 | `schema-h616.pdf` | Schema completo esportato |
+| `pcb-placement-h616.pdf` / `.png` | Placement del PCB 50 x 70 mm, top e bottom |
 | `generatori/` | Script Python che generano i fogli; `build.sh` rifà tutto, esegue l'ERC ed esporta PDF e mappa dei pin |
 | `docs/scelte-progetto.md` | Fonti, rail, assegnazione GPIO, mappa LPDDR4, **punti aperti** |
 | `docs/pinmap-h616.md` | Mappa H616 sfera per sfera con la net di ogni sfera |
+| `docs/pcb-placement.md` | Scheda, regole, dove sta ogni componente, esito DRC |
 
 Per rigenerare (servono python3 e KiCad 10 in `/Applications/KiCad`):
 
 ```bash
 sh SchedaH616/generatori/build.sh
+sh SchedaH616/generatori/build_pcb.sh
 ```
 
 ## Fogli dello schema
@@ -31,25 +34,25 @@ sh SchedaH616/generatori/build.sh
 1. Radice
 2. **CPU**: H616 in 5 unità, 24 MHz, RESET/FEL, UART0, SPI1 e interfaccia bus (serie, pull-up, ESD), TCA6416A
 3. **Bus MIKILAB**: J1 BUS_POWER 30 pin, J2 MAIN 28 pin
-4. **Alimentazione**: TPS259470, TPS56637, jack con Schottky, USB-C con FUSB302B, TPS2121, SY6280AAC
-5. **PMIC**: AXP313A, TPS563201 3V3_PERI
+4. **Alimentazione**: TPS259470, TPS56637, jack diretto, USB-C con FUSB302B, TPS2121, SY6280AAC
+5. **PMIC**: AXP313A, TPS563201 3V3_PERI, AP2112K-1.8 VCC-1V8-EMMC
 6. **Memorie**: LPDDR4, eMMC, microSD
 7. **Rete**: RTL8211F, HR911130C, 25AA02E48
 8. **Radio**: AP6256 + U.FL
 9. **GNSS**: NEO-M9N, PPS OUT e STROBE IN su SMA, CR1220 sul V_BCKP
-10. **USB host**: TPS2553 + USB-A
+10. **USB host**: TPS2553 + USB-C solo host
 
 ## Stato
 
 - Schema completo, **ERC a 0 violazioni** (KiCad 10), nessuna net con un solo pin
 - Ball map H616 presa **solo** dal datasheet ufficiale (tabella 4-2, controllata sulla figura 7-1)
-- **PCB non iniziato**
+- **PCB**: 50 x 70 mm, 6 strati, solo placement (325 componenti, 118 top e 207 bottom), DRC a 0 violazioni (restano solo i collegamenti da sbrogliare)
 
 ## Punti aperti principali
 
 L'elenco completo è in `docs/scelte-progetto.md`.
 
-- **DRAM**: U-Boot mainline non supporta la DDR4 sull'H616 (va in panic in `dram_sun50i_h616.c`). Lo schema usa la LPDDR4 come la Orange Pi Zero3. La scelta resta aperta: LPDDR4, DDR3L, oppure DDR4 con il boot0 del BSP.
+- **DRAM**: scelta la LPDDR4 come la Orange Pi Zero3 (U-Boot mainline non supporta la DDR4 sull'H616).
 - La mappa CA/CS della LPDDR4 è ricavata dalla tabella `phy_init` di U-Boot e **non è verificata** sullo schema Orange Pi Zero3, che non si è potuto scaricare.
 - AC_VRA1: il datasheet dà C17 nella figura e D17 nella tabella; lo schema usa C17.
 - Default dell'AXP313A (DCDC3 a 1.1 V), bilancio di consumo dell'ALDO1, pin di sistema non usati, LPO dell'AP6256 da X32KFOUT.

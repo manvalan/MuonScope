@@ -122,7 +122,7 @@ EasyEDA C5365289 ha la sfera in C17: lo schema usa C17. Da confermare con Allwin
 | E18 | VCC_EPHY | VCC-IO |
 | E19 | HTX0P | NC |
 | E20 | HTX0N | NC |
-| F5 | VCC_PC | VCC-1V8 |
+| F5 | VCC_PC | VCC-1V8-EMMC |
 | F8 | VDD_GPUFB | VDD-SYSFB |
 | F9 | VDD_GPU | VDD-SYS |
 | F10 | VDD_GPU | VDD-SYS |

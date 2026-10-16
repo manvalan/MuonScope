@@ -7,7 +7,7 @@ from kisheet import Sheet, box_symbol
 
 PRJ = sys.argv[1]
 RAILS = ["5V_SYS", "VDD-CPU", "VDD-SYS", "VCC-DRAM", "VCC-1V8", "VCC-IO", "3V3_PERI", "VDD-CPUFB", "VDD-SYSFB",
-         "VCC-DRAM-FB", "PMU-SCK", "PMU-SDA", "AP-RESET"]
+         "VCC-DRAM-FB", "PMU-SCK", "PMU-SDA", "AP-RESET", "VCC-1V8-EMMC"]
 C0603, C0805 = "Capacitor_SMD:C_0603_1608Metric", "Capacitor_SMD:C_0805_2012Metric"
 p = Sheet("PMIC", "pmic.kicad_sch", 200, 5, RAILS)
 
@@ -17,12 +17,12 @@ AXP = [("17", "VIN1", "L"), ("20", "VIN2", "L"), ("2", "VIN3", "L"), ("5", "SDA"
        ("18", "LX1", "R"), ("16", "DCDC1", "R"), ("19", "LX2", "R"), ("1", "DCDC2", "R"), ("3", "LX3", "R"), ("4", "DCDC3", "R"),
        ("15", "ALDO1", "R"), ("12", "DLDO1", "R"), ("7", "RTCLDO", "R"), ("9", "GND", "R"), ("21", "PGND", "R")]
 p.add_sym("H616:AXP313A", box_symbol("H616", "AXP313A", AXP, "X-Powers AXP313A, PMIC 3 DCDC + 3 LDO, QFN-20 3x3 mm", w=12.7))
-for k in ["Device:R", "Device:C", "Device:L", "Regulator_Switching:TPS563201", "Connector:TestPoint"]:
+for k in ["Device:R", "Device:C", "Device:L", "Regulator_Switching:TPS563201", "Connector:TestPoint", "Regulator_Linear:AP2112K-1.8"]:
     p.std(k)
 
 p.text("PMIC AXP313A (datasheet X-Powers v1.0) come su Orange Pi Zero3 (H618 + AXP313A): VIN 3.0-5.5 V da 5V_SYS, I2C 0x36 su S_TWI0 (PL0/PL1). Serie 2xx.", 20, 15)
 p.text("DCDC1 VDD-SYS 0.9 V (VDD_SYS + VDD_GPU, max 0.99 V) 1.5 A, DCDC2 VDD-CPU 0.81-1.1 V 3 A, DCDC3 VCC-DRAM 1.1 V (LPDDR4 VDD2/VDDQ) 2 A,", 20, 20)
-p.text("ALDO1 VCC-1V8 300 mA (VCC_PLL, VDD18_DRAM, DCXO, AVCC, VCC_PC/eMMC VCCQ, LPDDR4 VDD1), DLDO1 VCC-IO 3.3 V 500 mA (VCC_IO/PG/PI/USB). RTCLDO non usato (H616 senza VCC_RTC).", 20, 25)
+p.text("ALDO1 VCC-1V8 300 mA (VCC_PLL, VDD18_DRAM, DCXO, AVCC, AC_AVCC, HDMI, TV, LPDDR4 VDD1, TCA6416A VCCI), DLDO1 VCC-IO 3.3 V 500 mA (VCC_IO/PG/PI/USB). RTCLDO non usato (H616 senza VCC_RTC).", 20, 25)
 
 X0, Y0 = 150, 120
 p.place("H616:AXP313A", "U1", "AXP313A", "H616:QFN-20_L3.0-W3.0-P0.40-BL-EP1.7", X0, Y0, {
@@ -78,4 +78,11 @@ p.R("R5", "10k 1%", X + 48, Y + 10, "PERI_FB", "GND_D")
 p.C("C20", "22uF/10V", X + 60, Y, "3V3_PERI", "GND_D", C0805)
 p.C("C21", "22uF/10V", X + 70, Y, "3V3_PERI", "GND_D", C0805)
 p.text("Vout = 0.768 V x (1 + R204/R205) = 3.32 V. R203 DNP: alternativa per accenderlo sempre da 5V_SYS.", X - 40, Y + 32)
+X, Y = 200, 200
+p.text("VCC-1V8-EMMC: LDO AP2112K-1.8TRG1 (LCSC C176944, 600 mA) da 3V3_PERI per VCCQ eMMC (fino a ~132 mA in HS400) e VCC_PC dell'H616: banco PC ed eMMC salgono insieme. Scarica ALDO1.", X - 30, Y - 22)
+p.text("EN legato a VIN: parte con 3V3_PERI, cioe' dopo DLDO1 (EN del TPS563201 da VCC-IO). 1 uF in ingresso e in uscita.", X - 30, Y - 17)
+p.C("C22", "1uF/10V", X - 20, Y, "3V3_PERI", "GND_D")
+p.place("Regulator_Linear:AP2112K-1.8", "U3", "AP2112K-1.8TRG1", "Package_TO_SOT_SMD:SOT-23-5", X, Y,
+        {"VIN": "3V3_PERI", "GND": "GND_D", "EN": "3V3_PERI", "NC": "NC", "VOUT": "VCC-1V8-EMMC"}, mpn="AP2112K-1.8TRG1")
+p.C("C23", "1uF/10V", X + 25, Y, "VCC-1V8-EMMC", "GND_D")
 print("porte:", p.write(PRJ, 254.0, 38.1, f"{PRJ}/H616.kicad_sym"))

@@ -1,0 +1,5 @@
+progetto-kicad/drc.rpt
+progetto-kicad/*.kicad_prl
+progetto-kicad/fp-info-cache
+progetto-kicad/*-backups/
+progetto-kicad/erc.rpt

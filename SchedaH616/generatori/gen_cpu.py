@@ -34,7 +34,7 @@ for ball, (name, typ, grp) in BALLS.items():
 units = [sorted(u, key=natkey) for u in units]
 H616_SYM, H616_PINS = multi_symbol("H616", "H616", units, "Allwinner H616, TFBGA-284 14x12 mm passo 0.65 mm", w=22.86, titles=TITLES)
 
-RAILS = ["VDD-CPU", "VDD-CPUFB", "VDD-SYS", "VDD-SYSFB", "VCC-DRAM", "VCC-1V8", "VCC-IO", "AP-RESET", "PMU-SCK", "PMU-SDA",
+RAILS = ["VDD-CPU", "VDD-CPUFB", "VDD-SYS", "VDD-SYSFB", "VCC-DRAM", "VCC-1V8", "VCC-1V8-EMMC", "VCC-IO", "AP-RESET", "PMU-SCK", "PMU-SDA",
          "USB0_DP", "USB0_DM", "3V3_SYS", "PD_INT_N", "VBUS_SRC_EN", "PWR_SRC_ST", "EFUSE_FLT_N"]
 BUSNETS = ["PWR_SPI_SCLK", "PWR_SPI_MOSI", "PWR_SPI_MISO", "PWR_SPI_INA239A_CS", "PWR_SPI_INA239B_CS", "PWR_SPI_DAC_CS",
            "VREF_ENABLE", "VBIAS_ENABLE", "DAC61402_FAULT", "MAIN_SPI_SCLK", "MAIN_SPI_MOSI", "MAIN_SPI_MISO", "MAIN_I2C_SDA",
@@ -85,7 +85,7 @@ PIN = {
     "VRA1": "SOC_VRA1", "VRA2": "SOC_VRA2", "AGND": "SOC_AGND", "AC_VRA1": "SOC_AC_VRA1", "DXIN": "DCXO_XIN", "DXOUT": "DCXO_XOUT",
     "DXLDO_OUT": "SOC_DXLDO",
     # alimentazioni
-    "VCC_PC": "VCC-1V8", "VCC_PG": "VCC-IO", "VCC_PI": "VCC-IO", "VCC_IO": "VCC-IO", "VCC_USB": "VCC-IO", "VCC_EPHY": "VCC-IO",
+    "VCC_PC": "VCC-1V8-EMMC", "VCC_PG": "VCC-IO", "VCC_PI": "VCC-IO", "VCC_IO": "VCC-IO", "VCC_USB": "VCC-IO", "VCC_EPHY": "VCC-IO",
     "VCC_HDMI": "VCC-1V8", "VCC_TV": "VCC-1V8", "AVCC": "VCC-1V8", "AC_AVCC": "VCC-1V8", "VCC_DCXO": "VCC-1V8", "VCC_PLL": "VCC-1V8",
     "VDD18_DRAM": "VCC-1V8", "VCC_DRAM": "VCC-DRAM", "SZQ": "SOC_SZQ", "VDD_CPU": "VDD-CPU", "VDD_CPUFB": "VDD-CPUFB",
     "VDD_GPU": "VDD-SYS", "VDD_SYS": "VDD-SYS", "VDD_GPUFB": "VDD-SYSFB", "GND": "GND_D",
@@ -134,7 +134,7 @@ caps = [("C5", "10uF/6.3V", "VDD-CPU", C0603), ("C6", "2.2uF/6.3V", "VDD-CPU", C
         ("C14", "1uF", "VCC-DRAM", C0402), ("C15", "1uF", "VCC-DRAM", C0402), ("C16", "0.1uF", "VCC-DRAM", C0402),
         ("C17", "1uF", "VCC-1V8", C0402), ("C18", "0.1uF", "VCC-1V8", C0402), ("C19", "0.1uF", "VCC-1V8", C0402),
         ("C20", "0.1uF", "VCC-1V8", C0402), ("C21", "0.1uF", "VCC-1V8", C0402), ("C22", "0.1uF", "VCC-1V8", C0402),
-        ("C23", "0.1uF", "VCC-1V8", C0402), ("C24", "1uF", "VCC-IO", C0402), ("C25", "0.1uF", "VCC-IO", C0402),
+        ("C23", "0.1uF", "VCC-1V8-EMMC", C0402), ("C24", "1uF", "VCC-IO", C0402), ("C25", "0.1uF", "VCC-IO", C0402),
         ("C26", "0.1uF", "VCC-IO", C0402), ("C27", "0.1uF", "VCC-IO", C0402), ("C28", "0.1uF", "VCC-IO", C0402)]
 for i, (ref, val, n, fp) in enumerate(caps):
     s.C(ref, val, X + 10 * (i % 12), Y + 18 * (i // 12), n, "GND_D", fp)
@@ -174,7 +174,7 @@ for k in range(6):
 
 # ---------------- S_TWI0 (1.8 V) ed espansore TCA6416A ----------------------------------------------------------------------
 X, Y = 320, 470
-s.text("S_TWI0 (PL0/PL1, 1.8 V): AXP313A 0x36, FUSB302B 0x22, TCA6416A 0x20. Pull-up 2.2k a VCC-1V8. Gli open-drain su PC (1.8 V) hanno pull-up a VCC-1V8.", X - 60, Y - 55)
+s.text("S_TWI0 (PL0/PL1, 1.8 V): AXP313A 0x36, FUSB302B 0x22, TCA6416A 0x20. Pull-up 2.2k a VCC-1V8. Gli open-drain su PC hanno pull-up a VCC-1V8-EMMC (= VCC_PC).", X - 60, Y - 55)
 s.text("TCA6416A: VCCI = VCC-1V8 (lato I2C), VCCP = VCC-IO (porte a 3.3 V). Al reset tutte le porte sono ingressi: i pull-up/pull-down esterni fissano lo stato sicuro.", X - 60, Y - 50)
 s.place("H616:TCA6416APWR", "U8", "TCA6416APWR", "Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm", X, Y, {
     "2": "VCC-1V8", "24": "VCC-IO", "22": "PMU-SCK", "23": "PMU-SDA", "1": "IOX_INT_N", "3": "IOX_RESET_N", "21": "GND_D", "12": "GND_D",
@@ -183,8 +183,8 @@ s.place("H616:TCA6416APWR", "U8", "TCA6416APWR", "Package_SO:TSSOP-24_4.4x7.8mm_
     "17": "WL_HOST_WAKE", "18": "SD_DET", "19": "PHY_EE_CS_N", "20": "EFUSE_FLT_N"}, mpn="TCA6416APWR")
 X2 = X + 55
 for i, (ref, val, a, b) in enumerate([("R28", "2.2k", "VCC-1V8", "PMU-SCK"), ("R29", "2.2k", "VCC-1V8", "PMU-SDA"),
-                                      ("R30", "10k", "VCC-1V8", "IOX_INT_N"), ("R31", "10k", "VCC-1V8", "IOX_RESET_N"),
-                                      ("R32", "10k", "VCC-1V8", "PD_INT_N"), ("R33", "10k", "VCC-1V8", "USB1_OC_N"),
+                                      ("R30", "10k", "VCC-1V8-EMMC", "IOX_INT_N"), ("R31", "10k", "VCC-1V8", "IOX_RESET_N"),
+                                      ("R32", "10k", "VCC-1V8-EMMC", "PD_INT_N"), ("R33", "10k", "VCC-1V8-EMMC", "USB1_OC_N"),
                                       ("R34", "10k", "VCC-IO", "PWR_SRC_ST"), ("R35", "10k", "VCC-IO", "EFUSE_FLT_N"),
                                       ("R36", "0R", "VCC-IO", "3V3_SYS")]):
     s.R(ref, val, X2 + 10 * i, Y - 25, a, b)

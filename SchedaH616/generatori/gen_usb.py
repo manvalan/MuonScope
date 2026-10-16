@@ -1,4 +1,4 @@
-"""Foglio USB host (USB1 del SoC su USB-A) della scheda H616, serie 8xx."""
+"""Foglio USB host (USB1 del SoC su USB-C solo host, come SchedaA133) della scheda H616, serie 8xx."""
 import os
 import sys
 SC = os.path.dirname(os.path.abspath(__file__))
@@ -10,13 +10,10 @@ u = Sheet("USB host", "usb.kicad_sch", 800, 10, ["5V_SYS"], ("USB1_",))
 u.add_sym("H616:TPS2553DBV", box_symbol("H616", "TPS2553DBV",
           [("1", "IN", "L"), ("3", "EN", "L"), ("5", "ILIM", "L"), ("6", "OUT", "R"), ("4", "~{FAULT}", "R"), ("2", "GND", "R")],
           "TI TPS2553, load switch con limite di corrente regolabile e FAULT, SOT-23-6", w=10.16))
-u.add_sym("H616:USB_A_C46407", box_symbol("H616", "USB_A_C46407",
-          [("1", "VBUS", "L"), ("2", "D-", "L"), ("3", "D+", "L"), ("4", "GND", "L"), ("5", "SHIELD", "R"), ("6", "SHIELD", "R")],
-          "Presa USB-A 2.0 THT a 90 gradi (LCSC C46407, 903-131A1011D10100)", w=7.62))
-for k in ["Device:R", "Device:C", "Power_Protection:USBLC6-2SC6", "Filter:Choke_CommonMode_FerriteCore_1234"]:
+for k in ["Device:R", "Device:C", "Connector:USB_C_Receptacle_USB2.0_16P", "Power_Protection:USBLC6-2SC6", "Filter:Choke_CommonMode_FerriteCore_1234"]:
     u.std(k)
-u.text("USB HOST: USB1 del SoC su presa USB-A (C46407), solo host. Serie 8xx. Net USB1_* globali verso il foglio CPU.", 20, 15)
-u.text("La porta non alimenta mai la scheda: VBUS esce solo dal load switch TPS2553.", 20, 20)
+u.text("USB HOST: USB1 del SoC su USB-C (16 pin, HRO TYPE-C-31-M-12), solo host, come SchedaA133. Serie 8xx. Net USB1_* globali verso il foglio CPU.", 20, 15)
+u.text("La porta non alimenta mai la scheda: VBUS esce solo dal load switch. Rp fissi da 22k a 5V_SYS su CC1/CC2 = sorgente 1.5 A (Type-C), niente controller PD.", 20, 20)
 
 X, Y = 60, 70
 u.text("TPS2553: EN attivo alto dall'espansore (P03) con 100k a GND, FAULT open-drain su PC12 (pull-up 10k a VCC-1V8 sul foglio CPU).", X - 40, Y - 22)
@@ -30,9 +27,13 @@ u.C("C2", "100uF/10V", X + 45, Y, "USB1_VBUS", "GND_D", fp="Capacitor_SMD:C_1210
 u.C("C3", "0.1uF", X + 55, Y, "USB1_VBUS", "GND_D")
 
 X, Y = 230, 110
-u.text("J801 USB-A (903-131A1011D10100 / C46407), schermo a GND.", X - 40, Y - 25)
-u.place("H616:USB_A_C46407", "J1", "903-131A1011D10100", "H616:USB-A-TH_C46407", X, Y,
-        {"1": "USB1_VBUS", "2": "USB1_DM_C", "3": "USB1_DP_C", "4": "GND_D", "5": "GND_D", "6": "GND_D"}, mpn="903-131A1011D10100")
+u.text("J801 USB-C: DP/DM collegati su entrambi i lati (A6/B6, A7/B7), SBU non connessi, schermo a GND.", X - 40, Y - 35)
+u.place("Connector:USB_C_Receptacle_USB2.0_16P", "J1", "TYPE-C-31-M-12", "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12", X, Y,
+        {"VBUS": "USB1_VBUS", "CC1": "USB1_CC1", "CC2": "USB1_CC2", "D+": "USB1_DP_C", "D-": "USB1_DM_C", "SBU1": "NC",
+         "SBU2": "NC", "GND": "GND_D", "SHIELD": "GND_D"}, mpn="TYPE-C-31-M-12")
+u.R("R4", "22k", X + 40, Y - 20, "5V_SYS", "USB1_CC1")
+u.R("R5", "22k", X + 50, Y - 20, "5V_SYS", "USB1_CC2")
+u.text("Rp 22k a 5 V = 1.5 A (tabella Type-C). Il TPS2553 limita comunque a circa 1 A.", X + 30, Y - 32)
 
 X, Y = 150, 180
 u.text("ESD USBLC6-2SC6 vicino al connettore su DP/DM e VBUS. Choke di modo comune DNP con 0R in parallelo (footprint sovrapposti).", X - 40, Y - 20)

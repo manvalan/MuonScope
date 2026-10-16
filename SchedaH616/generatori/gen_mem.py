@@ -8,7 +8,7 @@ sys.path.insert(0, SC)
 from kisheet import Sheet, multi_symbol, place_multi
 
 PRJ = sys.argv[1]
-RAILS = ["VCC-DRAM", "VCC-1V8", "3V3_PERI", "VCC-IO", "VCC-DRAM-FB"]
+RAILS = ["VCC-DRAM", "VCC-1V8", "VCC-1V8-EMMC", "3V3_PERI", "VCC-IO", "VCC-DRAM-FB"]
 m = Sheet("Memorie", "memorie.kicad_sch", 400, 6, RAILS, ("DRAM_", "EMMC_", "SD_"), paper="A2")
 C0603 = "Capacitor_SMD:C_0603_1608Metric"
 
@@ -95,17 +95,17 @@ EM_SYM, EM_PINS = multi_symbol("H616", "eMMC_FBGA153", [EMMC_BALLS], "eMMC 5.1 F
 m.add_sym("H616:eMMC_FBGA153", EM_SYM)
 EMN = {"DAT0": "EMMC_D0", "DAT1": "EMMC_D1", "DAT2": "EMMC_D2", "DAT3": "EMMC_D3", "DAT4": "EMMC_D4", "DAT5": "EMMC_D5",
        "DAT6": "EMMC_D6", "DAT7": "EMMC_D7", "CMD": "EMMC_CMD", "CLK": "EMMC_CLK_M", "RST_n": "EMMC_RST", "DS": "EMMC_DS",
-       "VDDI": "EMMC_VDDI", "VCC": "3V3_PERI", "VCCQ": "VCC-1V8", "VSS": "GND_D", "VSSQ": "GND_D"}
+       "VDDI": "EMMC_VDDI", "VCC": "3V3_PERI", "VCCQ": "VCC-1V8-EMMC", "VSS": "GND_D", "VSSQ": "GND_D"}
 X, Y = 280, 200
-m.text("U402 eMMC 64 GB FBGA-153 (modello da scegliere): VCC = 3V3_PERI, VCCQ = VCC-1V8 (VCC_PC 1.8 V: HS200, DS per HS400). CLK 33R serie, pull-up 10k su CMD/DAT0-7/RST_n a VCCQ.", X - 30, Y - 35)
+m.text("U402 eMMC 64 GB FBGA-153 (modello da scegliere): VCC = 3V3_PERI, VCCQ = VCC-1V8-EMMC (LDO dedicato, = VCC_PC: HS200, DS per HS400). CLK 33R serie, pull-up 10k su CMD/DAT0-7/RST_n a VCCQ.", X - 30, Y - 35)
 place_multi(m, "H616:eMMC_FBGA153", "U2", "eMMC 64GB", "Package_BGA:LFBGA-153_11.5x13mm_Layout14x14_P0.5mm",
             EM_PINS, lambda num, n: EMN[n], {1: (X, Y)})
 m.R("R6", "33R", X + 45, Y - 30, "EMMC_CLK", "EMMC_CLK_M")
 for i, net in enumerate(["EMMC_CMD", "EMMC_D0", "EMMC_D1", "EMMC_D2", "EMMC_D3", "EMMC_D4", "EMMC_D5", "EMMC_D6", "EMMC_D7", "EMMC_RST"]):
-    m.R(f"R{7 + i}", "10k", X + 40 + 10 * i, Y + 40, "VCC-1V8", net)
+    m.R(f"R{7 + i}", "10k", X + 40 + 10 * i, Y + 40, "VCC-1V8-EMMC", net)
 m.C("C15", "1uF/10V", X + 40, Y + 65, "EMMC_VDDI", "GND_D")
 for i, (ref, val, net) in enumerate([("C16", "2.2uF/10V", "3V3_PERI"), ("C17", "0.1uF", "3V3_PERI"), ("C18", "0.1uF", "3V3_PERI"),
-                                     ("C19", "2.2uF/10V", "VCC-1V8"), ("C20", "0.1uF", "VCC-1V8"), ("C21", "0.1uF", "VCC-1V8")]):
+                                     ("C19", "2.2uF/10V", "VCC-1V8-EMMC"), ("C20", "0.1uF", "VCC-1V8-EMMC"), ("C21", "0.1uF", "VCC-1V8-EMMC")]):
     m.C(ref, val, X + 50 + 10 * i, Y + 65, net, "GND_D")
 
 # ---------------- microSD ---------------------------------------------------------------------------------------------------

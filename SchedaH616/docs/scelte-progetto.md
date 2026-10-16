@@ -34,12 +34,12 @@ Il confronto con lo schema resta da fare.
 7. **Rete** (5xx): RTL8211F, HR911130C, EEPROM MAC 25AA02E48
 8. **Radio** (6xx): AP6256
 9. **GNSS** (7xx): NEO-M9N, PPS e STROBE su SMA, CR1220 sul V_BCKP
-10. **USB host** (8xx): TPS2553 e presa USB-A
+10. **USB host** (8xx): TPS2553, USB-C solo host (TYPE-C-31-M-12, Rp 22k, USBLC6-2) come sulla SchedaA133
 
 ## Verifiche richieste dal brief
 
 - **Bus DRAM a 16 bit**: il datasheet H616 dichiara solo un'interfaccia a 32 bit (paragrafo 2.3.2). U-Boot ha il supporto half-width (`bus_full_width`), ma è collaudato poco.
-- **DDR4**: U-Boot mainline (`arch/arm/mach-sunxi/dram_sun50i_h616.c`, master del 2026-10-16) va in `panic("This DRAM setup is currently not supported")` su ogni ramo `SUNXI_DRAM_TYPE_DDR4`. Sono supportati solo DDR3, LPDDR3 e LPDDR4. Per questo lo schema usa **un chip LPDDR4 x32 come la Orange Pi Zero3**: niente VTT, niente TPS51200, niente VPP (l'AP2112K-2.5 e la K4AAG165WA della BOM escono). **Decisione di Michele ancora aperta.**
+- **DDR4**: U-Boot mainline (`arch/arm/mach-sunxi/dram_sun50i_h616.c`, master del 2026-10-16) va in `panic("This DRAM setup is currently not supported")` su ogni ramo `SUNXI_DRAM_TYPE_DDR4`. Sono supportati solo DDR3, LPDDR3 e LPDDR4. **Scelta definitiva (Michele, 2026-10-16): una LPDDR4 x32 MT53E512M32D1ZW come la Orange Pi Zero3.** Niente VTT, niente TPS51200, niente VPP: l'AP2112K-2.5 e la K4AAG165WA della BOM escono.
 - **NEO-M9N**: EXTINT c'è, sul pin 4 (PIO7) della tabella 9. Il datasheet non nomina TIM-TM2; il time mark è descritto nell'integration manual (verificato dal coordinatore).
 - **ZQ**: 240R 1% sul SoC (SZQ, R304). Sulla LPDDR4 ci sono 2 x 240R 1% verso VDDQ (ZQ0/ZQ1). Niente VTT.
 
@@ -48,18 +48,29 @@ Il confronto con lo schema resta da fare.
 | Rail | Sorgente | Utenti |
 |---|---|---|
 | VIN_SYS 12 V | BUS_POWER pin 24-26 | eFuse TPS259470 (3 A, UVLO 9.7 V, OVLO 15.1 V, blocco inverso) |
-| 5V_EXT | TPS56637 6 A, oppure jack attraverso uno Schottky SS54 | TPS2121 IN1, SY6280AAC |
+| 5V_EXT | TPS56637 6 A (Eco-mode) e jack 5 V in parallelo, senza diodo | TPS2121 IN1, SY6280AAC |
 | 5V_SYS | TPS2121 (IN1 5V_EXT con priorità, IN2 VBUS USB-C) | AXP313A, TPS563201, TPS2553 |
 | VDD-SYS 0.9 V | AXP313A DCDC1 | VDD_SYS + VDD_GPU (insieme, come la Zero3), sense da VDD_GPUFB |
 | VDD-CPU | AXP313A DCDC2 | VDD_CPU, sense da VDD_CPUFB |
 | VCC-DRAM 1.1 V | AXP313A DCDC3 | VCC_DRAM del SoC, VDD2/VDDQ LPDDR4, sense sulla LPDDR4 (R405) |
-| VCC-1V8 | AXP313A ALDO1 (300 mA) | VCC_PLL, VDD18_DRAM, VCC_DCXO, AVCC, AC_AVCC, VCC_HDMI, VCC_TV, VCC_PC (VCCQ eMMC), VDD1 LPDDR4, VCCI TCA6416A, pull-up S_TWI0 |
+| VCC-1V8 | AXP313A ALDO1 (300 mA) | VCC_PLL, VDD18_DRAM, VCC_DCXO, AVCC, AC_AVCC, VCC_HDMI, VCC_TV, VDD1 LPDDR4, VCCI TCA6416A, pull-up S_TWI0 |
+| VCC-1V8-EMMC | LDO AP2112K-1.8TRG1 (LCSC C176944, 600 mA) da 3V3_PERI, EN legato a VIN | VCCQ eMMC (fino a ~132 mA in HS400, Kingston EMMC16G-MW28 tabella 3), VCC_PC dell'H616, pull-up open-drain su PC |
 | VCC-IO 3.3 V | AXP313A DLDO1 (500 mA) | VCC_IO, VCC_PG, VCC_PI, VCC_USB, VCC_EPHY, VDDIO AP6256, VCCP TCA6416A, pull-up del bus, VDD FUSB302B |
-| 3V3_PERI | TPS563201 3 A (EN da VCC-IO) | AP6256 VBAT, RTL8211F, NEO-M9N, VCC eMMC, microSD, EEPROM |
+| 3V3_PERI | TPS563201 3 A (EN da VCC-IO) | AP6256 VBAT, RTL8211F, NEO-M9N, VCC eMMC, microSD, EEPROM, LDO VCC-1V8-EMMC |
 
 Fusibili: F101 era già stato sostituito dall'eFuse. Su richiesta di Michele sono tolti anche quello del jack (F102) e
-quello del VBUS USB-C (il 1812L300 indicato come F1 nella BOM). Al posto di LM74700 + Q101 il blocco inverso lo fa
-l'eFuse, e il jack entra su 5V_EXT con uno Schottky. Così il jack non spinge corrente nell'uscita del buck.
+quello del VBUS USB-C (il 1812L300 indicato come F1 nella BOM). LM74700 e Q101 sono tolti, il blocco verso il bus lo fa l'eFuse.
+
+**Jack 5 V senza diodo** (modifica approvata il 2026-10-16: tolto lo Schottky SS54): il jack va diretto su 5V_EXT = IN1 del TPS2121.
+Verifica sui datasheet:
+
+- Il blocco rapido della corrente inversa del TPS2121 (RCB, paragrafo 9.3.6) interviene quando OUT supera l'ingresso selezionato
+  (VOUT > VINx). Protegge IN1 da IN2 e dall'uscita, ma **non separa due sorgenti collegate allo stesso IN1**: jack e buck restano in parallelo.
+- Il TPS56637 in FCCM può assorbire corrente inversa fino a 3 A (IOC_REV): con il jack più alto del buck la corrente rientrerebbe nel buck.
+  Per questo MODE ha **R114 10k a GND (Eco-mode)**: in Eco-mode il buck non assorbe corrente e smette di commutare se 5V_EXT è sopra il suo riferimento.
+- Con solo il jack, 5V_EXT ricarica l'ingresso del buck attraverso il diodo del MOSFET alto (circa 4.5 V): l'eFuse blocca verso il bus, e l'EN del buck
+  (169k/36.1k, soglia 1.2 V a circa 6.8 V) resta basso.
+- Con jack e 12 V insieme, fornisce corrente la sorgente con la tensione più alta. Va bene, ma conviene non usarle insieme.
 
 ## Assegnazione GPIO
 
@@ -76,7 +87,7 @@ La tabella completa, sfera per sfera, è in [pinmap-h616.md](pinmap-h616.md). In
 - **EINT**: ALERT# PG11, HIT# PG12, GNSS PPS PG13, GNSS EXTINT PG14 (solo ingresso: EXTINT lo pilota il buffer dello STROBE).
 - **GNSS**: UART2 su PG15/PG16.
 - **S_TWI0** (PL0/PL1, 1.8 V): AXP313A 0x36, FUSB302B 0x22, TCA6416A 0x20.
-- **Ingressi open-drain a 1.8 V su PC**: PC2 INT del TCA6416A, PC7 INT del FUSB302B, PC12 FAULT del TPS2553. PC3/PC4 (BOOT_SEL1/2) liberi, con il pull-up interno.
+- **Ingressi open-drain a 1.8 V su PC**: PC2 INT del TCA6416A, PC7 INT del FUSB302B, PC12 FAULT del TPS2553, con pull-up a VCC-1V8-EMMC (= VCC_PC). PC3/PC4 (BOOT_SEL1/2) liberi, con il pull-up interno.
 
 **Perché serve l'espansore TCA6416A** (non è in BOM): l'H616 non ha PB/PD/PE. Tolti eMMC, SD, SDIO, RGMII, UART0 e SPI1,
 restano 14 GPIO a 3.3 V, esattamente quanti ne servono per CS, I2C, ADDR/PREFIX, ALERT#, HIT#, PPS ed EXTINT.
@@ -114,11 +125,12 @@ SA6-SA16, SBA, SBG, SACT e SODT non sono usati.
 
 ## Punti aperti
 
-1. **Tipo di DRAM**: LPDDR4 (supportata in mainline), DDR3L, oppure DDR4 con il boot0 del BSP. Decide Michele.
+1. **DRAM**: decisa, LPDDR4 MT53E512M32D1ZW (2026-10-16).
 2. **Mappa CA/CS della LPDDR4** [NON VERIFICATO]: va confrontata con lo schema Orange Pi Zero3.
 3. **AC_VRA1**: C17 (figura e footprint) o D17 (tabella)? Lo schema usa C17.
 4. **Pin di sistema lasciati liberi** [NON VERIFICATO]: JTAG_SEL, PLLTEST, LRADC, REXT, uscite HDMI/TV/LINEOUT/EPHY, USB2/USB3. VCC_HDMI, VCC_TV, AC_AVCC sono a 1.8 V e VCC_EPHY a 3.3 V anche se i blocchi non si usano: da confrontare con la Zero2/Zero3.
-5. **AXP313A** [NON VERIFICATO]: tensioni di default e sequenza sono una personalizzazione di fabbrica. DCDC3 deve partire a 1.1 V per la LPDDR4. IRQ non collegato (manca un GPIO), PWRON su test point. ALDO1 (300 mA) alimenta tutti i 1.8 V: va fatto il bilancio dei consumi. AVCC chiede ±2%, ALDO1 garantisce ±3%.
+5. **AXP313A** [NON VERIFICATO]: tensioni di default e sequenza sono una personalizzazione di fabbrica. DCDC3 deve partire a 1.1 V per la LPDDR4. IRQ non collegato (manca un GPIO), PWRON su test point. AVCC chiede ±2%, ALDO1 garantisce ±3%.
+   ALDO1 (300 mA) è stato alleggerito: VCCQ eMMC e VCC_PC passano all'LDO AP2112K-1.8. **Da leggere sui datasheet**: consumo di VDD1 della LPDDR4 e dei rail a 1.8 V dell'H616 (VCC_PLL, VDD18_DRAM, DCXO, AVCC), per chiudere il bilancio di ALDO1.
 6. **Accensione**: l'AXP313A si accende quando arriva VIN, se la personalizzazione lo prevede (Zero3: sì).
 7. **AP6256**: LPO da X32KFOUT (PG10), che sull'H616 è derivato dal 24 MHz (non c'è un quarzo a 32 kHz). Va verificata la precisione richiesta dal modulo. Il quarzo Y3 a 32.768 kHz della BOM non serve.
 8. **CR1220**: l'H616 non ha un pin VCC_RTC e l'AXP313A non ha un pin di backup. La pila resta solo sul V_BCKP del NEO-M9N (D701/D704).
@@ -126,4 +138,4 @@ SA6-SA16, SBA, SBG, SACT e SODT non sono usati.
 10. **SPI1 condiviso**: le MISO di BUS_POWER, MAIN ed EEPROM sono in parallelo. Tutti gli slave devono mettere SDO in alta impedenza quando il loro CS è alto.
 11. **Footprint**: RPW0010A (TPS259470) disegnato in scala dal land pattern TI, da rifare con le quote. Da scegliere eMMC 64 GB e induttori dei DCDC dell'AXP313A. Il footprint H616 viene da EasyEDA (pad 0.256 mm su sfere da 0.35 mm): da confrontare con la figura 7-2.
 12. **Valori da confermare**: condensatore dVdT dell'eFuse, disaccoppiamento H616/LPDDR4 (manca il reference), carico del quarzo, rete π del Wi-Fi, bias dell'antenna GNSS.
-13. **Il PCB non è iniziato.**
+13. **PCB**: placement 50 x 70 mm fatto (2026-10-16), senza piste. Dettagli ed esito del DRC in [pcb-placement.md](pcb-placement.md).
