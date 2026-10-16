@@ -19,10 +19,10 @@ U18,ESD CC1/CC2,TPD2EUSB30ADRTR,TI,SOT-3,1,C94934,si,TPD2EUSB30DRTR (C97502) esa
 J8,USB-A host (opzionale),903-131A1011D10100,,THT,1,C46407,si,Su USB1 host del SoC + switch VBUS dedicato; USB-A THT 90°
 D1,TVS VBUS,SMF5.0A (Littelfuse),,SOD-123F,1,C151296,si,
 F1,Fusibile resettabile 3 A,1812L300MR,,1812,1,C127824,si,"3 A hold, max 6 V: ok per ingressi 5 V"
-U10,Modulo GNSS timing,NEO-F10T,u-blox,LCC-24 12.2x16,1,,non su LCSC,"PPS su EINT SoC; EXTINT (time mark) per strobe camera, risoluzione ns; Non su LCSC: Mouser/DigiKey (NEO-F10T-00B)"
+U10,Modulo GNSS,NEO-M9N-00B,u-blox,LCC-24 12.2x16 (formato NEO),1,,da verificare,"Sostituisce il NEO-F10T (2026-10-16), stesso footprint NEO. PPS su EINT SoC; EXTINT (pin 4, time mark TIM-TM2) per strobe camera; V_USB a GND, D_SEL aperto; codice LCSC da verificare, altrimenti Mouser/DigiKey"
 C1,Supercap backup GNSS,CPH3225A,Seiko,SMD 3.2x2.5,1,,non su LCSC,Diodo Schottky + 1 kΩ dal 3.3 V; alternativa portabatteria CR1220; CPH3225A non su LCSC: DigiKey/Farnell
 J4,Connettore antenna GNSS,BWSMA-KE-P001,,,1,C496550,si,Bias antenna attiva 3.3 V con induttore e limitazione; SMA 50 Ω; verificare montaggio a bordo scheda sul footprint
-J9,Connettore ingresso time mark (strobe camera),BWSMA-KE-P001,,,1,C496550,si,Verso EXTINT del NEO-F10T tramite buffer
+J9,Connettore ingresso time mark (strobe camera),BWSMA-KE-P001,,,1,C496550,si,Verso EXTINT del NEO-M9N tramite buffer
 J10,Uscita PPS bufferizzata,BWSMA-KE-P001,,,1,C496550,si,
 U19;U20,Buffer Schmitt 3.3 V (EXTINT e PPS out),SN74LVC1G17DBVR,TI,SOT-23-5,2,C7836,si,Ingressi tolleranti 5 V; ritardo ~3-4 ns calibrabile
 D2;D3,ESD linee timing,ESD9B5.0ST5G,onsemi,SOD-923,2,C111566,si,+ 100 Ω serie

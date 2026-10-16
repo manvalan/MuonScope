@@ -20,7 +20,7 @@ PDF: ~/Development/SchedaA133/schema-a133.pdf (9 pagine). Pagina 7 Rete (5xx), p
 - Alimentazione: VBAT da 3V3_PERI, VDDIO da VCC-PG, SDIO_VSEL a GND (3.3 V).
 - U.FL con rete π da tarare. PCM non collegato.
 
-## GNSS: NEO-F10T
+## GNSS: NEO-M9N (era NEO-F10T fino al 2026-10-16)
 - UART3 su PD14/PD15. TIMEPULSE → 33 Ω → PG10 (EINT).
 - VCC da 3V3_PERI. V_BCKP con supercap 0.2 F + BAT54 + 1k.
 - Antenna attiva su SMA: VCC_RF → 10 Ω → 27 nH, con 10 nF ed ESD5V3U1U.
@@ -32,7 +32,7 @@ PDF: ~/Development/SchedaA133/schema-a133.pdf (9 pagine). Pagina 7 Rete (5xx), p
 - R423 da 0R tra VCC-DRAM e VCC-DRAM-FB sul foglio Memorie, per il sense FB3 del PMIC.
 
 ## Da verificare
-- Pinout NEO-F10T: usato quello NEO standard. Il datasheet dell'F10T non si trova online.
+- Pinout NEO-M9N-00B dal data sheet UBX-19014285 R08 (tabella 9), uguale al simbolo NEO-M9N di KiCad. Rispetto al NEO-F10T (data sheet UBX-22022576) cambiano solo pin che sul F10T erano riservati: D_SEL (2) aperto = UART, USB_DM/DP (5/6) liberi, V_USB (7) a GND, LNA_EN (14) libero, SDA/SCL (18/19) liberi. Tutti gli altri collegamenti sono invariati.
 - RSET e condensatori del quarzo del PHY: da prendere dalla Layout Guide Realtek.
 - Bias dell'antenna GNSS e TVS RF: da controllare con l'Integration Manual u-blox.
 - Rete π Wi-Fi: si tara dopo il layout.

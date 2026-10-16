@@ -25,7 +25,7 @@ In EasyEDA (Std o Pro): pannello Libreria, cerca il codice LCSC, poi 'Place'/'Ex
 | J7 | Jack DC 5.5/2.1 | DC-005-5A-2.0 | C381116 | EasyEDA | [LCSC/EasyEDA](https://www.lcsc.com/product-detail/C381116.html) · [UltraLibrarian](https://app.ultralibrarian.com/search?queryText=DC-005) |
 | U18 | ESD CC1/CC2 | TPD2EUSB30ADRTR | C94934 | EasyEDA | [LCSC/EasyEDA](https://www.lcsc.com/product-detail/C94934.html) · [UltraLibrarian](https://app.ultralibrarian.com/search?queryText=TPD2EUSB30DRTR) |
 | D1 | TVS VBUS | SMF5.0A (Littelfuse) | C151296 | EasyEDA | [LCSC/EasyEDA](https://www.lcsc.com/product-detail/C151296.html) · [UltraLibrarian](https://app.ultralibrarian.com/search?queryText=SMF5.0A) |
-| U10 | Modulo GNSS timing | NEO-F10T | – | UltraLibrarian | [LCSC/EasyEDA](https://www.lcsc.com/search?q=NEO-F10T) · [UltraLibrarian](https://app.ultralibrarian.com/search?queryText=NEO-F10T) |
+| U10 | Modulo GNSS | NEO-M9N-00B | – | KiCad (RF_GPS:NEO-M9N, footprint ublox_NEO) | [LCSC/EasyEDA](https://www.lcsc.com/search?q=NEO-M9N-00B) |
 | C1 | Supercap backup GNSS | CPH3225A | – | UltraLibrarian | [LCSC/EasyEDA](https://www.lcsc.com/search?q=CPH3225A) · [UltraLibrarian](https://app.ultralibrarian.com/search?queryText=CPH3225A) |
 | U19;U20 | Buffer Schmitt EXTINT e PPS | SN74LVC1G17DBVR | C7836 | EasyEDA | [LCSC/EasyEDA](https://www.lcsc.com/product-detail/C7836.html) · [UltraLibrarian](https://app.ultralibrarian.com/search?queryText=SN74LVC1G17DBVR) |
 | D2;D3 | ESD linee timing | ESD9B5.0ST5G | C111566 | EasyEDA | [LCSC/EasyEDA](https://www.lcsc.com/product-detail/C111566.html) · [UltraLibrarian](https://app.ultralibrarian.com/search?queryText=ESD9B5.0ST5G) |

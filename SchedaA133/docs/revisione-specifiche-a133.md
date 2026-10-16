@@ -97,6 +97,8 @@ Budget stimato a pieno carico: SoC 1.5-2 W, RAM 0.5 W, eMMC 0.4 W, PHY 0.4 W, Wi
 - VBACKUP: supercap 0.2 F 3.3 V (es. CPH3225A, o PAS3225) caricato dal 3.3 V tramite diodo Schottky + 1 kΩ. Mantiene effemeridi ore/giorni; con la CR1220 si arriva ad anni.
 - Antenna attiva via SMA o U.FL, con alimentazione 3.3 V tramite induttore e limitazione di corrente; buffer/level-shift non necessario se VCC-banco del pin PPS è 3.3 V.
 
+> Nota 2026-10-16: sulla scheda il NEO-F10T è stato sostituito dal NEO-M9N-00B (vedi README). Le specifiche qui sotto restano come storico.
+
 ### Collegamenti NEO-F10T (dal datasheet UBX-22022576)
 
 | Pin NEO-F10T | Segnale | Collegamento |
