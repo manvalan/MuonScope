@@ -53,6 +53,5 @@ sh SchedaH616/generatori/build_pcb.sh
 L'elenco completo è in `docs/scelte-progetto.md`.
 
 - **DRAM**: scelta la LPDDR4 come la Orange Pi Zero3 (U-Boot mainline non supporta la DDR4 sull'H616).
-- La mappa CA/CS della LPDDR4 è ricavata dalla tabella `phy_init` di U-Boot e **non è verificata** sullo schema Orange Pi Zero3, che non si è potuto scaricare.
-- Default dell'AXP313A (DCDC3 a 1.1 V), bilancio di consumo dell'ALDO1, pin di sistema non usati, LPO dell'AP6256 da X32KFOUT.
+- Mappa CA/CS della LPDDR4 e AXP313A verificati sullo schema Orange Pi Zero3. Restano: bilancio di ALDO1, strap BOOT_SEL con l'eMMC, LPO dell'AP6256 da X32KFOUT.
 - Footprint: RPW0010A da verificare sulle quote, eMMC da scegliere.

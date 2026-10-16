@@ -28,11 +28,11 @@ X0, Y0 = 150, 120
 p.place("H616:AXP313A", "U1", "AXP313A", "H616:QFN-20_L3.0-W3.0-P0.40-BL-EP1.7", X0, Y0, {
     "17": "5V_SYS", "20": "5V_SYS", "2": "5V_SYS", "5": "PMU-SDA", "6": "PMU-SCK", "14": "PMU_PWRON", "13": "AP-RESET",
     "11": "NC", "8": "PMU_VREF", "10": "NC", "18": "PMU_LX1", "16": "VDD-SYSFB", "19": "PMU_LX2", "1": "VDD-CPUFB",
-    "3": "PMU_LX3", "4": "VCC-DRAM-FB", "15": "VCC-1V8", "12": "VCC-IO", "7": "NC", "9": "GND_D", "21": "GND_D"}, mpn="AXP313A")
+    "3": "PMU_LX3", "4": "VCC-DRAM-FB", "15": "VCC-1V8", "12": "VCC-IO", "7": "PMU_RTCLDO", "9": "GND_D", "21": "GND_D"}, mpn="AXP313A")
 
 X, Y = 25, 60
-p.text("Ingressi VIN1/VIN2/VIN3: 10 uF + 100 nF ciascuno vicino ai pin. VREF 1 uF (datasheet).", X, Y - 8)
-for i, (ref, val, net, fp) in enumerate([("C1", "10uF/10V", "5V_SYS", C0603), ("C2", "10uF/10V", "5V_SYS", C0603), ("C3", "10uF/10V", "5V_SYS", C0603),
+p.text("Ingressi VIN1/VIN2/VIN3: 22 uF + 100 nF ciascuno vicino ai pin (Zero3: 22 uF). Pin 8 (VREF, GPO sulla Zero3) 1 uF.", X, Y - 8)
+for i, (ref, val, net, fp) in enumerate([("C1", "22uF/10V", "5V_SYS", C0603), ("C2", "22uF/10V", "5V_SYS", C0603), ("C3", "22uF/10V", "5V_SYS", C0603),
                                          ("C4", "100nF", "5V_SYS", None), ("C5", "100nF", "5V_SYS", None), ("C6", "100nF", "5V_SYS", None),
                                          ("C7", "1uF/10V", "PMU_VREF", None)]):
     if fp:
@@ -41,27 +41,35 @@ for i, (ref, val, net, fp) in enumerate([("C1", "10uF/10V", "5V_SYS", C0603), ("
         p.C(ref, val, X + 10 * i, Y, net, "GND_D")
 
 X, Y = 230, 60
-p.text("DCDC: induttori 1 uH (datasheet: Isat > 1.3 x carico, DCR < 30 mohm), uscite >= 10 uF. FB con sense remoto: DCDC1 da VDD_GPUFB (F8), DCDC2 da VDD_CPUFB (L8), DCDC3 dalla LPDDR4.", X - 10, Y - 12)
+p.text("Uscite come la Zero3: VDD-GPU/SYS e VDD-CPU 2x47 uF + 1 uF + 100 nF, VCC-DRAM 2x47 uF + 1 uF + 100 nF, DLDO1 47 uF + 100 nF, RTCLDO 4.7 uF (non usato dall'H616). DCDC: induttori 1 uH (datasheet: Isat > 1.3 x carico, DCR < 30 mohm), uscite >= 10 uF. FB con sense remoto: DCDC1 da VDD_GPUFB (F8), DCDC2 da VDD_CPUFB (L8), DCDC3 dalla LPDDR4.", X - 10, Y - 12)
 p.place("Device:L", "L1", "1uH/2.5A", "Inductor_SMD:L_1008_2520Metric", X, Y, {"1": "PMU_LX1", "2": "VDD-SYS"}, mpn="1uH 2.5A DCR<30m")
-p.C("C8", "22uF/6.3V", X + 10, Y, "VDD-SYS", "GND_D", C0603)
-p.C("C9", "22uF/6.3V", X + 20, Y, "VDD-SYS", "GND_D", C0603)
+p.C("C8", "47uF/6.3V", X + 10, Y, "VDD-SYS", "GND_D", C0603)
+p.C("C9", "47uF/6.3V", X + 20, Y, "VDD-SYS", "GND_D", C0603)
+p.C("C24", "1uF", X + 27, Y, "VDD-SYS", "GND_D")
+p.C("C27", "100nF", X + 32, Y + 8, "VDD-SYS", "GND_D")
 p.place("Device:L", "L2", "1uH/4A", "Inductor_SMD:L_Coilcraft_XAL4020-XXX", X + 35, Y, {"1": "PMU_LX2", "2": "VDD-CPU"}, mpn="XAL4020-102")
-p.C("C10", "22uF/6.3V", X + 45, Y, "VDD-CPU", "GND_D", C0603)
-p.C("C11", "22uF/6.3V", X + 55, Y, "VDD-CPU", "GND_D", C0603)
+p.C("C10", "47uF/6.3V", X + 45, Y, "VDD-CPU", "GND_D", C0603)
+p.C("C11", "47uF/6.3V", X + 55, Y, "VDD-CPU", "GND_D", C0603)
+p.C("C25", "1uF", X + 62, Y, "VDD-CPU", "GND_D")
+p.C("C28", "100nF", X + 67, Y + 8, "VDD-CPU", "GND_D")
 p.place("Device:L", "L3", "1uH/3A", "Inductor_SMD:L_1008_2520Metric", X + 70, Y, {"1": "PMU_LX3", "2": "VCC-DRAM"}, mpn="1uH 3A DCR<30m")
-p.C("C12", "22uF/6.3V", X + 80, Y, "VCC-DRAM", "GND_D", C0603)
-p.C("C13", "22uF/6.3V", X + 90, Y, "VCC-DRAM", "GND_D", C0603)
+p.C("C12", "47uF/6.3V", X + 80, Y, "VCC-DRAM", "GND_D", C0603)
+p.C("C13", "1uF", X + 90, Y, "VCC-DRAM", "GND_D")
+p.C("C29", "47uF/6.3V", X + 100, Y, "VCC-DRAM", "GND_D", C0603)
+p.C("C30", "100nF", X + 110, Y, "VCC-DRAM", "GND_D")
 
 X, Y = 230, 110
 p.text("LDO: ALDO1 VCC-1V8 e DLDO1 VCC-IO con 4.7 uF (datasheet: >= 1 uF). RTCLDO libero (LDO non usato: pin flottante, nessun condensatore).", X - 10, Y - 10)
 p.C("C14", "4.7uF/10V", X, Y, "VCC-1V8", "GND_D")
-p.C("C15", "4.7uF/10V", X + 10, Y, "VCC-IO", "GND_D")
+p.C("C15", "47uF/6.3V", X + 10, Y, "VCC-IO", "GND_D", C0603)
+p.C("C31", "4.7uF/10V", X + 30, Y, "PMU_RTCLDO", "GND_D")
+p.C("C26", "100nF", X + 20, Y, "VCC-IO", "GND_D")
 
 X, Y = 230, 150
-p.text("Controllo: PWROK -> RESET del SoC (dominio VCC_PLL 1.8 V), pull-up 10k a VCC-1V8. Accensione all'arrivo di VIN; PWRON su test point. IRQ non collegato (nessun GPIO libero).", X - 10, Y - 12)
+p.text("Controllo: PWROK = AP-RESET -> 100R -> RESET del SoC (foglio CPU), pull-up 10k a VCC-1V8. Accensione all'arrivo di VIN; PWRON su test point. IRQ non collegato (la Zero3 lo porta su PC9 con 0R; qui non ci sono GPIO liberi sicuri: PC3/PC4 sono strap BOOT_SEL).", X - 10, Y - 12)
 p.R("R1", "10k", X, Y, "VCC-1V8", "AP-RESET")
 p.place("Connector:TestPoint", "TP1", "PWRON", "TestPoint:TestPoint_Pad_D1.0mm", X + 15, Y, {"1": "PMU_PWRON"})
-p.C("C16", "100nF", X + 25, Y, "PMU_PWRON", "GND_D", dnp=True)
+p.C("C16", "100nF", X + 25, Y, "PMU_PWRON", "GND_D")
 
 X, Y = 60, 200
 p.text("3V3_PERI: TPS563201 da 5V_SYS, 3.3 V / 3 A per AP6256 (VBAT), RTL8211F, NEO-M9N, eMMC VCC, microSD, EEPROM MAC. EN da VCC-IO (parte dopo DLDO1).", X - 40, Y - 22)

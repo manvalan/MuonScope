@@ -81,7 +81,7 @@ PIN = {
     "PI6": "SOC_PREFIX_0", "PI7": "RGMII_TXD3", "PI8": "RGMII_TXD2", "PI9": "RGMII_TXD1", "PI10": "RGMII_TXD0", "PI11": "RGMII_TXCK",
     "PI12": "RGMII_TXCTL", "PI13": "RGMII_CLKIN", "PI14": "PHY_MDC", "PI15": "PHY_MDIO", "PI16": "SOC_PREFIX_1",
     # sistema, USB, analogica, DCXO
-    "FEL": "SOC_FEL", "RESET": "AP-RESET", "USB0_DM": "USB0_DM", "USB0_DP": "USB0_DP", "USB1_DM": "USB1_DM", "USB1_DP": "USB1_DP",
+    "FEL": "SOC_FEL", "RESET": "SOC_RESET", "USB0_DM": "USB0_DM", "USB0_DP": "USB0_DP", "USB1_DM": "USB1_DM", "USB1_DP": "USB1_DP",
     "VRA1": "SOC_VRA1", "VRA2": "SOC_VRA2", "AGND": "SOC_AGND", "REXT": "SOC_REXT", "AC_VRA1": "SOC_AC_VRA1", "DXIN": "DCXO_XIN", "DXOUT": "DCXO_XOUT",
     "DXLDO_OUT": "SOC_DXLDO",
     # alimentazioni
@@ -106,19 +106,21 @@ s.text("Net DRAM_*/EMMC_*/SD_*/WL_*/BT_*/RGMII_*/PHY_*/GNSS_*/WIFI_*/USB1_*/SPI1
 
 # ---------------- clock 24 MHz (DCXO) ------------------------------------------------------------------------------
 X, Y = 260, 60
-s.text("Clock: quarzo 24 MHz su DXIN/DXOUT (18 pF, 0R in serie su DXOUT), DXLDO_OUT 220 nF. L'H616 non ha pin per il quarzo 32 kHz: X32KFOUT (PG10) e' derivato internamente.", X - 10, Y - 15)
+s.text("Clock: quarzo 24 MHz su DXIN/DXOUT (12 pF come la Zero3, da verificare col carico del quarzo scelto; 0R in serie su DXOUT), DXLDO_OUT 220 nF. L'H616 non ha pin per il quarzo 32 kHz: X32KFOUT (PG10) e' derivato internamente.", X - 10, Y - 15)
 s.place("Device:Crystal_GND24", "Y1", "24MHz", "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", X + 15, Y,
         {"1": "DCXO_XIN", "3": "DCXO_XOUT_R", "2": "GND_D", "4": "GND_D"}, mpn="X322524MOB4SI")
-s.C("C1", "18pF/50V", X, Y + 10, "DCXO_XIN", "GND_D")
-s.C("C2", "18pF/50V", X + 30, Y + 10, "DCXO_XOUT_R", "GND_D")
+s.C("C1", "12pF/50V", X, Y + 10, "DCXO_XIN", "GND_D")
+s.C("C2", "12pF/50V", X + 30, Y + 10, "DCXO_XOUT_R", "GND_D")
 s.R("R1", "0R", X + 40, Y + 10, "DCXO_XOUT", "DCXO_XOUT_R")
 s.C("C3", "220nF/16V", X + 55, Y + 10, "SOC_DXLDO", "GND_D")
 
 # ---------------- reset, FEL, UART0 ----------------------------------------------------------------------------------
 X, Y = 260, 110
-s.text("RESET (dominio VCC_PLL 1.8 V) dal PWROK dell'AXP313A (10k a VCC-1V8 sul foglio PMIC, 1 nF qui) + tasto; FEL a GND con tasto (10k a VCC-IO). JTAG_SEL NC come sulla Zero2 (JTAG su PF). PLLTEST, LRADC liberi.", X - 10, Y - 12)
-s.C("C4", "1nF/50V", X, Y, "AP-RESET", "GND_D")
-s.place("Switch:SW_Push", "SW1", "RESET", "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2", X + 20, Y, {"1": "AP-RESET", "2": "GND_D"}, mpn="TS-1088-AR02016")
+s.text("RESET (dominio VCC_PLL 1.8 V): 10k a VCC-1V8 + 1 nF + tasto, 100R in serie dal PWROK dell'AXP313A (AP-RESET), come la Zero3; FEL a GND con tasto (10k a VCC-IO). JTAG_SEL NC come sulla Zero2 (JTAG su PF). PLLTEST, LRADC liberi.", X - 10, Y - 12)
+s.C("C4", "1nF/50V", X, Y, "SOC_RESET", "GND_D")
+s.R("R38", "100R", X + 8, Y + 12, "AP-RESET", "SOC_RESET")
+s.R("R39", "10k", X + 14, Y + 12, "VCC-1V8", "SOC_RESET")
+s.place("Switch:SW_Push", "SW1", "RESET", "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2", X + 20, Y, {"1": "SOC_RESET", "2": "GND_D"}, mpn="TS-1088-AR02016")
 s.place("Switch:SW_Push", "SW2", "FEL", "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2", X + 45, Y, {"1": "SOC_FEL", "2": "GND_D"}, mpn="TS-1088-AR02016")
 s.R("R2", "10k", X + 60, Y, "VCC-IO", "SOC_FEL")
 s.place("Connector_Generic:Conn_01x03", "J1", "UART0 debug", "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical", X + 85, Y,
@@ -147,8 +149,8 @@ s.C("C31", "1uF", X + 30, Y, "SOC_AC_VRA1", "GND_D")
 s.R("R4", "240R 1%", X + 45, Y, "SOC_SZQ", "GND_D")
 s.R("R37", "150k 1%", X + 55, Y, "SOC_REXT", "SOC_AGND")
 s.C("C34", "2.2uF/6.3V", X + 65, Y, "VCC-1V8", "GND_D")
-s.C("C35", "2.2uF/6.3V", X + 75, Y, "VCC-1V8", "GND_D")
-s.text("Come Orange Pi Zero2 (H616) v1.3: REXT (K18) 150k 1% ad AGND (R337), AVCC 2.2 uF (C334), AC_AVCC 2.2 uF (C335), AC_VRA1 1 uF su C17.", X - 10, Y + 12)
+s.C("C35", "10uF/6.3V", X + 75, Y, "VCC-1V8", "GND_D", C0603)
+s.text("Come Orange Pi Zero2 (H616) v1.3: REXT (K18) 150k 1% ad AGND (R337), AVCC 2.2 uF (C334), AC_AVCC 10 uF (C335, come la Zero3), AC_VRA1 1 uF su C17.", X - 10, Y + 12)
 
 # ---------------- interfaccia bus: SPI1 condiviso -----------------------------------------------------------------------
 X, Y = 260, 260

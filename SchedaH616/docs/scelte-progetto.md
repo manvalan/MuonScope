@@ -18,17 +18,16 @@ Le voci **[NON VERIFICATO]** sono da controllare prima del layout.
 | 25AA02E48 | Datasheet Microchip DS20002123G, tabella 4-1 |
 | FUSB302B | Datasheet onsemi: I2C VIH 1.32 V, pull-up tra 1.71 V e VDD (va bene a 1.8 V), dead battery supportato |
 
-Lo schema Orange Pi Zero3 non si è potuto scaricare: Google Drive ha superato la quota e il mirror ha risposto 403.
-Le parti che il brief chiedeva di prendere da lì (PMIC, LPDDR4, disaccoppiamento) seguono i datasheet e il DTS
-mainline della Zero3 (AXP313A su r_i2c 0x36, DCDC1 VDD-GPU-SYS, DCDC2 VDD-CPU, DCDC3 VDD-DRAM, ALDO1 1.8 V, DLDO1 3.3 V).
-Il confronto con lo schema resta da fare.
+Lo schema Orange Pi Zero3 ("OrangePi-Schematic of ZERO3.pdf", condiviso da Michele, non pubblicato nel repo) è stato usato per verificare la LPDDR4, l'AXP313A e la parte analogica e di reset dell'H616.
+Per i pin di sistema dell'H616 è stato usato anche lo schema Orange Pi Zero2 (H616) v1.3, pagine SOC1/SOC2.
+La Zero2 ha DDR3 e AXP305, quindi non dice nulla su LPDDR4 e AXP313A.
 
 ## Fogli
 
 1. Radice
 2. **CPU** (3xx): H616 in 5 unità, quarzo 24 MHz, RESET/FEL, UART0, SPI1 condiviso con le serie, pull-up/pull-down del bus, ESD, espansore TCA6416A
 3. **Bus MIKILAB**: J1 BUS_POWER 30 pin, J2 MAIN 28 pin REV5.1 (HIT# sul pin 28), invariato rispetto alla A133
-4. **Alimentazione** (1xx): eFuse TPS259470 sui 12 V, TPS56637 5 V, jack con Schottky, USB-C con FUSB302B e TPD2EUSB30A, TPS2121, SY6280AAC
+4. **Alimentazione** (1xx): eFuse TPS259470 sui 12 V, TPS56637 5 V, jack con TPS2121 U108, USB-C con FUSB302B e TPD2EUSB30A, TPS2121, SY6280AAC
 5. **PMIC** (2xx): AXP313A, buck TPS563201 3V3_PERI
 6. **Memorie** (4xx): LPDDR4 x32 2 GB, eMMC 64 GB 8 bit, microSD
 7. **Rete** (5xx): RTL8211F, HR911130C, EEPROM MAC 25AA02E48
@@ -127,14 +126,23 @@ Con lo stesso schema la tabella LPDDR4 dell'H616 dà:
 | CK_t/CK_c | SCKP/SCKN |
 | RESET_n | SRST |
 
-**[NON VERIFICATO]**: è una deduzione, da confrontare con lo schema della Orange Pi Zero3 prima del layout.
+**VERIFICATA** sullo schema Orange Pi Zero3 (pagina LPDDR4, tabella DDR3/DDR4/LPDDR3/LPDDR4 del simbolo H616):
+sfera SA1 (U17) → CA0, SCS0 (V17) → CA1, SA0 (T21) → CA2, SCS1 (R20) → CA3, SA4 (R18) → CA4, SA3 (T16) → CA5, SA2 (T18) → CS0, SA5 (P15) → CS1,
+SCKP/SCKN (T14/U14) → CK_t/CK_c, SCKE0/SCKE1 (V15/P13) → CKE0/CKE1, SRST (U21) → RESET_n. CA, CK, CKE e CS sono comuni ai canali A e B.
+Corrispondono anche le sfere della LPDDR4 (29 sfere CA/CS/CK/CKE/ODT/RESET/ZQ confrontate), ODT_CA_A/B a VCC-DRAM con 100k
+(RD1/RD2 R0201 "100K" sullo schema; il riassunto del coordinatore diceva 10k, ma il disegno riporta 100K), ZQ0/ZQ1 240R 1% a VCC-DRAM,
+VDD1 = 1.8 V, VDD2/VDDQ = VCC-DRAM.
+
+Linee dati: sulla Zero3 il canale A usa i byte 2-3 del SoC e il canale B i byte 0-1, con scambi di bit dentro ogni byte e del byte dentro
+il canale. La nostra assegnazione (A = byte 0-1, B = byte 2-3, bit dritti) è equivalente, perché i CA sono in comune. In sbroglio si possono
+scambiare i bit dentro un byte (DQ0-7 con il suo DQS/DM), come fa la Zero3.
 I dati sono dritti: canale A = byte 0-1 del SoC, canale B = byte 2-3. I CA vanno in comune ai due canali, come nel reference A133.
 SA6-SA16, SBA, SBG, SACT e SODT non sono usati.
 
 ## Punti aperti
 
 1. **DRAM**: decisa, LPDDR4 MT53E512M32D1ZW (2026-10-16).
-2. **Mappa CA/CS della LPDDR4** [NON VERIFICATO]: va confrontata con lo schema Orange Pi Zero3.
+2. **Mappa CA/CS della LPDDR4**: **verificata** sullo schema Orange Pi Zero3, 8/8 identica (vedi sotto).
 3. **AC_VRA1**: risolto, C17 (figura 7-1, footprint EasyEDA, schema Orange Pi Zero2 v1.3). La tabella 4-2 del datasheet dice D17 per errore.
 4. **Pin di sistema**, confrontati con lo schema Orange Pi Zero2 (H616 + AXP305 + DDR3) v1.3, pagine SOC1/SOC2:
    - REXT (K18): 150k 1% ad AGND (R337), aggiunta.
@@ -144,13 +152,28 @@ SA6-SA16, SBA, SBG, SACT e SODT non sono usati.
    - VCC_PC a 1.8 V per l'eMMC. VCC_PG a 3.3 V = VDDIO dell'AP6256.
    - Restano liberi PLLTEST, LRADC, le uscite HDMI/TV/LINEOUT/EPHY e USB2/USB3. VCC_HDMI e VCC_TV sono a 1.8 V e VCC_EPHY a 3.3 V, come sulla Zero2.
    - La Zero2 ha DDR3 e AXP305: **non** verifica la mappa CA/CS della LPDDR4 né i default dell'AXP313A, che restano aperti fino allo schema Zero3.
-5. **AXP313A** [NON VERIFICATO]: tensioni di default e sequenza sono una personalizzazione di fabbrica. DCDC3 deve partire a 1.1 V per la LPDDR4. IRQ non collegato (manca un GPIO), PWRON su test point. AVCC chiede ±2%, ALDO1 garantisce ±3%.
-   ALDO1 (300 mA) è stato alleggerito: VCCQ eMMC e VCC_PC passano all'LDO AP2112K-1.8. **Da leggere sui datasheet**: consumo di VDD1 della LPDDR4 e dei rail a 1.8 V dell'H616 (VCC_PLL, VDD18_DRAM, DCXO, AVCC), per chiudere il bilancio di ALDO1.
+5. **AXP313A**, verificato sullo schema Orange Pi Zero3 (pagina PMU):
+   - collegamenti identici: DCDC1 → VDD-GPU/SYS con sense da VDD-GPUFB, DCDC2 → VDD-CPU con sense da VDD-CPUFB, DCDC3 → VCC-DRAM senza strap, pin 8 con 1 uF, PWRON con 100 nF e test point, PWROK → AP-RESET con 1 nF;
+   - valori allineati alla Zero3:
+     - 22 uF su ogni VIN;
+     - VDD-SYS, VDD-CPU e VCC-DRAM con 2x47 uF + 1 uF + 100 nF;
+     - DLDO1 con 47 uF + 100 nF;
+     - RTCLDO con 4.7 uF (l'H616 non lo usa);
+     - induttori 1 uH (la Zero3 usa 2520 da 2 A);
+   - **DCDC3 a 1.1 V**: lo imposta l'SPL di U-Boot prima di inizializzare la DRAM (`CONFIG_AXP_DCDC3_VOLT`, default 1100 per AXP313, usato anche da `orangepi_zero3_defconfig` con `SUNXI_DRAM_H616_LPDDR4`). Il default di accensione resta una personalizzazione di fabbrica.
+   - IRQ: la Zero3 lo porta su PC9 con 0R. Qui resta non collegato, perché gli unici PC liberi (PC3/PC4) sono strap BOOT_SEL.
+   - Bilancio di ALDO1: mancano ancora i consumi a 1.8 V della LPDDR4 (VDD1) e dell'H616. AVCC chiede ±2%, ALDO1 garantisce ±3%.
 6. **Accensione**: l'AXP313A si accende quando arriva VIN, se la personalizzazione lo prevede (Zero3: sì).
 7. **AP6256**: LPO da X32KFOUT (PG10), che sull'H616 è derivato dal 24 MHz (non c'è un quarzo a 32 kHz). Va verificata la precisione richiesta dal modulo. Il quarzo Y3 a 32.768 kHz della BOM non serve.
 8. **CR1220**: l'H616 non ha un pin VCC_RTC e l'AXP313A non ha un pin di backup. La pila resta solo sul V_BCKP del NEO-M9N (D701/D704).
 9. **NEO-M9N**: V_USB a GND con la USB non usata, da confermare sull'integration manual.
 10. **SPI1 condiviso**: le MISO di BUS_POWER, MAIN ed EEPROM sono in parallelo. Tutti gli slave devono mettere SDO in alta impedenza quando il loro CS è alto.
 11. **Footprint**: RPW0010A (TPS259470) disegnato in scala dal land pattern TI, da rifare con le quote. Da scegliere eMMC 64 GB e induttori dei DCDC dell'AXP313A. Il footprint H616 viene da EasyEDA (pad 0.256 mm su sfere da 0.35 mm): da confrontare con la figura 7-2.
-12. **Valori da confermare**: condensatore dVdT dell'eFuse, disaccoppiamento H616/LPDDR4 (manca il reference), carico del quarzo, rete π del Wi-Fi, bias dell'antenna GNSS.
+12. **Valori da confermare**: condensatore dVdT dell'eFuse, carico del quarzo 24 MHz (ora 12 pF per lato come la Zero3), rete π del Wi-Fi, bias dell'antenna GNSS.
+14. **Dalla Zero3, applicato il 2026-10-16**: RESET dell'H616 con 10k a VCC-1V8, 1 nF e 100R in serie verso il PWROK (AP-RESET); AC_AVCC 10 uF (2.2 uF sulla Zero2); quarzo 24 MHz con 12 pF; REXT 150k 1% confermato.
+15. **Differenze volute rispetto alla Zero3**:
+    - VCC_PG è a 3.3 V (sulla Zero3 è a 1.8 V da ALDO1): l'AP6256 lavora con VDDIO 3.3 V.
+    - VCC_PC è a 1.8 V con un LDO dedicato (sulla Zero3 è a 3.3 V, che ha SPI flash e non ha eMMC): serve per l'eMMC in HS200/HS400.
+16. **Strap BOOT_SEL (PC3-PC6)** [NON VERIFICATO]: la Zero3 mette PC5 a GND e PC6 a 3.3 V con 10k per fare il boot da SPI. Qui PC5/PC6 sono CLK/CMD dell'eMMC, con il solo pull-up di CMD, e PC3/PC4 restano con il pull-up interno.
+    Va verificato sullo user manual H616 (BROM) che con questi livelli l'ordine di boot sia SD → eMMC.
 13. **PCB**: placement 50 x 70 mm fatto (2026-10-16), senza piste. Dettagli ed esito del DRC in [pcb-placement.md](pcb-placement.md).

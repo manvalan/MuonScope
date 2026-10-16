@@ -91,7 +91,7 @@ confermato dal footprint EasyEDA C5365289 e dallo schema Orange Pi Zero2 (H616) 
 |---|---|---|
 | A1 | GND | GND_D |
 | A10 | GND | GND_D |
-| A16 | RESET | AP-RESET |
+| A16 | RESET | SOC_RESET |
 | A18 | GND | GND_D |
 | A19 | EPHY_TXP | NC |
 | A20 | EPHY_TXN | NC |
