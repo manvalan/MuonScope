@@ -29,7 +29,7 @@ La Zero2 ha DDR3 e AXP305, quindi non dice nulla su LPDDR4 e AXP313A.
 3. **Bus MIKILAB**: J1 BUS_POWER 30 pin, J2 MAIN 28 pin REV5.1 (HIT# sul pin 28), invariato rispetto alla A133
 4. **Alimentazione** (1xx): eFuse TPS259470 sui 12 V, TPS56637 5 V, jack con TPS2121 U108, USB-C con FUSB302B e TPD2EUSB30A, TPS2121, SY6280AAC
 5. **PMIC** (2xx): AXP313A, buck TPS563201 3V3_PERI
-6. **Memorie** (4xx): LPDDR4 x32 2 GB, eMMC 64 GB 8 bit, microSD
+6. **Memorie** (4xx): LPDDR4 x32 2 GB, eMMC FORESEE FEMDNN064G-C9A61 64 GB 8 bit, microSD
 7. **Rete** (5xx): RTL8211F, HR911130C, EEPROM MAC 25AA02E48
 8. **Radio** (6xx): AP6256
 9. **GNSS** (7xx): NEO-M9N, PPS e STROBE su SMA, CR1220 sul V_BCKP
@@ -168,7 +168,7 @@ SA6-SA16, SBA, SBG, SACT e SODT non sono usati.
 8. **CR1220**: l'H616 non ha un pin VCC_RTC e l'AXP313A non ha un pin di backup. La pila resta solo sul V_BCKP del NEO-M9N (D701/D704).
 9. **NEO-M9N**: V_USB a GND con la USB non usata, da confermare sull'integration manual.
 10. **SPI1 condiviso**: le MISO di BUS_POWER, MAIN ed EEPROM sono in parallelo. Tutti gli slave devono mettere SDO in alta impedenza quando il loro CS è alto.
-11. **Footprint**: RPW0010A (TPS259470) disegnato in scala dal land pattern TI, da rifare con le quote. Da scegliere eMMC 64 GB e induttori dei DCDC dell'AXP313A. Il footprint H616 viene da EasyEDA (pad 0.256 mm su sfere da 0.35 mm): da confrontare con la figura 7-2.
+11. **Footprint**: RPW0010A (TPS259470) disegnato in scala dal land pattern TI, da rifare con le quote. Da scegliere gli induttori dei DCDC dell'AXP313A. Il footprint H616 viene da EasyEDA (pad 0.256 mm su sfere da 0.35 mm): da confrontare con la figura 7-2.
 12. **Valori da confermare**: condensatore dVdT dell'eFuse, carico del quarzo 24 MHz (ora 12 pF per lato come la Zero3), rete π del Wi-Fi, bias dell'antenna GNSS.
 14. **Dalla Zero3, applicato il 2026-10-16**: RESET dell'H616 con 10k a VCC-1V8, 1 nF e 100R in serie verso il PWROK (AP-RESET); AC_AVCC 10 uF (2.2 uF sulla Zero2); quarzo 24 MHz con 12 pF; REXT 150k 1% confermato.
 15. **Differenze volute rispetto alla Zero3**:
@@ -181,3 +181,8 @@ SA6-SA16, SBA, SBG, SACT e SODT non sono usati.
     - PC6 (CMD dell'eMMC) ha già un pull-up 10k montato (R407, richiesto dall'eMMC), quindi oggi BOOT_SEL4 = 1. PC3-PC5 restano con il pull-up interno al reset.
     - In layout, i footprint DNP su PC5/PC6 (CLK/CMD dell'eMMC) vanno messi direttamente sui via, senza stub.
 13. **PCB**: placement 50 x 70 mm fatto (2026-10-16), senza piste. Dettagli ed esito del DRC in [pcb-placement.md](pcb-placement.md).
+17. **eMMC: FORESEE FEMDNN064G-C9A61** (scelta di Michele, 2026-10-16). LCSC C49284704, 64 GB, eMMC 5.1 HS400, −25/+85 °C, VCC 2.7-3.6 V, VCCQ 1.7-1.95 V o 2.7-3.6 V.
+    - Package FBGA-153 11.5 x 13.0 x 1.0 mm, JEDEC MO-276, passo 0.5 mm (D1 = E1 = 6.5 mm): il footprint KiCad LFBGA-153_11.5x13mm_Layout14x14_P0.5mm resta.
+    - Pinout verificato sulla figura 2 del datasheet: DAT0-7, CMD, CLK, RSTN, DS, VDDi (1 uF), VCC (E6/F5/J10/K9), VCCQ (C6/M4/N4/P3/P5) e VSSQ coincidono con lo standard JEDEC del simbolo.
+    - Aggiunte a GND le sfere **A6 e J5 (VSS)**, che prima nel simbolo mancavano. VSF e RFU restano non collegate.
+    - Alternative trovate su LCSC dal coordinatore: Kingston EMMC64G-IY29-5B101 (C17698651, industriale, cara) e EMMC64G-TY29-5B101 (C17245622, esaurita). Stesso footprint.

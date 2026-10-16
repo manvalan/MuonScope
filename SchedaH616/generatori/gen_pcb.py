@@ -72,6 +72,9 @@ for ref, c in comps.items():
     if c["mpn"]:
         fp.SetField("MPN", c["mpn"])
         fp.GetField("MPN").SetVisible(False)
+    if c.get("lcsc"):
+        fp.SetField("LCSC", c["lcsc"])
+        fp.GetField("LCSC").SetVisible(False)
     if c["dnp"]:
         fp.SetDNP(True)
     for pad in fp.Pads():

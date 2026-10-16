@@ -4,7 +4,7 @@ Scheda Linux basata su **Allwinner H616** per il progetto MuonScope. Prende il p
 
 - SoC H616 (TFBGA-284, 0.65 mm), PMIC **AXP313A** come su Orange Pi Zero3
 - **LPDDR4 2 GB** x32 MT53E512M32D1ZW (1 chip, niente VTT), scelta definitiva
-- eMMC 64 GB su SMHC2 (8 bit, 1.8 V), microSD su SMHC0
+- eMMC FORESEE FEMDNN064G-C9A61 (64 GB, eMMC 5.1 HS400, LCSC C49284704) su SMHC2 (8 bit, 1.8 V), microSD su SMHC0
 - Ethernet Gigabit RTL8211F + HR911130C con EEPROM MAC 25AA02E48, Wi-Fi/BT AP6256 su SMHC1 + UART1, GNSS NEO-M9N (PPS e time mark su EINT)
 - Alimentazione: 12 V dal BUS_POWER con eFuse TPS259470 e buck TPS56637, jack 5 V, due TPS2121 in cascata (bus > jack > USB-C), USB-C con FUSB302B, 3V3_PERI dal TPS563201, LDO 1.8 V dedicato a eMMC e banco PC; porta USB-C host con TPS2553
 - Bus MIKILAB: BUS_POWER 30 pin e MAIN 28 pin REV5.1 (HIT# sul pin 28), SPI1 condiviso tra i due connettori
@@ -54,4 +54,4 @@ L'elenco completo è in `docs/scelte-progetto.md`.
 
 - **DRAM**: scelta la LPDDR4 come la Orange Pi Zero3 (U-Boot mainline non supporta la DDR4 sull'H616).
 - Mappa CA/CS della LPDDR4 e AXP313A verificati sullo schema Orange Pi Zero3. Restano: bilancio di ALDO1, strap BOOT_SEL con l'eMMC, LPO dell'AP6256 da X32KFOUT.
-- Footprint: RPW0010A da verificare sulle quote, eMMC da scegliere.
+- Footprint: RPW0010A da verificare sulle quote.

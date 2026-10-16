@@ -89,17 +89,17 @@ m.text("R405: sense del DCDC3 dell'AXP313A preso sulle sfere VDD2 della LPDDR4."
 EMMC_BALLS = [("A3", "DAT0"), ("A4", "DAT1"), ("A5", "DAT2"), ("B2", "DAT3"), ("B3", "DAT4"), ("B4", "DAT5"), ("B5", "DAT6"),
               ("B6", "DAT7"), ("M5", "CMD"), ("M6", "CLK"), ("K5", "RST_n"), ("H5", "DS"), ("C2", "VDDI"),
               ("E6", "VCC"), ("F5", "VCC"), ("J10", "VCC"), ("K9", "VCC"), ("C6", "VCCQ"), ("M4", "VCCQ"), ("N4", "VCCQ"),
-              ("P3", "VCCQ"), ("P5", "VCCQ"), ("E7", "VSS"), ("G5", "VSS"), ("H10", "VSS"), ("K8", "VSS"), ("C4", "VSSQ"),
+              ("P3", "VCCQ"), ("P5", "VCCQ"), ("E7", "VSS"), ("G5", "VSS"), ("H10", "VSS"), ("K8", "VSS"), ("A6", "VSS"), ("J5", "VSS"), ("C4", "VSSQ"),
               ("N2", "VSSQ"), ("N5", "VSSQ"), ("P4", "VSSQ"), ("P6", "VSSQ")]
-EM_SYM, EM_PINS = multi_symbol("H616", "eMMC_FBGA153", [EMMC_BALLS], "eMMC 5.1 FBGA-153 (JEDEC), 64 GB", w=12.7)
+EM_SYM, EM_PINS = multi_symbol("H616", "eMMC_FBGA153", [EMMC_BALLS], "eMMC 5.1 FBGA-153 (JEDEC MO-276), 64 GB, FORESEE FEMDNN064G-C9A61", w=12.7)
 m.add_sym("H616:eMMC_FBGA153", EM_SYM)
 EMN = {"DAT0": "EMMC_D0", "DAT1": "EMMC_D1", "DAT2": "EMMC_D2", "DAT3": "EMMC_D3", "DAT4": "EMMC_D4", "DAT5": "EMMC_D5",
        "DAT6": "EMMC_D6", "DAT7": "EMMC_D7", "CMD": "EMMC_CMD", "CLK": "EMMC_CLK_M", "RST_n": "EMMC_RST", "DS": "EMMC_DS",
        "VDDI": "EMMC_VDDI", "VCC": "3V3_PERI", "VCCQ": "VCC-1V8-EMMC", "VSS": "GND_D", "VSSQ": "GND_D"}
 X, Y = 280, 200
-m.text("U402 eMMC 64 GB FBGA-153 (modello da scegliere): VCC = 3V3_PERI, VCCQ = VCC-1V8-EMMC (LDO dedicato, = VCC_PC: HS200, DS per HS400). CLK 33R serie, pull-up 10k su CMD/DAT0-7/RST_n a VCCQ.", X - 30, Y - 35)
-place_multi(m, "H616:eMMC_FBGA153", "U2", "eMMC 64GB", "Package_BGA:LFBGA-153_11.5x13mm_Layout14x14_P0.5mm",
-            EM_PINS, lambda num, n: EMN[n], {1: (X, Y)})
+m.text("U402 eMMC FORESEE FEMDNN064G-C9A61 (64 GB, eMMC 5.1, HS400, LCSC C49284704; pinout verificato sul datasheet, fig. 2, piu' VSS A6/J5): VCC = 3V3_PERI, VCCQ = VCC-1V8-EMMC (LDO dedicato, = VCC_PC: HS200, DS per HS400). CLK 33R serie, pull-up 10k su CMD/DAT0-7/RST_n a VCCQ.", X - 30, Y - 35)
+place_multi(m, "H616:eMMC_FBGA153", "U2", "FEMDNN064G-C9A61", "Package_BGA:LFBGA-153_11.5x13mm_Layout14x14_P0.5mm",
+            EM_PINS, lambda num, n: EMN[n], {1: (X, Y)}, mpn="FEMDNN064G-C9A61", lcsc="C49284704")
 m.R("R6", "33R", X + 45, Y - 30, "EMMC_CLK", "EMMC_CLK_M")
 for i, net in enumerate(["EMMC_CMD", "EMMC_D0", "EMMC_D1", "EMMC_D2", "EMMC_D3", "EMMC_D4", "EMMC_D5", "EMMC_D6", "EMMC_D7", "EMMC_RST"]):
     m.R(f"R{7 + i}", "10k", X + 40 + 10 * i, Y + 40, "VCC-1V8-EMMC", net)

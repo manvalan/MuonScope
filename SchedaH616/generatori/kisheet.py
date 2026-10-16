@@ -161,7 +161,7 @@ def multi_symbol(libname, name, units_pins, desc, w=20.32, titles=None):
     return sym, PINMAP
 
 
-def place_multi(sh, lib_id, ref, val, fp, PM, netfn, pos, mpn=None):
+def place_multi(sh, lib_id, ref, val, fp, PM, netfn, pos, mpn=None, lcsc=None):
     """Piazza tutte le unità di un simbolo multi-unità: netfn(numero, nome) -> net."""
     m = re.match(r"([A-Z]+)(\d+)$", ref)
     ref = f"{m.group(1)}{sh.series + int(m.group(2))}"
@@ -178,6 +178,8 @@ def place_multi(sh, lib_id, ref, val, fp, PM, netfn, pos, mpn=None):
         n = len(PM[uu])
         fx, fy = x0 - 15, y0 - G(2.54 * ((n + 1) // 2 + 1) / 2) - 4
         props = f' (property "MPN" "{mpn}" (at {x0:.2f} {y0:.2f} 0) (hide yes) (effects (font (size 1.27 1.27))))' if mpn else ""
+        if lcsc:
+            props += f' (property "LCSC" "{lcsc}" (at {x0:.2f} {y0:.2f} 0) (hide yes) (effects (font (size 1.27 1.27))))'
         pl = " ".join(f'(pin "{p[0]}" (uuid "{U()}"))' for p in PM[uu])
         sh.items.append(
             f'(symbol (lib_id "{lib_id}") (at {x0:.2f} {y0:.2f} 0) (unit {uu}) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "{U()}") '

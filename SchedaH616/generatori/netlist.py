@@ -35,7 +35,7 @@ def read(path):
         props = {val(p, "name"): val(p, "value") for p in find(c, "property")}
         comps[val(c, "ref")] = {"value": val(c, "value"), "footprint": val(c, "footprint"),
                                 "path": val(sp, "tstamps") + val(c, "tstamps"), "sheet": val(sp, "names"),
-                                "dnp": "dnp" in props, "mpn": props.get("MPN", "")}
+                                "dnp": "dnp" in props, "mpn": props.get("MPN", ""), "lcsc": props.get("LCSC", "")}
     nets = {}
     for n in find(find(root, "nets")[0], "net"):
         nets[val(n, "name")] = [(val(x, "ref"), val(x, "pin")) for x in find(n, "node")]
