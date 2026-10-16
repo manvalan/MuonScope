@@ -1,0 +1,1422 @@
+{
+"A1": [
+"GND",
+"G",
+"Ground"
+],
+"A10": [
+"GND",
+"G",
+"Ground"
+],
+"A12": [
+"PH9",
+"I/O",
+"GPIOH"
+],
+"A14": [
+"PH4",
+"I/O",
+"GPIOH"
+],
+"A16": [
+"RESET",
+"I/O",
+"System"
+],
+"A18": [
+"GND",
+"G",
+"Ground"
+],
+"A19": [
+"EPHY_TXP",
+"AI",
+"AC+EPHY"
+],
+"A2": [
+"PG18",
+"I/O",
+"GPIOG"
+],
+"A20": [
+"EPHY_TXN",
+"AI",
+"AC+EPHY"
+],
+"A21": [
+"GND",
+"G",
+"Ground"
+],
+"A4": [
+"PG6",
+"I/O",
+"GPIOG"
+],
+"A6": [
+"PG0",
+"I/O",
+"GPIOG"
+],
+"A8": [
+"PG15",
+"I/O",
+"GPIOG"
+],
+"B1": [
+"PC0",
+"I/O",
+"GPIOC"
+],
+"B10": [
+"PG11",
+"I/O",
+"GPIOG"
+],
+"B11": [
+"DXIN",
+"AI",
+"DCXO"
+],
+"B12": [
+"PH7",
+"I/O",
+"GPIOH"
+],
+"B13": [
+"PH10",
+"I/O",
+"GPIOH"
+],
+"B14": [
+"PH5",
+"I/O",
+"GPIOH"
+],
+"B15": [
+"PH2",
+"I/O",
+"GPIOH"
+],
+"B16": [
+"GND",
+"G",
+"Ground"
+],
+"B17": [
+"FEL",
+"I",
+"System"
+],
+"B18": [
+"PL1",
+"I/O",
+"GPIOL"
+],
+"B19": [
+"EPHY_RTX",
+"AI",
+"AC+EPHY"
+],
+"B2": [
+"PG19",
+"I/O",
+"GPIOG"
+],
+"B20": [
+"EPHY_RXP",
+"AI",
+"AC+EPHY"
+],
+"B21": [
+"EPHY_RXN",
+"AI",
+"AC+EPHY"
+],
+"B3": [
+"PG9",
+"I/O",
+"GPIOG"
+],
+"B4": [
+"PG7",
+"I/O",
+"GPIOG"
+],
+"B5": [
+"PG3",
+"I/O",
+"GPIOG"
+],
+"B6": [
+"GND",
+"G",
+"Ground"
+],
+"B7": [
+"PG5",
+"I/O",
+"GPIOG"
+],
+"B8": [
+"PG16",
+"I/O",
+"GPIOG"
+],
+"B9": [
+"PG14",
+"I/O",
+"GPIOG"
+],
+"C1": [
+"PC2",
+"I/O",
+"GPIOC"
+],
+"C10": [
+"PG13",
+"I/O",
+"GPIOG"
+],
+"C11": [
+"REFCLK_OUT",
+"AO",
+"DCXO"
+],
+"C12": [
+"DXOUT",
+"AO",
+"DCXO"
+],
+"C13": [
+"PH8",
+"I/O",
+"GPIOH"
+],
+"C14": [
+"PH6",
+"I/O",
+"GPIOH"
+],
+"C15": [
+"PH3",
+"I/O",
+"GPIOH"
+],
+"C16": [
+"JTAG_SEL",
+"I",
+"System"
+],
+"C18": [
+"PL0",
+"I/O",
+"GPIOL"
+],
+"C19": [
+"HTX2P",
+"AO",
+"HDMI"
+],
+"C2": [
+"PC1",
+"I/O",
+"GPIOC"
+],
+"C20": [
+"HTX2N",
+"AO",
+"HDMI"
+],
+"C3": [
+"PG17",
+"I/O",
+"GPIOG"
+],
+"C4": [
+"PG8",
+"I/O",
+"GPIOG"
+],
+"C5": [
+"PG4",
+"I/O",
+"GPIOG"
+],
+"C6": [
+"PG2",
+"I/O",
+"GPIOG"
+],
+"C7": [
+"PG1",
+"I/O",
+"GPIOG"
+],
+"C8": [
+"PG10",
+"I/O",
+"GPIOG"
+],
+"C9": [
+"PG12",
+"I/O",
+"GPIOG"
+],
+"D1": [
+"PC3",
+"I/O",
+"GPIOC"
+],
+"D10": [
+"VCC_IO",
+"P",
+"Power"
+],
+"D11": [
+"VCC_DCXO",
+"P",
+"DCXO"
+],
+"D12": [
+"VCC_PLL",
+"P",
+"Power"
+],
+"D13": [
+"DXLDO_OUT",
+"AO",
+"DCXO"
+],
+"D14": [
+"PLLTEST",
+"AO",
+"System"
+],
+"D15": [
+"PH1",
+"I/O",
+"GPIOH"
+],
+"D16": [
+"PH0",
+"I/O",
+"GPIOH"
+],
+"D17": [
+"AC_VRA1",
+"AO",
+"AC+EPHY"
+],
+"D18": [
+"AC_AVCC",
+"P",
+"AC+EPHY"
+],
+"D19": [
+"GND",
+"G",
+"Ground"
+],
+"D2": [
+"PC4",
+"I/O",
+"GPIOC"
+],
+"D20": [
+"HTX1P",
+"AO",
+"HDMI"
+],
+"D21": [
+"HTX1N",
+"AO",
+"HDMI"
+],
+"D3": [
+"PC5",
+"I/O",
+"GPIOC"
+],
+"D4": [
+"PI1",
+"I/O",
+"GPIOI"
+],
+"D5": [
+"PI9",
+"I/O",
+"GPIOI"
+],
+"D7": [
+"VCC_PG",
+"P",
+"GPIOG"
+],
+"E18": [
+"VCC_EPHY",
+"P",
+"AC+EPHY"
+],
+"E19": [
+"HTX0P",
+"AO",
+"HDMI"
+],
+"E2": [
+"PC6",
+"I/O",
+"GPIOC"
+],
+"E20": [
+"HTX0N",
+"AO",
+"HDMI"
+],
+"E3": [
+"PC8",
+"I/O",
+"GPIOC"
+],
+"E4": [
+"PI3",
+"I/O",
+"GPIOI"
+],
+"E5": [
+"PI13",
+"I/O",
+"GPIOI"
+],
+"E6": [
+"PI8",
+"I/O",
+"GPIOI"
+],
+"F1": [
+"PC9",
+"I/O",
+"GPIOC"
+],
+"F10": [
+"VDD_GPU",
+"P",
+"Power"
+],
+"F11": [
+"VDD_SYS",
+"P",
+"Power"
+],
+"F12": [
+"VDD_SYS",
+"P",
+"Power"
+],
+"F13": [
+"VDD_SYS",
+"P",
+"Power"
+],
+"F14": [
+"GND",
+"G",
+"Ground"
+],
+"F15": [
+"GND",
+"G",
+"Ground"
+],
+"F18": [
+"VCC_HDMI",
+"P",
+"HDMI"
+],
+"F19": [
+"HSCL",
+"O",
+"HDMI"
+],
+"F2": [
+"PC10",
+"I/O",
+"GPIOC"
+],
+"F20": [
+"HTXCP",
+"AO",
+"HDMI"
+],
+"F21": [
+"HTXCN",
+"AO",
+"HDMI"
+],
+"F3": [
+"PC11",
+"I/O",
+"GPIOC"
+],
+"F4": [
+"PC7",
+"I/O",
+"GPIOC"
+],
+"F5": [
+"VCC_PC",
+"P",
+"GPIOC"
+],
+"F8": [
+"VDD_GPUFB",
+"P",
+"Power"
+],
+"F9": [
+"VDD_GPU",
+"P",
+"Power"
+],
+"G10": [
+"VDD_SYS",
+"P",
+"Power"
+],
+"G11": [
+"VDD_SYS",
+"P",
+"Power"
+],
+"G12": [
+"VDD_SYS",
+"P",
+"Power"
+],
+"G13": [
+"GND",
+"G",
+"Ground"
+],
+"G14": [
+"GND",
+"G",
+"Ground"
+],
+"G15": [
+"GND",
+"G",
+"Ground"
+],
+"G17": [
+"HCEC",
+"I/O",
+"HDMI"
+],
+"G18": [
+"HHPD",
+"I/O",
+"HDMI"
+],
+"G19": [
+"LINEOUTL",
+"AO",
+"Audio Codec"
+],
+"G2": [
+"PC12",
+"I/O",
+"GPIOC"
+],
+"G20": [
+"LINEOUTR",
+"AO",
+"Audio Codec"
+],
+"G21": [
+"HSDA",
+"I/O",
+"HDMI"
+],
+"G3": [
+"PC13",
+"I/O",
+"GPIOC"
+],
+"G4": [
+"PI7",
+"I/O",
+"GPIOI"
+],
+"G5": [
+"PI4",
+"I/O",
+"GPIOI"
+],
+"G6": [
+"PI2",
+"I/O",
+"GPIOI"
+],
+"G8": [
+"VDD_GPU",
+"P",
+"Power"
+],
+"G9": [
+"VDD_GPU",
+"P",
+"Power"
+],
+"H1": [
+"PC14",
+"I/O",
+"GPIOC"
+],
+"H10": [
+"GND",
+"G",
+"Ground"
+],
+"H11": [
+"GND",
+"G",
+"Ground"
+],
+"H12": [
+"GND",
+"G",
+"Ground"
+],
+"H13": [
+"GND",
+"G",
+"Ground"
+],
+"H14": [
+"GND",
+"G",
+"Ground"
+],
+"H15": [
+"GND",
+"G",
+"Ground"
+],
+"H17": [
+"AVCC",
+"P",
+"Audio Codec"
+],
+"H18": [
+"AGND",
+"G",
+"Audio Codec"
+],
+"H19": [
+"GND",
+"G",
+"Ground"
+],
+"H2": [
+"PC15",
+"I/O",
+"GPIOC"
+],
+"H20": [
+"VCC_TV",
+"P",
+"TV OUT"
+],
+"H3": [
+"PC16",
+"I/O",
+"GPIOC"
+],
+"H4": [
+"PI5",
+"I/O",
+"GPIOI"
+],
+"H5": [
+"PI6",
+"I/O",
+"GPIOI"
+],
+"H6": [
+"PI0",
+"I/O",
+"GPIOI"
+],
+"H8": [
+"VDD_CPU",
+"P",
+"Power"
+],
+"H9": [
+"VDD_CPU",
+"P",
+"Power"
+],
+"J10": [
+"VDD_CPU",
+"P",
+"Power"
+],
+"J11": [
+"VDD_CPU",
+"P",
+"Power"
+],
+"J12": [
+"GND",
+"G",
+"Ground"
+],
+"J13": [
+"GND",
+"G",
+"Ground"
+],
+"J14": [
+"GND",
+"G",
+"Ground"
+],
+"J15": [
+"GND",
+"G",
+"Ground"
+],
+"J17": [
+"VRA2",
+"AO",
+"Audio Codec"
+],
+"J18": [
+"VRA1",
+"AO",
+"Audio Codec"
+],
+"J19": [
+"USB0_DM",
+"AI",
+"USB"
+],
+"J2": [
+"PF0",
+"I/O",
+"GPIOF"
+],
+"J20": [
+"USB0_DP",
+"AI",
+"USB"
+],
+"J21": [
+"TV_OUT",
+"AO",
+"TV OUT"
+],
+"J3": [
+"PF1",
+"I/O",
+"GPIOF"
+],
+"J6": [
+"VCC_PI",
+"P",
+"GPIOI"
+],
+"J8": [
+"VDD_CPU",
+"P",
+"Power"
+],
+"J9": [
+"VDD_CPU",
+"P",
+"Power"
+],
+"K1": [
+"PF2",
+"I/O",
+"GPIOF"
+],
+"K10": [
+"GND",
+"G",
+"Ground"
+],
+"K11": [
+"GND",
+"G",
+"Ground"
+],
+"K12": [
+"GND",
+"G",
+"Ground"
+],
+"K13": [
+"GND",
+"G",
+"Ground"
+],
+"K14": [
+"GND",
+"G",
+"Ground"
+],
+"K15": [
+"GND",
+"G",
+"Ground"
+],
+"K18": [
+"REXT",
+"AO",
+"Audio Codec"
+],
+"K19": [
+"USB2_DM",
+"AI",
+"USB"
+],
+"K2": [
+"PF6",
+"I/O",
+"GPIOF"
+],
+"K20": [
+"USB2_DP",
+"AI",
+"USB"
+],
+"K3": [
+"PF3",
+"I/O",
+"GPIOF"
+],
+"K4": [
+"PI11",
+"I/O",
+"GPIOI"
+],
+"K5": [
+"PI12",
+"I/O",
+"GPIOI"
+],
+"K6": [
+"PI16",
+"I/O",
+"GPIOI"
+],
+"K8": [
+"GND",
+"G",
+"Ground"
+],
+"K9": [
+"GND",
+"G",
+"Ground"
+],
+"L10": [
+"VCC_DRAM",
+"P",
+"SDRAM"
+],
+"L11": [
+"VCC_DRAM",
+"P",
+"SDRAM"
+],
+"L12": [
+"VCC_DRAM",
+"P",
+"SDRAM"
+],
+"L13": [
+"VCC_DRAM",
+"P",
+"SDRAM"
+],
+"L14": [
+"VDD18_DRAM",
+"P",
+"SDRAM"
+],
+"L15": [
+"SZQ",
+"AI",
+"SDRAM"
+],
+"L18": [
+"LRADC",
+"AI",
+"LRADC"
+],
+"L19": [
+"USB3_DM",
+"AI",
+"USB"
+],
+"L2": [
+"PF4",
+"I/O",
+"GPIOF"
+],
+"L20": [
+"USB3_DP",
+"AI",
+"USB"
+],
+"L21": [
+"GND",
+"G",
+"Ground"
+],
+"L3": [
+"PF5",
+"I/O",
+"GPIOF"
+],
+"L4": [
+"PI15",
+"I/O",
+"GPIOI"
+],
+"L5": [
+"PI10",
+"I/O",
+"GPIOI"
+],
+"L6": [
+"PI14",
+"I/O",
+"GPIOI"
+],
+"L8": [
+"VDD_CPUFB",
+"P",
+"Power"
+],
+"L9": [
+"VCC_DRAM",
+"P",
+"SDRAM"
+],
+"M1": [
+"GND",
+"G",
+"Ground"
+],
+"M18": [
+"VCC_USB",
+"P",
+"USB"
+],
+"M19": [
+"USB1_DM",
+"AI",
+"USB"
+],
+"M2": [
+"GND",
+"G",
+"Ground"
+],
+"M20": [
+"USB1_DP",
+"AI",
+"USB"
+],
+"M3": [
+"GND",
+"G",
+"Ground"
+],
+"N10": [
+"SDQM3",
+"O",
+"SDRAM"
+],
+"N12": [
+"GND",
+"G",
+"Ground"
+],
+"N13": [
+"SA15",
+"O",
+"SDRAM"
+],
+"N15": [
+"GND",
+"G",
+"Ground"
+],
+"N16": [
+"SA9",
+"O",
+"SDRAM"
+],
+"N18": [
+"GND",
+"G",
+"Ground"
+],
+"N19": [
+"SA7",
+"O",
+"SDRAM"
+],
+"N2": [
+"SDQ2",
+"I/O",
+"SDRAM"
+],
+"N20": [
+"SODT1",
+"O",
+"SDRAM"
+],
+"N21": [
+"SBA0",
+"O",
+"SDRAM"
+],
+"N3": [
+"SDQ0",
+"I/O",
+"SDRAM"
+],
+"N4": [
+"SDQ13",
+"I/O",
+"SDRAM"
+],
+"N5": [
+"SDQ15",
+"I/O",
+"SDRAM"
+],
+"N6": [
+"GND",
+"G",
+"Ground"
+],
+"N7": [
+"SDQ26",
+"I/O",
+"SDRAM"
+],
+"N9": [
+"GND",
+"G",
+"Ground"
+],
+"P1": [
+"SDQ5",
+"I/O",
+"SDRAM"
+],
+"P10": [
+"SDQ28",
+"I/O",
+"SDRAM"
+],
+"P12": [
+"SDQ30",
+"I/O",
+"SDRAM"
+],
+"P13": [
+"SCKE1",
+"O",
+"SDRAM"
+],
+"P15": [
+"SA5",
+"O",
+"SDRAM"
+],
+"P16": [
+"SA13",
+"O",
+"SDRAM"
+],
+"P18": [
+"SACT",
+"O",
+"SDRAM"
+],
+"P2": [
+"SDQ7",
+"I/O",
+"SDRAM"
+],
+"P20": [
+"SBG0",
+"O",
+"SDRAM"
+],
+"P21": [
+"SBG1",
+"O",
+"SDRAM"
+],
+"P3": [
+"GND",
+"G",
+"Ground"
+],
+"P4": [
+"SDQ10",
+"I/O",
+"SDRAM"
+],
+"P5": [
+"SDQ8",
+"I/O",
+"SDRAM"
+],
+"P6": [
+"SDQ14",
+"I/O",
+"SDRAM"
+],
+"P7": [
+"SDQ25",
+"I/O",
+"SDRAM"
+],
+"P9": [
+"SDQ27",
+"I/O",
+"SDRAM"
+],
+"R1": [
+"SDQS0N",
+"I/O",
+"SDRAM"
+],
+"R12": [
+"SDQ31",
+"I/O",
+"SDRAM"
+],
+"R15": [
+"SBA1",
+"O",
+"SDRAM"
+],
+"R18": [
+"SA4",
+"O",
+"SDRAM"
+],
+"R19": [
+"SA10",
+"O",
+"SDRAM"
+],
+"R2": [
+"SDQS0P",
+"I/O",
+"SDRAM"
+],
+"R20": [
+"SCS1",
+"O",
+"SDRAM"
+],
+"R21": [
+"GND",
+"G",
+"Ground"
+],
+"R3": [
+"SDQM1",
+"O",
+"SDRAM"
+],
+"R4": [
+"SDQ11",
+"I/O",
+"SDRAM"
+],
+"R5": [
+"GND",
+"G",
+"Ground"
+],
+"R6": [
+"SDQ12",
+"I/O",
+"SDRAM"
+],
+"R9": [
+"SDQ24",
+"I/O",
+"SDRAM"
+],
+"T1": [
+"GND",
+"G",
+"Ground"
+],
+"T10": [
+"GND",
+"G",
+"Ground"
+],
+"T11": [
+"SDQ16",
+"I/O",
+"SDRAM"
+],
+"T12": [
+"SDQ18",
+"I/O",
+"SDRAM"
+],
+"T14": [
+"SCKP",
+"O",
+"SDRAM"
+],
+"T15": [
+"GND",
+"G",
+"Ground"
+],
+"T16": [
+"SA3",
+"O",
+"SDRAM"
+],
+"T17": [
+"GND",
+"G",
+"Ground"
+],
+"T18": [
+"SA2",
+"O",
+"SDRAM"
+],
+"T2": [
+"SDQ6",
+"I/O",
+"SDRAM"
+],
+"T20": [
+"SODT0",
+"O",
+"SDRAM"
+],
+"T21": [
+"SA0",
+"O",
+"SDRAM"
+],
+"T3": [
+"GND",
+"G",
+"Ground"
+],
+"T4": [
+"SDQ3",
+"I/O",
+"SDRAM"
+],
+"T5": [
+"SDQ23",
+"I/O",
+"SDRAM"
+],
+"T6": [
+"SDQ20",
+"I/O",
+"SDRAM"
+],
+"T7": [
+"SDQ22",
+"I/O",
+"SDRAM"
+],
+"T8": [
+"GND",
+"G",
+"Ground"
+],
+"T9": [
+"SDQM2",
+"O",
+"SDRAM"
+],
+"U1": [
+"SDQM0",
+"O",
+"SDRAM"
+],
+"U10": [
+"SDQS3N",
+"I/O",
+"SDRAM"
+],
+"U11": [
+"SDQ29",
+"I/O",
+"SDRAM"
+],
+"U12": [
+"SDQ17",
+"I/O",
+"SDRAM"
+],
+"U13": [
+"GND",
+"G",
+"Ground"
+],
+"U14": [
+"SCKN",
+"O",
+"SDRAM"
+],
+"U15": [
+"SA11",
+"O",
+"SDRAM"
+],
+"U16": [
+"SA12",
+"O",
+"SDRAM"
+],
+"U17": [
+"SA1",
+"O",
+"SDRAM"
+],
+"U18": [
+"SA16",
+"O",
+"SDRAM"
+],
+"U19": [
+"SA8",
+"O",
+"SDRAM"
+],
+"U2": [
+"SDQS1P",
+"I/O",
+"SDRAM"
+],
+"U20": [
+"SA6",
+"O",
+"SDRAM"
+],
+"U21": [
+"SRST",
+"O",
+"SDRAM"
+],
+"U3": [
+"SDQ4",
+"I/O",
+"SDRAM"
+],
+"U4": [
+"SDQ1",
+"I/O",
+"SDRAM"
+],
+"U5": [
+"SDQ21",
+"I/O",
+"SDRAM"
+],
+"U6": [
+"GND",
+"G",
+"Ground"
+],
+"U8": [
+"SDQS2N",
+"I/O",
+"SDRAM"
+],
+"U9": [
+"SDQ19",
+"I/O",
+"SDRAM"
+],
+"V1": [
+"GND",
+"G",
+"Ground"
+],
+"V10": [
+"SDQS3P",
+"I/O",
+"SDRAM"
+],
+"V12": [
+"GND",
+"G",
+"Ground"
+],
+"V15": [
+"SCKE0",
+"O",
+"SDRAM"
+],
+"V17": [
+"SCS0",
+"O",
+"SDRAM"
+],
+"V19": [
+"GND",
+"G",
+"Ground"
+],
+"V2": [
+"SDQS1N",
+"I/O",
+"SDRAM"
+],
+"V20": [
+"SA14",
+"O",
+"SDRAM"
+],
+"V21": [
+"GND",
+"G",
+"Ground"
+],
+"V3": [
+"SDQ9",
+"I/O",
+"SDRAM"
+],
+"V5": [
+"GND",
+"G",
+"Ground"
+],
+"V8": [
+"SDQS2P",
+"I/O",
+"SDRAM"
+]
+}
