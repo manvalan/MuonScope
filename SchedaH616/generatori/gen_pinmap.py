@@ -35,7 +35,8 @@ FUNC = {
     "GNSS_EXTINT": "EINT, time mark (solo ingresso)", "GNSS_UART2": "UART2 GNSS", "SOC_ADDR": "ADDR del bus (100R serie)",
     "SOC_PREFIX": "PREFIX del bus (100R serie)", "WIFI_32K": "X32KFOUT, LPO AP6256", "PMU-": "S_TWI0: AXP313A, FUSB302B, TCA6416A",
     "IOX_INT": "INT del TCA6416A (open-drain, 1.8 V)", "PD_INT": "INT del FUSB302B (open-drain, 1.8 V)",
-    "USB1_OC": "FAULT del TPS2553 (open-drain, 1.8 V)"}
+    "USB1_OC": "FAULT del TPS2553 (open-drain, 1.8 V)",
+    "SOC_BOOT_SEL": "strap BOOT_SEL, solo footprint DNP"}
 DOM = {"C": "VCC_PC 1.8 V", "F": "VCC_IO 3.3 V", "G": "VCC_PG 3.3 V", "H": "VCC_IO 3.3 V", "I": "VCC_PI 3.3 V", "L": "VCC_PLL 1.8 V"}
 gp = sorted([(v[0], b) for b, v in BALLS.items() if re.match(r"P[A-Z]\d+$", v[0])], key=lambda t: GPIO_ORDER(t[0]))
 for name, b in gp:

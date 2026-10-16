@@ -13,8 +13,8 @@ confermato dal footprint EasyEDA C5365289 e dallo schema Orange Pi Zero2 (H616) 
 | PC0 | B1 | VCC_PC 1.8 V | EMMC_DS | SMHC2 eMMC 8 bit |
 | PC1 | C2 | VCC_PC 1.8 V | EMMC_RST | SMHC2 eMMC 8 bit |
 | PC2 | C1 | VCC_PC 1.8 V | IOX_INT_N | INT del TCA6416A (open-drain, 1.8 V) |
-| PC3 | D1 | VCC_PC 1.8 V | - | libero |
-| PC4 | D2 | VCC_PC 1.8 V | - | libero |
+| PC3 | D1 | VCC_PC 1.8 V | SOC_BOOT_SEL1 | strap BOOT_SEL, solo footprint DNP |
+| PC4 | D2 | VCC_PC 1.8 V | SOC_BOOT_SEL2 | strap BOOT_SEL, solo footprint DNP |
 | PC5 | D3 | VCC_PC 1.8 V | EMMC_CLK | SMHC2 eMMC 8 bit |
 | PC6 | E2 | VCC_PC 1.8 V | EMMC_CMD | SMHC2 eMMC 8 bit |
 | PC7 | F4 | VCC_PC 1.8 V | PD_INT_N | INT del FUSB302B (open-drain, 1.8 V) |

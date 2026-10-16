@@ -46,7 +46,7 @@ sh SchedaH616/generatori/build_pcb.sh
 
 - Schema completo, **ERC a 0 violazioni** (KiCad 10), nessuna net con un solo pin
 - Ball map H616 presa **solo** dal datasheet ufficiale (tabella 4-2, controllata sulla figura 7-1)
-- **PCB**: 50 x 70 mm, 6 strati, solo placement (342 componenti, 122 top e 220 bottom), DRC a 0 violazioni (restano solo i collegamenti da sbrogliare)
+- **PCB**: 50 x 70 mm, 6 strati, solo placement (360 componenti, 128 top e 232 bottom), DRC a 0 violazioni (restano solo i collegamenti da sbrogliare)
 
 ## Punti aperti principali
 

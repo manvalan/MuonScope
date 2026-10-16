@@ -174,6 +174,10 @@ SA6-SA16, SBA, SBG, SACT e SODT non sono usati.
 15. **Differenze volute rispetto alla Zero3**:
     - VCC_PG è a 3.3 V (sulla Zero3 è a 1.8 V da ALDO1): l'AP6256 lavora con VDDIO 3.3 V.
     - VCC_PC è a 1.8 V con un LDO dedicato (sulla Zero3 è a 3.3 V, che ha SPI flash e non ha eMMC): serve per l'eMMC in HS200/HS400.
-16. **Strap BOOT_SEL (PC3-PC6)** [NON VERIFICATO]: la Zero3 mette PC5 a GND e PC6 a 3.3 V con 10k per fare il boot da SPI. Qui PC5/PC6 sono CLK/CMD dell'eMMC, con il solo pull-up di CMD, e PC3/PC4 restano con il pull-up interno.
-    Va verificato sullo user manual H616 (BROM) che con questi livelli l'ordine di boot sia SD → eMMC.
+16. **Strap BOOT_SEL[4:1] = PC6/PC5/PC4/PC3** [NON VERIFICATO, ordine di boot da confermare]:
+    - Il datasheet H616 dice solo "Boot Media Select". La tabella livelli → supporto è nello User Manual H616 §3.4, che non abbiamo, e linux-sunxi non riporta l'ordine di boot dell'H616.
+    - Zero2: nessuno strap, boot da SD e SPI NOR. Zero3 (blocco "SPI BOOT"): 10k pull-up su PC3/PC4/PC6, 10k pull-down su PC5.
+    - **Scelta**: nessuno strap montato, come la Zero2. Ci sono footprint 10k **DNP** su ogni linea, uno di pull-up a VCC-1V8-EMMC (= VCC_PC) e uno di pull-down a GND: R340-R347 sul foglio CPU. La configurazione si può cambiare dopo le prime prove.
+    - PC6 (CMD dell'eMMC) ha già un pull-up 10k montato (R407, richiesto dall'eMMC), quindi oggi BOOT_SEL4 = 1. PC3-PC5 restano con il pull-up interno al reset.
+    - In layout, i footprint DNP su PC5/PC6 (CLK/CMD dell'eMMC) vanno messi direttamente sui via, senza stub.
 13. **PCB**: placement 50 x 70 mm fatto (2026-10-16), senza piste. Dettagli ed esito del DRC in [pcb-placement.md](pcb-placement.md).

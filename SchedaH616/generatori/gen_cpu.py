@@ -62,7 +62,7 @@ PIN = {
     # GPIO C: eMMC 8 bit su SMHC2 (VCC_PC 1.8 V); liberi solo ingressi open-drain con pull-up a 1.8 V
     "PC0": "EMMC_DS", "PC1": "EMMC_RST", "PC5": "EMMC_CLK", "PC6": "EMMC_CMD", "PC8": "EMMC_D3", "PC9": "EMMC_D4",
     "PC10": "EMMC_D0", "PC11": "EMMC_D5", "PC13": "EMMC_D1", "PC14": "EMMC_D6", "PC15": "EMMC_D2", "PC16": "EMMC_D7",
-    "PC2": "IOX_INT_N", "PC7": "PD_INT_N", "PC12": "USB1_OC_N",
+    "PC2": "IOX_INT_N", "PC7": "PD_INT_N", "PC12": "USB1_OC_N", "PC3": "SOC_BOOT_SEL1", "PC4": "SOC_BOOT_SEL2",
     # GPIO F: microSD su SMHC0, PF6 libero (rilevamento scheda sull'espansore)
     "PF0": "SD_D1", "PF1": "SD_D0", "PF2": "SD_CLK", "PF3": "SD_CMD", "PF4": "SD_D3", "PF5": "SD_D2", "PF6": "SOC_PREFIX_2",
     # GPIO L: S_TWI0 verso AXP313A, FUSB302B, TCA6416A (1.8 V)
@@ -126,6 +126,14 @@ s.R("R2", "10k", X + 60, Y, "VCC-IO", "SOC_FEL")
 s.place("Connector_Generic:Conn_01x03", "J1", "UART0 debug", "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical", X + 85, Y,
         {"1": "UART0_TX", "2": "UART0_RX", "3": "GND_D"})
 s.text("J301: 1 = TX del SoC (PH0), 2 = RX del SoC (PH1), 3 = GND. Livelli 3.3 V.", X + 70, Y + 12)
+
+# ---------------- strap BOOT_SEL (PC3-PC6): tutti DNP -----------------------------------------------------------------
+X, Y = 400, 110
+s.text("Strap BOOT_SEL[4:1] = PC6/PC5/PC4/PC3: nessuno montato, come la Zero2 (la tabella livelli -> supporto e' nello User Manual H616 par. 3.4, non disponibile).", X - 10, Y - 12)
+s.text("Footprint DNP 10k: pull-up a VCC-1V8-EMMC (= VCC_PC) e pull-down a GND su ogni linea. La Zero3 (boot SPI) usa PC3/PC4/PC6 alti e PC5 basso. Su PC5/PC6 (eMMC) metterli sui via, senza stub.", X - 10, Y - 7)
+for i, n in enumerate(["SOC_BOOT_SEL1", "SOC_BOOT_SEL2", "EMMC_CLK", "EMMC_CMD"]):
+    s.R(f"R{40 + 2 * i}", "10k", X + 20 * i, Y + 5, "VCC-1V8-EMMC", n, dnp=True)
+    s.R(f"R{41 + 2 * i}", "10k", X + 20 * i + 8, Y + 5, n, "GND_D", dnp=True)
 
 # ---------------- disaccoppiamento e analogica ------------------------------------------------------------------------
 X, Y = 260, 160

@@ -34,14 +34,14 @@ I passivi sono messi in automatico vicino al componente con cui condividono più
 ## Esito
 
 - **DRC**: 0 violazioni. Restano 499 collegamenti non fatti (nessuna pista). Parità schema/PCB: 0 problemi.
-- **Componenti**: piazzati tutti e 342 (122 top, 220 bottom). Nessun footprint mancante.
+- **Componenti**: piazzati tutti e 360 (128 top, 232 bottom). Nessun footprint mancante.
 - **Libreria H616.pretty corretta**:
   - serigrafia tolta dove finiva sui pad (footprint EasyEDA e AP6256);
   - pioli di centraggio di RJ45 e portapila diventati NPTH.
 
 ## Da rivedere in layout
 
-- La scheda è molto piena: 220 componenti stanno sul bottom, quindi il montaggio è su due lati.
+- La scheda è molto piena: 232 componenti stanno sul bottom, quindi il montaggio è su due lati.
 - Il PHY RTL8211F è a circa 15 mm dall'RJ45: le coppie MDI vanno tenute corte e accoppiate, oppure si sposta il PHY.
 - L'AXP313A e i buck sono a 5-10 mm dal NEO-M9N: serve un piano di massa continuo e il percorso RF corto verso J701.
 - Il footprint RPW0010A del TPS259470 è da verificare sulle quote TI. Lo stackup a 6 strati è quello di default di KiCad e va allineato a quello di JLCPCB.
