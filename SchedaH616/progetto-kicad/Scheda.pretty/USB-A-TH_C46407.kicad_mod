@@ -457,7 +457,7 @@
 		(uuid "ab5e212b-f327-4ba7-8784-19c43c5cbd9e")
 	)
 	(embedded_fonts no)
-	(model "${KIPRJMOD}/H616.3dshapes/USB-AF-90-14.4X13.6-H7.0-DIP.step"
+	(model "${KIPRJMOD}/Scheda.3dshapes/USB-AF-90-14.4X13.6-H7.0-DIP.step"
 		(offset
 			(xyz 0 0 0)
 		)

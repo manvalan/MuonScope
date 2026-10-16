@@ -1,9 +1,9 @@
-"""Genera il foglio KiCad 10 'Bus MIKILAB' per la scheda H616 e lo aggancia al foglio radice."""
-import re, sys, uuid
+"""Genera il foglio KiCad 10 'Bus MIKILAB' per la scheda RK3568 e lo aggancia al foglio radice."""
+import os, re, sys, uuid
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from kilib import LIB, PROJ, ROOT_UUID
 
-LIB = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols"
 PRJ = sys.argv[1]
-ROOT_UUID = "ca22b936-6f4a-45ef-aa0b-04959bbbf7ee"
 SHEET_UUID = str(uuid.uuid4())
 PATH = f"/{ROOT_UUID}/{SHEET_UUID}"
 U = lambda: str(uuid.uuid4())
@@ -49,7 +49,7 @@ def symbol(lib_id, ref, val, fp, x, y, pins, extra=""):
         f'(in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "{U()}") '
         f'{prop("Reference", ref, x + 3.81, y - 1.27)} {prop("Value", val, x + 3.81, y + 1.27, ang=90 if ref.startswith("J") else 0)} '
         f'{prop("Footprint", fp, x, y, True)} {prop("Datasheet", "", x, y, True)} {prop("Description", "", x, y, True)} {extra} '
-        f'{pl} (instances (project "SchedaH616" (path "{PATH}" (reference "{ref}") (unit 1)))))')
+        f'{pl} (instances (project "{PROJ}" (path "{PATH}" (reference "{ref}") (unit 1)))))')
 
 
 def wire(x1, y1, x2, y2):
@@ -83,7 +83,7 @@ OUT, IN = "output", "input"
 DIR = {"MAIN_SPI_MISO": OUT, "MAIN_SPI_ALERT_N": OUT, "PWR_SPI_MISO": OUT, "DAC61402_FAULT": OUT,
        "MAIN_I2C_SDA": "bidirectional", "MAIN_I2C_SCL": "bidirectional", "BUS_3V3": "passive", "VIN_SYS": "passive"}
 
-# MAIN 28 pin, BPS-MIKILAB-2026-REV5.1 (pin 28 = HIT#; scheda H616 = J_OUT, testa della catena)
+# MAIN 28 pin, BPS-MIKILAB-2026-REV5.1 (pin 28 = HIT#; scheda RK3568 = J_OUT, testa della catena)
 MAIN = {1: "GND_D", 2: "BUS_5V", 3: "BUS_3V3", 4: "GND_D", 5: "BUS_2V5_REF", 6: "BUS_1V25_REF", 7: "GND_A",
         8: "BUS_VBIAS_1", 9: "BUS_VBIAS_2", 10: "GND_D", 11: "MAIN_SPI_SCLK", 12: "MAIN_SPI_MOSI",
         13: "MAIN_SPI_MISO", 14: "MAIN_I2C_SDA", 15: "MAIN_I2C_SCL", 16: "GND_D", 17: "MAIN_SPI_CS_MASTER",
@@ -117,20 +117,20 @@ def place_conn(lib_id, symtext, ref, val, fp, x, y, netmap):
 place_conn("Connector_Generic_MountingPin:Conn_01x30_MountingPin", C22, "J1", "BUS_POWER_MIKILAB",
            "Connector_FFC-FPC:Hirose_FH12-30S-0.5SH_1x30-1MP_P0.50mm_Horizontal", 86.36, 86.36, PWR)
 place_conn("Connector_Generic_MountingPin:Conn_01x28_MountingPin", C28, "J2", "BUS_MIKILAB_MAIN",
-           "H616:FPC-05F-28PH20", 182.88, 86.36, MAIN)
+           "Scheda:FPC-05F-28PH20", 182.88, 86.36, MAIN)
 
 # ID iniziale 000 su J_OUT: SPI_ID_0..2 a massa tramite 0 ohm; ponte GND_A-GND_D apribile
 for i, (ref, top, bot) in enumerate([("R1", "SPI_ID_0", "GND_D"), ("R2", "SPI_ID_1", "GND_D"),
                                      ("R3", "SPI_ID_2", "GND_D"), ("R4", "GND_A", "GND_D")]):
     x, y = 228.6 + i * 12.7, 76.2
-    symbol("Device:R", ref, "0R", "Resistor_SMD:R_0603_1608Metric", x, y, ["1", "2"])
+    symbol("Device:R", ref, "0R", "Resistor_SMD:R_0402_1005Metric", x, y, ["1", "2"])
     wire(x, y - 3.81, x, y - 8.89); label(top, x, y - 8.89, 90 if top not in GLOBAL else 270)
     wire(x, y + 3.81, x, y + 8.89); label(bot, x, y + 8.89, 90)
 
 text("J1 BUS_POWER 30 pin (Hirose FH12-30S): pin 1-22 come J3 del modulo Power, 24-26 VIN_SYS 12 V, 29 secondo 3V3. Rail BUS_* passanti verso J2, non collegati ai rail della scheda.", 25.4, 25.4)
-text("VIN_SYS -> buck TPS56637 12->5 V, senza eFuse (foglio Alimentazione). BUS_5V va solo a J2 pin 2.", 25.4, 30.48)
-text("J2 MAIN 28 pin secondo BPS-MIKILAB-2026-REV5.1 (pin 28 = HIT#) (spec: XUNPU FPC-05F-28PH20; footprint H616:FPC-05F-28PH20 da EasyEDA C2856807).", 25.4, 35.56)
-text("Sul foglio CPU: SPI1 condiviso BUS_POWER/MAIN con 33R serie per ramo, 100R su ADDR/PREFIX, pull-up 4.7k su ALERT#/HIT#, 2.2k su I2C, 10k sui CS, ESD TPD4E05U06.", 25.4, 40.64)
+text("VIN_SYS -> buck TPS56637 12->5 V (foglio Alimentazione), senza eFuse. BUS_5V va solo a J2 pin 2.", 25.4, 30.48)
+text("J2 MAIN 28 pin secondo BPS-MIKILAB-2026-REV5.1 (pin 28 = HIT#) (spec: XUNPU FPC-05F-28PH20; footprint Scheda:FPC-05F-28PH20 da EasyEDA C2856807).", 25.4, 35.56)
+text("Sul foglio CPU: BUS_POWER su SPI3_M1 e MAIN su SPI2_M1 (due controller separati) con 33R serie, 100R su ADDR/PREFIX, pull-up 4.7k su ALERT#/HIT#, 2.2k su I2C, 10k sui CS, ESD TPD4E05U06.", 25.4, 40.64)
 text("R4 0R: ponte GND_A-GND_D, DNP di default (sul modulo Power GND_A e GND_D sono gia la stessa net). R1-R3: ID iniziale 000 (scheda = J_OUT, testa della catena).", 25.4, 45.72)
 
 libsyms = "(lib_symbols " + C22 + C28 + RES + ")"
@@ -139,7 +139,7 @@ sch = (f'(kicad_sch (version 20260306) (generator "eeschema") (generator_version
 open(f"{PRJ}/bus-mikilab.kicad_sch", "w").write(sch)
 
 # Foglio radice: aggiunge il sotto-foglio con i pin gerarchici
-root_path = f"{PRJ}/SchedaH616.kicad_sch"
+root_path = f"{PRJ}/{PROJ}.kicad_sch"
 root = open(root_path).read()
 h = 5.08 + 2.54 * len(hier)
 sx, sy, w = 152.4, 38.1, 50.8
@@ -156,7 +156,7 @@ sheet = (f'(sheet (at {sx} {sy}) (size {w} {h:.2f}) (exclude_from_sim no) (in_bo
          f'(fields_autoplaced yes) (stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0)) (uuid "{SHEET_UUID}") '
          f'(property "Sheetname" "Bus MIKILAB" (at {sx} {sy - 0.71:.2f} 0) {FONT.format(j="left bottom")}) '
          f'(property "Sheetfile" "bus-mikilab.kicad_sch" (at {sx} {sy + h + 0.58:.2f} 0) {FONT.format(j="left top")}) '
-         f'{pins} (instances (project "SchedaH616" (path "/{ROOT_UUID}" (page "3")))))')
+         f'{pins} (instances (project "{PROJ}" (path "/{ROOT_UUID}" (page "3")))))')
 i = root.rfind("\t(sheet_instances")
 root = root[:i] + "\t" + sheet + "\n\t" + "\n\t".join(extra) + "\n" + root[i:]
 open(root_path, "w").write(root)

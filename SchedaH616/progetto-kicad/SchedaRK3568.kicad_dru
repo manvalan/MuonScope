@@ -3,8 +3,8 @@
 (rule "SMA a bordo scheda"
     (condition "A.memberOfFootprint('J701') || A.memberOfFootprint('J702') || A.memberOfFootprint('J703') || B.memberOfFootprint('J701') || B.memberOfFootprint('J702') || B.memberOfFootprint('J703')")
     (constraint edge_clearance (min 0mm)))
-# via-in-pad sotto l'H616 (JLCPCB POFV): 0.25/0.15
-(rule "Via-in-pad H616"
+# via-in-pad sotto l'RK3568 (JLCPCB POFV): 0.25/0.15
+(rule "Via-in-pad RK3568"
     (condition "A.Type == 'Via' && A.intersectsCourtyard('U301')")
     (constraint via_diameter (min 0.25mm))
     (constraint hole_size (min 0.15mm)))

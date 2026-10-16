@@ -1,12 +1,10 @@
-"""Foglio KiCad 10 'Alimentazione' della scheda H616 (VIN_SYS 12 V, jack 5 V, USB-C) e pin del foglio radice."""
+"""Foglio KiCad 10 'Alimentazione' della scheda RK3568 (VIN_SYS 12 V, jack 5 V, USB-C) e pin del foglio radice."""
 import os
 import re, sys, uuid
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from kilib import extract, pins
+from kilib import extract, pins, PROJ, ROOT_UUID, LIBNAME
 
 PRJ = sys.argv[1]
-PROJ = "SchedaH616"
-ROOT_UUID = "ca22b936-6f4a-45ef-aa0b-04959bbbf7ee"
 SHEET_UUID = str(uuid.uuid4())
 PATH = f"/{ROOT_UUID}/{SHEET_UUID}"
 U = lambda: str(uuid.uuid4())
@@ -19,7 +17,7 @@ def custom(name, left, right, bottom, w=10.16):
     n = max(len(left), len(right))
     h = 2.54 * (n + 1)
     top = h / 2
-    out = [f'(symbol "H616:{name}" (pin_names (offset 1.016)) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (duplicate_pin_numbers_are_jumpers no)',
+    out = [f'(symbol "Scheda:{name}" (pin_names (offset 1.016)) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (duplicate_pin_numbers_are_jumpers no)',
            f'(property "Reference" "U" (at 0 {top + 1.27:.2f} 0) {F.format(j="left")})',
            f'(property "Value" "{name}" (at 0 {-top - 3.81:.2f} 0) {F.format(j="left")})',
            '(property "Footprint" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27))))',
@@ -39,7 +37,7 @@ def custom(name, left, right, bottom, w=10.16):
 
 
 SYMS = {
-    "H616:TPS56637": custom("TPS56637", [("8", "VIN", "power_in"), ("1", "EN", "input"), ("10", "MODE", "input"), ("5", "NC", "passive")],
+    "Scheda:TPS56637": custom("TPS56637", [("8", "VIN", "power_in"), ("1", "EN", "input"), ("10", "MODE", "input"), ("5", "NC", "passive")],
                             [("6", "SW", "passive"), ("7", "BOOT", "passive"), ("2", "FB", "input"), ("4", "PG", "output")],
                             [("3", "AGND", "power_in"), ("9", "PGND", "power_in")]),
     "Power_Protection:TPD2EUSB30A": extract("Power_Protection", "TPD2EUSB30A"),
@@ -51,22 +49,22 @@ SYMS = {
     "Connector:TestPoint": extract("Connector", "TestPoint"),
     "Device:R": extract("Device", "R"),
     "Device:L": extract("Device", "L"),
-    "H616:TPS2121": custom("TPS2121",
+    "Scheda:TPS2121": custom("TPS2121",
                            [("7", "IN1", "power_in"), ("6", "PR1", "input"), ("5", "OV1", "input"),
                             ("2", "IN2", "power_in"), ("4", "OV2", "input"), ("3", "CP2", "input")],
                            [("1", "OUT", "power_out"), ("8", "OUT", "passive"), ("9", "ST", "output"),
                             ("10", "ILM", "passive"), ("11", "SS", "passive")],
                            [("12", "GND", "power_in")]),
-    "H616:SY6280AAC": custom("SY6280AAC",
+    "Scheda:SY6280AAC": custom("SY6280AAC",
                              [("5", "IN", "power_in"), ("4", "EN", "input"), ("3", "ISET", "passive")],
                              [("1", "OUT", "power_out")], [("2", "GND", "power_in")], w=7.62),
 }
 PINS = {k: pins(v) for k, v in SYMS.items()}
 
 GLOBAL = {"GND_D"}
-HIER = {"VIN_SYS": "passive", "5V_SYS": "passive", "3V3_SYS": "passive", "USB0_DP": "bidirectional",
-        "USB0_DM": "bidirectional", "PMU-SDA": "bidirectional", "PMU-SCK": "bidirectional",
-        "PD_INT_N": "output", "VBUS_SRC_EN": "input", "PWR_SRC_ST": "output"}
+HIER = {"VIN_SYS": "passive", "5V_SYS": "passive", "VCC3V3_SYS": "passive", "USB0_DP": "bidirectional",
+        "USB0_DM": "bidirectional", "I2C1_SDA": "bidirectional", "I2C1_SCL": "bidirectional",
+        "PD_INT_N": "output", "VBUS_SRC_EN": "input", "PWR_SRC_ST": "output", "OTG_VBUSDET": "output"}
 items, hier = [], []
 
 
@@ -122,20 +120,20 @@ def text(s, x, y):
     items.append(f'(text "{s}" (exclude_from_sim no) (at {x:.2f} {y:.2f} 0) {F.format(j="left bottom")} (uuid "{U()}"))')
 
 
-R0603, C0603, C0805, C1206 = "Resistor_SMD:R_0603_1608Metric", "Capacitor_SMD:C_0603_1608Metric", "Capacitor_SMD:C_0805_2012Metric", "Capacitor_SMD:C_1206_3216Metric"
+R0603, C0603, C0805, C1206 = "Resistor_SMD:R_0402_1005Metric", "Capacitor_SMD:C_0603_1608Metric", "Capacitor_SMD:C_0805_2012Metric", "Capacitor_SMD:C_1206_3216Metric"
 R = lambda ref, val, x, y, a, b, **k: place("Device:R", ref, val, R0603, x, y, {"1": a, "2": b}, **k)
-C = lambda ref, val, x, y, a, b, fp=C0603: place("Device:C", ref, val, fp, x, y, {"1": a, "2": b})
+C = lambda ref, val, x, y, a, b, fp=None: place("Device:C", ref, val, fp or (C0603 if val.startswith(("22u", "10u", "4.7u")) else "Capacitor_SMD:C_0402_1005Metric"), x, y, {"1": a, "2": b})
 
-# --- 1. VIN_SYS 12 V -> TPS56637 6 A -> 5V_BUCK ----------------------------------
+# --- 1. VIN_SYS 12 V -> TPS56637 6 A -> 5V_BUCK (eFuse tolto su richiesta di Michele) ------------------
 X, Y = 30, 70
-text("1) VIN_SYS 12 V dal BUS_POWER (pin 24-26) direttamente nel buck TPS56637 (eFuse tolto su richiesta di Michele: niente limite di corrente, OVP ne' blocco inverso) 12 -> 5 V / 6 A -> 5V_BUCK -> TPS2121 U108 (IN1, priorita)", X, Y - 22)
+text("1) VIN_SYS 12 V dal BUS_POWER (pin 24-26) -> buck TPS56637 12 -> 5 V / 6 A -> 5V_BUCK -> TPS2121 U108 (IN1, priorita). Niente eFuse e niente fusibile.", X, Y - 22)
 X = X + 45
 C("C1", "10uF/25V", X + 12.7, Y, "VIN_SYS", "GND_D", C1206)
 C("C2", "10uF/25V", X + 22.86, Y, "VIN_SYS", "GND_D", C1206)
 C("C25", "100nF/50V", X + 33.02, Y, "VIN_SYS", "GND_D")
 R("R1", "169k 1%", X + 43.18, Y - 7.62, "VIN_SYS", "BUCK_EN")
 R("R2", "36.1k 1%", X + 43.18, Y + 7.62, "BUCK_EN", "GND_D")
-place("H616:TPS56637", "U1", "TPS56637RPAR", "H616:Texas_RPA0010A_VQFN-HR-10_3x3mm", X + 75, Y,
+place("Scheda:TPS56637", "U1", "TPS56637RPAR", "Scheda:Texas_RPA0010A_VQFN-HR-10_3x3mm", X + 75, Y,
       {"8": "VIN_SYS", "1": "BUCK_EN", "2": "BUCK_FB", "10": "BUCK_MODE", "4": "BUCK_PG", "5": "NC", "7": "BUCK_BST",
        "6": "BUCK_SW", "3": "GND_D", "9": "GND_D"}, extra_props=(("MPN", "TPS56637RPAR"),))
 R("R14", "10k", X + 60, Y + 25, "BUCK_MODE", "GND_D", dnp=True)
@@ -150,6 +148,7 @@ for i, ref in enumerate(["C4", "C5", "C27", "C28"]):
     C(ref, "22uF/10V", X + 144 + 10 * i, Y, "5V_BUCK", "GND_D", C1206)
 text("TPS56637 (tabella 4 del datasheet, Vout 5 V): Vfb 0.6 V, R103/R104 73.2k/10k = 4.99 V, L 3.3 uH, Cout 4x22 uF, feed-forward R116 20k + C126 100 pF.", X - 45, Y + 38)
 text("EN: 169k/36.1k (schema tipico TI). MODE libero = FCCM (R114 DNP): frequenza fissa, ripple basso vicino al GNSS. Il jack e' separato dal TPS2121 U108, niente corrente inversa nel buck.", X - 45, Y + 43)
+text("Senza eFuse il buck vede direttamente il BUS_POWER: niente limite di corrente, UVLO/OVLO e blocco inverso sui 12 V (protezione a carico del modulo Power).", X - 45, Y + 48)
 
 # --- 2. Jack DC 5 V e secondo TPS2121 (U108): IN1 = 5V_BUCK con priorita, IN2 = jack -> 5V_EXT ---------
 X2, Y2 = 30, 130
@@ -158,7 +157,7 @@ place("Connector:Barrel_Jack_Switch", "J3", "DC-005-5A-2.0", "Connector_BarrelJa
       {"1": "5V_JACK", "2": "GND_D", "3": "GND_D"})
 place("Device:D_TVS", "D1", "SMF5.0A", "Diode_SMD:D_SMF", X2 + 20, Y2, {"1": "5V_JACK", "2": "GND_D"}, rot=90)
 C("C6", "22uF/10V", X2 + 32, Y2, "5V_JACK", "GND_D", C0805)
-place("H616:TPS2121", "U8", "TPS2121RUXR", "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm", X2 + 95, Y2 + 5,
+place("Scheda:TPS2121", "U8", "TPS2121RUXR", "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm", X2 + 95, Y2 + 5,
       {"7": "5V_BUCK", "6": "MUX2_PR1", "5": "MUX2_OV1", "2": "5V_JACK", "4": "MUX2_OV2", "3": "GND_D",
        "1": "5V_EXT", "8": "5V_EXT", "9": "MUX2_ST", "10": "MUX2_ILM", "11": "MUX2_SS", "12": "GND_D"}, extra_props=(("MPN", "TPS2121RUXR"),))
 R("R21", "32.4k 1%", X2 + 45, Y2 - 5, "5V_BUCK", "MUX2_PR1")
@@ -187,16 +186,20 @@ place("Device:D_TVS", "D2", "SMF5.0A", "Diode_SMD:D_SMF", X3 + 30, Y3 - 10, {"1"
 place("Power_Protection:TPD2EUSB30A", "U7", "TPD2EUSB30ADRTR", "Package_TO_SOT_SMD:Texas_DRT-3", X3 + 45, Y3 + 20, {"D+": "USBC_CC1", "D-": "USBC_CC2", "GND": "GND_D"}, extra_props=(("MPN", "TPD2EUSB30ADRTR"),))
 C("C7", "4.7uF/10V", X3 + 54, Y3 - 10, "VBUS", "GND_D")
 place("Interface_USB:FUSB302BMPX", "U4", "FUSB302BMPX", "Package_DFN_QFN:WQFN-14-1EP_2.5x2.5mm_P0.5mm_EP1.45x1.45mm", X3 + 90, Y3,
-      {"CC1": "USBC_CC1", "CC2": "USBC_CC2", "VBUS": "VBUS", "VDD": "3V3_SYS", "VCONN": "NC", "INT_N": "PD_INT_N",
-       "SCL": "PMU-SCK", "SDA": "PMU-SDA", "GND": "GND_D"})
-C("C8", "1uF", X3 + 112, Y3 - 12, "3V3_SYS", "GND_D")
-C("C9", "100nF", X3 + 122, Y3 - 12, "3V3_SYS", "GND_D")
-text("FUSB302B: I2C condivisa con AXP313A ed espansore su S_TWI0 (PL0/PL1, 1.8 V: VIH 1.32 V, pull-up 1.71 V..VDD da datasheet). Pull-up 2.2k e INT_N 10k a VCC-1V8 sul foglio CPU.", X3, Y3 + 32)
+      {"CC1": "USBC_CC1", "CC2": "USBC_CC2", "VBUS": "VBUS", "VDD": "VCC3V3_SYS", "VCONN": "NC", "INT_N": "PD_INT_N",
+       "SCL": "I2C1_SCL", "SDA": "I2C1_SDA", "GND": "GND_D"})
+C("C8", "1uF", X3 + 112, Y3 - 12, "VCC3V3_SYS", "GND_D")
+C("C9", "100nF", X3 + 122, Y3 - 12, "VCC3V3_SYS", "GND_D")
+R("R29", "10k 1%", X3 + 140, Y3 - 12, "VBUS", "OTG_VBUSDET")
+R("R30", "15k 1%", X3 + 140, Y3 + 3, "OTG_VBUSDET", "GND_D")
+C("C36", "100nF", X3 + 150, Y3 + 3, "OTG_VBUSDET", "GND_D")
+text("USB3_OTG0_VBUSDET (M24): VBUS x 15k/(10k+15k) = 3.0 V con 100 nF (Hardware Design Guide RK3568: 2.7-3.3 V, tip. 3.0 V). Serve al flash con rkdeveloptool (modo device).", X3, Y3 + 37)
+text("FUSB302B (0x22): VDD da VCC3V3_SYS, I2C1 dell'RK3568 (GPIO0_B3/B4, PMUIO2 3.3 V) con pull-up 2.2k a VCC3V3_PMU e INT_N 10k a VCC_3V3 sul foglio CPU.", X3, Y3 + 32)
 
 # --- 4. TPS2121: IN1 = 5V_EXT (priorita), IN2 = VBUS -> 5V_SYS verso AXP313A ------------------
 X4, Y4 = 215, 70
-text("4) Power mux TPS2121 U103: IN1 5V_EXT (uscita di U108: bus o jack) con priorita, IN2 VBUS USB-C. Uscita 5V_SYS verso AXP313A e 3V3_PERI", X4 - 10, Y4 - 25)
-place("H616:TPS2121", "U3", "TPS2121RUXR", "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm", X4 + 45, Y4,
+text("4) Power mux TPS2121 U103: IN1 5V_EXT (uscita di U108: bus o jack) con priorita, IN2 VBUS USB-C. Uscita 5V_SYS verso TPS563201 (VCC3V3_SYS), TCS4525 (VDD_CPU) e TPS2553", X4 - 10, Y4 - 25)
+place("Scheda:TPS2121", "U3", "TPS2121RUXR", "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm", X4 + 45, Y4,
       {"7": "5V_EXT", "6": "MUX_PR1", "5": "MUX_OV1", "2": "VBUS", "4": "MUX_OV2", "3": "GND_D",
        "1": "5V_SYS", "8": "5V_SYS", "9": "PWR_SRC_ST", "10": "MUX_ILM", "11": "MUX_SS", "12": "GND_D"})
 R("R5", "32.4k 1%", X4, Y4 - 10, "5V_EXT", "MUX_PR1")
@@ -216,17 +219,17 @@ text("PR1: IN1 sotto 4.49 V -> passa a IN2. OV1/OV2: canale escluso sopra 5.98 V
 # --- 5. SY6280AAC: VBUS in uscita (modo source), solo con alimentazione esterna -------------
 X5, Y5 = 215, 145
 text("5) SY6280AAC: VBUS in uscita verso una periferica (source, ~1 A). Ingresso da 5V_EXT: si accende solo con jack o VIN_SYS presenti", X5 - 10, Y5 - 15)
-place("H616:SY6280AAC", "U5", "SY6280AAC", "Package_TO_SOT_SMD:SOT-23-5", X5 + 30, Y5,
+place("Scheda:SY6280AAC", "U5", "SY6280AAC", "Package_TO_SOT_SMD:SOT-23-5", X5 + 30, Y5,
       {"5": "5V_EXT", "4": "VBUS_SRC_EN", "3": "SRC_ISET", "1": "VBUS", "2": "GND_D"})
 R("R12", "6.8k 1%", X5 + 10, Y5 + 12, "SRC_ISET", "GND_D")
 R("R13", "100k", X5, Y5 + 12, "VBUS_SRC_EN", "GND_D")
 C("C15", "10uF/10V", X5 + 50, Y5 + 5, "5V_EXT", "GND_D", C0805)
-text("Ilim = 6800 / R112 = 1 A. R113: uscita spenta finche Linux non abilita VBUS_SRC_EN (comandato da tcpm).", X5 - 10, Y5 + 28)
+text("Ilim = 6800 / R112 = 1 A. R113: uscita spenta finche Linux non abilita VBUS_SRC_EN (GPIO0_A5, comandato da tcpm).", X5 - 10, Y5 + 28)
 
 lib = "(kicad_symbol_lib (version 20251024) (generator \"kicad_symbol_editor\") (generator_version \"10.0\") " + " ".join(
-    v.replace(f'(symbol "{k}"', f'(symbol "{k.split(":")[1]}"', 1) for k, v in SYMS.items() if k.startswith("H616:")) + ")"
-open(f"{PRJ}/H616.kicad_sym", "w").write(lib)
-open(f"{PRJ}/sym-lib-table", "w").write('(sym_lib_table (version 7) (lib (name "H616") (type "KiCad") (uri "${KIPRJMOD}/H616.kicad_sym") (options "") (descr "Simboli della scheda H616")))')
+    v.replace(f'(symbol "{k}"', f'(symbol "{k.split(":")[1]}"', 1) for k, v in SYMS.items() if k.startswith("Scheda:")) + ")"
+open(f"{PRJ}/{LIBNAME}.kicad_sym", "w").write(lib)
+open(f"{PRJ}/sym-lib-table", "w").write('(sym_lib_table (version 7) (lib (name "Scheda") (type "KiCad") (uri "${KIPRJMOD}/Scheda.kicad_sym") (options "") (descr "Simboli della scheda RK3568")))')
 libsyms = "(lib_symbols " + " ".join(SYMS.values()) + ")"
 open(f"{PRJ}/alimentazione.kicad_sch", "w").write(
     f'(kicad_sch (version 20260306) (generator "eeschema") (generator_version "10.0") (uuid "{SHEET_UUID}") (paper "A3") '

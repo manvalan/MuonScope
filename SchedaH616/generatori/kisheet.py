@@ -1,9 +1,6 @@
-"""Generatore di fogli KiCad 10 a etichette (stile dei fogli SchedaH616)."""
+"""Generatore di fogli KiCad 10 a etichette (stile dei fogli della scheda RK3568)."""
 import re, uuid
-from kilib import extract, pins, block
-
-PROJ = "SchedaH616"
-ROOT_UUID = "ca22b936-6f4a-45ef-aa0b-04959bbbf7ee"
+from kilib import extract, pins, block, PROJ, ROOT_UUID, LIBNAME
 F = "(effects (font (size 1.27 1.27)) (justify {j}))"
 G = lambda v: round(v / 1.27) * 1.27
 U = lambda: str(uuid.uuid4())
@@ -70,7 +67,7 @@ class Sheet:
         self.items.append(f'(wire (pts (xy {ax:.2f} {ay:.2f}) (xy {ex:.2f} {ey:.2f})) (stroke (width 0) (type default)) (uuid "{U()}"))')
         self.label(net, ex, ey, la)
 
-    def place(self, lib_id, ref, val, fp, x, y, nets, dnp=False, mpn=None):
+    def place(self, lib_id, ref, val, fp, x, y, nets, dnp=False, mpn=None, lcsc=None):
         m = re.match(r"([A-Z]+)(\d+)$", ref)
         ref = f"{m.group(1)}{self.series + int(m.group(2))}"
         x, y = G(x), G(y)
@@ -86,6 +83,8 @@ class Sheet:
         maxpy = max(p[3] for p in self.pins[lib_id])
         fx, fy = (x - 7.62, y - maxpy - 5.08) if big else (x + 2.54, y + 1.27)
         props = f' (property "MPN" "{mpn}" (at {x:.2f} {y:.2f} 0) (hide yes) (effects (font (size 1.27 1.27))))' if mpn else ""
+        if lcsc:
+            props += f' (property "LCSC" "{lcsc}" (at {x:.2f} {y:.2f} 0) (hide yes) (effects (font (size 1.27 1.27))))'
         pl = " ".join(f'(pin "{p[0]}" (uuid "{U()}"))' for p in self.pins[lib_id])
         self.items.append(
             f'(symbol (lib_id "{lib_id}") (at {x:.2f} {y:.2f} 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom {"no" if lib_id == "Connector:TestPoint" else "yes"}) (on_board yes) (in_pos_files yes) (dnp {"yes" if dnp else "no"}) (uuid "{U()}") '
@@ -109,8 +108,9 @@ class Sheet:
         if libfile:
             lib = open(libfile).read()
             for k, v in self.syms.items():
-                if k.startswith("H616:") and f'(symbol "{k[5:]}"' not in lib:
-                    lib = lib.rstrip()[:-1] + " " + v.replace(f'(symbol "{k}"', f'(symbol "{k[5:]}"', 1) + ")"
+                n = len(LIBNAME) + 1
+                if k.startswith(LIBNAME + ":") and f'(symbol "{k[n:]}"' not in lib:
+                    lib = lib.rstrip()[:-1] + " " + v.replace(f'(symbol "{k}"', f'(symbol "{k[n:]}"', 1) + ")"
             open(libfile, "w").write(lib)
         open(f"{prj}/{self.fname}", "w").write(
             f'(kicad_sch (version 20260306) (generator "eeschema") (generator_version "10.0") (uuid "{self.uuid}") (paper "{self.paper}") '

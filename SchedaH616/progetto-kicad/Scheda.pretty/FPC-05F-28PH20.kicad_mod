@@ -385,7 +385,7 @@
 		(uuid "3668e209-7c9b-43b5-8cbc-455278bd07f0")
 	)
 	(embedded_fonts no)
-	(model "${KIPRJMOD}/H616.3dshapes/FPC-SMD_28P-P0.50_FPC-05F-28PH20.wrl"
+	(model "${KIPRJMOD}/Scheda.3dshapes/FPC-SMD_28P-P0.50_FPC-05F-28PH20.wrl"
 		(offset
 			(xyz 0 0 0)
 		)

@@ -1,1 +1,1 @@
-(sym_lib_table (version 7) (lib (name "H616") (type "KiCad") (uri "${KIPRJMOD}/H616.kicad_sym") (options "") (descr "Simboli della scheda H616")))
+(sym_lib_table (version 7) (lib (name "Scheda") (type "KiCad") (uri "${KIPRJMOD}/Scheda.kicad_sym") (options "") (descr "Simboli della scheda RK3568")))

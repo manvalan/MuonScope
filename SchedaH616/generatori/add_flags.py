@@ -1,17 +1,17 @@
 import os
 import re, sys, uuid
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from kilib import extract
+from kilib import extract, PROJ, ROOT_UUID
 D = sys.argv[1]
 U = lambda: str(uuid.uuid4())
-ROOT = "ca22b936-6f4a-45ef-aa0b-04959bbbf7ee"
-root = open(f"{D}/SchedaH616.kicad_sch").read()
+ROOT = ROOT_UUID
+root = open(f"{D}/{PROJ}.kicad_sch").read()
 def sheet_uuid(fname):
     i = root.find(f'"Sheetfile" "{fname}"'); j = root.rfind("(sheet ", 0, i)
     return re.search(r'\(uuid "([0-9a-f-]+)"\)', root[j:i]).group(1)
 FLAG = extract("power", "PWR_FLAG")
-WANT = {"gnss.kicad_sch": ["GNSS_V_BCKP"], "alimentazione.kicad_sch": ["VIN_SYS", "5V_BUCK", "5V_JACK", "3V3_SYS", "GND_D"],
-        "pmic.kicad_sch": ["3V3_PERI", "VCC-IO", "VCC-1V8", "VCC-DRAM", "VDD-CPU", "VDD-SYS"]}
+WANT = {"gnss.kicad_sch": ["GNSS_V_BCKP"], "alimentazione.kicad_sch": ["VIN_SYS", "5V_BUCK", "5V_JACK", "GND_D"],
+        "pmic.kicad_sch": ["VCC3V3_SYS", "VCC_3V3", "VCC3V3_SD"]}
 n = 0
 for fname, nets in WANT.items():
     t = open(f"{D}/{fname}").read()
@@ -21,7 +21,7 @@ for fname, nets in WANT.items():
     out = []
     for k, net in enumerate(nets):
         n += 1
-        x, y = 20.32 + 20.32 * k, 280.67
+        x, y = 20.32 + 20.32 * k, (394.97 if fname == "pmic.kicad_sch" else 280.67)
         lab = (f'(global_label "{net}" (shape passive) (at {x:.2f} {y + 5.08:.2f} 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "{U()}"))'
                if net == "GND_D" or net.startswith("GNSS_") else f'(label "{net}" (at {x:.2f} {y + 5.08:.2f} 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "{U()}"))')
         out.append(f'(wire (pts (xy {x:.2f} {y:.2f}) (xy {x:.2f} {y + 5.08:.2f})) (stroke (width 0) (type default)) (uuid "{U()}"))')
@@ -32,7 +32,7 @@ for fname, nets in WANT.items():
                    f'(property "Footprint" "" (at {x:.2f} {y:.2f} 0) (hide yes) (effects (font (size 1.27 1.27)))) '
                    f'(property "Datasheet" "" (at {x:.2f} {y:.2f} 0) (hide yes) (effects (font (size 1.27 1.27)))) '
                    f'(property "Description" "" (at {x:.2f} {y:.2f} 0) (hide yes) (effects (font (size 1.27 1.27)))) '
-                   f'(pin "1" (uuid "{U()}")) (instances (project "SchedaH616" (path "{path}" (reference "#FLG0{n:02d}") (unit 1)))))')
+                   f'(pin "1" (uuid "{U()}")) (instances (project "{PROJ}" (path "{path}" (reference "#FLG0{n:02d}") (unit 1)))))')
     t = t.rstrip()
     t = t[:t.rfind("(embedded_fonts no)")] + " ".join(out) + " (embedded_fonts no))"
     open(f"{D}/{fname}", "w").write(t)
@@ -48,5 +48,5 @@ if m:
     x, y = float(m.group(1)), float(m.group(2))
     r = re.sub(r'\(label "BUS_3V3" \(at [^\n]*?\(uuid "[^"]+"\)\)', "", r)
     r = re.sub(r'\(wire \(pts \(xy %.2f %.2f\) \(xy %.2f %.2f\)\)[^\n]*?\(uuid "[^"]+"\)\)' % (x + 5.08, y, x, y), "", r)
-open(f"{D}/SchedaH616.kicad_sch", "w").write(r)
+open(f"{D}/{PROJ}.kicad_sch", "w").write(r)
 print("BUS_3V3 pin root:", r.count('"BUS_3V3"'))

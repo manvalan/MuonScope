@@ -1,5 +1,26 @@
+import os
 import re
-LIB = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols"
+
+
+def _first(*cands):
+    for p in cands:
+        if p and os.path.isdir(p):
+            return p
+    raise SystemExit("Librerie standard di KiCad 10 non trovate: impostare KICAD10_SYMBOL_DIR e KICAD10_FOOTPRINT_DIR")
+
+
+# Librerie standard di KiCad 10: variabili d'ambiente, pacchetti kicad-symbols/kicad-footprints estratti in
+# ~/Develop/kicad-libs (Linux senza root), installazione di sistema Linux, installazione macOS.
+_HOME_LIBS = os.path.expanduser("~/Develop/kicad-libs/usr/share/kicad")
+LIB = _first(os.environ.get("KICAD10_SYMBOL_DIR"), f"{_HOME_LIBS}/symbols", "/usr/share/kicad/symbols",
+             "/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols")
+FPLIB = _first(os.environ.get("KICAD10_FOOTPRINT_DIR"), f"{_HOME_LIBS}/footprints", "/usr/share/kicad/footprints",
+               "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints")
+LIBNAME = "Scheda"  # libreria di progetto: Scheda.kicad_sym, Scheda.pretty, Scheda.3dshapes
+PROJ = "SchedaRK3568"
+ROOT_UUID = "ca22b936-6f4a-45ef-aa0b-04959bbbf7ee"
+
+
 def block(t, i):
     d = 0
     for j in range(i, len(t)):

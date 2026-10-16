@@ -1,7 +1,7 @@
-"""Crea SchedaH616.kicad_pcb dalla netlist (solo placement, niente piste).
+"""Crea SchedaRK3568.kicad_pcb dalla netlist (solo placement, niente piste).
 
 Uso, con il Python di KiCad:
-  /Applications/KiCad/KiCad.app/Contents/Frameworks/Python.framework/Versions/3.9/bin/python3 gen_pcb.py netlist.net progetto-kicad
+  python3 gen_pcb.py netlist.net progetto-kicad   (Linux: python3 di sistema con pcbnew; macOS: python3 di KiCad.app)
 Scheda 50 x 70 mm, smussi 3 mm, 4 fori NPTH 2.2 mm con keepout, 6 strati. I componenti principali hanno una posizione
 fissa (PLACE); i passivi vengono messi in automatico vicino al componente con cui condividono piu' net.
 """
@@ -11,10 +11,11 @@ SC = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, SC)
 import pcbnew
 import netlist
+from kilib import FPLIB, PROJ, LIBNAME
 
 NET, PRJ = sys.argv[1], sys.argv[2]
-OUT = os.path.join(PRJ, "SchedaH616.kicad_pcb")
-STD = "/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints"
+OUT = os.path.join(PRJ, f"{PROJ}.kicad_pcb")
+STD = FPLIB
 W, H, CH = 50.0, 70.0, 3.0           # scheda e smusso
 OX, OY = 100.0, 100.0                # origine dell'angolo in alto a sinistra
 HOLES = [(4, 4), (46, 4), (4, 66), (46, 66)]
@@ -29,7 +30,7 @@ ds = board.GetDesignSettings()
 ds.SetBoardThickness(mm(1.6))
 ds.m_TrackMinWidth = mm(0.127)        # 5 mil
 ds.m_MinClearance = mm(0.1)
-ds.m_ViasMinSize = mm(0.25)           # via-in-pad 0.25/0.15 sotto l'H616 (JLCPCB POFV)
+ds.m_ViasMinSize = mm(0.25)           # via-in-pad 0.25/0.15 sotto l'RK3568 (JLCPCB POFV)
 ds.m_MinThroughDrill = mm(0.15)
 ds.m_ViasMinAnnularWidth = mm(0.05)
 ds.m_HoleClearance = mm(0.2)
@@ -57,7 +58,7 @@ cache = {}
 
 def load(fpid):
     lib, name = fpid.split(":")
-    path = os.path.join(PRJ, "H616.pretty") if lib == "H616" else f"{STD}/{lib}.pretty"
+    path = os.path.join(PRJ, f"{LIBNAME}.pretty") if lib == LIBNAME else f"{STD}/{lib}.pretty"
     return pcbnew.FootprintLoad(path, name)
 
 
@@ -159,29 +160,31 @@ def crtyd_only(fp):
 
 
 # ---------------- posizioni dei componenti principali (coordinate locali, mm; y verso il basso) -------------------
-# Bordo alto: bus MIKILAB. Bordo basso: RJ45 e USB-C host. Sinistra: USB-C alimentazione, jack, AP6256 + U.FL.
-# Destra: GNSS NEO-M9N con le tre SMA (antenna opposta all'U.FL del Wi-Fi). Centro: H616 con LPDDR4 sotto (lato DRAM).
+# RK3568 al centro ruotato di 180 gradi: angolo DDR (righe A-F, colonne 1-18) in basso a destra verso la DDR4,
+# GMAC0/SDMMC0/eMMC (righe A-J, colonne 21-28) in basso a sinistra verso RJ45, eMMC e microSD, SDMMC2 e I2C0 in alto
+# verso AP6256 e PMIC. Bordo alto: bus MIKILAB. Sinistra: USB-C alimentazione, jack, eMMC. Destra: tre SMA, GNSS in alto
+# a destra vicino alla SMA d'antenna. Basso: RJ45 e USB-C host.
 L_, R_, U_, D_ = (-1, 0), (1, 0), (0, -1), (0, 1)
 PLACE = {
-    "U301": dict(rot=0, cx=24.5, cy=26.5),                       # H616: righe DRAM (N-V) verso il basso
-    "U401": dict(rot=90, cx=24.5, top=33.6),                     # LPDDR4 sul lato DRAM
-    "J1": dict(face=U_, left=9.8, top=0.3),                        # BUS_POWER FH12-30, ingresso cavo sul bordo alto
-    "J2": dict(face=U_, side="B", right=42.8, top=0.4),            # MAIN 28 pin sul lato bottom dello stesso bordo
-    "J501": dict(face=D_, left=7.4, bottom=69.4),                  # RJ45, apertura sul bordo basso
-    "J801": dict(face=D_, cx=31.5, bottom=70),                   # USB-C host, apertura sul bordo basso
-    "J104": dict(face=L_, left=0, top=7.6),                      # USB-C alimentazione, bordo sinistro
-    "J103": dict(face=L_, left=0, top=18.8),                     # jack 5 V, bordo sinistro
-    "U601": dict(rot=0, left=0.4, top=30.8),                     # AP6256 al bordo sinistro
-    "J601": dict(rot=0, left=0.3, top=44.6),                     # U.FL Wi-Fi accanto all'AP6256
-    "U701": dict(rot=0, right=49.6, top=7.4),                    # NEO-M9N in alto a destra
-    "J701": dict(face=R_, right=50 + 11.96, cy=30.0),            # SMA antenna GNSS (bordo destro, opposto all'U.FL)
-    "J702": dict(face=R_, right=50 + 11.96, cy=41.6),            # SMA PPS OUT
-    "J703": dict(face=R_, right=50 + 11.96, cy=53.2),            # SMA STROBE IN
-    "J401": dict(face=R_, side="B", right=50.0, top=7.3),        # microSD sul bottom, apertura sul bordo destro, sotto il GNSS
-    "BT701": dict(rot=90, side="B", right=43.6, top=34.0),        # CR1220 sul bottom
-    "U402": dict(rot=0, side="B", left=0.5, top=31.0),           # eMMC sul bottom, vicino ai pin PC (lato sinistro H616)
-    "U501": dict(rot=0, side="B", cx=37.0, top=54.0),            # PHY sul bottom vicino all'RJ45
-    "L101": dict(rot=0, left=17.0, top=8.6),                     # induttore del TPS56637 vicino al BUS_POWER
+    "U301": dict(rot=180, cx=26.5, cy=33.5),                     # RK3568, A1 in basso a destra
+    "U401": dict(rot=90, cx=33.7, top=44.0),                     # DDR4 sotto l'angolo DDR del SoC
+    "J1": dict(face=U_, left=9.8, top=0.3),                      # BUS_POWER FH12-30, ingresso cavo sul bordo alto
+    "J2": dict(face=U_, side="B", right=42.8, top=0.4),          # MAIN 28 pin sul bottom dello stesso bordo
+    "J104": dict(face=L_, left=0, top=8.6),                      # USB-C alimentazione / OTG, bordo sinistro
+    "J103": dict(face=L_, left=0, top=19.6),                     # jack 5 V, bordo sinistro
+    "U402": dict(rot=0, left=0.3, top=31.4),                     # eMMC sul top, bordo sinistro, vicino alle sfere EMMC
+    "J501": dict(face=D_, left=7.4, bottom=69.4),                # RJ45, apertura sul bordo basso
+    "J801": dict(face=D_, cx=30.6, bottom=70),                   # USB-C host, apertura sul bordo basso
+    "U701": dict(rot=90, right=43.6, top=8.35),                   # NEO-M9N in alto a destra
+    "J701": dict(face=R_, right=50 + 11.96, cy=13.4),            # SMA antenna GNSS accanto al NEO
+    "J702": dict(face=R_, right=50 + 11.96, cy=24.8),            # SMA PPS OUT
+    "J703": dict(face=R_, right=50 + 11.96, cy=36.1),            # SMA STROBE IN
+    "U601": dict(rot=0, side="B", right=43.5, top=8.6),          # AP6256 sul bottom sotto il GNSS, vicino a SDMMC2
+    "J401": dict(face=L_, side="B", left=0.0, top=31.3),         # microSD sul bottom, apertura sul bordo sinistro
+    "U201": dict(rot=0, cx=19.5, cy=14.5),                       # RK809-5 tra bus e SoC
+    "U501": dict(rot=0, side="B", cx=26.0, cy=47.0),             # PHY sul bottom tra SoC e RJ45
+    "L101": dict(rot=0, side="B", left=7.6, top=0.6),
+    "BT701": dict(rot=90, side="B", right=49.6, top=41.75),      # CR1220 sul bottom in basso a destra, vicino al GNSS            # induttore del TPS56637 sul bottom in alto a sinistra
 }
 SMA_EDGE = {"J701", "J702", "J703"}
 for ref, a in PLACE.items():
@@ -231,7 +234,7 @@ def inside(r, m=0.25):
     return True
 
 
-def free(r, s, g=0.05):
+def free(r, s, g=0.02):
     x0, y0, x1, y1 = r
     return all(x1 + g <= a0 or a1 + g <= x0 or y1 + g <= b0 or b1 + g <= y0 for a0, b0, a1, b1 in occ[s])
 
@@ -295,40 +298,65 @@ def holes_of(fp):
     return out
 
 
+SHAPE = {}
+
+
+def shape(ref, rot, s):
+    """Ingombro e fori del footprint relativi al centro dell'ingombro, per rotazione e lato (calcolati una volta)."""
+    k = (ref, rot, s)
+    if k not in SHAPE:
+        fp = FP[ref]
+        put(ref, rot, s, cx=25, cy=35)
+        x0, y0, x1, y1 = crtyd(fp)
+        hs = [(a - 25.2, b - 35.2, c - 24.8, d - 34.8) for a, b, c, d in holes_of(fp)] if is_tht(fp) else []  # 0.2 mm attorno ai fori
+        SHAPE[k] = ((x0 - 25, y0 - 35, x1 - 25, y1 - 35), hs)
+    return SHAPE[k]
+
+
+def rings(maxr):
+    """Spostamenti a spirale quadrata: passo 0.25 mm entro 5 mm, poi 0.5 mm."""
+    for step, r0, r1 in ((0.25, 0, 20), (0.5, 10, int(maxr / 0.5))):
+        for rr in range(r0, r1):
+            ring = [(0, 0)] if rr == 0 else [(dx, dy) for dx in range(-rr, rr + 1) for dy in (-rr, rr)] + \
+                [(dx, dy) for dy in range(-rr + 1, rr) for dx in (-rr, rr)]
+            ring.sort(key=lambda d: d[0] ** 2 + d[1] ** 2)
+            for dx, dy in ring:
+                yield dx * step, dy * step
+
+
 def try_place(ref, cx, cy, sides, maxr=30, first=True):
     if first and len(sides) > 1:   # prima lo stesso lato del proprietario entro 7 mm, poi entrambi
         return try_place(ref, cx, cy, sides[0], 7) or try_place(ref, cx, cy, sides, maxr, False)
-    fp = FP[ref]
-    step = 0.25
-    for rr in range(0, int(maxr / step)):
-        ring = [(0, 0)] if rr == 0 else [(dx, dy) for dx in range(-rr, rr + 1) for dy in (-rr, rr)] + \
-            [(dx, dy) for dy in range(-rr + 1, rr) for dx in (-rr, rr)]
-        ring.sort(key=lambda d: d[0] ** 2 + d[1] ** 2)
-        for dx, dy in ring:
-            for s in sides:
-                for rot in (0, 90):
-                    put(ref, rot, s, cx=cx + dx * step, cy=cy + dy * step)
-                    r = crtyd(fp)
-                    if inside(r) and free(r, s) and (not is_tht(fp) or all(free(h, "B" if s == "T" else "T") for h in holes_of(fp))):
-                        add_occ(fp)
-                        return True
+    for dx, dy in rings(maxr):
+        x, y = cx + dx, cy + dy
+        for s in sides:
+            o = "B" if s == "T" else "T"
+            for rot in (0, 90):
+                (a, b, c, d), hs = shape(ref, rot, s)
+                r = (x + a, y + b, x + c, y + d)
+                if inside(r) and free(r, s) and all(free((x + h0, y + h1, x + h2, y + h3), o) for h0, h1, h2, h3 in hs):
+                    put(ref, rot, s, cx=x, cy=y)
+                    add_occ(FP[ref])
+                    return True
     return False
 
 
 # ordine: prima i circuiti integrati e i componenti medi, poi i passivi, ognuno vicino al suo "proprietario"
 placed = set(PLACE)
 MED = {  # componenti medi con zona preferita (cx, cy, lati)
-    "U101": (22, 13, "T"), "U103": (13, 15, "B"), "U104": (9, 13, "B"), "U105": (17, 15, "B"),
-    "U107": (5, 15, "B"), "U108": (17, 17, "B"), "D101": (12, 24, "T"), "D102": (5, 12, "B"),
-    "U201": (17.5, 20, "T"), "L201": (12.5, 21.5, "T"), "L202": (14, 26.5, "T"), "L203": (14.5, 31, "T"), "U202": (30, 12, "T"),
-    "L204": (31, 16, "T"), "U203": (5, 26, "B"),
-    "U308": (24, 52, "B"), "Y301": (33.5, 21, "T"), "SW301": (40.5, 46, "T"), "SW302": (40.5, 50.5, "T"), "J301": (44.5, 64, "T"),
-    "U302": (16, 4, "B"), "U303": (21, 4, "B"), "U304": (26, 4, "B"), "U305": (31, 4, "B"), "U306": (36, 4, "B"), "U307": (12, 4, "B"),
-    "Y501": (5, 47, "T"), "L501": (17, 47, "T"), "U502": (14, 56, "B"),
-    "J704": (42, 63, "T"), "U702": (40, 26, "T"), "U703": (40, 52, "T"), "L701": (40, 29, "T"), "D702": (40.5, 31, "T"),
-    "D703": (40.5, 55, "T"), "D701": (36, 26, "T"), "D704": (38, 26, "T"),
-    "U801": (30, 50, "B"), "U802": (31, 52, "T"), "L801": (31, 54, "T"), "C802": (37, 50, "B"),
-    "U403": (6, 44, "T"), "U404": (16, 50, "B"),
+    "U101": (10, 4.5, "B"), "U103": (13, 13, "B"), "U104": (6, 18, "B"), "U105": (9, 21, "B"), "U107": (4, 15, "B"),
+    "U108": (15, 9, "B"), "D101": (12, 27, "B"), "D102": (3, 21, "B"),
+    "L201": (14, 11, "T"), "L202": (25, 12, "T"), "L203": (25, 16, "T"), "L204": (14, 18.5, "T"), "L205": (19.5, 20.5, "T"),
+    "U202": (25, 21, "B"), "L206": (27, 17, "B"), "U203": (21, 13, "B"), "L207": (18, 10, "B"), "U204": (5, 46, "T"), "U205": (40, 45, "B"),
+    "Y201": (24, 19.5, "T"),
+    "Y301": (14.6, 39.5, "T"), "SW301": (3, 51, "T"), "SW302": (3, 56, "T"), "J301": (2.5, 61, "T"),
+    "U302": (14, 10, "B"), "U303": (18, 10, "B"), "U304": (22, 10, "B"), "U305": (26, 6.5, "B"), "U306": (30, 6.5, "B"), "U307": (34, 6.5, "B"),
+    "FB301": (20, 44, "B"), "FB302": (21, 46, "B"),
+    "Y501": (22, 46, "B"), "L501": (30, 50, "B"), "U502": (24, 46, "T"),
+    "J704": (43, 61, "T"), "U702": (46, 33, "T"), "U703": (46, 38, "T"), "L701": (44, 21, "T"), "D702": (46, 19.5, "T"),
+    "D703": (46, 42, "T"), "D701": (40, 24, "T"), "D704": (42, 24, "T"), "J601": (32, 9, "B"),
+    "U801": (37, 58, "T"), "U802": (24, 61, "T"), "L801": (30, 57, "T"), "C802": (39, 62, "T"),
+    "U403": (2, 50, "B"), "U404": (6, 50, "B"),
 }
 missing = []
 for ref, (cx, cy, s) in MED.items():
@@ -349,11 +377,14 @@ for _ in range(3):
             continue
         cx, cy = center_of(FP[a])
         if a in ("U301", "U401") and is_decap(ref):
-            sides = "B"                      # disaccoppiamento sotto le sfere
+            sides = "B"                      # disaccoppiamento sotto le sfere (reference Rockchip: sotto il package)
         else:
             sides = side_of(FP[a]) + ("B" if side_of(FP[a]) == "T" else "T")
         if try_place(ref, cx, cy, sides):
             placed.add(ref)
+for ref in FP:                       # ultimo tentativo: dovunque ci sia posto sulla scheda
+    if ref not in placed and anchor(ref, placed) and try_place(ref, *center_of(FP[anchor(ref, placed)]), "BT", maxr=75):
+        placed.add(ref)
 for ref in FP:
     if ref not in placed:
         missing.append(ref)
@@ -397,13 +428,13 @@ for k, (hx, hy) in enumerate(HOLES):
     board.Add(z)
 
 pcbnew.SaveBoard(OUT, board)
-open(os.path.join(PRJ, "SchedaH616.kicad_dru"), "w").write("""(version 1)
+open(os.path.join(PRJ, f"{PROJ}.kicad_dru"), "w").write("""(version 1)
 # SMA a montaggio sul bordo: i pad arrivano al bordo per costruzione
 (rule "SMA a bordo scheda"
     (condition "A.memberOfFootprint('J701') || A.memberOfFootprint('J702') || A.memberOfFootprint('J703') || B.memberOfFootprint('J701') || B.memberOfFootprint('J702') || B.memberOfFootprint('J703')")
     (constraint edge_clearance (min 0mm)))
-# via-in-pad sotto l'H616 (JLCPCB POFV): 0.25/0.15
-(rule "Via-in-pad H616"
+# via-in-pad sotto l'RK3568 (JLCPCB POFV): 0.25/0.15
+(rule "Via-in-pad RK3568"
     (condition "A.Type == 'Via' && A.intersectsCourtyard('U301')")
     (constraint via_diameter (min 0.25mm))
     (constraint hole_size (min 0.15mm)))
@@ -414,7 +445,7 @@ open(os.path.join(PRJ, "SchedaH616.kicad_dru"), "w").write("""(version 1)
 """)
 # classi di rete ereditate dalla A133: distanze compatibili con i passi 0.4-0.5 mm di connettori e QFN
 import json
-pro = os.path.join(PRJ, "SchedaH616.kicad_pro")
+pro = os.path.join(PRJ, f"{PROJ}.kicad_pro")
 d = json.load(open(pro))
 for c in d["net_settings"]["classes"]:
     c["clearance"] = {"Default": 0.1, "Power_Heavy": 0.1, "Power_Logic": 0.15, "Analog_REF": 0.2, "V_Bias_36V": 0.2}.get(c["name"], c["clearance"])

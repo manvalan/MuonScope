@@ -387,7 +387,7 @@
 		(uuid "5ae0505b-3319-40f4-8251-491b6ebe01e1")
 	)
 	(embedded_fonts no)
-	(model "${KIPRJMOD}/H616.3dshapes/HR911130C.step"
+	(model "${KIPRJMOD}/Scheda.3dshapes/HR911130C.step"
 		(offset
 			(xyz 0 0 0)
 		)
