@@ -24,8 +24,8 @@ GPIO_ORDER = lambda name: (re.match(r"P([A-Z])(\d+)", name).group(1), int(re.mat
 out = ["# H616: mappa dei pin della SchedaH616", "",
        "Generata da `generatori/gen_pinmap.py` a partire dalla netlist dello schema e dalla ball map del datasheet",
        "Allwinner H616 V1.0 (tabella 4-2, controllata sfera per sfera sulla figura 7-1).", "",
-       "Unica differenza tra tabella e figura: **AC_VRA1** e' D17 nella tabella 4-2 e C17 nella figura 7-1. Il footprint",
-       "EasyEDA C5365289 ha la sfera in C17: lo schema usa C17. Da confermare con Allwinner o con un reference H616.", "",
+       "Unica differenza tra tabella e figura: **AC_VRA1** e' D17 nella tabella 4-2 e C17 nella figura 7-1. Lo schema usa C17,",
+       "confermato dal footprint EasyEDA C5365289 e dallo schema Orange Pi Zero2 (H616) v1.3.", "",
        "## GPIO", "", "| Pin | Sfera | Dominio | Net | Funzione |", "|---|---|---|---|---|"]
 FUNC = {
     "EMMC_": "SMHC2 eMMC 8 bit", "SD_": "SMHC0 microSD", "WL_SDIO": "SMHC1 SDIO AP6256", "BT_UART": "UART1 Bluetooth",

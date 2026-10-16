@@ -10,7 +10,7 @@ def sheet_uuid(fname):
     i = root.find(f'"Sheetfile" "{fname}"'); j = root.rfind("(sheet ", 0, i)
     return re.search(r'\(uuid "([0-9a-f-]+)"\)', root[j:i]).group(1)
 FLAG = extract("power", "PWR_FLAG")
-WANT = {"gnss.kicad_sch": ["GNSS_V_BCKP"], "alimentazione.kicad_sch": ["VIN_SYS", "5V_EXT", "3V3_SYS", "GND_D"],
+WANT = {"gnss.kicad_sch": ["GNSS_V_BCKP"], "alimentazione.kicad_sch": ["VIN_SYS", "5V_BUCK", "5V_JACK", "3V3_SYS", "GND_D"],
         "pmic.kicad_sch": ["3V3_PERI", "VCC-IO", "VCC-1V8", "VCC-DRAM", "VDD-CPU", "VDD-SYS"]}
 n = 0
 for fname, nets in WANT.items():

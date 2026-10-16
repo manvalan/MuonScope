@@ -51,6 +51,7 @@ SYMS = {
     "Connector:Barrel_Jack_Switch": extract("Connector", "Barrel_Jack_Switch"),
     "Device:D_TVS": extract("Device", "D_TVS"),
     "Device:C": extract("Device", "C"),
+    "Connector:TestPoint": extract("Connector", "TestPoint"),
     "Device:R": extract("Device", "R"),
     "Device:L": extract("Device", "L"),
     "H616:TPS2121": custom("TPS2121",
@@ -111,7 +112,7 @@ def place(lib_id, ref, val, fp, x, y, nets, rot=0, dnp=False, extra_props=()):
     fx, fy = (x - 7.62, y - maxpy - 5.08) if big else (x + 2.54, y + 1.27)
     props = "".join(f' (property "{k}" "{v}" (at {x:.2f} {y:.2f} 0) (hide yes) (effects (font (size 1.27 1.27))))' for k, v in extra_props)
     items.append(
-        f'(symbol (lib_id "{lib_id}") (at {x:.2f} {y:.2f} {rot}) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp {"yes" if dnp else "no"}) (uuid "{U()}") '
+        f'(symbol (lib_id "{lib_id}") (at {x:.2f} {y:.2f} {rot}) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom {"no" if lib_id == "Connector:TestPoint" else "yes"}) (on_board yes) (in_pos_files yes) (dnp {"yes" if dnp else "no"}) (uuid "{U()}") '
         f'(property "Reference" "{ref}" (at {fx:.2f} {fy - 2.54:.2f} 0) {F.format(j="left")}) '
         f'(property "Value" "{val}" (at {fx:.2f} {fy:.2f} 0) {F.format(j="left")}) '
         f'(property "Footprint" "{fp}" (at {x:.2f} {y:.2f} 0) (hide yes) (effects (font (size 1.27 1.27)))) '
@@ -128,9 +129,9 @@ R0603, C0603, C0805, C1206 = "Resistor_SMD:R_0603_1608Metric", "Capacitor_SMD:C_
 R = lambda ref, val, x, y, a, b, **k: place("Device:R", ref, val, R0603, x, y, {"1": a, "2": b}, **k)
 C = lambda ref, val, x, y, a, b, fp=C0603: place("Device:C", ref, val, fp, x, y, {"1": a, "2": b})
 
-# --- 1. VIN_SYS 12 V -> eFuse TPS259470 -> TPS56637 6 A -> 5V_EXT ----------------------------------
+# --- 1. VIN_SYS 12 V -> eFuse TPS259470 -> TPS56637 6 A -> 5V_BUCK ----------------------------------
 X, Y = 30, 70
-text("1) VIN_SYS 12 V dal BUS_POWER (pin 24-26) -> eFuse TPS259470 (3 A, UVLO/OVLO, blocco inverso) -> buck TPS56637 12 -> 5 V / 6 A -> 5V_EXT", X, Y - 22)
+text("1) VIN_SYS 12 V dal BUS_POWER (pin 24-26) -> eFuse TPS259470 (3 A, UVLO/OVLO, blocco inverso) -> buck TPS56637 12 -> 5 V / 6 A -> 5V_BUCK -> TPS2121 U108 (IN1, priorita)", X, Y - 22)
 place("H616:TPS259470", "U6", "TPS259470ARPWR", "H616:Texas_RPW0010A_VQFN-HR-10_2x2mm_P0.5mm", X + 10, Y - 2,
       {"5": "VIN_SYS", "1": "EFUSE_EN", "2": "EFUSE_OV", "9": "EFUSE_ILM", "10": "NC", "6": "VIN_12V", "4": "EFUSE_FLT_N", "3": "NC",
        "7": "EFUSE_DVDT", "8": "GND_D"}, extra_props=(("MPN", "TPS259470ARPWR"),))
@@ -150,26 +151,44 @@ R("R2", "36.1k 1%", X + 43.18, Y + 7.62, "BUCK_EN", "GND_D")
 place("H616:TPS56637", "U1", "TPS56637RPAR", "H616:Texas_RPA0010A_VQFN-HR-10_3x3mm", X + 75, Y,
       {"8": "VIN_12V", "1": "BUCK_EN", "2": "BUCK_FB", "10": "BUCK_MODE", "4": "BUCK_PG", "5": "NC", "7": "BUCK_BST",
        "6": "BUCK_SW", "3": "GND_D", "9": "GND_D"}, extra_props=(("MPN", "TPS56637RPAR"),))
-R("R14", "10k", X + 60, Y + 25, "BUCK_MODE", "GND_D")
-R("R15", "100k", X + 72, Y + 25, "5V_EXT", "BUCK_PG")
+R("R14", "10k", X + 60, Y + 25, "BUCK_MODE", "GND_D", dnp=True)
+R("R15", "100k", X + 72, Y + 25, "5V_BUCK", "BUCK_PG")
 C("C3", "100nF", X + 100, Y - 12, "BUCK_BST", "BUCK_SW")
-place("Device:L", "L1", "3.3uH/8A", "Inductor_SMD:L_Coilcraft_XAL6030-XXX", X + 112, Y - 12, {"1": "BUCK_SW", "2": "5V_EXT"}, extra_props=(("MPN", "XAL6030-332"),))
-R("R3", "73.2k 1%", X + 124, Y - 5, "5V_EXT", "BUCK_FB")
+place("Device:L", "L1", "3.3uH/8A", "Inductor_SMD:L_Coilcraft_XAL6030-XXX", X + 112, Y - 12, {"1": "BUCK_SW", "2": "5V_BUCK"}, extra_props=(("MPN", "XAL6030-332"),))
+R("R3", "73.2k 1%", X + 124, Y - 5, "5V_BUCK", "BUCK_FB")
 R("R4", "10k 1%", X + 124, Y + 12, "BUCK_FB", "GND_D")
-R("R16", "20k", X + 134, Y - 12, "5V_EXT", "BUCK_FF")
+R("R16", "20k", X + 134, Y - 12, "5V_BUCK", "BUCK_FF")
 C("C26", "100pF", X + 134, Y + 2, "BUCK_FF", "BUCK_FB")
 for i, ref in enumerate(["C4", "C5", "C27", "C28"]):
-    C(ref, "22uF/10V", X + 144 + 10 * i, Y, "5V_EXT", "GND_D", C1206)
+    C(ref, "22uF/10V", X + 144 + 10 * i, Y, "5V_BUCK", "GND_D", C1206)
 text("TPS56637 (tabella 4 del datasheet, Vout 5 V): Vfb 0.6 V, R103/R104 73.2k/10k = 4.99 V, L 3.3 uH, Cout 4x22 uF, feed-forward R116 20k + C126 100 pF.", X - 45, Y + 38)
-text("EN: 169k/36.1k (schema tipico TI). MODE con R114 10k a GND = Eco-mode: il buck non assorbe corrente inversa (in FCCM fino a 3 A) se il jack tiene 5V_EXT piu alto.", X - 45, Y + 43)
+text("EN: 169k/36.1k (schema tipico TI). MODE libero = FCCM (R114 DNP): frequenza fissa, ripple basso vicino al GNSS. Il jack e' separato dal TPS2121 U108, niente corrente inversa nel buck.", X - 45, Y + 43)
 
-# --- 2. Jack DC 5 V diretto sul nodo 5V_EXT (IN1 del TPS2121) ---------------------------------
+# --- 2. Jack DC 5 V e secondo TPS2121 (U108): IN1 = 5V_BUCK con priorita, IN2 = jack -> 5V_EXT ---------
 X2, Y2 = 30, 130
-text("2) Jack DC 5 V (DC-005-5A-2.0) diretto su 5V_EXT = IN1 del TPS2121, TVS D101, nessun fusibile. Jack e buck in parallelo: vince il piu alto (buck in Eco-mode, eFuse blocca verso il bus).", X2, Y2 - 12)
+text("2) Jack DC 5 V (DC-005-5A-2.0) su 5V_JACK, TVS D101, nessun fusibile. TPS2121 U108: IN1 = 5V_BUCK (bus 12 V) con priorita, IN2 = jack. Uscita 5V_EXT -> IN1 di U103.", X2, Y2 - 12)
 place("Connector:Barrel_Jack_Switch", "J3", "DC-005-5A-2.0", "Connector_BarrelJack:BarrelJack_Horizontal", X2, Y2,
-      {"1": "5V_EXT", "2": "GND_D", "3": "GND_D"})
-place("Device:D_TVS", "D1", "SMF5.0A", "Diode_SMD:D_SMF", X2 + 20, Y2, {"1": "5V_EXT", "2": "GND_D"}, rot=90)
-C("C6", "22uF/10V", X2 + 47, Y2, "5V_EXT", "GND_D", C0805)
+      {"1": "5V_JACK", "2": "GND_D", "3": "GND_D"})
+place("Device:D_TVS", "D1", "SMF5.0A", "Diode_SMD:D_SMF", X2 + 20, Y2, {"1": "5V_JACK", "2": "GND_D"}, rot=90)
+C("C6", "22uF/10V", X2 + 32, Y2, "5V_JACK", "GND_D", C0805)
+place("H616:TPS2121", "U8", "TPS2121RUXR", "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm", X2 + 95, Y2 + 5,
+      {"7": "5V_BUCK", "6": "MUX2_PR1", "5": "MUX2_OV1", "2": "5V_JACK", "4": "MUX2_OV2", "3": "GND_D",
+       "1": "5V_EXT", "8": "5V_EXT", "9": "MUX2_ST", "10": "MUX2_ILM", "11": "MUX2_SS", "12": "GND_D"}, extra_props=(("MPN", "TPS2121RUXR"),))
+R("R21", "32.4k 1%", X2 + 45, Y2 - 5, "5V_BUCK", "MUX2_PR1")
+R("R22", "10k 1%", X2 + 45, Y2 + 10, "MUX2_PR1", "GND_D")
+R("R23", "46.4k 1%", X2 + 55, Y2 - 5, "5V_BUCK", "MUX2_OV1")
+R("R24", "10k 1%", X2 + 55, Y2 + 10, "MUX2_OV1", "GND_D")
+R("R25", "46.4k 1%", X2 + 65, Y2 - 5, "5V_JACK", "MUX2_OV2")
+R("R26", "10k 1%", X2 + 65, Y2 + 10, "MUX2_OV2", "GND_D")
+R("R27", "22.1k 1%", X2 + 125, Y2 + 15, "MUX2_ILM", "GND_D")
+C("C32", "100nF", X2 + 135, Y2 + 15, "MUX2_SS", "GND_D")
+C("C33", "1uF/10V", X2 + 50, Y2 + 25, "5V_BUCK", "GND_D")
+C("C34", "1uF/10V", X2 + 60, Y2 + 25, "5V_JACK", "GND_D")
+C("C35", "10uF/10V", X2 + 145, Y2 + 15, "5V_EXT", "GND_D", C0805)
+R("R28", "100k", X2 + 155, Y2 + 15, "5V_EXT", "MUX2_ST")
+place("Connector:TestPoint", "TP1", "MUX2_ST", "TestPoint:TestPoint_Pad_D1.0mm", X2 + 165, Y2 + 5, {"1": "MUX2_ST"})
+text("U108 (datasheet TPS2121 SLVSEA3F): PR1 = 1.06 V x (32.4k+10k)/10k = 4.49 V -> sotto passa al jack; CP2 a GND = priorita fissa su IN1; OV 5.98 V; ILM 22.1k = 4-5 A; ST (basso = uscita dal jack, IN2) con 100k e test point TP101.", X2, Y2 + 38)
+text("Priorita: bus 12 V (buck) > jack > USB-C. Il bus e' l'alimentazione di esercizio, il jack serve al banco, l'USB-C e' l'ultima risorsa (1.5-3 A).", X2, Y2 + 43)
 
 # --- 3. USB-C con FUSB302B, fusibile e TVS su VBUS ------------------------------------------
 X3, Y3 = 30, 175
@@ -189,7 +208,7 @@ text("FUSB302B: I2C condivisa con AXP313A ed espansore su S_TWI0 (PL0/PL1, 1.8 V
 
 # --- 4. TPS2121: IN1 = 5V_EXT (priorita), IN2 = VBUS -> 5V_SYS verso AXP313A ------------------
 X4, Y4 = 215, 70
-text("4) Power mux TPS2121: IN1 5V_EXT (jack o VIN_SYS) con priorita, IN2 VBUS USB-C. Uscita 5V_SYS verso AXP313A e 3V3_PERI", X4 - 10, Y4 - 25)
+text("4) Power mux TPS2121 U103: IN1 5V_EXT (uscita di U108: bus o jack) con priorita, IN2 VBUS USB-C. Uscita 5V_SYS verso AXP313A e 3V3_PERI", X4 - 10, Y4 - 25)
 place("H616:TPS2121", "U3", "TPS2121RUXR", "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm", X4 + 45, Y4,
       {"7": "5V_EXT", "6": "MUX_PR1", "5": "MUX_OV1", "2": "VBUS", "4": "MUX_OV2", "3": "GND_D",
        "1": "5V_SYS", "8": "5V_SYS", "9": "PWR_SRC_ST", "10": "MUX_ILM", "11": "MUX_SS", "12": "GND_D"})

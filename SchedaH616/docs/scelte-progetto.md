@@ -48,7 +48,9 @@ Il confronto con lo schema resta da fare.
 | Rail | Sorgente | Utenti |
 |---|---|---|
 | VIN_SYS 12 V | BUS_POWER pin 24-26 | eFuse TPS259470 (3 A, UVLO 9.7 V, OVLO 15.1 V, blocco inverso) |
-| 5V_EXT | TPS56637 6 A (Eco-mode) e jack 5 V in parallelo, senza diodo | TPS2121 IN1, SY6280AAC |
+| 5V_BUCK | TPS56637 6 A (FCCM) | IN1 del TPS2121 U108 |
+| 5V_JACK | jack 5 V, TVS D101 | IN2 del TPS2121 U108 |
+| 5V_EXT | TPS2121 U108 (bus con priorità, poi jack) | IN1 del TPS2121 U103, SY6280AAC |
 | 5V_SYS | TPS2121 (IN1 5V_EXT con priorità, IN2 VBUS USB-C) | AXP313A, TPS563201, TPS2553 |
 | VDD-SYS 0.9 V | AXP313A DCDC1 | VDD_SYS + VDD_GPU (insieme, come la Zero3), sense da VDD_GPUFB |
 | VDD-CPU | AXP313A DCDC2 | VDD_CPU, sense da VDD_CPUFB |
@@ -61,16 +63,22 @@ Il confronto con lo schema resta da fare.
 Fusibili: F101 era già stato sostituito dall'eFuse. Su richiesta di Michele sono tolti anche quello del jack (F102) e
 quello del VBUS USB-C (il 1812L300 indicato come F1 nella BOM). LM74700 e Q101 sono tolti, il blocco verso il bus lo fa l'eFuse.
 
-**Jack 5 V senza diodo** (modifica approvata il 2026-10-16: tolto lo Schottky SS54): il jack va diretto su 5V_EXT = IN1 del TPS2121.
-Verifica sui datasheet:
+**Jack 5 V con secondo TPS2121 (U108)** (scelta di Michele, 2026-10-16). Con il jack direttamente su IN1 del TPS2121 U103, jack e buck
+finivano in parallelo: il blocco rapido della corrente inversa (RCB, paragrafo 9.3.6) separa gli ingressi dall'uscita, ma non due
+sorgenti sullo stesso IN1. Ora la catena è:
 
-- Il blocco rapido della corrente inversa del TPS2121 (RCB, paragrafo 9.3.6) interviene quando OUT supera l'ingresso selezionato
-  (VOUT > VINx). Protegge IN1 da IN2 e dall'uscita, ma **non separa due sorgenti collegate allo stesso IN1**: jack e buck restano in parallelo.
-- Il TPS56637 in FCCM può assorbire corrente inversa fino a 3 A (IOC_REV): con il jack più alto del buck la corrente rientrerebbe nel buck.
-  Per questo MODE ha **R114 10k a GND (Eco-mode)**: in Eco-mode il buck non assorbe corrente e smette di commutare se 5V_EXT è sopra il suo riferimento.
-- Con solo il jack, 5V_EXT ricarica l'ingresso del buck attraverso il diodo del MOSFET alto (circa 4.5 V): l'eFuse blocca verso il bus, e l'EN del buck
-  (169k/36.1k, soglia 1.2 V a circa 6.8 V) resta basso.
-- Con jack e 12 V insieme, fornisce corrente la sorgente con la tensione più alta. Va bene, ma conviene non usarle insieme.
+- **U108**: IN1 = 5V_BUCK (bus 12 V), IN2 = 5V_JACK. L'uscita 5V_EXT va a IN1 di **U103**, che ha IN2 = VBUS USB-C. L'uscita di U103 è 5V_SYS.
+- **Priorità: bus > jack > USB-C.** Il bus è l'alimentazione di esercizio, il jack è per il banco, l'USB-C è l'ultima risorsa (1.5-3 A).
+- **U108**, valori dal datasheet SLVSEA3F:
+  - PR1 = 1.06 V x (32.4k+10k)/10k = 4.49 V: sotto questa soglia passa al jack.
+  - CP2 a GND: priorità fissa su IN1.
+  - OV1/OV2 a 5.98 V (46.4k/10k).
+  - ILM 22.1k = 4-5 A.
+  - SS 100 nF.
+  - ST (basso = uscita dal jack) con 100k a 5V_EXT e test point TP101.
+- **TPS56637 di nuovo in FCCM** (R114 DNP): il buck è isolato da U108 e non vede corrente inversa. FCCM dà frequenza fissa e ripple basso,
+  meglio vicino al GNSS. L'Eco-mode serviva solo con il jack in parallelo.
+- Con solo il jack, il buck è spento e la sua uscita è separata da U108. L'eFuse continua a bloccare verso il bus.
 
 ## Assegnazione GPIO
 
@@ -127,8 +135,15 @@ SA6-SA16, SBA, SBG, SACT e SODT non sono usati.
 
 1. **DRAM**: decisa, LPDDR4 MT53E512M32D1ZW (2026-10-16).
 2. **Mappa CA/CS della LPDDR4** [NON VERIFICATO]: va confrontata con lo schema Orange Pi Zero3.
-3. **AC_VRA1**: C17 (figura e footprint) o D17 (tabella)? Lo schema usa C17.
-4. **Pin di sistema lasciati liberi** [NON VERIFICATO]: JTAG_SEL, PLLTEST, LRADC, REXT, uscite HDMI/TV/LINEOUT/EPHY, USB2/USB3. VCC_HDMI, VCC_TV, AC_AVCC sono a 1.8 V e VCC_EPHY a 3.3 V anche se i blocchi non si usano: da confrontare con la Zero2/Zero3.
+3. **AC_VRA1**: risolto, C17 (figura 7-1, footprint EasyEDA, schema Orange Pi Zero2 v1.3). La tabella 4-2 del datasheet dice D17 per errore.
+4. **Pin di sistema**, confrontati con lo schema Orange Pi Zero2 (H616 + AXP305 + DDR3) v1.3, pagine SOC1/SOC2:
+   - REXT (K18): 150k 1% ad AGND (R337), aggiunta.
+   - Analogica: VRA1/VRA2 470 nF, AVCC 2.2 uF (C334, aggiunto), AC_AVCC 2.2 uF (C335, aggiunto), AC_VRA1 1 uF, DXLDO_OUT 220 nF. 100 nF su VCC-PLL, DCXO, HDMI, TV, VCC_IO/PG/PI, USB, EPHY.
+   - RESET (A16): 10k a VCC-1V8 (= VCC-PLL) e 1 nF, collegato al PWROK del PMIC. Era già così.
+   - JTAG_SEL (C16): non collegato come sulla Zero2 (JTAG di default su PF).
+   - VCC_PC a 1.8 V per l'eMMC. VCC_PG a 3.3 V = VDDIO dell'AP6256.
+   - Restano liberi PLLTEST, LRADC, le uscite HDMI/TV/LINEOUT/EPHY e USB2/USB3. VCC_HDMI e VCC_TV sono a 1.8 V e VCC_EPHY a 3.3 V, come sulla Zero2.
+   - La Zero2 ha DDR3 e AXP305: **non** verifica la mappa CA/CS della LPDDR4 né i default dell'AXP313A, che restano aperti fino allo schema Zero3.
 5. **AXP313A** [NON VERIFICATO]: tensioni di default e sequenza sono una personalizzazione di fabbrica. DCDC3 deve partire a 1.1 V per la LPDDR4. IRQ non collegato (manca un GPIO), PWRON su test point. AVCC chiede ±2%, ALDO1 garantisce ±3%.
    ALDO1 (300 mA) è stato alleggerito: VCCQ eMMC e VCC_PC passano all'LDO AP2112K-1.8. **Da leggere sui datasheet**: consumo di VDD1 della LPDDR4 e dei rail a 1.8 V dell'H616 (VCC_PLL, VDD18_DRAM, DCXO, AVCC), per chiudere il bilancio di ALDO1.
 6. **Accensione**: l'AXP313A si accende quando arriva VIN, se la personalizzazione lo prevede (Zero3: sì).

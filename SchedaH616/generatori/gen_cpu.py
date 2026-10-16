@@ -82,7 +82,7 @@ PIN = {
     "PI12": "RGMII_TXCTL", "PI13": "RGMII_CLKIN", "PI14": "PHY_MDC", "PI15": "PHY_MDIO", "PI16": "SOC_PREFIX_1",
     # sistema, USB, analogica, DCXO
     "FEL": "SOC_FEL", "RESET": "AP-RESET", "USB0_DM": "USB0_DM", "USB0_DP": "USB0_DP", "USB1_DM": "USB1_DM", "USB1_DP": "USB1_DP",
-    "VRA1": "SOC_VRA1", "VRA2": "SOC_VRA2", "AGND": "SOC_AGND", "AC_VRA1": "SOC_AC_VRA1", "DXIN": "DCXO_XIN", "DXOUT": "DCXO_XOUT",
+    "VRA1": "SOC_VRA1", "VRA2": "SOC_VRA2", "AGND": "SOC_AGND", "REXT": "SOC_REXT", "AC_VRA1": "SOC_AC_VRA1", "DXIN": "DCXO_XIN", "DXOUT": "DCXO_XOUT",
     "DXLDO_OUT": "SOC_DXLDO",
     # alimentazioni
     "VCC_PC": "VCC-1V8-EMMC", "VCC_PG": "VCC-IO", "VCC_PI": "VCC-IO", "VCC_IO": "VCC-IO", "VCC_USB": "VCC-IO", "VCC_EPHY": "VCC-IO",
@@ -101,7 +101,7 @@ def net(num, name):
 place_multi(s, "H616:H616", "U1", "H616", "H616:BGA-284_L14.0-W12.0-P0.65-TL", H616_PINS, net,
             {1: (95, 140), 2: (95, 330), 3: (95, 470), 4: (560, 140), 5: (560, 330)}, mpn="H616")
 s.text("CPU: Allwinner H616 (TFBGA-284, 0.65 mm). Ball map solo dal datasheet H616 V1.0 (tabella 4-2, verificata sulla figura 7-1). Serie 3xx.", 20, 15)
-s.text("AC_VRA1: la tabella dice D17, la figura 7-1 e il footprint EasyEDA dicono C17 -> usato C17. Mappa completa dei pin in docs/pinmap-h616.md.", 20, 20)
+s.text("AC_VRA1 su C17 (figura 7-1, footprint EasyEDA e schema Orange Pi Zero2 v1.3; la tabella 4-2 dice D17 per errore). Mappa completa dei pin in docs/pinmap-h616.md.", 20, 20)
 s.text("Net DRAM_*/EMMC_*/SD_*/WL_*/BT_*/RGMII_*/PHY_*/GNSS_*/WIFI_*/USB1_*/SPI1_* globali verso gli altri fogli.", 20, 25)
 
 # ---------------- clock 24 MHz (DCXO) ------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ s.C("C3", "220nF/16V", X + 55, Y + 10, "SOC_DXLDO", "GND_D")
 
 # ---------------- reset, FEL, UART0 ----------------------------------------------------------------------------------
 X, Y = 260, 110
-s.text("RESET (dominio VCC_PLL 1.8 V) dal PWROK dell'AXP313A + tasto; FEL a GND con tasto (pull-up 10k a VCC-IO). JTAG_SEL, PLLTEST, LRADC, REXT liberi.", X - 10, Y - 12)
+s.text("RESET (dominio VCC_PLL 1.8 V) dal PWROK dell'AXP313A (10k a VCC-1V8 sul foglio PMIC, 1 nF qui) + tasto; FEL a GND con tasto (10k a VCC-IO). JTAG_SEL NC come sulla Zero2 (JTAG su PF). PLLTEST, LRADC liberi.", X - 10, Y - 12)
 s.C("C4", "1nF/50V", X, Y, "AP-RESET", "GND_D")
 s.place("Switch:SW_Push", "SW1", "RESET", "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2", X + 20, Y, {"1": "AP-RESET", "2": "GND_D"}, mpn="TS-1088-AR02016")
 s.place("Switch:SW_Push", "SW2", "FEL", "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2", X + 45, Y, {"1": "SOC_FEL", "2": "GND_D"}, mpn="TS-1088-AR02016")
@@ -127,7 +127,7 @@ s.text("J301: 1 = TX del SoC (PH0), 2 = RX del SoC (PH1), 3 = GND. Livelli 3.3 V
 
 # ---------------- disaccoppiamento e analogica ------------------------------------------------------------------------
 X, Y = 260, 160
-s.text("Disaccoppiamento vicino alle sfere (da rifinire sul reference Orange Pi Zero2/Zero3 e in layout).", X - 10, Y - 10)
+s.text("Disaccoppiamento vicino alle sfere. 100 nF su VCC-PLL, VCC_DCXO, VDD18_DRAM, VCC_HDMI, VCC_TV (VCC-1V8) e su VCC_IO, VCC_PG/PI, VCC_USB, VCC_EPHY (VCC-IO), come la Zero2.", X - 10, Y - 10)
 caps = [("C5", "10uF/6.3V", "VDD-CPU", C0603), ("C6", "2.2uF/6.3V", "VDD-CPU", C0402), ("C7", "2.2uF/6.3V", "VDD-CPU", C0402),
         ("C8", "1uF", "VDD-CPU", C0402), ("C9", "1uF", "VDD-CPU", C0402), ("C10", "10uF/6.3V", "VDD-SYS", C0603),
         ("C11", "2.2uF/6.3V", "VDD-SYS", C0402), ("C12", "2.2uF/6.3V", "VDD-SYS", C0402), ("C13", "1uF", "VDD-SYS", C0402),
@@ -145,6 +145,10 @@ s.C("C30", "470nF/16V", X + 10, Y, "SOC_VRA2", "SOC_AGND")
 s.R("R3", "0R", X + 20, Y, "SOC_AGND", "GND_D")
 s.C("C31", "1uF", X + 30, Y, "SOC_AC_VRA1", "GND_D")
 s.R("R4", "240R 1%", X + 45, Y, "SOC_SZQ", "GND_D")
+s.R("R37", "150k 1%", X + 55, Y, "SOC_REXT", "SOC_AGND")
+s.C("C34", "2.2uF/6.3V", X + 65, Y, "VCC-1V8", "GND_D")
+s.C("C35", "2.2uF/6.3V", X + 75, Y, "VCC-1V8", "GND_D")
+s.text("Come Orange Pi Zero2 (H616) v1.3: REXT (K18) 150k 1% ad AGND (R337), AVCC 2.2 uF (C334), AC_AVCC 2.2 uF (C335), AC_VRA1 1 uF su C17.", X - 10, Y + 12)
 
 # ---------------- interfaccia bus: SPI1 condiviso -----------------------------------------------------------------------
 X, Y = 260, 260
