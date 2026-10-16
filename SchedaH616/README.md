@@ -24,7 +24,9 @@ mantiene il vecchio nome, il progetto KiCad è `progetto-kicad/SchedaRK3568.kica
 | `docs/pinmap-rk3568.md` | Mappa RK3568 sfera per sfera con la net di ogni sfera |
 | `docs/pcb-placement.md` | Scheda, regole, dove sta ogni componente, esito DRC |
 
-Per rigenerare servono python3 e KiCad 10 (Linux o macOS; i percorsi delle librerie standard sono in `generatori/kilib.py`):
+Per rigenerare servono python3, KiCad 10 (Linux o macOS; i percorsi delle librerie standard sono in `generatori/kilib.py`) e la libreria
+personale [MIKILAB](https://github.com/manvalan/mikilab-kicad-library) (variabile `MIKILAB`, o clonata in `~/Develop/mikilab-kicad-library`),
+da cui vengono simboli e footprint dei componenti specifici; cosa resta nella libreria di progetto `Scheda` e perché è in `docs/scelte-progetto.md`:
 
 ```bash
 sh SchedaH616/generatori/build.sh

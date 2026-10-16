@@ -1,7 +1,7 @@
 """Genera il foglio KiCad 10 'Bus MIKILAB' per la scheda RK3568 e lo aggancia al foglio radice."""
 import os, re, sys, uuid
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from kilib import LIB, PROJ, ROOT_UUID
+from kilib import LIB, PROJ, ROOT_UUID, mik
 
 PRJ = sys.argv[1]
 SHEET_UUID = str(uuid.uuid4())
@@ -25,11 +25,12 @@ def extract(lib, name):
 
 def pins_of(symtext):
     return {n: (float(x), float(y)) for x, y, n in
-            re.findall(r'\(pin \w+ \w+\s*\(at ([-\d.]+) ([-\d.]+) \d+\).*?\(number "([^"]+)"', symtext, re.S)}
+            re.findall(r'\(pin \w+ \w+\s*\(at ([-\d.]+) ([-\d.]+) [\d.]+\).*?\(number "([^"]+)"', symtext, re.S)}
 
 
-C28 = extract("Connector_Generic_MountingPin", "Conn_01x28_MountingPin")
-C22 = extract("Connector_Generic_MountingPin", "Conn_01x30_MountingPin")
+# connettori dalla libreria personale MIKILAB (simbolo e footprint EasyEDA con i pad di montaggio come pin 31/32 e 29/30)
+FH12_ID, C22, FH12_FP = mik("FH12-30S-0.5SH")
+FPC_ID, C28, FPC_FP = mik("FPC-05F-28PH20")
 RES = extract("Device", "R")
 
 FONT = "(effects (font (size 1.27 1.27)) (justify {j}))"
@@ -99,25 +100,25 @@ PWR = {1: "GND_A", 2: "BUS_VBIAS_1", 3: "BUS_VBIAS_2", 4: "GND_A", 5: "BUS_2V5_R
        29: "BUS_3V3", 30: "GND_D", "MP": "GND_D"}
 
 
-def place_conn(lib_id, symtext, ref, val, fp, x, y, netmap):
+def place_conn(lib_id, symtext, ref, val, fp, x, y, netmap, npin):
     p = pins_of(symtext)
     symbol(lib_id, ref, val, fp, x, y, list(p))
     for n, (px, py) in p.items():
         ax, ay = x + px, y - py
+        n = "MP" if n == "MP" or int(n) > npin else n   # pin oltre npin = pad di montaggio
         net = netmap[int(n) if n != "MP" else n]
-        if n == "MP":
-            wire(ax, ay, ax, ay + 7.62)
-            label(net, ax, ay + 7.62, 90)
+        if n == "MP":                                # pad di montaggio: filo verso l'esterno del simbolo
+            d = -7.62 if py > 0 else 7.62
+            wire(ax, ay, ax, ay + d)
+            label(net, ax, ay + d, 90 if d > 0 else 270)
         else:
             L = 20.32 if net in GLOBAL else 7.62
             wire(ax, ay, ax - L, ay)
             label(net, ax - L, ay, 180, DIR.get(net, IN))
 
 
-place_conn("Connector_Generic_MountingPin:Conn_01x30_MountingPin", C22, "J1", "BUS_POWER_MIKILAB",
-           "Connector_FFC-FPC:Hirose_FH12-30S-0.5SH_1x30-1MP_P0.50mm_Horizontal", 86.36, 86.36, PWR)
-place_conn("Connector_Generic_MountingPin:Conn_01x28_MountingPin", C28, "J2", "BUS_MIKILAB_MAIN",
-           "Scheda:FPC-05F-28PH20", 182.88, 86.36, MAIN)
+place_conn(FH12_ID, C22, "J1", "BUS_POWER_MIKILAB", FH12_FP, 86.36, 86.36, PWR, 30)
+place_conn(FPC_ID, C28, "J2", "BUS_MIKILAB_MAIN", FPC_FP, 182.88, 86.36, MAIN, 28)
 
 # ID iniziale 000 su J_OUT: SPI_ID_0..2 a massa tramite 0 ohm; ponte GND_A-GND_D apribile
 for i, (ref, top, bot) in enumerate([("R1", "SPI_ID_0", "GND_D"), ("R2", "SPI_ID_1", "GND_D"),
@@ -129,7 +130,7 @@ for i, (ref, top, bot) in enumerate([("R1", "SPI_ID_0", "GND_D"), ("R2", "SPI_ID
 
 text("J1 BUS_POWER 30 pin (Hirose FH12-30S): pin 1-22 come J3 del modulo Power, 24-26 VIN_SYS 12 V, 29 secondo 3V3. Rail BUS_* passanti verso J2, non collegati ai rail della scheda.", 25.4, 25.4)
 text("VIN_SYS -> buck TPS56637 12->5 V (foglio Alimentazione), senza eFuse. BUS_5V va solo a J2 pin 2.", 25.4, 30.48)
-text("J2 MAIN 28 pin secondo BPS-MIKILAB-2026-REV5.1 (pin 28 = HIT#) (spec: XUNPU FPC-05F-28PH20; footprint Scheda:FPC-05F-28PH20 da EasyEDA C2856807).", 25.4, 35.56)
+text("J2 MAIN 28 pin secondo BPS-MIKILAB-2026-REV5.1 (pin 28 = HIT#) (XUNPU FPC-05F-28PH20, LCSC C2856807; simbolo e footprint dalla libreria MIKILAB).", 25.4, 35.56)
 text("Sul foglio CPU: BUS_POWER su SPI3_M1 e MAIN su SPI2_M1 (due controller separati) con 33R serie, 100R su ADDR/PREFIX, pull-up 4.7k su ALERT#/HIT#, 2.2k su I2C, 10k sui CS, ESD TPD4E05U06.", 25.4, 40.64)
 text("R4 0R: ponte GND_A-GND_D, DNP di default (sul modulo Power GND_A e GND_D sono gia la stessa net). R1-R3: ID iniziale 000 (scheda = J_OUT, testa della catena).", 25.4, 45.72)
 

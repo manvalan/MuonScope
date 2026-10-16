@@ -113,6 +113,25 @@ VCCIO3 = VCCIO_SD, VCCIO4-7 = VCC_3V3, VCCIO1 non usato (flottante come da Rockc
 - **DDR_RZQ del SoC: 120R 1% a GND** (Hardware Design Guide 2.1.7.2 e reference). L'appunto parlava di "ZQ 240R": vale per la DDR4.
 - VPP 2.5 V da AP2112K-2.5, abilitato da VCC3V3_PMU (seq 2), quindi prima di VCC_DDR (seq 3): VPP >= VDD come chiede JEDEC.
 
+## Libreria MIKILAB
+
+I componenti specifici stanno nella libreria personale **MIKILAB** (github.com/manvalan/mikilab-kicad-library, variabile `MIKILAB`;
+`generatori/kilib.py` la cerca anche in `~/Develop/mikilab-kicad-library`). Simbolo e footprint MIKILAB per RK809-5, TCS4525,
+K4AAG165WA-BCWE, FEMDNN064G-C9A61, AP2112K-1.8TRG1, TPS56637RPAR, TPS2121RUXR (x2), SY6280AAC, TPS563201DDCR, TPS2553DBVR,
+TYPE-C-31-M-12 (x2), FH12-30S-0.5SH, FPC-05F-28PH20, HR911130C, 25AA02E48T-I/OT, DM3AT-SF-PEJM5; simbolo MIKILAB per l'AP6256.
+
+Restano nella libreria di progetto `Scheda`:
+- **RK3568**: il footprint EasyEDA ha pad da 0.35 mm, tra due sfere restano 0.30 mm e una pista da 5 mil con 0.1 mm per lato
+  (0.327 mm) non passa; quello di progetto ha pad NSMD 0.30 mm. Il simbolo di progetto è in 9 unità leggibili.
+- **RTL8211F**: footprint MIKILAB, ma simbolo di progetto: quello MIKILAB ha AVDD10/AVDD33 come pin di alimentazione nascosti,
+  che KiCad collega a net globali con quel nome (VCC_3V3 diventava "AVDD33").
+- **AP6256** footprint LGA-47 (in MIKILAB c'è solo quello QFN-44 dell'AP6212) e il portapila BS-12-B3AA003. In `Scheda.pretty` restano anche le vecchie copie di RJ45, FPC-05F e RPA0010A, non più usate.
+- Restano dalle librerie standard KiCad i componenti generici (R, C, L, connettori, protezioni, AP2112K-2.5, FUSB302B, NEO-M9N, 74LVC1G17).
+
+I simboli EasyEDA hanno pin "unspecified": `add_flags.py` imposta nella matrice ERC del progetto unspecified = OK con tutti i tipi
+(tranne no_connect). Correzioni fatte ai footprint della libreria MIKILAB: via termiche dell'RK809-5 numerate 69, pioli della
+TYPE-C-31-M-12 e dell'HR911130C non metallizzati, serigrafia dell'HR911130C fuori dai pad, margine maschera del RTL8211F 0.05 mm.
+
 ## Incongruenze tra le note e i datasheet (vince il datasheet)
 
 1. **BUCK4 dell'RK809-5 come 3.3 V**: non possibile. Sull'RK809-5 BUCK4 è spento all'accensione a 0.5 V (datasheet tabella 4-4).

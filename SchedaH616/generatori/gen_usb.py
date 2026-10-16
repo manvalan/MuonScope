@@ -8,10 +8,9 @@ from kilib import LIBNAME
 
 PRJ = sys.argv[1]
 u = Sheet("USB host", "usb.kicad_sch", 800, 10, ["5V_SYS"], ("USB1_",))
-u.add_sym(f"{LIBNAME}:TPS2553DBV", box_symbol(LIBNAME, "TPS2553DBV",
-          [("1", "IN", "L"), ("3", "EN", "L"), ("5", "ILIM", "L"), ("6", "OUT", "R"), ("4", "~{FAULT}", "R"), ("2", "GND", "R")],
-          "TI TPS2553, load switch con limite di corrente regolabile e FAULT, SOT-23-6", w=10.16))
-for k in ["Device:R", "Device:C", "Connector:USB_C_Receptacle_USB2.0_16P", "Power_Protection:USBLC6-2SC6", "Filter:Choke_CommonMode_FerriteCore_1234"]:
+SW_ID, SW_FP = u.mik("TPS2553DBVR")
+UC_ID, UC_FP = u.mik("TYPE-C-31-M-12")
+for k in ["Device:R", "Device:C", "Power_Protection:USBLC6-2SC6", "Filter:Choke_CommonMode_FerriteCore_1234"]:
     u.std(k)
 u.text("USB HOST: USB3_HOST1_DP/DM dell'RK3568 (parte USB 2.0, alimentata da USB3_AVDD) su USB-C (16 pin, HRO TYPE-C-31-M-12), solo host. Serie 8xx. Net USB1_* globali.", 20, 15)
 u.text("La porta non alimenta mai la scheda: VBUS esce solo dal load switch. Rp fissi da 22k a 5V_SYS su CC1/CC2 = sorgente 1.5 A (Type-C), niente controller PD.", 20, 20)
@@ -20,7 +19,7 @@ X, Y = 60, 70
 u.text("TPS2553: EN attivo alto da GPIO0_A6 con 100k a GND, FAULT open-drain su GPIO0_B6 (pull-up 10k a VCC3V3_PMU sul foglio CPU).", X - 40, Y - 22)
 u.text("RILIM 26.1k 1% = 0.91 / 0.99 / 1.08 A (min/nom/max, tabella 2 del datasheet).", X - 40, Y - 17)
 u.C("C1", "1uF", X - 30, Y, "5V_SYS", "GND_D")
-u.place(f"{LIBNAME}:TPS2553DBV", "U1", "TPS2553DBVR", "Package_TO_SOT_SMD:SOT-23-6", X, Y,
+u.place(SW_ID, "U1", "TPS2553DBVR", SW_FP, X, Y,
         {"1": "5V_SYS", "3": "USB1_VBUS_EN", "5": "USB1_ILIM", "6": "USB1_VBUS", "4": "USB1_OC_N", "2": "GND_D"}, mpn="TPS2553DBVR")
 u.R("R1", "26.1k 1%", X - 20, Y + 20, "USB1_ILIM", "GND_D")
 u.R("R2", "100k", X - 10, Y + 20, "USB1_VBUS_EN", "GND_D")
@@ -29,9 +28,9 @@ u.C("C3", "0.1uF", X + 55, Y, "USB1_VBUS", "GND_D")
 
 X, Y = 230, 110
 u.text("J801 USB-C: DP/DM collegati su entrambi i lati (A6/B6, A7/B7), SBU non connessi, schermo a GND.", X - 40, Y - 35)
-u.place("Connector:USB_C_Receptacle_USB2.0_16P", "J1", "TYPE-C-31-M-12", "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12", X, Y,
-        {"VBUS": "USB1_VBUS", "CC1": "USB1_CC1", "CC2": "USB1_CC2", "D+": "USB1_DP_C", "D-": "USB1_DM_C", "SBU1": "NC",
-         "SBU2": "NC", "GND": "GND_D", "SHIELD": "GND_D"}, mpn="TYPE-C-31-M-12")
+u.place(UC_ID, "J1", "TYPE-C-31-M-12", UC_FP, X, Y,
+        {"VBUS": "USB1_VBUS", "CC1": "USB1_CC1", "CC2": "USB1_CC2", "DP1": "USB1_DP_C", "DP2": "USB1_DP_C", "DN1": "USB1_DM_C",
+         "DN2": "USB1_DM_C", "SBU1": "NC", "SBU2": "NC", "GND": "GND_D", "EH": "GND_D"}, mpn="TYPE-C-31-M-12")
 u.R("R4", "22k", X + 40, Y - 20, "5V_SYS", "USB1_CC1")
 u.R("R5", "22k", X + 50, Y - 20, "5V_SYS", "USB1_CC2")
 u.text("Rp 22k a 5 V = 1.5 A (tabella Type-C). Il TPS2553 limita comunque a circa 1 A.", X + 30, Y - 32)

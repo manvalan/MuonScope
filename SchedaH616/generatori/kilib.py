@@ -51,5 +51,56 @@ def extract(lib, name):
         s = body
     return s.replace(f'(symbol "{name}"', f'(symbol "{lib}:{name}"', 1)
 def pins(s):
-    return [(n, nm, float(x), float(y), int(a), typ) for typ, x, y, a, nm, n in
-            re.findall(r'\(pin (\w+) \w+\s*\(at ([-\d.]+) ([-\d.]+) (\d+)\).*?\(name "([^"]*)".*?\(number "([^"]+)"', s, re.S)]
+    return [(n, nm, float(x), float(y), int(float(a)), typ) for typ, x, y, a, nm, n in
+            re.findall(r'\(pin (\w+) \w+\s*\(at ([-\d.]+) ([-\d.]+) ([\d.]+)\).*?\(name "([^"]*)".*?\(number "([^"]+)"', s, re.S)]
+
+
+# ---------------- libreria personale MIKILAB (github.com/manvalan/mikilab-kicad-library) -----------------------------------
+def _first_or_none(*cands):
+    return next((p for p in cands if p and os.path.isdir(p)), None)
+
+
+MIKILAB = _first_or_none(os.environ.get("MIKILAB"), os.path.expanduser("~/Develop/mikilab-kicad-library"),
+                         os.path.expanduser("~/Development/mikylab_kikad_library"), os.path.expanduser("~/Development/mikilab-kicad-library"))
+
+
+def _libtable(name):
+    if not MIKILAB:
+        raise SystemExit("Libreria MIKILAB non trovata: impostare la variabile MIKILAB")
+    t = open(os.path.join(MIKILAB, name)).read()
+    return {n: u.replace("${KIPRJMOD}/", "") for n, u in re.findall(r'\(name "([^"]+)"\)\s*\(type "[^"]+"\)\s*\(uri "([^"]+)"\)', t)}
+
+
+def mik(part, sym=None, footprint=True):
+    """Simbolo (rinominato nick:simbolo) e footprint di un componente della libreria MIKILAB: (lib_id, testo, footprint)."""
+    syms = _libtable("sym-lib-table")
+    nick, rel = next((n, u) for n, u in syms.items() if u.endswith(f"/{part}.kicad_sym"))
+    sym = sym or part
+    t = open(os.path.join(MIKILAB, rel)).read()
+    i = t.find(f'(symbol "{sym}"')
+    s = block(t, i).replace(f'(symbol "{sym}"', f'(symbol "{nick}:{sym}"', 1)
+    fp = None
+    if footprint:
+        fps = _libtable("fp-lib-table")
+        fnick, frel = next((n, u) for n, u in fps.items() if u.endswith(f"/{part}.pretty"))
+        mods = sorted(f for f in os.listdir(os.path.join(MIKILAB, frel)) if f.endswith(".kicad_mod"))
+        fp = f"{fnick}:{mods[0][:-10]}"
+    return f"{nick}:{sym}", s, fp
+
+
+def mik_fp_dir(nick):
+    return os.path.join(MIKILAB, _libtable("fp-lib-table")[nick])
+
+
+def pins_by_unit(s):
+    """Pin per unità di un simbolo di libreria: {unità: [(numero, nome, x, y, angolo)]} (unità 0 = comune, copiata in tutte)."""
+    out = {}
+    for m in re.finditer(r'\(symbol "[^"]+?_(\d+)_\d+"', s):
+        u = int(m.group(1))
+        b = block(s, m.start())
+        out.setdefault(u, []).extend((n, nm, float(x), float(y), int(float(a))) for x, y, a, nm, n in
+                                     re.findall(r'\(pin \w+ \w+\s*\(at ([-\d.]+) ([-\d.]+) ([\d.]+)\).*?\(name "([^"]*)".*?\(number "([^"]+)"', b, re.S))
+    common = out.pop(0, [])
+    if not out:
+        return {1: common}
+    return {u: p + common for u, p in out.items()}

@@ -50,3 +50,15 @@ if m:
     r = re.sub(r'\(wire \(pts \(xy %.2f %.2f\) \(xy %.2f %.2f\)\)[^\n]*?\(uuid "[^"]+"\)\)' % (x + 5.08, y, x, y), "", r)
 open(f"{D}/{PROJ}.kicad_sch", "w").write(r)
 print("BUS_3V3 pin root:", r.count('"BUS_3V3"'))
+# Simboli EasyEDA della libreria MIKILAB: pin di tipo "unspecified". Nella matrice ERC del progetto unspecified con qualsiasi
+# tipo diventa OK (resta errore solo verso un pin no_connect); i simboli di progetto e KiCad usano tipi espliciti.
+import json
+pro = f"{D}/{PROJ}.kicad_pro"
+d = json.load(open(pro))
+pm = d["erc"]["pin_map"]
+UNSPEC, NOCONN = 6, 11
+for k in range(12):
+    if k != NOCONN:
+        pm[UNSPEC][k] = pm[k][UNSPEC] = 0
+json.dump(d, open(pro, "w"), indent=2)
+print("ERC: unspecified OK")

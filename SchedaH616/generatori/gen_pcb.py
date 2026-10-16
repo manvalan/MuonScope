@@ -11,7 +11,7 @@ SC = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, SC)
 import pcbnew
 import netlist
-from kilib import FPLIB, PROJ, LIBNAME
+from kilib import FPLIB, PROJ, LIBNAME, mik_fp_dir
 
 NET, PRJ = sys.argv[1], sys.argv[2]
 OUT = os.path.join(PRJ, f"{PROJ}.kicad_pcb")
@@ -58,7 +58,7 @@ cache = {}
 
 def load(fpid):
     lib, name = fpid.split(":")
-    path = os.path.join(PRJ, f"{LIBNAME}.pretty") if lib == LIBNAME else f"{STD}/{lib}.pretty"
+    path = os.path.join(PRJ, f"{LIBNAME}.pretty") if lib == LIBNAME else mik_fp_dir(lib) if lib.startswith("MIKILAB_") else f"{STD}/{lib}.pretty"
     return pcbnew.FootprintLoad(path, name)
 
 

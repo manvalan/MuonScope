@@ -1,6 +1,6 @@
 """Generatore di fogli KiCad 10 a etichette (stile dei fogli della scheda RK3568)."""
 import re, uuid
-from kilib import extract, pins, block, PROJ, ROOT_UUID, LIBNAME
+from kilib import extract, pins, block, PROJ, ROOT_UUID, LIBNAME, mik, pins_by_unit
 F = "(effects (font (size 1.27 1.27)) (justify {j}))"
 G = lambda v: round(v / 1.27) * 1.27
 U = lambda: str(uuid.uuid4())
@@ -42,6 +42,12 @@ class Sheet:
     def add_sym(self, lib_id, text):
         self.syms[lib_id] = text
         self.pins[lib_id] = pins(text)
+
+    def mik(self, part, sym=None, footprint=True):
+        """Simbolo dalla libreria personale MIKILAB; ritorna (lib_id, footprint)."""
+        lib_id, text, fp = mik(part, sym, footprint)
+        self.add_sym(lib_id, text)
+        return lib_id, fp
 
     def std(self, lib_id):
         lib, n = lib_id.split(":")

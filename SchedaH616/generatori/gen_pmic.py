@@ -4,7 +4,7 @@ import os
 import sys
 SC = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, SC)
-from kisheet import Sheet, box_symbol
+from kisheet import Sheet
 from kilib import LIBNAME
 
 PRJ = sys.argv[1]
@@ -30,15 +30,18 @@ RK809 = [("11", "VCC1", "L"), ("10", "VCC2", "L"), ("24", "VCC3", "L"), ("66", "
          ("37", "CPP", "R"), ("38", "VCC_CPVDD", "R"), ("39", "HPL_OUT", "R"), ("40", "HP_SNS", "R"), ("41", "HPR_OUT", "R"),
          ("42", "MICIN", "R"), ("43", "MICIP", "R")]
 assert sorted(int(n) for n, _, _ in RK809) == list(range(1, 70))
-p.add_sym(f"{LIBNAME}:RK809-5", box_symbol(LIBNAME, "RK809-5", RK809, "Rockchip RK809-5, PMIC 5 BUCK + 9 LDO + 2 switch, RTC, codec, QFN68 7x7 mm passo 0.35", w=15.24))
+# simbolo e footprint dalla libreria personale MIKILAB (EasyEDA C2939628); RK809 sopra resta come controllo del pinout
+RK809_ID, RK809_FP = p.mik("RK809-5")
+assert {n for n, *_ in __import__("kilib").pins(p.syms[RK809_ID])} == {n for n, _, _ in RK809}
 # TCS4525 dal datasheet TCS4525 Ver.1.0 (WCSP-20 2.0x1.6 mm, passo 0.4)
 TCS = [("D1", "AVIN", "L"), ("D2", "PVIN", "L"), ("E1", "PVIN", "L"), ("E2", "PVIN", "L"), ("A2", "EN", "L"), ("A1", "VSEL", "L"),
        ("B1", "SDA", "L"), ("A3", "SCL", "L"), ("B4", "AGND", "L"), ("B3", "PGND/PG", "L"),
        ("D3", "SW", "R"), ("D4", "SW", "R"), ("E3", "SW", "R"), ("E4", "SW", "R"), ("A4", "FB", "R"),
        ("B2", "PGND", "R"), ("C1", "PGND", "R"), ("C2", "PGND", "R"), ("C3", "PGND", "R"), ("C4", "PGND", "R")]
-p.add_sym(f"{LIBNAME}:TCS4525", box_symbol(LIBNAME, "TCS4525", TCS, "TCS TCS4525, buck 5 A 3 MHz con I2C e DVS, WCSP-20 2.0x1.6 mm", w=10.16))
-for k in ["Device:R", "Device:C", "Device:L", "Device:Crystal", "Regulator_Switching:TPS563201", "Connector:TestPoint",
-          "Regulator_Linear:AP2112K-1.8", "Regulator_Linear:AP2112K-2.5"]:
+TCS_ID, TCS_FP = p.mik("TCS4525")
+TPS563_ID, TPS563_FP = p.mik("TPS563201DDCR")
+LDO18_ID, LDO18_FP = p.mik("AP2112K-1.8TRG1")
+for k in ["Device:R", "Device:C", "Device:L", "Device:Crystal", "Connector:TestPoint", "Regulator_Linear:AP2112K-2.5"]:
     p.std(k)
 
 p.text("PMIC RK809-5 (datasheet Rockchip RK809 Rev 2.3; schema come Rockchip RK3568 AIoT REF V1.1 pag. 22 e Radxa ROCK 3A): ingressi VCC1-VCC9 da VCC3V3_SYS, I2C0 0x20. Serie 2xx.", 20, 15)
@@ -46,7 +49,7 @@ p.text("Default RK809-5 (tabella 4-4): BUCK1 0.9 V seq 1, BUCK2 0.9 V seq 2, BUC
 p.text("BUCK4 parte spento a 0.5 V: non puo' essere il 3.3 V di sistema (resterebbe tutto spento). Il 3.3 V resta sul TPS563201 (VCC3V3_SYS) come nel reference Rockchip; BUCK4 alimenta VDD_NPU (come ROCK 3A).", 20, 25)
 
 X0, Y0 = 170, 130
-p.place(f"{LIBNAME}:RK809-5", "U1", "RK809-5", "Package_DFN_QFN:ArtInChip_QFN-68-1EP_7x7mm_P0.35mm_EP5.49x5.49mm", X0, Y0, {
+p.place(RK809_ID, "U1", "RK809-5", RK809_FP, X0, Y0, {
     "11": "VCC3V3_SYS", "10": "VCC3V3_SYS", "24": "VCC3V3_SYS", "66": "VCC3V3_SYS", "22": "VCC3V3_SYS", "30": "VCC3V3_SYS",
     "4": "VCC3V3_SYS", "57": "VCC3V3_SYS", "54": "VCC3V3_SYS", "45": "VCC3V3_SYS", "33": "PMIC_VCC_SPK",
     "1": "PMIC_SCL", "2": "PMIC_SDA", "7": "PMIC_INT_L", "49": "PMIC_SLEEP_H", "52": "PMIC_PWRON", "67": "RESETn",
@@ -131,7 +134,7 @@ p.C("C44", "100nF", X + 80, Y + 5, "PMIC_VDC", "GND_D")
 X, Y = 70, 250
 p.text("VDD_CPU: TCS4525 (datasheet TCS Ver.1.0) come reference AIoT pag. 23 e ROCK 3A: VIN da 5V_SYS, I2C0 0x1C, VSEL da PMIC_SLEEP_H, EN da VCC3V3_PMU con 51k (parte dopo LDO6).", X - 40, Y - 30)
 p.text("FB (A4) = VDD_CPU_COM (sfera M15 del SoC, sense remoto) con 100R verso VDD_CPU. Induttore 0.33 uH (datasheet: 0.33 o 0.47 uH), Isat > 8 A (picco 8 A). PGND/PG (B3) a GND.", X - 40, Y - 25)
-p.place(f"{LIBNAME}:TCS4525", "U2", "TCS4525_WT", "Package_CSP:DiodesInc_GEA20_WLCSP-20_1.7x2.1mm_Layout4x5_P0.4mm", X, Y, {
+p.place(TCS_ID, "U2", "TCS4525_WT", TCS_FP, X, Y, {
     "D1": "5V_SYS", "D2": "5V_SYS", "E1": "5V_SYS", "E2": "5V_SYS", "A2": "TCS_EN", "A1": "PMIC_SLEEP_H", "B1": "I2C0_SDA", "A3": "I2C0_SCL",
     "B4": "GND_D", "B3": "GND_D", "D3": "TCS_SW", "D4": "TCS_SW", "E3": "TCS_SW", "E4": "TCS_SW", "A4": "VDD_CPU_COM",
     "B2": "GND_D", "C1": "GND_D", "C2": "GND_D", "C3": "GND_D", "C4": "GND_D"}, mpn="TCS4525_WT")
@@ -150,7 +153,7 @@ X, Y = 260, 250
 p.text("VCC3V3_SYS: TPS563201 da 5V_SYS, 3.3 V / 3 A, sempre acceso (EN 100k a 5V_SYS). Alimenta RK809-5 (VCC1-9), FUSB302B e i due LDO. Le periferiche stanno su VCC_3V3 (SWOUT1).", X - 40, Y - 22)
 p.C("C53", "10uF/16V", X - 35, Y, "5V_SYS", "GND_D", C0805)
 p.C("C54", "100nF", X - 25, Y, "5V_SYS", "GND_D")
-p.place("Regulator_Switching:TPS563201", "U3", "TPS563201DDCR", "Package_TO_SOT_SMD:SOT-23-6", X, Y,
+p.place(TPS563_ID, "U3", "TPS563201DDCR", TPS563_FP, X, Y,
         {"VIN": "5V_SYS", "EN": "PERI_EN", "GND": "GND_D", "SW": "PERI_SW", "VBST": "PERI_BST", "VFB": "PERI_FB"}, mpn="TPS563201DDCR")
 p.R("R15", "100k", X - 15, Y + 18, "5V_SYS", "PERI_EN")
 p.C("C55", "100nF", X + 22, Y - 10, "PERI_BST", "PERI_SW")
@@ -165,7 +168,7 @@ p.text("Vout = 0.768 V x (1 + 33.2k/10k) = 3.32 V. Carico stimato 2.5-3 A di pic
 X, Y = 420, 250
 p.text("VCC1V8_EMMC: AP2112K-1.8TRG1 (LCSC C176944) da VCC3V3_SYS per VCCQ dell'eMMC e VCCIO2 (FLASH_VOL_SEL alto). EN da VCC3V3_PMU: sale con la sequenza della PMIC.", X - 40, Y - 22)
 p.C("C58", "1uF/10V", X - 20, Y, "VCC3V3_SYS", "GND_D")
-p.place("Regulator_Linear:AP2112K-1.8", "U4", "AP2112K-1.8TRG1", "Package_TO_SOT_SMD:SOT-23-5", X, Y,
+p.place(LDO18_ID, "U4", "AP2112K-1.8TRG1", LDO18_FP, X, Y,
         {"VIN": "VCC3V3_SYS", "GND": "GND_D", "EN": "VCC3V3_PMU", "NC": "NC", "VOUT": "VCC1V8_EMMC"}, mpn="AP2112K-1.8TRG1", lcsc="C176944")
 p.C("C59", "1uF/10V", X + 25, Y, "VCC1V8_EMMC", "GND_D")
 X, Y = 420, 300

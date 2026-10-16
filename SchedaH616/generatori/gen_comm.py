@@ -3,7 +3,7 @@ import os
 import sys
 SC = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, SC)
-from kisheet import Sheet, box_symbol, lib_from_file
+from kisheet import Sheet, box_symbol
 from kilib import LIBNAME
 
 PRJ = sys.argv[1]
@@ -22,18 +22,17 @@ RTL = [("20", "TXC", "L"), ("18", "TXD0", "L"), ("17", "TXD1", "L"), ("16", "TXD
        ("9", "MDIP3", "R"), ("10", "MDIN3", "R"), ("32", "LED0/CFG_EXT", "R"), ("33", "LED1/CFG_LDO0", "R"), ("34", "LED2/CFG_LDO1", "R"),
        ("39", "RSET", "R"), ("30", "REG_OUT", "R"), ("21", "DVDD10", "R"), ("3", "AVDD10", "R"), ("8", "AVDD10", "R"), ("38", "AVDD10", "R"),
        ("11", "AVDD33", "R"), ("40", "AVDD33", "R"), ("29", "DVDD33", "R"), ("28", "DVDD_RG", "R"), ("41", "EPAD_GND", "R")]
-s.add_sym("Scheda:RTL8211F-CG", box_symbol(LIBNAME, "RTL8211F-CG", RTL, "Realtek RTL8211F-CG, PHY Gigabit RGMII, QFN-40 5x5"))
+# simbolo di progetto (pin dal datasheet, tutti visibili): quello MIKILAB ha AVDD10/AVDD33 come pin di alimentazione nascosti,
+# che KiCad collega a net globali con quel nome (VCC_3V3 diventerebbe "AVDD33"). Footprint dalla libreria MIKILAB.
+RTL_ID = f"{LIBNAME}:RTL8211F-CG"
+s.add_sym(RTL_ID, box_symbol(LIBNAME, "RTL8211F-CG", RTL, "Realtek RTL8211F-CG, PHY Gigabit RGMII, QFN-40 5x5"))
+_, _, RTL_FP = __import__("kilib").mik("RTL8211F-CG")
 for k in ["Device:R", "Device:C", "Device:L", "Device:Crystal_GND24"]:
     s.std(k)
-s.add_sym("Scheda:HR911130C", box_symbol(LIBNAME, "HR911130C",
-          [("P2", "MDI0+", "L"), ("P3", "MDI0-", "L"), ("P4", "MDI1+", "L"), ("P7", "MDI1-", "L"), ("P5", "MDI2+", "L"), ("P6", "MDI2-", "L"),
-           ("P8", "MDI3+", "L"), ("P9", "MDI3-", "L"), ("P1", "CT", "L"),
-           ("11", "LED_G_A", "R"), ("12", "LED_G_K", "R"), ("14", "LED_Y_A", "R"), ("13", "LED_Y_K", "R"), ("P10", "BOB_SMITH", "R"),
-           ("SHIELD0", "SHIELD", "R"), ("SHIELD1", "SHIELD", "R")],
-          "HanRun HR911130C, RJ45 100/1000Base-T con magnetici e LED verde/giallo", w=12.7))
+RJ_ID, RJ_FP = s.mik("HR911130C")
 s.text("RETE: PHY Realtek RTL8211F-CG (datasheet rev. 1.7) su GMAC0 RGMII dell'RK3568 (VCCIO4 3.3 V), alimentato da VCC_3V3 (SWOUT1). Serie 5xx. Net RGMII_*/PHY_* globali verso il foglio CPU.", 20, 15)
 s.text("Strap (4.7k): PHYAD = 001, PLLOFF = 0, TXDLY = 1 e RXDLY = 1 (rgmii-id, ritardi nel PHY), CFG_EXT = 1 con CFG_LDO = 00: pad RGMII alimentati da fuori a 3.3 V.", 20, 20)
-s.place("Scheda:RTL8211F-CG", "U1", "RTL8211F-CG", "Package_DFN_QFN:QFN-40-1EP_5x5mm_P0.4mm_EP3.6x3.6mm", 110, 120, {
+s.place(RTL_ID, "U1", "RTL8211F-CG", RTL_FP, 110, 120, {
     "20": "PHY_TXC_P", "18": "PHY_TXD0_P", "17": "PHY_TXD1_P", "16": "PHY_TXD2_P", "15": "PHY_TXD3_P", "19": "PHY_TXCTL_P",
     "27": "PHY_RXC_P", "25": "PHY_RXD0_P", "24": "PHY_RXD1_P", "23": "PHY_RXD2_P", "22": "PHY_RXD3_P", "26": "PHY_RXCTL_P",
     "13": "PHY_MDC", "14": "PHY_MDIO", "31": "PHY_INT_N", "12": "PHY_RST_N", "35": "PHY_CLKOUT", "36": "PHY_XI", "37": "PHY_XO",
@@ -81,7 +80,7 @@ for i, (ref, val, net, fp) in enumerate([("C4", "22uF", "PHY_VDD10", C0603), ("C
         s.C(ref, val, X + 55 + 10 * i, Y, net, "GND_D")
 X, Y = 120, 220
 s.text("RJ45 HanRun HR911130C (100/1000Base-T, magnetici e LED integrati). Prese centrali lato PHY (P1, comuni) a GND con 100 nF. P10 = rete Bob Smith verso lo schermo.", 20, Y - 30)
-s.place("Scheda:HR911130C", "J1", "HR911130C", "Scheda:RJ45-TH_HR911130C", X, Y, {
+s.place(RJ_ID, "J1", "HR911130C", RJ_FP, X, Y, {
     "P2": "MDI0_P", "P3": "MDI0_N", "P4": "MDI1_P", "P7": "MDI1_N", "P5": "MDI2_P", "P6": "MDI2_N", "P8": "MDI3_P", "P9": "MDI3_N",
     "P1": "ETH_CT", "11": "ETH_LED1_A", "12": "GND_D", "14": "ETH_LED2_A", "13": "GND_D", "P10": "GND_D",
     "SHIELD0": "GND_D", "SHIELD1": "GND_D"}, mpn="HR911130C")
@@ -90,11 +89,10 @@ s.R("R22", "510R", X + 85, Y + 15, "PHY_LED1", "ETH_LED1_A")
 s.R("R23", "510R", X + 95, Y + 15, "PHY_LED2", "ETH_LED2_A")
 s.text("LED verde = LED1 del PHY (100M), giallo = LED2 (1000M), entrambi attivi alti.", 20, Y + 30)
 X, Y = 290, 220
-s.add_sym("Scheda:25AA02E48", box_symbol(LIBNAME, "25AA02E48", [("6", "VCC", "L"), ("5", "~{CS}", "L"), ("1", "SCK", "L"), ("3", "SI", "L"),
-          ("4", "SO", "R"), ("2", "VSS", "R")], "Microchip 25AA02E48, EEPROM SPI 2 kbit con EUI-48, SOT-23-6", w=7.62))
+EE_ID, EE_FP = s.mik("25AA02E48T-I_OT")
 s.text("EEPROM MAC 25AA02E48 (EUI-48 per la MAC del GMAC0) su SPI2 locale (prima dei 33R verso il bus MAIN), CS1 hardware di SPI2 (GPIO2_D4) con 10k a VCC_3V3.", X - 50, Y - 25)
 s.text("Pinout SOT-23-6 dal datasheet Microchip DS20002123G, tabella 4-1: 1 SCK, 2 VSS, 3 SI, 4 SO, 5 CS, 6 VCC.", X - 50, Y - 20)
-s.place("Scheda:25AA02E48", "U2", "25AA02E48T-I/OT", "Package_TO_SOT_SMD:SOT-23-6", X, Y,
+s.place(EE_ID, "U2", "25AA02E48T-I/OT", EE_FP, X, Y,
         {"6": "VCC_3V3", "5": "PHY_EE_CS_N", "1": "SPI2_CLK", "3": "SPI2_MOSI", "4": "SPI2_MISO", "2": "GND_D"}, mpn="25AA02E48T-I/OT")
 s.R("R21", "10k", X + 30, Y, "VCC_3V3", "PHY_EE_CS_N")
 s.C("C15", "0.1uF", X + 40, Y, "VCC_3V3", "GND_D")
@@ -102,12 +100,12 @@ rete_ports = s.write(PRJ, 508.0, 38.1, LIBF)
 
 # =============================== RADIO: AMPAK AP6256 ============================================
 r = Sheet("Radio", "radio.kicad_sch", 600, 8, RAILS, GP)
-r.add_sym("Scheda:AP6256", lib_from_file(os.path.join(SC, "AP6256.kicad_sym"), "AP6256", LIBNAME))
+AP_ID, _ = r.mik("AP6212", "AP6256", footprint=False)   # simbolo MIKILAB (libreria AP6212); footprint LGA-47 di progetto
 for k in ["Device:R", "Device:C", "Connector:Conn_Coaxial"]:
     r.std(k)
 r.text("RADIO: AMPAK AP6256 (Wi-Fi 5 + BT 5.0) su SDMMC2_M0 (SDIO, VCCIO6), HCI su UART8_M0 con RTS/CTS (VCCIO4), REG_ON e wake su GPIO. Serie 6xx. Net WL_*/BT_*/CLK32K globali.", 20, 15)
 r.text("VDDIO = VCC_3V3 3.3 V (= VCCIO6/VCCIO4), SDIO 2.0 fino a 50 MHz. VBAT e VIN_LDO da VCC_3V3. LPO 32.768 kHz da CLK32K dell'RK809-5 (quarzo Y201).", 20, 20)
-r.place("Scheda:AP6256", "U1", "AP6256", "Scheda:AP6256_LGA-47_12x12mm", 110, 110, {
+r.place(AP_ID, "U1", "AP6256", "Scheda:AP6256_LGA-47_12x12mm", 110, 110, {
     "1": "GND_D", "3": "GND_D", "20": "GND_D", "31": "GND_D", "33": "GND_D", "36": "GND_D", "2": "WL_ANT",
     "6": "BT_WAKE", "7": "BT_HOST_WAKE", "9": "VCC_3V3", "23": "VCC_3V3", "21": "WL_LDO_OUT", "22": "VCC_3V3",
     "12": "WL_REG_ON", "13": "WL_HOST_WAKE", "14": "WL_SDIO_D2", "15": "WL_SDIO_D3", "16": "WL_SDIO_CMD", "17": "WL_SDIO_CLK",

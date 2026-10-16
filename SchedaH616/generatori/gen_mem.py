@@ -4,7 +4,7 @@ import re
 import sys
 SC = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, SC)
-from kisheet import Sheet, multi_symbol, place_multi
+from kisheet import Sheet, multi_symbol, place_multi, pins_by_unit
 from kilib import LIBNAME
 
 PRJ = sys.argv[1]
@@ -40,9 +40,10 @@ DDR4 = {
 assert len(DDR4) == 96
 sig = sorted([(b, n) for b, n in DDR4.items() if not re.match(r"(VDD|VSS|VPP|NC$)", n)], key=natkey)
 pwr = sorted([(b, n) for b, n in DDR4.items() if re.match(r"(VDD|VSS|VPP|NC$)", n)], key=natkey)
-D4_SYM, D4_PINS = multi_symbol(LIBNAME, "DDR4_x16_FBGA96", [sig, pwr], "DDR4 x16 FBGA-96 (JEDEC), es. Samsung K4AAG165WA-BCWE 16 Gbit")
-m.add_sym(f"{LIBNAME}:DDR4_x16_FBGA96", D4_SYM)
-for k in ["Device:R", "Device:C", "Connector:Micro_SD_Card_Det_Hirose_DM3AT", "Power_Protection:TPD4E05U06DQA"]:
+# simbolo e footprint dalla libreria personale MIKILAB (EasyEDA C2920140): nomi delle sfere controllati sul DDR4 qui sopra
+D4_ID, D4_FP = m.mik("K4AAG165WA-BCWE")
+assert {n: nm for n, nm, *_ in __import__("kilib").pins(m.syms[D4_ID])}.keys() == DDR4.keys()
+for k in ["Device:R", "Device:C", "Power_Protection:TPD4E05U06DQA"]:
     m.std(k)
 
 D4NET = {"DQSU_c": "DDR_DQSU_N", "DQSU_t": "DDR_DQSU_P", "DQSL_c": "DDR_DQSL_N", "DQSL_t": "DDR_DQSL_P", "DMU_n/DBIU_n": "DDR_DMU",
@@ -68,8 +69,7 @@ def d4_net(num, n):
 m.text("MEMORIE: DDR4 x16 (1 chip, point-to-point, niente VTT), eMMC 8 bit su EMMC (VCCIO2 1.8 V), microSD su SDMMC0 (VCCIO3). Serie 4xx.", 20, 15)
 m.text("U401 Samsung K4AAG165WA-BCWE (LCSC C2920140, 16 Gbit = 2 GB, x16, DDR4-3200): VDD/VDDQ = VCC_DDR 1.2 V (BUCK3), VPP = VCC2V5_DDR (AP2112K-2.5). Collegata al canale A del PHY dell'RK3568.", 20, 22)
 m.text("DQ/DM/DQS secondo il pinout Rockchip (DDR_DQx_A -> DDR4_DQL/DQU_A): l'ordine dei bit nel byte e' quello del template Rockchip, i CA non si possono scambiare (Hardware Design Guide 2.1.7).", 20, 27)
-place_multi(m, f"{LIBNAME}:DDR4_x16_FBGA96", "U1", "K4AAG165WA-BCWE", "Package_BGA:BGA-96_9.0x13.0mm_Layout2x3x16_P0.8mm",
-            D4_PINS, d4_net, {1: (75, 140), 2: (190, 140)}, mpn="K4AAG165WA-BCWE", lcsc="C2920140")
+m.place(D4_ID, "U1", "K4AAG165WA-BCWE", D4_FP, 100, 150, {b: d4_net(b, n) for b, n in DDR4.items()}, mpn="K4AAG165WA-BCWE", lcsc="C2920140")
 X, Y = 260, 55
 m.text("ZQ 240R 1% a GND, TEN e PAR a GND, ALERT_n libero, T7 (NC/A17) libero (reference Rockchip DDR4 16bit SDP). RESET_n con 1 nF DNP (anti-ESD, Hardware Design Guide).", X - 10, Y - 12)
 m.R("R1", "240R 1%", X, Y, "DDR4_ZQ", "GND_D")
@@ -94,15 +94,17 @@ EMMC_BALLS = [("A3", "DAT0"), ("A4", "DAT1"), ("A5", "DAT2"), ("B2", "DAT3"), ("
               ("E6", "VCC"), ("F5", "VCC"), ("J10", "VCC"), ("K9", "VCC"), ("C6", "VCCQ"), ("M4", "VCCQ"), ("N4", "VCCQ"),
               ("P3", "VCCQ"), ("P5", "VCCQ"), ("E7", "VSS"), ("G5", "VSS"), ("H10", "VSS"), ("K8", "VSS"), ("A6", "VSS"), ("J5", "VSS"), ("C4", "VSSQ"),
               ("N2", "VSSQ"), ("N5", "VSSQ"), ("P4", "VSSQ"), ("P6", "VSSQ")]
-EM_SYM, EM_PINS = multi_symbol(LIBNAME, "eMMC_FBGA153", [EMMC_BALLS], "eMMC 5.1 FBGA-153 (JEDEC MO-276), 64 GB, FORESEE FEMDNN064G-C9A61", w=12.7)
-m.add_sym(f"{LIBNAME}:eMMC_FBGA153", EM_SYM)
+# simbolo (2 unita) e footprint dalla libreria MIKILAB (EasyEDA C49284704); le sfere non elencate qui sopra sono NC/RFU/VSF
+EM_ID, EM_FP = m.mik("FEMDNN064G-C9A61")
+EM_PINS = pins_by_unit(m.syms[EM_ID])
+EMB = dict(EMMC_BALLS)
 EMN = {"DAT0": "EMMC_D0", "DAT1": "EMMC_D1", "DAT2": "EMMC_D2", "DAT3": "EMMC_D3", "DAT4": "EMMC_D4", "DAT5": "EMMC_D5",
        "DAT6": "EMMC_D6", "DAT7": "EMMC_D7", "CMD": "EMMC_CMD", "CLK": "EMMC_CLK", "RST_n": "EMMC_RST", "DS": "EMMC_DS",
        "VDDI": "EMMC_VDDI", "VCC": "VCC_3V3", "VCCQ": "VCC1V8_EMMC", "VSS": "GND_D", "VSSQ": "GND_D"}
 X, Y = 280, 220
 m.text("U402 eMMC FORESEE FEMDNN064G-C9A61 (64 GB, eMMC 5.1 HS400, LCSC C49284704): VCC = VCC_3V3, VCCQ = VCC1V8_EMMC (AP2112K-1.8, = VCCIO2: HS200/HS400). CLK 22R serie vicino al SoC (reference), pull-up 10k su CMD/DAT0-7/RST_n.", X - 30, Y - 35)
-place_multi(m, f"{LIBNAME}:eMMC_FBGA153", "U2", "FEMDNN064G-C9A61", "Package_BGA:LFBGA-153_11.5x13mm_Layout14x14_P0.5mm",
-            EM_PINS, lambda num, n: EMN[n], {1: (X, Y)}, mpn="FEMDNN064G-C9A61", lcsc="C49284704")
+place_multi(m, EM_ID, "U2", "FEMDNN064G-C9A61", EM_FP, EM_PINS, lambda num, n: EMN[EMB[num]] if num in EMB else "NC",
+            {1: (170, 300), 2: (75, 300)}, mpn="FEMDNN064G-C9A61", lcsc="C49284704")
 m.R("R5", "22R", X + 45, Y - 30, "EMMC_CLK_S", "EMMC_CLK")
 for i, net in enumerate(["EMMC_CMD", "EMMC_D0", "EMMC_D1", "EMMC_D2", "EMMC_D3", "EMMC_D4", "EMMC_D5", "EMMC_D6", "EMMC_D7", "EMMC_RST"]):
     m.R(f"R{6 + i}", "10k", X + 40 + 10 * i, Y + 40, "VCC1V8_EMMC", net)
@@ -115,9 +117,10 @@ for i, (ref, val, net) in enumerate([("C20", "2.2uF/10V", "VCC_3V3"), ("C21", "0
 X, Y = 280, 340
 m.text("J401 microSD (Hirose DM3AT) su SDMMC0: VDD = VCC3V3_SD (SWOUT2 dell'RK809-5), segnali a VCCIO_SD (LDO5, 3.3 V, 1.8 V per UHS). CLK 22R serie, pull-up 47k a VCCIO_SD.", X - 30, Y - 30)
 m.text("SD_DET su SDMMC0_DET (GPIO0_A4, PMUIO1) con 10k a VCC3V3_PMU: basso con la scheda inserita = SDMMC0 (alto = JTAG sui pin SDMMC0, Hardware Design Guide).", X - 30, Y - 25)
-m.place("Connector:Micro_SD_Card_Det_Hirose_DM3AT", "J1", "DM3AT-SF-PEJM5", "Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5", X, Y,
-        {"DAT2": "SD_D2", "DAT3/CD": "SD_D3", "CMD": "SD_CMD", "VDD": "VCC3V3_SD", "CLK": "SD_CLK", "VSS": "GND_D", "DAT0": "SD_D0",
-         "DAT1": "SD_D1", "DET_B": "SD_DET", "DET_A": "GND_D", "SHIELD": "GND_D"}, mpn="DM3AT-SF-PEJM5")
+SD_ID, SD_FP = m.mik("DM3AT-SF-PEJM5")
+m.place(SD_ID, "J1", "DM3AT-SF-PEJM5", SD_FP, X, Y,
+        {"1": "SD_D2", "2": "SD_D3", "3": "SD_CMD", "4": "VCC3V3_SD", "5": "SD_CLK", "6": "GND_D", "7": "SD_D0", "8": "SD_D1",
+         "9": "SD_DET", "11": "GND_D", "10": "GND_D", "12": "GND_D", "13": "GND_D", "14": "GND_D"}, mpn="DM3AT-SF-PEJM5")
 m.R("R16", "22R", X + 30, Y - 15, "SD_CLK_S", "SD_CLK")
 for i, net in enumerate(["SD_CMD", "SD_D0", "SD_D1", "SD_D2", "SD_D3"]):
     m.R(f"R{17 + i}", "47k", X + 45 + 10 * i, Y - 15, "VCCIO_SD", net)

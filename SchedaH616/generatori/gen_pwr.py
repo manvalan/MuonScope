@@ -2,7 +2,7 @@
 import os
 import re, sys, uuid
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from kilib import extract, pins, PROJ, ROOT_UUID, LIBNAME
+from kilib import extract, pins, PROJ, ROOT_UUID, LIBNAME, mik
 
 PRJ = sys.argv[1]
 SHEET_UUID = str(uuid.uuid4())
@@ -37,28 +37,21 @@ def custom(name, left, right, bottom, w=10.16):
 
 
 SYMS = {
-    "Scheda:TPS56637": custom("TPS56637", [("8", "VIN", "power_in"), ("1", "EN", "input"), ("10", "MODE", "input"), ("5", "NC", "passive")],
-                            [("6", "SW", "passive"), ("7", "BOOT", "passive"), ("2", "FB", "input"), ("4", "PG", "output")],
-                            [("3", "AGND", "power_in"), ("9", "PGND", "power_in")]),
     "Power_Protection:TPD2EUSB30A": extract("Power_Protection", "TPD2EUSB30A"),
     "Interface_USB:FUSB302BMPX": extract("Interface_USB", "FUSB302BMPX"),
-    "Connector:USB_C_Receptacle_USB2.0_16P": extract("Connector", "USB_C_Receptacle_USB2.0_16P"),
     "Connector:Barrel_Jack_Switch": extract("Connector", "Barrel_Jack_Switch"),
     "Device:D_TVS": extract("Device", "D_TVS"),
     "Device:C": extract("Device", "C"),
     "Connector:TestPoint": extract("Connector", "TestPoint"),
     "Device:R": extract("Device", "R"),
     "Device:L": extract("Device", "L"),
-    "Scheda:TPS2121": custom("TPS2121",
-                           [("7", "IN1", "power_in"), ("6", "PR1", "input"), ("5", "OV1", "input"),
-                            ("2", "IN2", "power_in"), ("4", "OV2", "input"), ("3", "CP2", "input")],
-                           [("1", "OUT", "power_out"), ("8", "OUT", "passive"), ("9", "ST", "output"),
-                            ("10", "ILM", "passive"), ("11", "SS", "passive")],
-                           [("12", "GND", "power_in")]),
-    "Scheda:SY6280AAC": custom("SY6280AAC",
-                             [("5", "IN", "power_in"), ("4", "EN", "input"), ("3", "ISET", "passive")],
-                             [("1", "OUT", "power_out")], [("2", "GND", "power_in")], w=7.62),
 }
+# componenti specifici dalla libreria personale MIKILAB (simbolo + footprint EasyEDA, numeri dei pin = pad)
+MK = {}
+for part in ("TPS56637RPAR", "TPS2121RUXR", "SY6280AAC", "TYPE-C-31-M-12"):
+    lid, txt, fp = mik(part)
+    SYMS[lid] = txt
+    MK[part] = (lid, fp)
 PINS = {k: pins(v) for k, v in SYMS.items()}
 
 GLOBAL = {"GND_D"}
@@ -133,7 +126,7 @@ C("C2", "10uF/25V", X + 22.86, Y, "VIN_SYS", "GND_D", C1206)
 C("C25", "100nF/50V", X + 33.02, Y, "VIN_SYS", "GND_D")
 R("R1", "169k 1%", X + 43.18, Y - 7.62, "VIN_SYS", "BUCK_EN")
 R("R2", "36.1k 1%", X + 43.18, Y + 7.62, "BUCK_EN", "GND_D")
-place("Scheda:TPS56637", "U1", "TPS56637RPAR", "Scheda:Texas_RPA0010A_VQFN-HR-10_3x3mm", X + 75, Y,
+place(*MK["TPS56637RPAR"][:1], "U1", "TPS56637RPAR", MK["TPS56637RPAR"][1], X + 75, Y,
       {"8": "VIN_SYS", "1": "BUCK_EN", "2": "BUCK_FB", "10": "BUCK_MODE", "4": "BUCK_PG", "5": "NC", "7": "BUCK_BST",
        "6": "BUCK_SW", "3": "GND_D", "9": "GND_D"}, extra_props=(("MPN", "TPS56637RPAR"),))
 R("R14", "10k", X + 60, Y + 25, "BUCK_MODE", "GND_D", dnp=True)
@@ -157,7 +150,7 @@ place("Connector:Barrel_Jack_Switch", "J3", "DC-005-5A-2.0", "Connector_BarrelJa
       {"1": "5V_JACK", "2": "GND_D", "3": "GND_D"})
 place("Device:D_TVS", "D1", "SMF5.0A", "Diode_SMD:D_SMF", X2 + 20, Y2, {"1": "5V_JACK", "2": "GND_D"}, rot=90)
 C("C6", "22uF/10V", X2 + 32, Y2, "5V_JACK", "GND_D", C0805)
-place("Scheda:TPS2121", "U8", "TPS2121RUXR", "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm", X2 + 95, Y2 + 5,
+place(MK["TPS2121RUXR"][0], "U8", "TPS2121RUXR", MK["TPS2121RUXR"][1], X2 + 95, Y2 + 5,
       {"7": "5V_BUCK", "6": "MUX2_PR1", "5": "MUX2_OV1", "2": "5V_JACK", "4": "MUX2_OV2", "3": "GND_D",
        "1": "5V_EXT", "8": "5V_EXT", "9": "MUX2_ST", "10": "MUX2_ILM", "11": "MUX2_SS", "12": "GND_D"}, extra_props=(("MPN", "TPS2121RUXR"),))
 R("R21", "32.4k 1%", X2 + 45, Y2 - 5, "5V_BUCK", "MUX2_PR1")
@@ -179,9 +172,9 @@ text("Priorita: bus 12 V (buck) > jack > USB-C. Il bus e' l'alimentazione di ese
 # --- 3. USB-C con FUSB302B, fusibile e TVS su VBUS ------------------------------------------
 X3, Y3 = 30, 175
 text("3) USB-C (HRO TYPE-C-31-M-12): solo USB 2.0, FUSB302B per CC/PD, TVS SMF5.0A su VBUS (nessun fusibile), ESD TPD2EUSB30A su CC1/CC2", X3, Y3 - 28)
-place("Connector:USB_C_Receptacle_USB2.0_16P", "J4", "TYPE-C-31-M-12", "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12", X3, Y3,
-      {"VBUS": "VBUS", "CC1": "USBC_CC1", "CC2": "USBC_CC2", "D+": "USB0_DP", "D-": "USB0_DM",
-       "SBU1": "NC", "SBU2": "NC", "GND": "GND_D", "SHIELD": "GND_D"})
+place(MK["TYPE-C-31-M-12"][0], "J4", "TYPE-C-31-M-12", MK["TYPE-C-31-M-12"][1], X3, Y3,
+      {"VBUS": "VBUS", "CC1": "USBC_CC1", "CC2": "USBC_CC2", "DP1": "USB0_DP", "DP2": "USB0_DP", "DN1": "USB0_DM", "DN2": "USB0_DM",
+       "SBU1": "NC", "SBU2": "NC", "GND": "GND_D", "EH": "GND_D"})
 place("Device:D_TVS", "D2", "SMF5.0A", "Diode_SMD:D_SMF", X3 + 30, Y3 - 10, {"1": "VBUS", "2": "GND_D"}, rot=90)
 place("Power_Protection:TPD2EUSB30A", "U7", "TPD2EUSB30ADRTR", "Package_TO_SOT_SMD:Texas_DRT-3", X3 + 45, Y3 + 20, {"D+": "USBC_CC1", "D-": "USBC_CC2", "GND": "GND_D"}, extra_props=(("MPN", "TPD2EUSB30ADRTR"),))
 C("C7", "4.7uF/10V", X3 + 54, Y3 - 10, "VBUS", "GND_D")
@@ -199,7 +192,7 @@ text("FUSB302B (0x22): VDD da VCC3V3_SYS, I2C1 dell'RK3568 (GPIO0_B3/B4, PMUIO2 
 # --- 4. TPS2121: IN1 = 5V_EXT (priorita), IN2 = VBUS -> 5V_SYS verso AXP313A ------------------
 X4, Y4 = 215, 70
 text("4) Power mux TPS2121 U103: IN1 5V_EXT (uscita di U108: bus o jack) con priorita, IN2 VBUS USB-C. Uscita 5V_SYS verso TPS563201 (VCC3V3_SYS), TCS4525 (VDD_CPU) e TPS2553", X4 - 10, Y4 - 25)
-place("Scheda:TPS2121", "U3", "TPS2121RUXR", "Package_DFN_QFN:Texas_VQFN-HR-12_2x2.5mm_P0.5mm", X4 + 45, Y4,
+place(MK["TPS2121RUXR"][0], "U3", "TPS2121RUXR", MK["TPS2121RUXR"][1], X4 + 45, Y4,
       {"7": "5V_EXT", "6": "MUX_PR1", "5": "MUX_OV1", "2": "VBUS", "4": "MUX_OV2", "3": "GND_D",
        "1": "5V_SYS", "8": "5V_SYS", "9": "PWR_SRC_ST", "10": "MUX_ILM", "11": "MUX_SS", "12": "GND_D"})
 R("R5", "32.4k 1%", X4, Y4 - 10, "5V_EXT", "MUX_PR1")
@@ -219,7 +212,7 @@ text("PR1: IN1 sotto 4.49 V -> passa a IN2. OV1/OV2: canale escluso sopra 5.98 V
 # --- 5. SY6280AAC: VBUS in uscita (modo source), solo con alimentazione esterna -------------
 X5, Y5 = 215, 145
 text("5) SY6280AAC: VBUS in uscita verso una periferica (source, ~1 A). Ingresso da 5V_EXT: si accende solo con jack o VIN_SYS presenti", X5 - 10, Y5 - 15)
-place("Scheda:SY6280AAC", "U5", "SY6280AAC", "Package_TO_SOT_SMD:SOT-23-5", X5 + 30, Y5,
+place(MK["SY6280AAC"][0], "U5", "SY6280AAC", MK["SY6280AAC"][1], X5 + 30, Y5,
       {"5": "5V_EXT", "4": "VBUS_SRC_EN", "3": "SRC_ISET", "1": "VBUS", "2": "GND_D"})
 R("R12", "6.8k 1%", X5 + 10, Y5 + 12, "SRC_ISET", "GND_D")
 R("R13", "100k", X5, Y5 + 12, "VBUS_SRC_EN", "GND_D")
