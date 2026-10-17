@@ -11,6 +11,7 @@ PRJ = sys.argv[1]
 RAILS = ["VCC_DDR", "VCC2V5_DDR", "VCC1V8_EMMC", "VCC_3V3", "VCC3V3_SD", "VCCIO_SD", "VCC3V3_PMU"]
 m = Sheet("Memorie", "memorie.kicad_sch", 400, 6, RAILS, ("DDR_", "EMMC_", "SD_"), paper="A2")
 C0402, C0603 = "Capacitor_SMD:C_0402_1005Metric", "Capacitor_SMD:C_0603_1608Metric"
+R0402 = "Resistor_SMD:R_0402_1005Metric"   # rete DDR (ZQ, VREF) e serie dei clock vicino ai pin
 
 
 def natkey(t):
@@ -72,15 +73,15 @@ m.text("DQ/DM/DQS secondo il pinout Rockchip (DDR_DQx_A -> DDR4_DQL/DQU_A): l'or
 m.place(D4_ID, "U1", "K4AAG165WA-BCWE", D4_FP, 100, 150, {b: d4_net(b, n) for b, n in DDR4.items()}, mpn="K4AAG165WA-BCWE", lcsc="C2920140")
 X, Y = 260, 55
 m.text("ZQ 240R 1% a GND, TEN e PAR a GND, ALERT_n libero, T7 (NC/A17) libero (reference Rockchip DDR4 16bit SDP). RESET_n con 1 nF DNP (anti-ESD, Hardware Design Guide).", X - 10, Y - 12)
-m.R("R1", "240R 1%", X, Y, "DDR4_ZQ", "GND_D")
+m.R("R1", "240R 1%", X, Y, "DDR4_ZQ", "GND_D", fp=R0402)
 m.C("C1", "1nF", X + 10, Y, "DDR_RESET_N", "GND_D", dnp=True)
 X, Y = 260, 85
 m.text("VREFCA da DDR_VREFOUT del SoC (P8, 0.6 V di default) con 0R; 2x 1 nF vicino alla DDR4 (valore da non cambiare, Hardware Design Guide). Partitore 1k/1k DNP come alternativa.", X - 10, Y - 12)
-m.R("R2", "0R", X, Y, "DDR_VREFOUT", "VREF_DDR4_CA")
-m.C("C2", "1nF", X + 10, Y, "VREF_DDR4_CA", "GND_D")
-m.C("C3", "1nF", X + 20, Y, "VREF_DDR4_CA", "GND_D")
-m.R("R3", "1k 1%", X + 30, Y, "VCC_DDR", "VREF_DDR4_CA", dnp=True)
-m.R("R4", "1k 1%", X + 40, Y, "VREF_DDR4_CA", "GND_D", dnp=True)
+m.R("R2", "0R", X, Y, "DDR_VREFOUT", "VREF_DDR4_CA", fp=R0402)
+m.C("C2", "1nF", X + 10, Y, "VREF_DDR4_CA", "GND_D", C0402)
+m.C("C3", "1nF", X + 20, Y, "VREF_DDR4_CA", "GND_D", C0402)
+m.R("R3", "1k 1%", X + 30, Y, "VCC_DDR", "VREF_DDR4_CA", fp=R0402, dnp=True)
+m.R("R4", "1k 1%", X + 40, Y, "VREF_DDR4_CA", "GND_D", fp=R0402, dnp=True)
 X, Y = 260, 115
 m.text("Disaccoppiamento DDR4 (reference, ridotto a un chip): VCC_DDR 2x 10 uF + 1 uF + 10x 100 nF; VPP 1 uF + 100 nF vicino alle sfere B1/R9.", X - 10, Y - 12)
 dl = [("C4", "10uF", "VCC_DDR", C0603), ("C5", "10uF", "VCC_DDR", C0603), ("C6", "1uF", "VCC_DDR", C0402)] + \
@@ -105,7 +106,7 @@ X, Y = 280, 220
 m.text("U402 eMMC FORESEE FEMDNN064G-C9A61 (64 GB, eMMC 5.1 HS400, LCSC C49284704): VCC = VCC_3V3, VCCQ = VCC1V8_EMMC (AP2112K-1.8, = VCCIO2: HS200/HS400). CLK 22R serie vicino al SoC (reference), pull-up 10k su CMD/DAT0-7/RST_n.", X - 30, Y - 35)
 place_multi(m, EM_ID, "U2", "FEMDNN064G-C9A61", EM_FP, EM_PINS, lambda num, n: EMN[EMB[num]] if num in EMB else "NC",
             {1: (170, 300), 2: (75, 300)}, mpn="FEMDNN064G-C9A61", lcsc="C49284704")
-m.R("R5", "22R", X + 45, Y - 30, "EMMC_CLK_S", "EMMC_CLK")
+m.R("R5", "22R", X + 45, Y - 30, "EMMC_CLK_S", "EMMC_CLK", fp=R0402)
 for i, net in enumerate(["EMMC_CMD", "EMMC_D0", "EMMC_D1", "EMMC_D2", "EMMC_D3", "EMMC_D4", "EMMC_D5", "EMMC_D6", "EMMC_D7", "EMMC_RST"]):
     m.R(f"R{6 + i}", "10k", X + 40 + 10 * i, Y + 40, "VCC1V8_EMMC", net)
 m.C("C19", "1uF/10V", X + 40, Y + 65, "EMMC_VDDI", "GND_D")
@@ -121,7 +122,7 @@ SD_ID, SD_FP = m.mik("DM3AT-SF-PEJM5")
 m.place(SD_ID, "J1", "DM3AT-SF-PEJM5", SD_FP, X, Y,
         {"1": "SD_D2", "2": "SD_D3", "3": "SD_CMD", "4": "VCC3V3_SD", "5": "SD_CLK", "6": "GND_D", "7": "SD_D0", "8": "SD_D1",
          "9": "SD_DET", "11": "GND_D", "10": "GND_D", "12": "GND_D", "13": "GND_D", "14": "GND_D"}, mpn="DM3AT-SF-PEJM5")
-m.R("R16", "22R", X + 30, Y - 15, "SD_CLK_S", "SD_CLK")
+m.R("R16", "22R", X + 30, Y - 15, "SD_CLK_S", "SD_CLK", fp=R0402)
 for i, net in enumerate(["SD_CMD", "SD_D0", "SD_D1", "SD_D2", "SD_D3"]):
     m.R(f"R{17 + i}", "47k", X + 45 + 10 * i, Y - 15, "VCCIO_SD", net)
 m.R("R22", "10k", X + 100, Y - 15, "VCC3V3_PMU", "SD_DET")

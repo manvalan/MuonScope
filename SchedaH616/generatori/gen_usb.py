@@ -41,6 +41,6 @@ u.place("Power_Protection:USBLC6-2SC6", "U2", "USBLC6-2SC6", "Package_TO_SOT_SMD
         {"1": "USB1_DP_C", "6": "USB1_DP_C", "3": "USB1_DM_C", "4": "USB1_DM_C", "5": "USB1_VBUS", "2": "GND_D"}, mpn="USBLC6-2SC6")
 u.place("Filter:Choke_CommonMode_FerriteCore_1234", "L1", "90R@100MHz", "Inductor_SMD:L_CommonModeChoke_Coilcraft_0805USB", X + 50, Y,
         {"1": "USB1_DP", "2": "USB1_DP_C", "3": "USB1_DM", "4": "USB1_DM_C"}, dnp=True)
-u.R("R6", "2.2R", X + 75, Y - 5, "USB1_DP", "USB1_DP_C")
-u.R("R7", "2.2R", X + 85, Y - 5, "USB1_DM", "USB1_DM_C")
+u.R("R6", "2.2R", X + 75, Y - 5, "USB1_DP", "USB1_DP_C", fp="Resistor_SMD:R_0402_1005Metric")
+u.R("R7", "2.2R", X + 85, Y - 5, "USB1_DM", "USB1_DM_C", fp="Resistor_SMD:R_0402_1005Metric")
 print("porte:", u.write(PRJ, 736.6, 38.1, f"{PRJ}/{LIBNAME}.kicad_sym"))

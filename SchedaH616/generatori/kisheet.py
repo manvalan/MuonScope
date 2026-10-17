@@ -101,10 +101,11 @@ class Sheet:
             f'(property "Description" "" (at {x:.2f} {y:.2f} 0) (hide yes) (effects (font (size 1.27 1.27)))){props} '
             + pl + f' (instances (project "{PROJ}" (path "{self.path}" (reference "{ref}") (unit 1)))))')
 
-    def R(self, ref, val, x, y, a, b, **k):
-        self.place("Device:R", ref, val, "Resistor_SMD:R_0402_1005Metric", x, y, {"1": a, "2": b}, **k)
+    # passivi 0603 di default; 0402/0201 solo dove serve (sotto le BGA, serie/terminazioni su linee veloci vicino ai pin)
+    def R(self, ref, val, x, y, a, b, fp="Resistor_SMD:R_0603_1608Metric", **k):
+        self.place("Device:R", ref, val, fp, x, y, {"1": a, "2": b}, **k)
 
-    def C(self, ref, val, x, y, a, b, fp="Capacitor_SMD:C_0402_1005Metric", **k):
+    def C(self, ref, val, x, y, a, b, fp="Capacitor_SMD:C_0603_1608Metric", **k):
         self.place("Device:C", ref, val, fp, x, y, {"1": a, "2": b}, **k)
 
     def text(self, s, x, y):

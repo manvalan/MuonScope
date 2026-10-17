@@ -163,20 +163,20 @@ def crtyd_only(fp):
 # Scheda 70 x 90, tutto sul top tranne il disaccoppiamento sotto RK3568 e DDR4. RK3568 al centro ruotato di 180 gradi:
 # angolo DDR (righe A-F, colonne 1-18) in basso a destra verso la DDR4, GMAC0/SDMMC0/eMMC in basso a sinistra verso PHY,
 # eMMC e microSD, SDMMC2 e I2C0 in alto verso AP6256 e PMIC. Bordo alto: bus MIKILAB (J1 e J2 sul top). Sinistra:
-# USB-C alimentazione, jack, microSD. Destra: tre SMA, GNSS in alto a destra vicino alla SMA d'antenna, AP6256 sotto il GNSS,
-# CR1220. Basso: RJ45 e USB-C host.
+# jack, microSD (bottom). Destra: tre SMA, GNSS in alto a destra vicino alla SMA d'antenna, AP6256 sotto il GNSS,
+# CR1220. Basso: RJ45 e le due USB-C affiancate (host e OTG/alimentazione).
 L_, R_, U_, D_ = (-1, 0), (1, 0), (0, -1), (0, 1)
 PLACE = {
     "U301": dict(rot=180, cx=35.0, cy=45.0),                     # RK3568, A1 in basso a destra
     "U401": dict(rot=90, cx=43.0, top=56.0),                     # DDR4 sotto l'angolo DDR del SoC
     "J1": dict(face=U_, left=9.8, top=0.3),                      # BUS_POWER FH12-30, ingresso cavo sul bordo alto
     "J2": dict(face=U_, right=60.0, top=0.4),                    # MAIN 28 pin sullo stesso bordo, sul top
-    "J104": dict(face=L_, left=0, top=9.0),                      # USB-C alimentazione / OTG, bordo sinistro
     "J103": dict(face=L_, left=0, top=20.5),                     # jack 5 V, bordo sinistro
-    "J401": dict(face=L_, left=0.0, top=35.0),                   # microSD, apertura sul bordo sinistro, vicino a SDMMC0
+    "J401": dict(face=L_, side="B", left=0.0, top=35.0),         # microSD sul bottom, apertura sul bordo sinistro
     "U402": dict(rot=0, left=9.5, top=52.5),                     # eMMC vicino alle sfere EMMC (angolo in basso a sinistra)
     "J501": dict(face=D_, left=7.4, bottom=89.4),                # RJ45, apertura sul bordo basso
-    "J801": dict(face=D_, cx=40.0, bottom=90),                   # USB-C host, apertura sul bordo basso
+    "J801": dict(face=D_, cx=35.5, bottom=90),                   # USB-C host sul bordo basso, accanto alla USB-C OTG
+    "J104": dict(face=D_, cx=47.5, bottom=90),                   # USB-C alimentazione / OTG sul bordo basso, accanto alla host
     "U501": dict(rot=0, cx=28.5, cy=62.0),                       # PHY tra l'angolo GMAC0 del SoC e l'RJ45
     "U701": dict(rot=0, right=62.5, top=7.5),                    # NEO-M9N in alto a destra
     "J701": dict(face=R_, right=70 + 11.96, cy=15.0),            # SMA antenna GNSS accanto al NEO
@@ -345,8 +345,8 @@ def try_place(ref, cx, cy, sides, maxr=30, first=True):
 # ordine: prima i circuiti integrati e i componenti medi, poi i passivi, ognuno vicino al suo "proprietario"
 placed = set(PLACE)
 MED = {  # componenti medi con zona preferita (cx, cy, lati): tutti sul top
-    "U101": (21, 13, "T"), "U103": (20, 20, "T"), "U108": (14, 22, "T"), "U104": (13, 30, "T"), "U105": (19, 27, "T"),
-    "U107": (12, 34, "T"), "D101": (18, 33, "T"), "D102": (14, 19, "T"),
+    "U101": (21, 13, "T"), "U103": (50, 75, "T"), "U108": (14, 22, "T"), "U104": (44, 76, "T"), "U105": (56, 75, "T"),
+    "U107": (47, 78, "T"), "D101": (18, 33, "T"), "D102": (54, 79, "T"),
     "L201": (28, 16, "T"), "L202": (42, 16, "T"), "L203": (42, 21, "T"), "L204": (28, 22, "T"), "L205": (35, 27, "T"),
     "U202": (27, 30, "T"), "L206": (23, 30, "T"), "U203": (44, 27, "T"), "L207": (44, 31, "T"), "U204": (20, 50, "T"),
     "U205": (51, 70, "T"), "Y201": (39, 27, "T"),
@@ -356,7 +356,7 @@ MED = {  # componenti medi con zona preferita (cx, cy, lati): tutti sul top
     "Y501": (33, 64, "T"), "L501": (31, 68, "T"), "U502": (34, 70, "T"),
     "J704": (58, 76, "T"), "U702": (60, 30, "T"), "U703": (60, 43, "T"), "L701": (64, 24, "T"), "D702": (65, 21, "T"),
     "D703": (61, 48, "T"), "D701": (58, 27, "T"), "D704": (60, 72, "T"), "J601": (60, 40, "T"),
-    "U801": (48, 76, "T"), "U802": (34, 78, "T"), "L801": (36, 74, "T"), "C802": (50, 80, "T"),
+    "U801": (30, 76, "T"), "U802": (36, 78, "T"), "L801": (38, 75, "T"), "C802": (26, 80, "T"),
     "U403": (4, 54, "T"), "U404": (7, 56, "T"),
 }
 missing = []

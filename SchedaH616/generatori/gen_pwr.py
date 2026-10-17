@@ -113,9 +113,9 @@ def text(s, x, y):
     items.append(f'(text "{s}" (exclude_from_sim no) (at {x:.2f} {y:.2f} 0) {F.format(j="left bottom")} (uuid "{U()}"))')
 
 
-R0603, C0603, C0805, C1206 = "Resistor_SMD:R_0402_1005Metric", "Capacitor_SMD:C_0603_1608Metric", "Capacitor_SMD:C_0805_2012Metric", "Capacitor_SMD:C_1206_3216Metric"
+R0603, C0603, C0805, C1206 = "Resistor_SMD:R_0603_1608Metric", "Capacitor_SMD:C_0603_1608Metric", "Capacitor_SMD:C_0805_2012Metric", "Capacitor_SMD:C_1206_3216Metric"
 R = lambda ref, val, x, y, a, b, **k: place("Device:R", ref, val, R0603, x, y, {"1": a, "2": b}, **k)
-C = lambda ref, val, x, y, a, b, fp=None: place("Device:C", ref, val, fp or (C0603 if val.startswith(("22u", "10u", "4.7u")) else "Capacitor_SMD:C_0402_1005Metric"), x, y, {"1": a, "2": b})
+C = lambda ref, val, x, y, a, b, fp=None: place("Device:C", ref, val, fp or C0603, x, y, {"1": a, "2": b})
 
 # --- 1. VIN_SYS 12 V -> TPS56637 6 A -> 5V_BUCK (eFuse tolto su richiesta di Michele) ------------------
 X, Y = 30, 70

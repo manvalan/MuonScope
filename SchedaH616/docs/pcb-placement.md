@@ -14,9 +14,22 @@ Immagini: `../pcb-placement-rk3568.pdf` (pagina 1 top, pagina 2 bottom vista da 
 
 ## Lati
 
-- **Top: 388 componenti**, tutto tranne il disaccoppiamento sotto le BGA.
-- **Bottom: 51 condensatori**, solo il disaccoppiamento di RK3568 (36 condensatori) e DDR4 (15), sotto i package, come chiede il reference Rockchip ("caps should be placed under the U1000 package").
+- **Top: 387 componenti**, tutto tranne il disaccoppiamento sotto le BGA e la microSD.
+- **Bottom: 52 componenti**: 51 condensatori di disaccoppiamento sotto RK3568 e DDR4, come chiede il reference Rockchip ("caps should be placed under the U1000 package"), e lo slot microSD J401 sul bordo sinistro.
 - Il placer prova prima il top (entro 30 mm dal componente con cui il passivo condivide più net, poi su tutta la scheda) e usa il bottom solo se sul top non c'è posto: con 70 x 90 non è mai servito.
+
+## Passivi
+
+0603 di default (2026-10-17, prima 0402). Restano più piccoli solo dove serve:
+- 0201/0402 del disaccoppiamento di RK3568 (100 nF/1 nF in 0201, 1-4.7 uF in 0402) e DDR4, sotto le BGA o subito accanto;
+- 0402: serie 22R RGMII (TX vicino al SoC, RX vicino al PHY), serie dei clock eMMC/microSD/SDIO, 2.2R USB, DDR_RZQ 120R, ZQ 240R e rete VREF della DDR4.
+
+| | 0201 | 0402 | 0603 | 0805 e più |
+|---|---|---|---|---|
+| Condensatori | 29 (16 bottom, 13 top) | 31 (21 bottom, 10 top) | 133 (14 bottom, 119 top) | 16 |
+| Resistenze | - | 24 | 133 | - |
+
+Prima del cambio: condensatori 29 x 0201, 120 x 0402, 44 x 0603; resistenze 157 x 0402.
 
 ## Dove sta cosa (coordinate dall'angolo in alto a sinistra)
 
@@ -26,17 +39,17 @@ Immagini: `../pcb-placement-rk3568.pdf` (pagina 1 top, pagina 2 bottom vista da 
 | Sotto il SoC, a destra | DDR4 K4AAG165WA (U401, x 36-50, y 56-67) subito sotto l'angolo DDR (righe A-F, colonne 1-18), ruotata di 90° |
 | Bordo alto | J1 BUS_POWER 30 pin (x 11-29) e J2 MAIN 28 pin (x 41-60), entrambi sul top, ingresso cavo sul bordo; ESD del bus vicino ai connettori |
 | Tra bus e SoC | RK809-5 (U201) con i 5 induttori 2520 e il quarzo 32.768 kHz, TCS4525 (U202) + 0.33 uH verso VDD_CPU, TPS563201 (U203) |
-| In alto a sinistra | USB-C di alimentazione/OTG (J104) e jack 5 V (J103) sul bordo sinistro, TPS56637 + L101, TPS2121, FUSB302B, SY6280 |
-| Sinistra | microSD (J401) con apertura sul bordo sinistro, eMMC (U402) vicino all'angolo EMMC/SDMMC0 del SoC |
+| In alto a sinistra | jack 5 V (J103) sul bordo sinistro, TPS56637 + L101 e TPS2121 U108 vicino al BUS_POWER |
+| Sinistra | microSD (J401) sul bottom con apertura sul bordo sinistro, eMMC (U402) sul top vicino all'angolo EMMC/SDMMC0 del SoC |
 | In alto a destra | NEO-M9N (U701) con la SMA d'antenna J701 sul bordo destro accanto all'ingresso RF; AP6256 (U601) subito sotto, vicino alle sfere SDMMC2 |
 | Bordo destro | SMA J701 (antenna GNSS), J702 (PPS OUT), J703 (STROBE IN) |
 | In basso a destra | CR1220 (BT701), header PPS/STROBE J704 |
-| In basso | RJ45 J501 (sinistra), PHY RTL8211F (U501) tra l'angolo GMAC0 del SoC e l'RJ45, USB-C host J801 (centro) con TPS2553 e USBLC6; tasti RESET/RECOVERY e console J301 a sinistra |
+| In basso | RJ45 J501 (sinistra), PHY RTL8211F (U501) tra l'angolo GMAC0 del SoC e l'RJ45; le due USB-C affiancate sul bordo basso: host J801 (x 35.5) con TPS2553 (U801) e USBLC6 (U802), alimentazione/OTG J104 (x 47.5) con TPS2121 (U103), FUSB302B (U104), TPD2EUSB30 (U107), TVS (D102) e SY6280 (U105) accanto; tasti RESET/RECOVERY e console J301 a sinistra |
 
 ## Esito
 
 - **DRC**: 0 violazioni. Restano 499 collegamenti da fare (nessuna pista). **Parità schema/PCB: 0 problemi.** Schema invariato (ERC 0).
-- **Componenti**: piazzati tutti e 439 (388 top, 51 bottom).
+- **Componenti**: piazzati tutti e 439 (387 top, 52 bottom).
 
 ## Da rivedere in layout
 

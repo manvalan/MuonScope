@@ -44,10 +44,10 @@ X, Y = 200, 50
 s.text("22R serie vicino al SoC su TXC, TXD0-3, TXCTL (MAC -> PHY) e vicino al PHY su RXC, RXD0-3, RXCTL (Hardware Design Guide RK3568, tabella 2-42).", X - 5, Y - 10)
 for i, (a, b) in enumerate([("RGMII_TXCK", "PHY_TXC_P"), ("RGMII_TXD0", "PHY_TXD0_P"), ("RGMII_TXD1", "PHY_TXD1_P"),
                             ("RGMII_TXD2", "PHY_TXD2_P"), ("RGMII_TXD3", "PHY_TXD3_P"), ("RGMII_TXCTL", "PHY_TXCTL_P")]):
-    s.R(f"R{1 + i}", "22R", X + 10 * i, Y, a, b)
+    s.R(f"R{1 + i}", "22R", X + 10 * i, Y, a, b, fp="Resistor_SMD:R_0402_1005Metric")   # serie RGMII vicino al SoC
 for i, (a, b) in enumerate([("PHY_RXC_P", "RGMII_RXCK"), ("PHY_RXD0_P", "RGMII_RXD0"), ("PHY_RXD1_P", "RGMII_RXD1"),
                             ("PHY_RXD2_P", "RGMII_RXD2"), ("PHY_RXD3_P", "RGMII_RXD3"), ("PHY_RXCTL_P", "RGMII_RXCTL")]):
-    s.R(f"R{24 + i}", "22R", X + 65 + 10 * i, Y, a, b)
+    s.R(f"R{24 + i}", "22R", X + 65 + 10 * i, Y, a, b, fp="Resistor_SMD:R_0402_1005Metric")   # serie RGMII vicino al PHY
 X, Y = 200, 90
 s.text("Strap su RXD/RXC/RXCTL e LED (4.7k). LED1/LED2 attivi alti verso i LED dell'RJ45 (510R); LED0 solo strap CFG_EXT.", X - 5, Y - 10)
 straps = [("R7", "VCC_3V3", "PHY_RXD3_P"), ("R8", "PHY_RXC_P", "GND_D"), ("R9", "PHY_RXCTL_P", "GND_D"), ("R10", "PHY_RXD2_P", "GND_D"),
@@ -117,7 +117,7 @@ X, Y = 200, 60
 r.text("REG_ON con 100k a GND (radio spenta finche Linux non la accende: GPIO3_D4/D5). Pull-up 10k su CMD e DAT0-3 a VCC_3V3. CLK 22R serie vicino al SoC.", X - 5, Y - 10)
 r.R("R1", "100k", X, Y, "WL_REG_ON", "GND_D")
 r.R("R2", "100k", X + 10, Y, "BT_REG_ON", "GND_D")
-r.R("R9", "22R", X + 80, Y, "WL_SDIO_CLK_S", "WL_SDIO_CLK")
+r.R("R9", "22R", X + 80, Y, "WL_SDIO_CLK_S", "WL_SDIO_CLK", fp="Resistor_SMD:R_0402_1005Metric")
 for i, net in enumerate(["WL_SDIO_CMD", "WL_SDIO_D0", "WL_SDIO_D1", "WL_SDIO_D2", "WL_SDIO_D3"]):
     r.R(f"R{3 + i}", "10k", X + 25 + 10 * i, Y, "VCC_3V3", net)
 X, Y = 200, 100

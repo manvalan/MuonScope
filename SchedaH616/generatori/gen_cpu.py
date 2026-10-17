@@ -182,6 +182,7 @@ for k in ["Device:R", "Device:C", "Device:Crystal_GND24", "Device:FerriteBead", 
           "Power_Protection:TPD4E05U06DQA"]:
     s.std(k)
 C0201, C0402, C0603 = "Capacitor_SMD:C_0201_0603Metric", "Capacitor_SMD:C_0402_1005Metric", "Capacitor_SMD:C_0603_1608Metric"
+R0402 = "Resistor_SMD:R_0402_1005Metric"   # USB 2.2R e DDR_RZQ vicino alle sfere
 
 # posizioni delle unità: colonne, unità impilate dall'alto (x centro, y del bordo alto)
 COLS = {1: (90, 60), 8: (90, 290), 3: (250, 60), 4: (410, 60), 2: (410, 200), 5: (570, 60), 6: (570, 170), 7: (730, 60), 9: (730, 220)}
@@ -246,8 +247,8 @@ grid([("R6", "2.2k", "VCC3V3_PMU", "I2C0_SCL", None), ("R7", "2.2k", "VCC3V3_PMU
 X, Y = X0, Y0 + 150
 s.text("USB3_OTG0_DP/DM (porta di flash rkdeveloptool, USB-C di alimentazione) con 2.2R in serie. USB3_HOST1_DP/DM verso la USB-C host (2.2R sul foglio USB host).", X - 10, Y - 12)
 s.text("USB3_AVDD_0V9/1V8 da VDDA_0V9/VCCA_1V8 con ferrite 120R@100MHz (reference AIoT), USB3_AVDD_3V3 da VCC_3V3. USB2_AVDD (HOST2/3 non usati) a VSS.", X - 10, Y - 7)
-s.R("R14", "2.2R", X, Y + 5, "USB0_DP", "USB_OTG0_DP_S")
-s.R("R15", "2.2R", X + 10, Y + 5, "USB0_DM", "USB_OTG0_DM_S")
+s.R("R14", "2.2R", X, Y + 5, "USB0_DP", "USB_OTG0_DP_S", fp=R0402)
+s.R("R15", "2.2R", X + 10, Y + 5, "USB0_DM", "USB_OTG0_DM_S", fp=R0402)
 s.place("Device:FerriteBead", "FB1", "120R@100MHz", "Inductor_SMD:L_0603_1608Metric", X + 30, Y + 5, {"1": "VDDA_0V9", "2": "USB_AVDD_0V9"}, mpn="BLM18PG121SN1D")
 s.place("Device:FerriteBead", "FB2", "120R@100MHz", "Inductor_SMD:L_0603_1608Metric", X + 45, Y + 5, {"1": "VCCA_1V8", "2": "USB_AVDD_1V8"}, mpn="BLM18PG121SN1D")
 grid([("C5", "4.7uF", "USB_AVDD_0V9", "GND_D", C0402), ("C6", "100nF", "USB_AVDD_0V9", "GND_D", C0201),
@@ -280,7 +281,7 @@ grid([(r, v, n, "GND_D", fp) for r, v, n, fp in DEC], X, Y + 5, cols=14)
 s.C("C15", "22uF", X + 140, Y + 5, "VDD_CPU", "GND_D", C0603, dnp=True)
 s.text("C315 DNP: 22 uF di riserva su VDD_CPU (Hardware Design Guide). VCCIO4 ha due 100 nF (RGMII), VCCIO5/VCCIO6 due sfere ciascuno.", X - 10, Y + 75)
 s.text("DDR_RZQ (H7): 120R 1% a GND per DDR4 (Hardware Design Guide 2.1.7.2; l'appunto diceva 240R, che vale per lo ZQ della DDR4). DDR_VREFOUT (P8): 1 nF a VCC_DDR e 1 nF a GND vicino al SoC.", X - 10, Y + 80)
-s.R("R16", "120R 1%", X, Y + 90, "SOC_DDR_RZQ", "GND_D")
+s.R("R16", "120R 1%", X, Y + 90, "SOC_DDR_RZQ", "GND_D", fp=R0402)
 s.C("C62", "1nF", X + 10, Y + 90, "DDR_VREFOUT", "VCC_DDR", C0201)
 s.C("C63", "1nF", X + 20, Y + 90, "DDR_VREFOUT", "GND_D", C0201)
 

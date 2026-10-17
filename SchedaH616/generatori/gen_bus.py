@@ -124,7 +124,7 @@ place_conn(FPC_ID, C28, "J2", "BUS_MIKILAB_MAIN", FPC_FP, 182.88, 86.36, MAIN, 2
 for i, (ref, top, bot) in enumerate([("R1", "SPI_ID_0", "GND_D"), ("R2", "SPI_ID_1", "GND_D"),
                                      ("R3", "SPI_ID_2", "GND_D"), ("R4", "GND_A", "GND_D")]):
     x, y = 228.6 + i * 12.7, 76.2
-    symbol("Device:R", ref, "0R", "Resistor_SMD:R_0402_1005Metric", x, y, ["1", "2"])
+    symbol("Device:R", ref, "0R", "Resistor_SMD:R_0603_1608Metric", x, y, ["1", "2"])
     wire(x, y - 3.81, x, y - 8.89); label(top, x, y - 8.89, 90 if top not in GLOBAL else 270)
     wire(x, y + 3.81, x, y + 8.89); label(bot, x, y + 8.89, 90)
 

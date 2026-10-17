@@ -10,7 +10,7 @@ from kilib import LIBNAME
 PRJ = sys.argv[1]
 RAILS = ["5V_SYS", "VCC3V3_SYS", "VCC_3V3", "VCC3V3_PMU", "VCC3V3_SD", "VCCIO_SD", "VCC1V8_EMMC", "VCCA_1V8", "VCCA1V8_PMU",
          "VDDA_0V9", "VDDA0V9_PMU", "VDD_CPU", "VDD_CPU_COM", "VDD_LOGIC", "VDD_GPU", "VDD_NPU", "VCC_DDR", "VCC2V5_DDR"]
-C0402, C0603, C0805 = "Capacitor_SMD:C_0402_1005Metric", "Capacitor_SMD:C_0603_1608Metric", "Capacitor_SMD:C_0805_2012Metric"
+C0603, C0805 = "Capacitor_SMD:C_0603_1608Metric", "Capacitor_SMD:C_0805_2012Metric"   # passivi 0603 di default
 L2520 = "Inductor_SMD:L_1008_2520Metric"
 p = Sheet("PMIC", "pmic.kicad_sch", 200, 5, RAILS, ("I2C0_", "PMIC_", "CLK32K", "RESETn"), paper="A2")
 
@@ -68,8 +68,8 @@ p.text("VCC_RTC (45) a VCC3V3_SYS con 1 uF (fig. 1-2 del datasheet, senza batter
 # ---------------- ingressi --------------------------------------------------------------------------------------------------------
 X, Y = 30, 50
 p.text("Ingressi (reference AIoT): VCC1 22 uF, VCC2/VCC3/VCC4/VCC9 10 uF, VCC5-VCC8 1 uF, tutti vicino ai pin.", X - 10, Y - 10)
-ins = [("C1", "22uF/10V", C0603), ("C2", "10uF/10V", C0603), ("C3", "10uF/10V", C0603), ("C4", "10uF/10V", C0603), ("C5", "1uF", C0402),
-       ("C6", "1uF", C0402), ("C7", "1uF", C0402), ("C8", "1uF", C0402), ("C9", "10uF/10V", C0603), ("C10", "1uF", C0402)]
+ins = [("C1", "22uF/10V", C0603), ("C2", "10uF/10V", C0603), ("C3", "10uF/10V", C0603), ("C4", "10uF/10V", C0603), ("C5", "1uF", C0603),
+       ("C6", "1uF", C0603), ("C7", "1uF", C0603), ("C8", "1uF", C0603), ("C9", "10uF/10V", C0603), ("C10", "1uF", C0603)]
 for i, (ref, val, fp) in enumerate(ins):
     p.C(ref, val, X + 10 * i, Y, "VCC3V3_SYS", "GND_D", fp)
 p.C("C11", "10uF/10V", X + 100, Y, "PMIC_VCC_SPK", "GND_D", C0603)
@@ -87,7 +87,7 @@ for k, (lref, sw, out, caps) in enumerate(BUCKS):
     yy = Y + 22 * k
     p.place("Device:L", lref, "0.47uH/4A", L2520, X, yy, {"1": sw, "2": out}, mpn="TFM252012ALMA-R47MTAA")
     for i, (cref, val) in enumerate(caps):
-        p.C(cref, val, X + 15 + 10 * i, yy, out, "GND_D", C0603 if "u" in val and val != "1uF" else C0402)
+        p.C(cref, val, X + 15 + 10 * i, yy, out, "GND_D", C0603)
 p.text("BUCK3 VCC_DDR = 0.8 V x (1 + 62k/120k) = 1.21 V per DDR4 (tabella del reference: DDR4 1.21 V con 62K 1%).", X + 50, Y + 44)
 p.R("R2", "62k 1%", X + 55, Y + 50, "VCC_DDR", "PMIC_FB3")
 p.R("R3", "120k 1%", X + 65, Y + 50, "PMIC_FB3", "GND_D")
@@ -103,7 +103,7 @@ LDO = [("C25", "1uF", "PMIC_LDO1"), ("C26", "1uF", "VDDA_0V9"), ("C27", "1uF", "
        ("C29", "1uF", "VCCIO_SD"), ("C30", "1uF", "VCC3V3_PMU"), ("C31", "1uF", "VCCA_1V8"), ("C32", "1uF", "VCCA1V8_PMU"),
        ("C33", "1uF", "PMIC_LDO9"), ("C34", "1uF", "VCC3V3_SD"), ("C35", "10uF/10V", "VCC_3V3")]
 for i, (ref, val, net) in enumerate(LDO):
-    p.C(ref, val, X + 10 * i, Y, net, "GND_D", C0603 if val.startswith("10u") else C0402)
+    p.C(ref, val, X + 10 * i, Y, net, "GND_D", C0603)
 p.text("LDO2 VDDA_0V9, LDO3 VDDA0V9_PMU, LDO5 VCCIO_SD (VCCIO3), LDO6 VCC3V3_PMU (PMUIO1/2), LDO7 VCCA_1V8, LDO8 VCCA1V8_PMU, SWOUT1 VCC_3V3 (VCCIO4-7 e periferiche), SWOUT2 VCC3V3_SD (microSD).", X - 10, Y + 15)
 
 # ---------------- gestione ---------------------------------------------------------------------------------------------------------
@@ -144,7 +144,7 @@ p.R("R13", "51k", X - 15, Y + 25, "VCC3V3_PMU", "TCS_EN")
 p.C("C47", "100nF", X - 5, Y + 25, "TCS_EN", "GND_D", dnp=True)
 p.place("Device:L", "L6", "0.33uH/9A", "Inductor_SMD:L_Coilcraft_XAL4020-XXX", X + 35, Y - 5, {"1": "TCS_SW", "2": "VDD_CPU"}, mpn="XAL4020-331")
 p.R("R14", "100R", X + 50, Y + 5, "VDD_CPU", "VDD_CPU_COM")
-for i, (ref, val, fp, dnp) in enumerate([("C48", "1uF", C0402, False), ("C49", "22uF", C0603, False), ("C50", "22uF", C0603, False),
+for i, (ref, val, fp, dnp) in enumerate([("C48", "1uF", C0603, False), ("C49", "22uF", C0603, False), ("C50", "22uF", C0603, False),
                                          ("C51", "22uF", C0603, False), ("C52", "22uF", C0603, True)]):
     p.C(ref, val, X + 60 + 10 * i, Y + 5, "VDD_CPU", "GND_D", fp, dnp=dnp)
 
