@@ -18,7 +18,7 @@ mantiene il vecchio nome, il progetto KiCad è `progetto-kicad/SchedaRK3568.kica
 |---|---|
 | `progetto-kicad/` | Progetto KiCad 10 `SchedaRK3568.kicad_pro`, libreria simboli `Scheda.kicad_sym`, footprint `Scheda.pretty`, modelli 3D `Scheda.3dshapes` |
 | `schema-rk3568.pdf` | Schema completo esportato |
-| `pcb-placement-rk3568.pdf` / `.png` | Placement del PCB 50 x 70 mm, top e bottom |
+| `pcb-placement-rk3568.pdf` / `.png` | Placement del PCB 70 x 90 mm, top e bottom |
 | `generatori/` | Script Python che generano fogli, footprint del SoC e PCB; `build.sh` rifà lo schema (ERC, PDF, mappa dei pin), `build_pcb.sh` il PCB |
 | `docs/scelte-progetto.md` | Fonti, rail, assegnazione GPIO, DDR4, incongruenze con le note, **punti aperti** |
 | `docs/pinmap-rk3568.md` | Mappa RK3568 sfera per sfera con la net di ogni sfera |
@@ -50,7 +50,7 @@ sh SchedaH616/generatori/build_pcb.sh
 
 - Schema completo, **ERC a 0 violazioni** (KiCad 10.0.7), nessuna net con un solo pin
 - Ball map RK3568 dal pinout ufficiale Rockchip, verificata sul datasheet V1.2 (636/636); DDR4 confrontata con il reference Rockchip AIoT
-- **PCB**: 50 x 70 mm, 6 strati, solo placement; dettagli ed esito del DRC in `docs/pcb-placement.md`
+- **PCB**: 70 x 90 mm, 6 strati, solo placement, tutto sul top tranne il disaccoppiamento sotto SoC e DDR4; dettagli ed esito del DRC in `docs/pcb-placement.md`
 
 ## Punti aperti principali
 

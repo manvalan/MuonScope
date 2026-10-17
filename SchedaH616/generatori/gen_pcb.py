@@ -2,7 +2,7 @@
 
 Uso, con il Python di KiCad:
   python3 gen_pcb.py netlist.net progetto-kicad   (Linux: python3 di sistema con pcbnew; macOS: python3 di KiCad.app)
-Scheda 50 x 70 mm, smussi 3 mm, 4 fori NPTH 2.2 mm con keepout, 6 strati. I componenti principali hanno una posizione
+Scheda 70 x 90 mm, smussi 3 mm, 4 fori NPTH 2.2 mm con keepout, 6 strati. I componenti principali hanno una posizione
 fissa (PLACE); i passivi vengono messi in automatico vicino al componente con cui condividono piu' net.
 """
 import os
@@ -16,9 +16,9 @@ from kilib import FPLIB, PROJ, LIBNAME, mik_fp_dir
 NET, PRJ = sys.argv[1], sys.argv[2]
 OUT = os.path.join(PRJ, f"{PROJ}.kicad_pcb")
 STD = FPLIB
-W, H, CH = 50.0, 70.0, 3.0           # scheda e smusso
+W, H, CH = 70.0, 90.0, 3.0           # scheda e smusso
 OX, OY = 100.0, 100.0                # origine dell'angolo in alto a sinistra
-HOLES = [(4, 4), (46, 4), (4, 66), (46, 66)]
+HOLES = [(4, 4), (66, 4), (4, 86), (66, 86)]
 HOLE_KEEP = 3.2                      # raggio del keepout attorno ai fori
 mm = pcbnew.FromMM
 V = lambda x, y: pcbnew.VECTOR2I(mm(OX + x), mm(OY + y))
@@ -160,31 +160,32 @@ def crtyd_only(fp):
 
 
 # ---------------- posizioni dei componenti principali (coordinate locali, mm; y verso il basso) -------------------
-# RK3568 al centro ruotato di 180 gradi: angolo DDR (righe A-F, colonne 1-18) in basso a destra verso la DDR4,
-# GMAC0/SDMMC0/eMMC (righe A-J, colonne 21-28) in basso a sinistra verso RJ45, eMMC e microSD, SDMMC2 e I2C0 in alto
-# verso AP6256 e PMIC. Bordo alto: bus MIKILAB. Sinistra: USB-C alimentazione, jack, eMMC. Destra: tre SMA, GNSS in alto
-# a destra vicino alla SMA d'antenna. Basso: RJ45 e USB-C host.
+# Scheda 70 x 90, tutto sul top tranne il disaccoppiamento sotto RK3568 e DDR4. RK3568 al centro ruotato di 180 gradi:
+# angolo DDR (righe A-F, colonne 1-18) in basso a destra verso la DDR4, GMAC0/SDMMC0/eMMC in basso a sinistra verso PHY,
+# eMMC e microSD, SDMMC2 e I2C0 in alto verso AP6256 e PMIC. Bordo alto: bus MIKILAB (J1 e J2 sul top). Sinistra:
+# USB-C alimentazione, jack, microSD. Destra: tre SMA, GNSS in alto a destra vicino alla SMA d'antenna, AP6256 sotto il GNSS,
+# CR1220. Basso: RJ45 e USB-C host.
 L_, R_, U_, D_ = (-1, 0), (1, 0), (0, -1), (0, 1)
 PLACE = {
-    "U301": dict(rot=180, cx=26.5, cy=33.5),                     # RK3568, A1 in basso a destra
-    "U401": dict(rot=90, cx=33.7, top=44.0),                     # DDR4 sotto l'angolo DDR del SoC
+    "U301": dict(rot=180, cx=35.0, cy=45.0),                     # RK3568, A1 in basso a destra
+    "U401": dict(rot=90, cx=43.0, top=56.0),                     # DDR4 sotto l'angolo DDR del SoC
     "J1": dict(face=U_, left=9.8, top=0.3),                      # BUS_POWER FH12-30, ingresso cavo sul bordo alto
-    "J2": dict(face=U_, side="B", right=42.8, top=0.4),          # MAIN 28 pin sul bottom dello stesso bordo
-    "J104": dict(face=L_, left=0, top=8.6),                      # USB-C alimentazione / OTG, bordo sinistro
-    "J103": dict(face=L_, left=0, top=19.6),                     # jack 5 V, bordo sinistro
-    "U402": dict(rot=0, left=0.3, top=31.4),                     # eMMC sul top, bordo sinistro, vicino alle sfere EMMC
-    "J501": dict(face=D_, left=7.4, bottom=69.4),                # RJ45, apertura sul bordo basso
-    "J801": dict(face=D_, cx=30.6, bottom=70),                   # USB-C host, apertura sul bordo basso
-    "U701": dict(rot=90, right=43.6, top=8.35),                   # NEO-M9N in alto a destra
-    "J701": dict(face=R_, right=50 + 11.96, cy=13.4),            # SMA antenna GNSS accanto al NEO
-    "J702": dict(face=R_, right=50 + 11.96, cy=24.8),            # SMA PPS OUT
-    "J703": dict(face=R_, right=50 + 11.96, cy=36.1),            # SMA STROBE IN
-    "U601": dict(rot=0, side="B", right=43.5, top=8.6),          # AP6256 sul bottom sotto il GNSS, vicino a SDMMC2
-    "J401": dict(face=L_, side="B", left=0.0, top=31.3),         # microSD sul bottom, apertura sul bordo sinistro
-    "U201": dict(rot=0, cx=19.5, cy=14.5),                       # RK809-5 tra bus e SoC
-    "U501": dict(rot=0, side="B", cx=26.0, cy=47.0),             # PHY sul bottom tra SoC e RJ45
-    "L101": dict(rot=0, side="B", left=7.6, top=0.6),
-    "BT701": dict(rot=90, side="B", right=49.6, top=41.75),      # CR1220 sul bottom in basso a destra, vicino al GNSS            # induttore del TPS56637 sul bottom in alto a sinistra
+    "J2": dict(face=U_, right=60.0, top=0.4),                    # MAIN 28 pin sullo stesso bordo, sul top
+    "J104": dict(face=L_, left=0, top=9.0),                      # USB-C alimentazione / OTG, bordo sinistro
+    "J103": dict(face=L_, left=0, top=20.5),                     # jack 5 V, bordo sinistro
+    "J401": dict(face=L_, left=0.0, top=35.0),                   # microSD, apertura sul bordo sinistro, vicino a SDMMC0
+    "U402": dict(rot=0, left=9.5, top=52.5),                     # eMMC vicino alle sfere EMMC (angolo in basso a sinistra)
+    "J501": dict(face=D_, left=7.4, bottom=89.4),                # RJ45, apertura sul bordo basso
+    "J801": dict(face=D_, cx=40.0, bottom=90),                   # USB-C host, apertura sul bordo basso
+    "U501": dict(rot=0, cx=28.5, cy=62.0),                       # PHY tra l'angolo GMAC0 del SoC e l'RJ45
+    "U701": dict(rot=0, right=62.5, top=7.5),                    # NEO-M9N in alto a destra
+    "J701": dict(face=R_, right=70 + 11.96, cy=15.0),            # SMA antenna GNSS accanto al NEO
+    "J702": dict(face=R_, right=70 + 11.96, cy=29.0),            # SMA PPS OUT
+    "J703": dict(face=R_, right=70 + 11.96, cy=42.0),            # SMA STROBE IN
+    "U601": dict(rot=0, left=46.5, top=25.5),                    # AP6256 sotto il GNSS, vicino alle sfere SDMMC2
+    "BT701": dict(rot=90, right=66.5, top=50.0),                 # CR1220 in basso a destra
+    "U201": dict(rot=0, cx=35.0, cy=21.0),                       # RK809-5 tra bus e SoC
+    "L101": dict(rot=0, left=11.0, top=10.0),                    # induttore del TPS56637 vicino al BUS_POWER
 }
 SMA_EDGE = {"J701", "J702", "J703"}
 for ref, a in PLACE.items():
@@ -343,20 +344,20 @@ def try_place(ref, cx, cy, sides, maxr=30, first=True):
 
 # ordine: prima i circuiti integrati e i componenti medi, poi i passivi, ognuno vicino al suo "proprietario"
 placed = set(PLACE)
-MED = {  # componenti medi con zona preferita (cx, cy, lati)
-    "U101": (10, 4.5, "B"), "U103": (13, 13, "B"), "U104": (6, 18, "B"), "U105": (9, 21, "B"), "U107": (4, 15, "B"),
-    "U108": (15, 9, "B"), "D101": (12, 27, "B"), "D102": (3, 21, "B"),
-    "L201": (14, 11, "T"), "L202": (25, 12, "T"), "L203": (25, 16, "T"), "L204": (14, 18.5, "T"), "L205": (19.5, 20.5, "T"),
-    "U202": (25, 21, "B"), "L206": (27, 17, "B"), "U203": (21, 13, "B"), "L207": (18, 10, "B"), "U204": (5, 46, "T"), "U205": (40, 45, "B"),
-    "Y201": (24, 19.5, "T"),
-    "Y301": (14.6, 39.5, "T"), "SW301": (3, 51, "T"), "SW302": (3, 56, "T"), "J301": (2.5, 61, "T"),
-    "U302": (14, 10, "B"), "U303": (18, 10, "B"), "U304": (22, 10, "B"), "U305": (26, 6.5, "B"), "U306": (30, 6.5, "B"), "U307": (34, 6.5, "B"),
-    "FB301": (20, 44, "B"), "FB302": (21, 46, "B"),
-    "Y501": (22, 46, "B"), "L501": (30, 50, "B"), "U502": (24, 46, "T"),
-    "J704": (43, 61, "T"), "U702": (46, 33, "T"), "U703": (46, 38, "T"), "L701": (44, 21, "T"), "D702": (46, 19.5, "T"),
-    "D703": (46, 42, "T"), "D701": (40, 24, "T"), "D704": (42, 24, "T"), "J601": (32, 9, "B"),
-    "U801": (37, 58, "T"), "U802": (24, 61, "T"), "L801": (30, 57, "T"), "C802": (39, 62, "T"),
-    "U403": (2, 50, "B"), "U404": (6, 50, "B"),
+MED = {  # componenti medi con zona preferita (cx, cy, lati): tutti sul top
+    "U101": (21, 13, "T"), "U103": (20, 20, "T"), "U108": (14, 22, "T"), "U104": (13, 30, "T"), "U105": (19, 27, "T"),
+    "U107": (12, 34, "T"), "D101": (18, 33, "T"), "D102": (14, 19, "T"),
+    "L201": (28, 16, "T"), "L202": (42, 16, "T"), "L203": (42, 21, "T"), "L204": (28, 22, "T"), "L205": (35, 27, "T"),
+    "U202": (27, 30, "T"), "L206": (23, 30, "T"), "U203": (44, 27, "T"), "L207": (44, 31, "T"), "U204": (20, 50, "T"),
+    "U205": (51, 70, "T"), "Y201": (39, 27, "T"),
+    "Y301": (23, 38, "T"), "SW301": (4, 70, "T"), "SW302": (4, 75, "T"), "J301": (3, 80, "T"),
+    "U302": (13, 11, "T"), "U303": (17, 8.5, "T"), "U304": (25, 10, "T"), "U305": (44, 8.5, "T"), "U306": (50, 8.5, "T"), "U307": (56, 8.5, "T"),
+    "FB301": (24, 46, "T"), "FB302": (24, 49, "T"),
+    "Y501": (33, 64, "T"), "L501": (31, 68, "T"), "U502": (34, 70, "T"),
+    "J704": (58, 76, "T"), "U702": (60, 30, "T"), "U703": (60, 43, "T"), "L701": (64, 24, "T"), "D702": (65, 21, "T"),
+    "D703": (61, 48, "T"), "D701": (58, 27, "T"), "D704": (60, 72, "T"), "J601": (60, 40, "T"),
+    "U801": (48, 76, "T"), "U802": (34, 78, "T"), "L801": (36, 74, "T"), "C802": (50, 80, "T"),
+    "U403": (4, 54, "T"), "U404": (7, 56, "T"),
 }
 missing = []
 for ref, (cx, cy, s) in MED.items():
@@ -376,14 +377,15 @@ for _ in range(3):
         if a is None:
             continue
         cx, cy = center_of(FP[a])
-        if a in ("U301", "U401") and is_decap(ref):
-            sides = "B"                      # disaccoppiamento sotto le sfere (reference Rockchip: sotto il package)
-        else:
-            sides = side_of(FP[a]) + ("B" if side_of(FP[a]) == "T" else "T")
-        if try_place(ref, cx, cy, sides):
+        if a in ("U301", "U401") and is_decap(ref) and ref[1] in "34":
+            ok = try_place(ref, cx, cy, "B")   # disaccoppiamento di SoC e DDR4 sotto le sfere (reference Rockchip)
+        else:                                  # tutto il resto sul top; il bottom solo se sul top non c'e' posto
+            ok = try_place(ref, cx, cy, "T", maxr=30, first=False) or try_place(ref, cx, cy, "T", maxr=75, first=False) \
+                or try_place(ref, cx, cy, "B")
+        if ok:
             placed.add(ref)
 for ref in FP:                       # ultimo tentativo: dovunque ci sia posto sulla scheda
-    if ref not in placed and anchor(ref, placed) and try_place(ref, *center_of(FP[anchor(ref, placed)]), "BT", maxr=75):
+    if ref not in placed and anchor(ref, placed) and try_place(ref, *center_of(FP[anchor(ref, placed)]), "TB", maxr=75, first=False):
         placed.add(ref)
 for ref in FP:
     if ref not in placed:

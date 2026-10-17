@@ -171,4 +171,4 @@ TYPE-C-31-M-12 e dell'HR911130C non metallizzati, serigrafia dell'HR911130C fuor
 9. **SY6280AAC**: VBUS_SRC_EN ora su GPIO0_A5; il FUSB302B resta sull'I2C1.
 10. **CR1220**: solo per il V_BCKP del NEO-M9N (l'RTC dell'RK809-5 è alimentato da VCC3V3_SYS, niente batteria).
 11. Restano dalla SchedaH616: V_USB del NEO-M9N a GND da confermare, valori della rete π del Wi-Fi e del bias dell'antenna GNSS.
-12. **PCB**: placement 50 x 70 a 6 strati fatto, senza piste: vedi [pcb-placement.md](pcb-placement.md).
+12. **PCB**: placement 70 x 90 a 6 strati fatto (2026-10-17, prima 50 x 70), tutto sul top tranne il disaccoppiamento sotto SoC e DDR4, senza piste: vedi [pcb-placement.md](pcb-placement.md).
