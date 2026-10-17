@@ -14,22 +14,23 @@ Immagini: `../pcb-placement-rk3568.pdf` (pagina 1 top, pagina 2 bottom vista da 
 
 ## Lati
 
-- **Top: 387 componenti**, tutto tranne il disaccoppiamento sotto le BGA e la microSD.
-- **Bottom: 52 componenti**: 51 condensatori di disaccoppiamento sotto RK3568 e DDR4, come chiede il reference Rockchip ("caps should be placed under the U1000 package"), e lo slot microSD J401 sul bordo sinistro.
-- Il placer prova prima il top (entro 30 mm dal componente con cui il passivo condivide più net, poi su tutta la scheda) e usa il bottom solo se sul top non c'è posto: con 70 x 90 non è mai servito.
+- **Top: 364 componenti**, tutto tranne il disaccoppiamento sotto le BGA e la microSD.
+- **Bottom: 75 componenti**: i 59 condensatori di disaccoppiamento del RK3568 (C305-C363) tutti sotto il package, i 15 della DDR4 (C404-C418) tutti sotto la DDR4, come chiede il reference Rockchip ("caps should be placed under the U1000 package"), e lo slot microSD J401 sul bordo sinistro.
+- Il placer prova prima il top (entro 30 mm dal componente con cui il passivo condivide più net, poi su tutta la scheda) e usa il bottom solo se sul top non c'è posto: con 70 x 90 non è mai servito. Il disaccoppiamento di SoC e DDR4 è ancorato al suo package anche quando la net è in comune con la PMIC.
 
 ## Passivi
 
-0603 di default (2026-10-17, prima 0402). Restano più piccoli solo dove serve:
-- 0201/0402 del disaccoppiamento di RK3568 (100 nF/1 nF in 0201, 1-4.7 uF in 0402) e DDR4, sotto le BGA o subito accanto;
-- 0402: serie 22R RGMII (TX vicino al SoC, RX vicino al PHY), serie dei clock eMMC/microSD/SDIO, 2.2R USB, DDR_RZQ 120R, ZQ 240R e rete VREF della DDR4.
+Minimo 0402, niente 0201 (richiesta di Michele, 2026-10-17: troppo piccoli). 0603 di default; 0402 solo dove serve:
+- disaccoppiamento di RK3568 e DDR4 sotto le BGA (100 nF, 1 nF, 1 uF, 4.7 uF);
+- serie 22R RGMII (TX vicino al SoC, RX vicino al PHY), serie dei clock eMMC/microSD/SDIO, 2.2R USB, DDR_RZQ 120R, ZQ 240R e rete VREF della DDR4.
 
-| | 0201 | 0402 | 0603 | 0805 e più |
-|---|---|---|---|---|
-| Condensatori | 29 (16 bottom, 13 top) | 31 (21 bottom, 10 top) | 133 (14 bottom, 119 top) | 16 |
-| Resistenze | - | 24 | 133 | - |
+| | 0402 | 0603 | 0805 e più |
+|---|---|---|---|
+| Condensatori | 60 | 133 | 16 |
+| Resistenze | 24 | 133 | - |
 
-Prima del cambio: condensatori 29 x 0201, 120 x 0402, 44 x 0603; resistenze 157 x 0402.
+Storia: all'inizio condensatori 29 x 0201, 120 x 0402, 44 x 0603 e resistenze 157 x 0402; poi 0603 di default; ora anche i 29 da 0201 sono 0402.
+Con 59 condensatori 0402 sotto una BGA da 0.65 mm con via-in-pad lo spazio va verificato in sbroglio: dove un 0402 non entra tra le via, va sul bottom appena fuori dall'ombra del package.
 
 ## Dove sta cosa (coordinate dall'angolo in alto a sinistra)
 
@@ -49,11 +50,11 @@ Prima del cambio: condensatori 29 x 0201, 120 x 0402, 44 x 0603; resistenze 157 
 ## Esito
 
 - **DRC**: 0 violazioni. Restano 499 collegamenti da fare (nessuna pista). **Parità schema/PCB: 0 problemi.** Schema invariato (ERC 0).
-- **Componenti**: piazzati tutti e 439 (387 top, 52 bottom).
+- **Componenti**: piazzati tutti e 439 (364 top, 75 bottom).
 
 ## Da rivedere in layout
 
-- Le 0201 di disaccoppiamento vanno tra i via-in-pad del SoC; verificare con le regole JLCPCB (via 0.25/0.15 POFV).
+- I 0402 di disaccoppiamento vanno tra i via-in-pad del SoC; verificare con le regole JLCPCB (via 0.25/0.15 POFV).
 - DDR4: linee dati sul lato destro-basso del SoC, CA sul lato basso; tenere i byte in gruppo e la lunghezza secondo la RK3568 High Speed PCB Design Guide.
 - AP6256 e NEO-M9N sono vicini (antenne su U.FL e SMA): valutare la coesistenza RF.
 - Lo stackup a 6 strati è quello di default di KiCad e va allineato a quello di JLCPCB.

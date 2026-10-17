@@ -367,6 +367,8 @@ for ref, (cx, cy, s) in MED.items():
         else:
             missing.append(ref)
 
+DDR_DECAP = {f"C4{i:02d}" for i in range(4, 19)}   # condensatori della DDR4 sul foglio Memorie (C404-C418)
+SOC_DECAP = {f"C3{i:02d}" for i in range(5, 64)}   # disaccoppiamento RK3568 sul foglio CPU (C305-C363)
 rest = [r for r in FP if r not in placed]
 rest.sort(key=lambda r: (not r.startswith(("U", "Y", "L", "D", "Q", "J", "SW", "BT")), r))
 for _ in range(3):
@@ -376,8 +378,10 @@ for _ in range(3):
         a = anchor(ref, placed)
         if a is None:
             continue
+        if ref in SOC_DECAP or ref in DDR_DECAP:  # disaccoppiamento di SoC e DDR4: sempre ancorato al suo package
+            a = "U301" if ref in SOC_DECAP else "U401"
         cx, cy = center_of(FP[a])
-        if a in ("U301", "U401") and is_decap(ref) and ref[1] in "34":
+        if ref in SOC_DECAP or ref in DDR_DECAP:
             ok = try_place(ref, cx, cy, "B")   # disaccoppiamento di SoC e DDR4 sotto le sfere (reference Rockchip)
         else:                                  # tutto il resto sul top; il bottom solo se sul top non c'e' posto
             ok = try_place(ref, cx, cy, "T", maxr=30, first=False) or try_place(ref, cx, cy, "T", maxr=75, first=False) \
