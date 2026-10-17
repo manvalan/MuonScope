@@ -9,7 +9,7 @@ Fonte: https://tibbo.com/store/plus1/specifications.html. Anche la LTPP3 Gen. 2 
 
 Altri limiti rispetto alla scheda Octavo:
 - **Ethernet solo 10/100** (MAC RMII, niente RGMII): il RTL8211F non si può usare, al suo posto LAN8720A.
-- **eMMC 4.41 HS 52 MHz**: la FORESEE 64 GB funziona ma a circa 40-50 MB/s.
+- **eMMC 4.41 HS 52 MHz**: eMMC Samsung 8 GB (KLM8G1GETF-B041, 21.5 USD), letta a circa 40-50 MB/s. Le 16 e 32 GB costano di più della 64 GB (57 e 67 USD contro 44 USD su LCSC il 2026-10-17).
 - Cortex-A7 32 bit a 1 GHz, sotto lo STM32MP157F dell'Octavo come ordine di grandezza (A7 dual 800 MHz) ma con 4 core.
 
 Vantaggi: QFP (nessun fanout BGA, nessuna DDR da sbrogliare), alimentazione unica 3.3 V con DC-DC interni, niente PMIC. È la scheda più semplice di tutte quelle fatte finora.
@@ -18,7 +18,7 @@ Vantaggi: QFP (nessun fanout BGA, nessuna DDR da sbrogliare), alimentazione unic
 VIN_SYS 12 V da BUS_POWER -> TPS56637 5 V -> TPS2121 (priorità bus, poi USB-C 1) -> TPS563201 3.3 V 3 A, unico rail. VBAT RTC dalla CR1220 con BAT54 in serie perché l'RTC dell'SP7021 prova a caricare la batteria.
 
 ## Periferiche riprese dalla scheda Octavo
-2 USB-C (OTG/boot + host con TPS2553), eMMC FORESEE 64 GB, GNSS NEO-M9N con PPS e EXTINT su GPIO a interrupt + 3 SMA, BUS_POWER 30 pin, MAIN 28 pin, console UART.
+2 USB-C (OTG/boot + host con TPS2553), GNSS NEO-M9N con PPS e EXTINT su GPIO a interrupt, 1 SMA per l'antenna e PPS/EXTINT su header 1x3, BUS_POWER 30 pin, MAIN 28 pin, console UART.
 
 ## Da verificare
 Codici LCSC marcati "da verificare", prezzo SP7021-IF (MEV Elektronik su richiesta), strap HW_CFG per il boot da eMMC (non descritti nel datasheet pubblico, servono gli schemi di riferimento Tibbo).

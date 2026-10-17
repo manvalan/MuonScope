@@ -4,7 +4,7 @@ Y1,Quarzo 27 MHz principale,X322527MSB4SI,YXC,3225,1,,no,2x C carico C0G da CL,0
 Y2,Quarzo 32.768 kHz RTC,Q13FC13500004,Epson,3215,1,C32346,si,,0.15
 BT1,Portabatteria CR1220 (RTC_VBAT + backup GNSS),CR1220-2,Seiko,SMD,1,C70381,si,"Diodo BAT54 in serie: la RTC dell'SP7021 tenta di caricare la batteria, la CR1220 non è ricaricabile",0.30
 D4,Diodo blocco ricarica VBAT,BAT54WS,,SOD-323,1,,no,,0.05
-U5,eMMC 5.1 64 GB,FEMDNN064G-C9A61,FORESEE,FBGA-153 11.5x13,1,C49284704,"si, 44.24 USD 1 pz (2026-10-16)","Bus 8 bit, l'SP7021 arriva a eMMC 4.41 HS 52 MHz (circa 40-50 MB/s). VCC e VCCQ 3.3 V",40.50
+U5,eMMC 5.1 8 GB,KLM8G1GETF-B041,Samsung,FBGA-153 11.5x13,1,C499918,"si, 21.54 USD 1 pz, 488 a stock (2026-10-17)","Scelta Michele 2026-10-17 (8/16/32 GB). Prezzi LCSC 1 pz: 8 GB 21.5 USD, 16 GB FEMDRW016G 57 USD, 32 GB FEMDRW032G 67 USD, 64 GB FORESEE 44 USD. Bus 8 bit, SP7021 max eMMC 4.41 HS 52 MHz. VCC e VCCQ 3.3 V. -25/+85 C",19.70
 U7,PHY Ethernet 10/100 RMII,LAN8720A-CP-TR,Microchip,QFN-24 4x4,1,C45223,da verificare,"Sostituisce RTL8211F: l'SP7021 non ha RGMII. REF_CLK 50 MHz generato dal PHY",0.80
 Y3,Quarzo 25 MHz PHY,X322525MOB4SI,YXC,3225,1,C9006,si,2x 18 pF C0G,0.15
 U6,EEPROM MAC EUI-48 I2C,24AA02E48T-I/OT,Microchip,SOT-23-5,1,C38987,si,,0.30
@@ -21,7 +21,8 @@ U23,Buck 5 V -> 3.3 V 3 A (SoC + periferiche),TPS563201DDCR,TI,SOT-23-6,1,C11659
 L2,Induttore buck 3.3 V 2.2 uH,,,4x4,1,,no,,0.20
 U25,Supervisore reset 3.3 V,TPS3839K33DBZR,TI,SOT-23-3,1,,no,Su RESET_B del SoC,0.30
 U11,Modulo GNSS timing,NEO-M9N-00B,u-blox,LCC 12.2x16,1,,TME 20.32 EUR + IVA,"UART + PPS e EXTINT su GPIO con interrupt, come scheda Octavo",20.30
-J4;J9;J10,SMA antenna GNSS / time mark / PPS out,BWSMA-KE-P001,,SMD,3,C496550,si,Bias antenna attiva 3.3 V,3.45
+J4,SMA antenna GNSS,BWSMA-KE-P001,,SMD,1,C496550,si,"Bias antenna attiva 3.3 V. Michele 2026-10-17: un solo SMA, PPS out e time mark su J7",1.15
+J7,Header PPS OUT / EXTINT IN / GND 1x3,2.54-1*3P,,2.54 mm,1,C49257,si,Al posto dei 2 SMA di timing,0.04
 U19;U20,Buffer Schmitt EXTINT e PPS out,SN74LVC1G17DBVR,TI,SOT-23-5,2,C7836,si,,0.30
 D2;D3,ESD linee timing,ESD9B5.0ST5G,onsemi,SOD-923,2,C111566,si,+ 100 ohm serie,0.15
 J11,Connettore BUS_POWER 30 pin (ingresso),FH12-30S-0.5SH,Hirose,SMD,1,C506793,no,VIN_SYS 12 V + SPI + linee di controllo,1.50
@@ -31,4 +32,4 @@ SW1;SW2,Pulsanti reset e utente,TS-1088-AR02016,,SMD 3x4,2,C720477,si,,0.15
 J5,Slot microSD push-push (sul bottom),DM3AT-SF-PEJM5,Hirose,SMD,1,C114218,si,"Richiesta Michele 2026-10-17; SD2.0 dell'SP7021, boot alternativo",1.50
 J6,Header console UART 1x3,2.54-1*3P,,2.54 mm,1,C49257,si,UART0 console fissa,0.04
 R/C,"Passivi (strap HW_CFG boot da eMMC, disaccoppiamento SoC e DC-DC interni, pull-up, CC)",,,0402/0603/0805,~110,,generici,"Il SoC non ha PMIC: le induttanze e i C di uscita dei DC-DC interni 0.9/1.2/1.5 V vanno da reference Tibbo",3.00
-TOTALE,,,,,,,,"Escluso l'SP7021-IF (prezzo su richiesta). Circa 200 componenti montati. PCB 50x70 (o più grande se non ci sta) 4 strati, top + microSD sul bottom",82
+TOTALE,,,,,,,,"Escluso l'SP7021-IF (prezzo su richiesta). Circa 200 componenti montati. PCB 50x70 (o più grande se non ci sta) 4 strati, top + microSD sul bottom",59
