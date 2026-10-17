@@ -1,0 +1,5 @@
+(version 1)
+# SMA a montaggio sul bordo: i pad arrivano al bordo per costruzione
+(rule "SMA a bordo scheda"
+    (condition "A.memberOfFootprint('J4') || B.memberOfFootprint('J4')")
+    (constraint edge_clearance (min 0mm)))

@@ -1,0 +1,1 @@
+(fp_lib_table (version 7) (lib (name "Scheda") (type "KiCad") (uri "${KIPRJMOD}/Scheda.pretty") (options "") (descr "Footprint della scheda Tibbo")))
