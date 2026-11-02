@@ -1,5 +1,5 @@
 """Generatore di fogli KiCad 10 a etichette con disposizione automatica a blocchi.
-Le net usate su piu' fogli diventano etichette globali, le altre etichette locali (risolte in write_all)."""
+Schema gerarchico: le alimentazioni sono etichette globali, i segnali tra fogli etichette gerarchiche con pin e fili nel foglio radice, le altre etichette locali (risolte in write_all)."""
 import re, uuid
 from kilib import extract, pins, block, PROJ, ROOT_UUID, LIBNAME, mik
 F = "(effects (font (size 1.27 1.27)) (justify {j}))"
@@ -193,26 +193,101 @@ class Sheet:
         for k, net in enumerate(nets):
             self.place("power:PWR_FLAG", f"#FLG{self.base + 50 + k}", "PWR_FLAG", "", x + 6 + 12.7 * k, y + 12, {"1": net}, inbom=False)
 
-    def write(self, prj, sx, sy, lab_global):
+    def write(self, prj, rails, hier, buses):
+        """rails: net globali; hier: net tra fogli con etichetta gerarchica; buses: {nome bus: membri} di questo foglio."""
         out = []
         for it in self.items:
             if isinstance(it, tuple):
                 _, net, x, y, ang = it
                 j = {0: "left", 180: "right", 90: "left", 270: "right"}[ang]
-                if net in lab_global:
+                if net in rails:
                     out.append(f'(global_label "{net}" (shape passive) (at {x:.2f} {y:.2f} {ang}) (fields_autoplaced yes) {F.format(j=j)} (uuid "{U()}"))')
+                elif net in hier:
+                    out.append(f'(hierarchical_label "{net}" (shape passive) (at {x:.2f} {y:.2f} {ang}) {F.format(j=j)} (uuid "{U()}"))')
                 else:
                     out.append(f'(label "{net}" (at {x:.2f} {y:.2f} {ang}) {F.format(j=j + " bottom")} (uuid "{U()}"))')
             else:
                 out.append(it)
+        # etichetta gerarchica del bus su un tratto di bus: i membri si collegano per nome alle etichette locali del foglio
+        bx = G(self.PAGE_W[self.paper] - 70)
+        for k, name in enumerate(buses):
+            by = G(15 + 5.08 * k)
+            out.append(f'(bus (pts (xy {bx:.2f} {by:.2f}) (xy {bx + 10.16:.2f} {by:.2f})) (stroke (width 0) (type default)) (uuid "{U()}"))')
+            out.append(f'(hierarchical_label "{name}" (shape passive) (at {bx + 10.16:.2f} {by:.2f} 0) {F.format(j="left")} (uuid "{U()}"))')
         open(f"{prj}/{self.fname}", "w").write(
             f'(kicad_sch (version 20260306) (generator "eeschema") (generator_version "10.0") (uuid "{self.uuid}") (paper "{self.paper}") '
             + "(lib_symbols " + " ".join(self.syms.values()) + ") " + " ".join(out) + " (embedded_fonts no))")
-        return (f'(sheet (at {sx} {sy}) (size 50.8 10.16) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced yes) '
-                f'(stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0)) (uuid "{self.uuid}") '
-                f'(property "Sheetname" "{self.name}" (at {sx} {sy - 0.71:.2f} 0) {F.format(j="left bottom")}) '
-                f'(property "Sheetfile" "{self.fname}" (at {sx} {sy + 10.74:.2f} 0) {F.format(j="left top")}) '
-                f'(instances (project "{PROJ}" (path "/{ROOT_UUID}" (page "{self.page}")))))')
+
+
+def natural(n):
+    return [int(x) if x.isdigit() else x for x in re.findall(r"\d+|\D+", n)]
+
+
+def root_sheet(prj, used, rails, buses, order):
+    """Foglio radice a blocchi: CPU a sinistra, le periferiche a destra con i pin alla stessa altezza di quelli della CPU, cosi' i fili sono dritti.
+    Le net tra periferiche (non passano dalla CPU) escono dal lato destro dei blocchi e si uniscono su un tronco verticale."""
+    member = {m: b for b, ms in buses.items() for m in ms}
+    by_name = {s.name: s for s in SHEETS}
+    def pin_of(n):
+        return member.get(n, n)
+    cpu_links, side_links = {name: [] for name in order}, []
+    for net, where in used.items():
+        names = sorted(w[0] for w in where)
+        if net in rails or len(names) < 2 or net in member:
+            continue
+        if "CPU" in names:
+            cpu_links[[x for x in names if x != "CPU"][0]].append(net)
+        else:
+            side_links.append((net, names))
+    for b in buses:
+        cpu_links["DDR3L"].append(b)
+    P, GAP = 2.54, 12.7
+    cx, cw, px, pw = 76.2, 50.8, 228.6, 63.5
+    y = 38.1
+    wires, blocks = [], []
+    pins = {name: [] for name in by_name}
+    for name in order:
+        names = sorted(cpu_links[name], key=lambda n: (n not in buses, natural(n)))
+        extra = [n for n, w in side_links if name in w]
+        h = P * (max(len(names), len(extra)) + 1)
+        for k, n in enumerate(names):
+            py = y + P * (k + 1)
+            pins["CPU"].append((n, cx + cw, py, 0))
+            pins[name].append((n, px, py, 180))
+            kind = "bus" if n in buses else "wire"
+            wires.append(f'({kind} (pts (xy {cx + cw:.2f} {py:.2f}) (xy {px:.2f} {py:.2f})) (stroke (width 0) (type default)) (uuid "{U()}"))')
+        for k, n in enumerate(extra):
+            pins[name].append((n, px + pw, y + P * (k + 1), 0))
+        blocks.append((name, px, y, pw, h))
+        y += h + GAP
+    top, bottom = 38.1 - 2.54, y - GAP
+    blocks.append(("CPU", cx, top, cw, bottom - top))
+    for t_, (n, names) in enumerate(side_links):
+        tx = px + pw + 7.62 + 2.54 * t_
+        ys = []
+        for nm in names:
+            q = [p_ for p_ in pins[nm] if p_[0] == n][0]
+            ys.append(q[2])
+            wires.append(f'(wire (pts (xy {px + pw:.2f} {q[2]:.2f}) (xy {tx:.2f} {q[2]:.2f})) (stroke (width 0) (type default)) (uuid "{U()}"))')
+        wires.append(f'(wire (pts (xy {tx:.2f} {min(ys):.2f}) (xy {tx:.2f} {max(ys):.2f})) (stroke (width 0) (type default)) (uuid "{U()}"))')
+    out = []
+    for name, x, y0, w, h in blocks:
+        s = by_name[name]
+        pl = []
+        for n, qx, qy, ang in pins[name]:
+            j = "right" if ang == 0 else "left"
+            pl.append(f'(pin "{n}" passive (at {qx:.2f} {qy:.2f} {ang}) (uuid "{U()}") {F.format(j=j)})')
+        out.append(f'(sheet (at {x:.2f} {y0:.2f}) (size {w:.2f} {h:.2f}) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced yes) '
+                   f'(stroke (width 0.1524) (type solid)) (fill (color 0 0 0 0)) (uuid "{s.uuid}") '
+                   f'(property "Sheetname" "{s.name}" (at {x:.2f} {y0 - 0.71:.2f} 0) {F.format(j="left bottom")}) '
+                   f'(property "Sheetfile" "{s.fname}" (at {x:.2f} {y0 + h + 0.58:.2f} 0) {F.format(j="left top")}) '
+                   + " ".join(pl) + f' (instances (project "{PROJ}" (path "/{ROOT_UUID}" (page "{s.page}")))))')
+    note = "Alimentazioni e masse (" + ", ".join(sorted(rails)) + ") sono etichette globali nei fogli: non sono disegnate qui."
+    out.append(f'(text "{note}" (exclude_from_sim no) (at 76.20 22.86 0) {F.format(j="left bottom")} (uuid "{U()}"))')
+    open(f"{prj}/{PROJ}.kicad_sch", "w").write(
+        f'(kicad_sch (version 20260306) (generator "eeschema") (generator_version "10.0") (uuid "{ROOT_UUID}") (paper "A2") (lib_symbols) '
+        + " ".join(out + wires) + ' (sheet_instances (path "/" (page "1"))) (embedded_fonts no))')
+    return pins
 
 
 def place_multi(sh, lib_id, ref, val, fp, PM, netfn, pos, mpn=None, lcsc=None):
@@ -243,13 +318,12 @@ def place_multi(sh, lib_id, ref, val, fp, PM, netfn, pos, mpn=None, lcsc=None):
             + pl + f' (instances (project "{PROJ}" (path "{sh.path}" (reference "{ref}") (unit {uu})))))')
 
 
-def write_all(prj, libfile):
+def write_all(prj, libfile, rails, buses, order):
     """Scrive i fogli, la libreria di progetto e il foglio radice; controlla le net con un solo collegamento."""
     used = {}
     for s in SHEETS:
         for n, c in s.nets.items():
             used.setdefault(n, []).append((s.name, c))
-    glob = {n for n, v in used.items() if len(v) > 1}
     single = sorted(n for n, v in used.items() if len(v) == 1 and v[0][1] == 1)
     if single:
         print("NET CON UN SOLO PIN:", single)
@@ -261,8 +335,11 @@ def write_all(prj, libfile):
                 seen.add(k)
                 lib += " " + v.replace(f'(symbol "{k}"', f'(symbol "{k[len(LIBNAME) + 1:]}"', 1)
     open(libfile, "w").write(f'(kicad_symbol_lib (version 20251024) (generator "kicad_symbol_editor") (generator_version "10.0"){lib})')
-    blocks = [s.write(prj, 30 + 70 * (i % 5), 40 + 30 * (i // 5), glob) for i, s in enumerate(SHEETS)]
-    open(f"{prj}/{PROJ}.kicad_sch", "w").write(
-        f'(kicad_sch (version 20260306) (generator "eeschema") (generator_version "10.0") (uuid "{ROOT_UUID}") (paper "A3") (lib_symbols) '
-        + " ".join(blocks) + ' (sheet_instances (path "/" (page "1"))) (embedded_fonts no))')
-    return used, glob
+    multi = {n for n, v in used.items() if len(v) > 1}
+    missing = (multi - rails) - {n for ms in buses.values() for n in ms}
+    hier = {n for n in missing}
+    for s in SHEETS:
+        mine = {b: ms for b, ms in buses.items() if any(m in s.nets for m in ms)}
+        s.write(prj, rails, hier, mine)
+    pins = root_sheet(prj, used, rails, buses, order)
+    return used, multi, pins

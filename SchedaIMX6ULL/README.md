@@ -19,6 +19,10 @@ sh SchedaIMX6ULL/generatori/build.sh
 sh SchedaIMX6ULL/generatori/build_pcb.sh
 ```
 
+## Schema
+
+Gerarchico. Nel foglio radice `SchedaIMX6ULL.kicad_sch` la CPU sta a sinistra e gli altri otto fogli a destra, collegati da fili e bus dritti tra i pin (bus `DDR_A[0..15]`, `DDR_DQ[0..15]`, `DDR_BA[0..2]`). Nei sottofogli i segnali tra fogli sono etichette gerarchiche; alimentazioni e masse restano etichette globali e non sono disegnate nel foglio radice.
+
 ## Stato
 
 - Schema: **ERC 0 violazioni** (KiCad 10.0.7), nessuna net con un solo pin.

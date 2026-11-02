@@ -143,7 +143,7 @@ t = extract("Memory_RAM", "MT41K256M16HA")
 i = t.find('(number "M7"')
 j = t.rfind('(name "NC"', 0, i)
 k = t.rfind("(pin ", 0, j)
-t = t[:k] + re.sub(r"\(pin no_connect", "(pin input", t[k:j], 1).replace("(hide yes)", "") + '(name "A15"' + t[j + len('(name "NC"'):]
+t = t[:k] + t[k:j].replace("(pin no_connect", "(pin input", 1).replace("(hide yes)", "") + '(name "A15"' + t[j + len('(name "NC"'):]
 t = t.replace("Memory_RAM:MT41K256M16HA", f"{LIBNAME}:MT41K512M16HA").replace("MT41K256M16HA", "MT41K512M16HA")
 d.add_sym(f"{LIBNAME}:MT41K512M16HA", t)
 d.note("U2 Micron MT41K512M16HA-107:A, 8 Gb x16 = 1 GB, FBGA-96 9x14 passo 0.8, a 1.35 V. Un solo chip punto-punto: niente VTT. Simbolo da MT41K256M16HA di KiCad con A15 su M7 (ball map JEDEC x16).")
@@ -366,5 +366,8 @@ g.ic("Connector_Generic:Conn_01x03", "J7", "PPS/EXTINT", "Connector_PinHeader_2.
 g.group("Timing: serie e buffer", [("R", "33R", "GNSS_TP", "GNSS_PPS"), ("R", "33R", "GNSS_PPS_BUF", "PPS_OUT_R"), ("R", "100R", "PPS_OUT_R", "PPS_OUT"), ("R", "100R", "EXTINT_IN", "EXTINT_R"), ("R", "100k", "EXTINT_R", GND), ("C", "100nF", V33, GND), ("C", "100nF", V33, GND)])
 
 json.dump(GROUPS, open(os.path.join(SC, "imx6ull_gruppi.json"), "w"), indent=0, sort_keys=True)
-used, glob = write_all(PRJ, f"{PRJ}/{LIBNAME}.kicad_sym")
-print("fogli:", 9, "net:", len(used), "globali:", len(glob))
+RAILS = {GND, "GND_A", V33, V5, V135, V14, SNVS, "VIN_SYS", "VBUS1", "3V3_SSD"}
+BUSES = {"DDR_A[0..15]": [f"DDR_A{i}" for i in range(16)], "DDR_DQ[0..15]": [f"DDR_DQ{i}" for i in range(16)], "DDR_BA[0..2]": [f"DDR_BA{i}" for i in range(3)]}
+ORDER = ["DDR3L", "Bus MIKILAB", "Rete", "Radio", "GNSS", "USB", "Storage", "Alimentazione"]
+used, multi, pins = write_all(PRJ, f"{PRJ}/{LIBNAME}.kicad_sym", RAILS, BUSES, ORDER)
+print("fogli:", 9, "net:", len(used), "tra fogli:", len(multi), "pin sul blocco CPU:", len(pins["CPU"]))
