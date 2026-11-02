@@ -1,0 +1,18 @@
+(version 1)
+# SMA a montaggio sul bordo
+(rule "SMA a bordo scheda"
+    (condition "A.memberOfFootprint('J4') || B.memberOfFootprint('J4')")
+    (constraint edge_clearance (min 0mm)))
+# connettori che arrivano al bordo per costruzione
+(rule "Connettori a bordo scheda"
+    (condition "A.memberOfFootprint('J3') || A.memberOfFootprint('J8') || A.memberOfFootprint('J5') || B.memberOfFootprint('J3') || B.memberOfFootprint('J8') || B.memberOfFootprint('J5')")
+    (constraint edge_clearance (min 0mm)))
+# dogbone sotto le BGA da 0.8 mm: via 0.45/0.2, una pista da 5 mil tra due via (0.35 mm di canale, 0.127 + 2 x 0.1)
+(rule "Fanout BGA 0.8"
+    (condition "A.intersectsCourtyard('U1') || A.intersectsCourtyard('U2')")
+    (constraint track_width (min 0.127mm))
+    (constraint clearance (min 0.1mm))
+    (constraint via_diameter (min 0.45mm))
+    (constraint hole_size (min 0.2mm)))
+(rule "Piste 5 mil"
+    (constraint track_width (min 0.127mm)))

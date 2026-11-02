@@ -1,0 +1,1158 @@
+{
+"A1": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"A2": {
+"name": "SD1_DATA3",
+"dominio": "NVCC_SD"
+},
+"A3": {
+"name": "NAND_READY_B",
+"dominio": "NVCC_NAND"
+},
+"A4": {
+"name": "NAND_CLE",
+"dominio": "NVCC_NAND"
+},
+"A5": {
+"name": "NAND_DATA07",
+"dominio": "NVCC_NAND"
+},
+"A6": {
+"name": "NAND_DATA06",
+"dominio": "NVCC_NAND"
+},
+"A7": {
+"name": "NAND_DATA02",
+"dominio": "NVCC_NAND"
+},
+"A8": {
+"name": "LCD_CLK",
+"dominio": "NVCC_LCD"
+},
+"A9": {
+"name": "LCD_DATA01",
+"dominio": "NVCC_LCD"
+},
+"A10": {
+"name": "LCD_DATA06",
+"dominio": "NVCC_LCD"
+},
+"A11": {
+"name": "LCD_DATA09",
+"dominio": "NVCC_LCD"
+},
+"A12": {
+"name": "LCD_DATA14",
+"dominio": "NVCC_LCD"
+},
+"A13": {
+"name": "LCD_DATA18",
+"dominio": "NVCC_LCD"
+},
+"A14": {
+"name": "LCD_DATA22",
+"dominio": "NVCC_LCD"
+},
+"A15": {
+"name": "ENET2_TX_DATA0",
+"dominio": "NVCC_ENET"
+},
+"A16": {
+"name": "ENET2_TX_DATA1",
+"dominio": "NVCC_ENET"
+},
+"A17": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"B1": {
+"name": "SD1_DATA2",
+"dominio": "NVCC_SD"
+},
+"B2": {
+"name": "SD1_DATA1",
+"dominio": "NVCC_SD"
+},
+"B3": {
+"name": "SD1_DATA0",
+"dominio": "NVCC_SD"
+},
+"B4": {
+"name": "NAND_ALE",
+"dominio": "NVCC_NAND"
+},
+"B5": {
+"name": "NAND_CE1_B",
+"dominio": "NVCC_NAND"
+},
+"B6": {
+"name": "NAND_DATA05",
+"dominio": "NVCC_NAND"
+},
+"B7": {
+"name": "NAND_DATA01",
+"dominio": "NVCC_NAND"
+},
+"B8": {
+"name": "LCD_ENABLE",
+"dominio": "NVCC_LCD"
+},
+"B9": {
+"name": "LCD_DATA00",
+"dominio": "NVCC_LCD"
+},
+"B10": {
+"name": "LCD_DATA05",
+"dominio": "NVCC_LCD"
+},
+"B11": {
+"name": "LCD_DATA08",
+"dominio": "NVCC_LCD"
+},
+"B12": {
+"name": "LCD_DATA13",
+"dominio": "NVCC_LCD"
+},
+"B13": {
+"name": "LCD_DATA17",
+"dominio": "NVCC_LCD"
+},
+"B14": {
+"name": "LCD_DATA21",
+"dominio": "NVCC_LCD"
+},
+"B15": {
+"name": "ENET2_TX_EN",
+"dominio": "NVCC_ENET"
+},
+"B16": {
+"name": "LCD_DATA23",
+"dominio": "NVCC_LCD"
+},
+"B17": {
+"name": "ENET2_RX_EN",
+"dominio": "NVCC_ENET"
+},
+"C1": {
+"name": "SD1_CLK",
+"dominio": "NVCC_SD"
+},
+"C2": {
+"name": "SD1_CMD",
+"dominio": "NVCC_SD"
+},
+"C3": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"C4": {
+"name": "NVCC_SD1",
+"dominio": "alimentazione"
+},
+"C5": {
+"name": "NAND_CE0_B",
+"dominio": "NVCC_NAND"
+},
+"C6": {
+"name": "NAND_DATA04",
+"dominio": "NVCC_NAND"
+},
+"C7": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"C8": {
+"name": "NAND_WE_B",
+"dominio": "NVCC_NAND"
+},
+"C9": {
+"name": "LCD_VSYNC",
+"dominio": "NVCC_LCD"
+},
+"C10": {
+"name": "LCD_DATA04",
+"dominio": "NVCC_LCD"
+},
+"C11": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"C12": {
+"name": "LCD_DATA12",
+"dominio": "NVCC_LCD"
+},
+"C13": {
+"name": "LCD_DATA16",
+"dominio": "NVCC_LCD"
+},
+"C14": {
+"name": "LCD_DATA20",
+"dominio": "NVCC_LCD"
+},
+"C15": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"C16": {
+"name": "ENET2_RX_DATA1",
+"dominio": "NVCC_ENET"
+},
+"C17": {
+"name": "ENET2_RX_DATA0",
+"dominio": "NVCC_ENET"
+},
+"D1": {
+"name": "CSI_DATA07",
+"dominio": "NVCC_CSI"
+},
+"D2": {
+"name": "CSI_DATA06",
+"dominio": "NVCC_CSI"
+},
+"D3": {
+"name": "CSI_DATA05",
+"dominio": "NVCC_CSI"
+},
+"D4": {
+"name": "CSI_DATA04",
+"dominio": "NVCC_CSI"
+},
+"D5": {
+"name": "NAND_WP_B",
+"dominio": "NVCC_NAND"
+},
+"D6": {
+"name": "NAND_DATA03",
+"dominio": "NVCC_NAND"
+},
+"D7": {
+"name": "NAND_DATA00",
+"dominio": "NVCC_NAND"
+},
+"D8": {
+"name": "NAND_RE_B",
+"dominio": "NVCC_NAND"
+},
+"D9": {
+"name": "LCD_HSYNC",
+"dominio": "NVCC_LCD"
+},
+"D10": {
+"name": "LCD_DATA03",
+"dominio": "NVCC_LCD"
+},
+"D11": {
+"name": "LCD_DATA07",
+"dominio": "NVCC_LCD"
+},
+"D12": {
+"name": "LCD_DATA11",
+"dominio": "NVCC_LCD"
+},
+"D13": {
+"name": "LCD_DATA15",
+"dominio": "NVCC_LCD"
+},
+"D14": {
+"name": "LCD_DATA19",
+"dominio": "NVCC_LCD"
+},
+"D15": {
+"name": "ENET1_RX_ER",
+"dominio": "NVCC_ENET"
+},
+"D16": {
+"name": "ENET2_RX_ER",
+"dominio": "NVCC_ENET"
+},
+"D17": {
+"name": "ENET2_TX_CLK",
+"dominio": "NVCC_ENET"
+},
+"E1": {
+"name": "CSI_DATA03",
+"dominio": "NVCC_CSI"
+},
+"E2": {
+"name": "CSI_DATA02",
+"dominio": "NVCC_CSI"
+},
+"E3": {
+"name": "CSI_DATA01",
+"dominio": "NVCC_CSI"
+},
+"E4": {
+"name": "CSI_DATA00",
+"dominio": "NVCC_CSI"
+},
+"E5": {
+"name": "CSI_PIXCLK",
+"dominio": "NVCC_CSI"
+},
+"E6": {
+"name": "NAND_DQS",
+"dominio": "NVCC_NAND"
+},
+"E7": {
+"name": "NVCC_NAND",
+"dominio": "alimentazione"
+},
+"E8": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"E9": {
+"name": "LCD_RESET",
+"dominio": "NVCC_LCD"
+},
+"E10": {
+"name": "LCD_DATA02",
+"dominio": "NVCC_LCD"
+},
+"E11": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"E12": {
+"name": "LCD_DATA10",
+"dominio": "NVCC_LCD"
+},
+"E13": {
+"name": "NVCC_LCD",
+"dominio": "alimentazione"
+},
+"E14": {
+"name": "ENET1_TX_DATA1",
+"dominio": "NVCC_ENET"
+},
+"E15": {
+"name": "ENET1_TX_DATA0",
+"dominio": "NVCC_ENET"
+},
+"E16": {
+"name": "ENET1_RX_EN",
+"dominio": "NVCC_ENET"
+},
+"E17": {
+"name": "ENET1_RX_DATA1",
+"dominio": "NVCC_ENET"
+},
+"F1": {
+"name": "DRAM_ODT1",
+"dominio": "NVCC_DRAM"
+},
+"F2": {
+"name": "CSI_VSYNC",
+"dominio": "NVCC_CSI"
+},
+"F3": {
+"name": "CSI_HSYNC",
+"dominio": "NVCC_CSI"
+},
+"F4": {
+"name": "NVCC_CSI",
+"dominio": "alimentazione"
+},
+"F5": {
+"name": "CSI_MCLK",
+"dominio": "NVCC_CSI"
+},
+"F6": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"F7": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"F8": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"F9": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"F10": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"F11": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"F12": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"F13": {
+"name": "NVCC_ENET",
+"dominio": "alimentazione"
+},
+"F14": {
+"name": "ENET1_TX_CLK",
+"dominio": "NVCC_ENET"
+},
+"F15": {
+"name": "ENET1_TX_EN",
+"dominio": "NVCC_ENET"
+},
+"F16": {
+"name": "ENET1_RX_DATA0",
+"dominio": "NVCC_ENET"
+},
+"F17": {
+"name": "UART5_TX_DATA",
+"dominio": "NVCC_UART"
+},
+"G1": {
+"name": "DRAM_ADDR14",
+"dominio": "NVCC_DRAM"
+},
+"G2": {
+"name": "DRAM_ADDR06",
+"dominio": "NVCC_DRAM"
+},
+"G3": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"G4": {
+"name": "DRAM_RESET",
+"dominio": "NVCC_DRAM"
+},
+"G5": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"G6": {
+"name": "NVCC_DRAM",
+"dominio": "alimentazione"
+},
+"G7": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"G8": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"G9": {
+"name": "VDD_ARM_CAP",
+"dominio": "alimentazione"
+},
+"G10": {
+"name": "VDD_ARM_CAP",
+"dominio": "alimentazione"
+},
+"G11": {
+"name": "VDD_ARM_CAP",
+"dominio": "alimentazione"
+},
+"G12": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"G13": {
+"name": "UART5_RX_DATA",
+"dominio": "NVCC_UART"
+},
+"G14": {
+"name": "UART3_RTS_B",
+"dominio": "NVCC_UART"
+},
+"G15": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"G16": {
+"name": "UART4_RX_DATA",
+"dominio": "NVCC_UART"
+},
+"G17": {
+"name": "UART4_TX_DATA",
+"dominio": "NVCC_UART"
+},
+"H1": {
+"name": "DRAM_SDBA1",
+"dominio": "NVCC_DRAM"
+},
+"H2": {
+"name": "DRAM_ADDR01",
+"dominio": "NVCC_DRAM"
+},
+"H3": {
+"name": "DRAM_ADDR13",
+"dominio": "NVCC_DRAM"
+},
+"H4": {
+"name": "DRAM_ADDR07",
+"dominio": "NVCC_DRAM"
+},
+"H5": {
+"name": "DRAM_CS1_B",
+"dominio": "NVCC_DRAM"
+},
+"H6": {
+"name": "NVCC_DRAM",
+"dominio": "alimentazione"
+},
+"H7": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"H8": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"H9": {
+"name": "VDD_SOC_IN",
+"dominio": "alimentazione"
+},
+"H10": {
+"name": "VDD_SOC_IN",
+"dominio": "alimentazione"
+},
+"H11": {
+"name": "VDD_ARM_CAP",
+"dominio": "alimentazione"
+},
+"H12": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"H13": {
+"name": "NVCC_UART",
+"dominio": "alimentazione"
+},
+"H14": {
+"name": "UART2_RTS_B",
+"dominio": "NVCC_UART"
+},
+"H15": {
+"name": "UART3_CTS_B",
+"dominio": "NVCC_UART"
+},
+"H16": {
+"name": "UART3_RX_DATA",
+"dominio": "NVCC_UART"
+},
+"H17": {
+"name": "UART3_TX_DATA",
+"dominio": "NVCC_UART"
+},
+"J1": {
+"name": "DRAM_SDWE_B",
+"dominio": "NVCC_DRAM"
+},
+"J2": {
+"name": "DRAM_CAS_B",
+"dominio": "NVCC_DRAM"
+},
+"J3": {
+"name": "DRAM_SDCKE1",
+"dominio": "NVCC_DRAM"
+},
+"J4": {
+"name": "DRAM_ADDR08",
+"dominio": "NVCC_DRAM"
+},
+"J5": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"J6": {
+"name": "NVCC_DRAM",
+"dominio": "alimentazione"
+},
+"J7": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"J8": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"J9": {
+"name": "VDD_SOC_IN",
+"dominio": "alimentazione"
+},
+"J10": {
+"name": "VDD_SOC_IN",
+"dominio": "alimentazione"
+},
+"J11": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"J12": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"J13": {
+"name": "NVCC_GPIO",
+"dominio": "alimentazione"
+},
+"J14": {
+"name": "UART1_RTS_B",
+"dominio": "NVCC_UART"
+},
+"J15": {
+"name": "UART2_CTS_B",
+"dominio": "NVCC_UART"
+},
+"J16": {
+"name": "UART2_RX_DATA",
+"dominio": "NVCC_UART"
+},
+"J17": {
+"name": "UART2_TX_DATA",
+"dominio": "NVCC_UART"
+},
+"K1": {
+"name": "DRAM_ADDR02",
+"dominio": "NVCC_DRAM"
+},
+"K2": {
+"name": "DRAM_SDBA2",
+"dominio": "NVCC_DRAM"
+},
+"K3": {
+"name": "DRAM_ADDR11",
+"dominio": "NVCC_DRAM"
+},
+"K4": {
+"name": "DRAM_ADDR04",
+"dominio": "NVCC_DRAM"
+},
+"K5": {
+"name": "DRAM_ADDR15",
+"dominio": "NVCC_DRAM"
+},
+"K6": {
+"name": "NVCC_DRAM",
+"dominio": "alimentazione"
+},
+"K7": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"K8": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"K9": {
+"name": "VDD_SOC_IN",
+"dominio": "alimentazione"
+},
+"K10": {
+"name": "VDD_SOC_IN",
+"dominio": "alimentazione"
+},
+"K11": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"K12": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"K13": {
+"name": "GPIO1_IO00",
+"dominio": "NVCC_GPIO"
+},
+"K14": {
+"name": "UART1_TX_DATA",
+"dominio": "NVCC_UART"
+},
+"K15": {
+"name": "UART1_CTS_B",
+"dominio": "NVCC_UART"
+},
+"K16": {
+"name": "UART1_RX_DATA",
+"dominio": "NVCC_UART"
+},
+"K17": {
+"name": "GPIO1_IO06",
+"dominio": "NVCC_GPIO"
+},
+"L1": {
+"name": "DRAM_ADDR05",
+"dominio": "NVCC_DRAM"
+},
+"L2": {
+"name": "DRAM_ADDR09",
+"dominio": "NVCC_DRAM"
+},
+"L3": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"L4": {
+"name": "DRAM_ADDR12",
+"dominio": "NVCC_DRAM"
+},
+"L5": {
+"name": "DRAM_ADDR00",
+"dominio": "NVCC_DRAM"
+},
+"L6": {
+"name": "NVCC_DRAM",
+"dominio": "alimentazione"
+},
+"L7": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"L8": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"L9": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"L10": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"L11": {
+"name": "VDD_SOC_CAP",
+"dominio": "alimentazione"
+},
+"L12": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"L13": {
+"name": "VDDA_ADC_3P3",
+"dominio": "alimentazione"
+},
+"L14": {
+"name": "GPIO1_IO02",
+"dominio": "NVCC_GPIO"
+},
+"L15": {
+"name": "GPIO1_IO01",
+"dominio": "NVCC_GPIO"
+},
+"L16": {
+"name": "GPIO1_IO07",
+"dominio": "NVCC_GPIO"
+},
+"L17": {
+"name": "GPIO1_IO03",
+"dominio": "NVCC_GPIO"
+},
+"M1": {
+"name": "DRAM_SDBA0",
+"dominio": "NVCC_DRAM"
+},
+"M2": {
+"name": "DRAM_ADDR03",
+"dominio": "NVCC_DRAM"
+},
+"M3": {
+"name": "DRAM_SDCKE0",
+"dominio": "NVCC_DRAM"
+},
+"M4": {
+"name": "DRAM_ADDR10",
+"dominio": "NVCC_DRAM"
+},
+"M5": {
+"name": "DRAM_RAS_B",
+"dominio": "NVCC_DRAM"
+},
+"M6": {
+"name": "NVCC_DRAM",
+"dominio": "alimentazione"
+},
+"M7": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"M8": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"M9": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"M10": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"M11": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"M12": {
+"name": "NGND_KEL0",
+"dominio": "alimentazione"
+},
+"M13": {
+"name": "ADC_VREFH",
+"dominio": "alimentazione"
+},
+"M14": {
+"name": "JTAG_TCK",
+"dominio": "NVCC_GPIO"
+},
+"M15": {
+"name": "GPIO1_IO09",
+"dominio": "NVCC_GPIO"
+},
+"M16": {
+"name": "GPIO1_IO04",
+"dominio": "NVCC_GPIO"
+},
+"M17": {
+"name": "GPIO1_IO05",
+"dominio": "NVCC_GPIO"
+},
+"N1": {
+"name": "DRAM_ODT0",
+"dominio": "NVCC_DRAM"
+},
+"N2": {
+"name": "DRAM_CS0_B",
+"dominio": "NVCC_DRAM"
+},
+"N3": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"N4": {
+"name": "DRAM_ZQPAD",
+"dominio": "NVCC_DRAM"
+},
+"N5": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"N6": {
+"name": "NVCC_DRAM_2P5",
+"dominio": "alimentazione"
+},
+"N7": {
+"name": "TEST_MODE",
+"dominio": "VDD_SNVS_IN"
+},
+"N8": {
+"name": "SNVS_TAMPER5",
+"dominio": "VDD_SNVS_IN"
+},
+"N9": {
+"name": "SNVS_TAMPER8",
+"dominio": "VDD_SNVS_IN"
+},
+"N10": {
+"name": "SNVS_TAMPER7",
+"dominio": "VDD_SNVS_IN"
+},
+"N11": {
+"name": "SNVS_TAMPER6",
+"dominio": "VDD_SNVS_IN"
+},
+"N12": {
+"name": "VDD_SNVS_CAP",
+"dominio": "alimentazione"
+},
+"N13": {
+"name": "VDD_HIGH_IN",
+"dominio": "alimentazione"
+},
+"N14": {
+"name": "JTAG_TRST_B",
+"dominio": "NVCC_GPIO"
+},
+"N15": {
+"name": "JTAG_TDO",
+"dominio": "NVCC_GPIO"
+},
+"N16": {
+"name": "JTAG_TDI",
+"dominio": "NVCC_GPIO"
+},
+"N17": {
+"name": "GPIO1_IO08",
+"dominio": "NVCC_GPIO"
+},
+"P1": {
+"name": "DRAM_SDCLK0_P",
+"dominio": "NVCC_DRAM"
+},
+"P2": {
+"name": "DRAM_SDCLK0_N",
+"dominio": "NVCC_DRAM"
+},
+"P3": {
+"name": "DRAM_DATA13",
+"dominio": "NVCC_DRAM"
+},
+"P4": {
+"name": "DRAM_VREF",
+"dominio": "alimentazione"
+},
+"P5": {
+"name": "DRAM_DATA12",
+"dominio": "NVCC_DRAM"
+},
+"P6": {
+"name": "DRAM_SDQS0_P",
+"dominio": "NVCC_DRAM"
+},
+"P7": {
+"name": "DRAM_SDQS0_N",
+"dominio": "NVCC_DRAM"
+},
+"P8": {
+"name": "POR_B",
+"dominio": "VDD_SNVS_IN"
+},
+"P9": {
+"name": "SNVS_TAMPER4",
+"dominio": "VDD_SNVS_IN"
+},
+"P10": {
+"name": "SNVS_TAMPER3",
+"dominio": "VDD_SNVS_IN"
+},
+"P11": {
+"name": "SNVS_TAMPER2",
+"dominio": "VDD_SNVS_IN"
+},
+"P12": {
+"name": "VDD_SNVS_IN",
+"dominio": "alimentazione"
+},
+"P13": {
+"name": "NVCC_PLL",
+"dominio": "alimentazione"
+},
+"P14": {
+"name": "JTAG_TMS",
+"dominio": "NVCC_GPIO"
+},
+"P15": {
+"name": "JTAG_MOD",
+"dominio": "NVCC_GPIO"
+},
+"P16": {
+"name": "CCM_CLK1_N",
+"dominio": "VDD_HIGH_CAP"
+},
+"P17": {
+"name": "CCM_CLK1_P",
+"dominio": "VDD_HIGH_CAP"
+},
+"R1": {
+"name": "DRAM_DATA15",
+"dominio": "NVCC_DRAM"
+},
+"R2": {
+"name": "DRAM_DATA14",
+"dominio": "NVCC_DRAM"
+},
+"R3": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"R4": {
+"name": "DRAM_DATA11",
+"dominio": "NVCC_DRAM"
+},
+"R5": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"R6": {
+"name": "SNVS_TAMPER9",
+"dominio": "VDD_SNVS_IN"
+},
+"R7": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"R8": {
+"name": "ONOFF",
+"dominio": "VDD_SNVS_IN"
+},
+"R9": {
+"name": "SNVS_TAMPER1",
+"dominio": "VDD_SNVS_IN"
+},
+"R10": {
+"name": "SNVS_TAMPER0",
+"dominio": "VDD_SNVS_IN"
+},
+"R11": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"R12": {
+"name": "VDD_USB_CAP",
+"dominio": "alimentazione"
+},
+"R13": {
+"name": "GPANIO",
+"dominio": "alimentazione"
+},
+"R14": {
+"name": "VDD_HIGH_CAP",
+"dominio": "alimentazione"
+},
+"R15": {
+"name": "VDD_HIGH_CAP",
+"dominio": "alimentazione"
+},
+"R16": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"R17": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"T1": {
+"name": "DRAM_SDQS1_P",
+"dominio": "NVCC_DRAM"
+},
+"T2": {
+"name": "DRAM_SDQS1_N",
+"dominio": "NVCC_DRAM"
+},
+"T3": {
+"name": "DRAM_DQM1",
+"dominio": "NVCC_DRAM"
+},
+"T4": {
+"name": "DRAM_DATA00",
+"dominio": "NVCC_DRAM"
+},
+"T5": {
+"name": "DRAM_DATA06",
+"dominio": "NVCC_DRAM"
+},
+"T6": {
+"name": "DRAM_DATA02",
+"dominio": "NVCC_DRAM"
+},
+"T7": {
+"name": "DRAM_DQM0",
+"dominio": "NVCC_DRAM"
+},
+"T8": {
+"name": "DRAM_DATA05",
+"dominio": "NVCC_DRAM"
+},
+"T9": {
+"name": "SNVS_PMIC_ON_REQ",
+"dominio": "VDD_SNVS_IN"
+},
+"T10": {
+"name": "BOOT_MODE0",
+"dominio": "VDD_SNVS_IN"
+},
+"T11": {
+"name": "RTC_XTALI",
+"dominio": "VDD_SNVS_CAP"
+},
+"T12": {
+"name": "USB_OTG1_VBUS",
+"dominio": "USB_VBUS"
+},
+"T13": {
+"name": "USB_OTG2_DN",
+"dominio": "VDD_USB_CAP"
+},
+"T14": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"T15": {
+"name": "USB_OTG1_DN",
+"dominio": "VDD_USB_CAP"
+},
+"T16": {
+"name": "XTALI",
+"dominio": "NVCC_PLL"
+},
+"T17": {
+"name": "XTALO",
+"dominio": "NVCC_PLL"
+},
+"U1": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"U2": {
+"name": "DRAM_DATA08",
+"dominio": "NVCC_DRAM"
+},
+"U3": {
+"name": "DRAM_DATA09",
+"dominio": "NVCC_DRAM"
+},
+"U4": {
+"name": "DRAM_DATA07",
+"dominio": "NVCC_DRAM"
+},
+"U5": {
+"name": "DRAM_DATA10",
+"dominio": "NVCC_DRAM"
+},
+"U6": {
+"name": "DRAM_DATA01",
+"dominio": "NVCC_DRAM"
+},
+"U7": {
+"name": "DRAM_DATA03",
+"dominio": "NVCC_DRAM"
+},
+"U8": {
+"name": "DRAM_DATA04",
+"dominio": "NVCC_DRAM"
+},
+"U9": {
+"name": "CCM_PMIC_STBY_REQ",
+"dominio": "VDD_SNVS_IN"
+},
+"U10": {
+"name": "BOOT_MODE1",
+"dominio": "VDD_SNVS_IN"
+},
+"U11": {
+"name": "RTC_XTALO",
+"dominio": "VDD_SNVS_CAP"
+},
+"U12": {
+"name": "USB_OTG2_VBUS",
+"dominio": "USB_VBUS"
+},
+"U13": {
+"name": "USB_OTG2_DP",
+"dominio": "VDD_USB_CAP"
+},
+"U14": {
+"name": "VSS",
+"dominio": "alimentazione"
+},
+"U15": {
+"name": "USB_OTG1_DP",
+"dominio": "VDD_USB_CAP"
+},
+"U16": {
+"name": "USB_OTG1_CHD_B",
+"dominio": "OPEN"
+},
+"U17": {
+"name": "VSS",
+"dominio": "alimentazione"
+}
+}
