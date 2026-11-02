@@ -22,5 +22,5 @@ sh SchedaIMX6ULL/generatori/build_pcb.sh
 ## Stato
 
 - Schema: **ERC 0 violazioni** (KiCad 10.0.7), nessuna net con un solo pin.
-- PCB: **80 x 95 mm, 4 strati**, solo placement. **DRC 0 violazioni, parità schema/PCB 0 problemi**; non c'è nessuna pista.
-- **Non sbrogliato**: i 4 strati sono scelti con una stima di fanout, non con una prova di sbroglio (vedi `docs/pcb-placement.md`).
+- PCB: **80 x 95 mm, 6 strati**, solo placement. **DRC 0 violazioni, parità schema/PCB 0 problemi**; non c'è nessuna pista.
+- **Non sbrogliato**: il fanout è solo stimato (vedi `docs/pcb-placement.md`).

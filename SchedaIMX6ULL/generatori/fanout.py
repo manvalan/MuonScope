@@ -1,6 +1,6 @@
 """Stima del fanout di U1 (MAPBGA-289 passo 0.8) dalla netlist: quante sfere di segnale per lato e per anello, contro i canali disponibili.
 Non e' uno sbroglio. Modello: pad 0.32, via dogbone 0.45/0.2, pista 0.127 + 2 x 0.1 di distanza = 0.327 mm per canale.
-Canale tra due pad 0.48 mm, tra due via 0.35 mm: una sola pista per canale. Top: anelli 0-1. Bottom: anelli >= 2, circa 15 canali per lato.
+Canale tra due pad 0.48 mm, tra due via 0.35 mm: una sola pista per canale. Top: anelli 0-1. Anelli >= 2 su bottom e In2.Cu, circa 15 canali per lato e per strato.
 Uso: python3 fanout.py imx6ull_balls.json imx6ull_net.json"""
 import json
 import sys
@@ -26,5 +26,5 @@ print("sfere di segnale:", sig)
 for s, m in sides.items():
     top = m.get(0, 0) + m.get(1, 0)
     bot = sum(k for a, k in m.items() if a >= 2)
-    print(f"lato {s}: anelli {dict(sorted(m.items()))}  top {top}/33  bottom {bot}/15")
+    print(f"lato {s}: anelli {dict(sorted(m.items()))}  top {top}/33  bottom + In2 {bot}/30")
 print("segnali oltre il quarto anello:", deep)

@@ -10,38 +10,36 @@ Generato da `generatori/build_pcb.sh`. Solo placement, **nessuna pista**. Immagi
 
 ## Stackup e regole
 
-| Strato | Uso | Spessore |
+| Strato | Uso | Spessore nominale |
 |---|---|---|
 | F.Cu | segnali, componenti | 35 um |
 | prepreg 3313 | | 0.0994 mm |
 | In1.Cu | GND continuo | 15 um |
-| core FR4 | | 1.265 mm |
-| In2.Cu | alimentazioni a isole (3V3, 5V_SYS, V1P35, V1P4) | 15 um |
+| core | | 0.5 mm |
+| In2.Cu | segnali (riferiti a In1) | 15 um |
+| prepreg | | 0.24 mm |
+| In3.Cu | alimentazioni a isole (3V3, 5V_SYS, V1P35, V1P4) | 15 um |
+| core | | 0.5 mm |
+| In4.Cu | GND continuo | 15 um |
 | prepreg 3313 | | 0.0994 mm |
 | B.Cu | segnali | 35 um |
 
-JLC04161H-3313, 1.6 mm. Piste minime 0.127 mm (5 mil), distanza 0.1 mm, via 0.45/0.2 mm con dogbone sotto le BGA, distanza dal bordo 0.3 mm (0 per SMA, USB-C e microSD). Con questo prepreg 5 mil su F.Cu valgono circa 55 ohm (stima da calcolare col tool del produttore).
+Spessore totale 1.6 mm. **Spessori nominali: vanno allineati allo stackup a 6 strati del produttore prima di calcolare le impedenze.** Piste minime 0.127 mm (5 mil), distanza 0.1 mm, via 0.45/0.2 mm con dogbone sotto le BGA, distanza dal bordo 0.3 mm (0 per SMA, USB-C e microSD).
 
-## Perché 4 strati, e quanto è sicuro
+## Perché 6 strati
 
-**È una stima, non uno sbroglio.** La prova di autorouting non è stata fatta. Argomenti a favore:
+Michele aveva chiesto 6 strati, o 4 se si riesce, e ha giudicato difficile farla in 4 (2026-11-02). La stima conferma: a 4 strati restavano 57 segnali su 60 canali.
 
-1. `generatori/fanout.py` sulla netlist reale: 145 sfere di segnale su 289. Un canale tra due via 0.45 su passo 0.8 è 0.35 mm e contiene una pista da 5 mil (0.327 mm).
+`generatori/fanout.py` sulla netlist reale (è una stima, **non uno sbroglio**): 145 sfere di segnale su 289. Un canale tra due via 0.45 su passo 0.8 è 0.35 mm e contiene una pista da 5 mil (0.327 mm). In2.Cu raddoppia i canali per gli anelli interni:
 
-   | Lato | Anelli 0-1 sul top (canali 33) | Anelli >= 2 sul bottom (canali 15) |
-   |---|---|---|
-   | Alto | 17 | 13 |
-   | Basso | 24 | 11 |
-   | Sinistra (DRAM) | 25 | 16 |
-   | Destra | 22 | 17 |
+| Lato | Anelli 0-1 sul top (canali 33) | Anelli >= 2 su bottom + In2 (canali 30) |
+|---|---|---|
+| Alto | 17 | 13 |
+| Basso | 24 | 11 |
+| Sinistra (DRAM) | 25 | 16 |
+| Destra | 22 | 17 |
 
-   Sul bottom sono **57 segnali su 60 canali**: ci stanno solo usando i canali liberi di alto e basso per l'eccedenza di sinistra e destra. Margine piccolo.
-2. Una scheda KiCad aperta con lo stesso package e DDR3L x16 ([cebrax/iMX6ULL_tryout](https://github.com/cebrax/iMX6ULL_tryout)) è sbrogliata su 4 strati e ha superato uno stress test. Usa però piste da 0.1 mm (4 mil) e ha 512 MB, non 1 GB.
-3. Il bottom è libero da componenti, salvo J5 e i pin THT.
-
-Per alleggerire il lato DRAM ho spostato ECSPI2 sui pad UART4/UART5 (19 -> 16 segnali sul lato sinistro).
-
-**Se in sbroglio il fanout non ci sta**: si passa a 6 strati cambiando solo lo stackup, il placement resta valido.
+Oltre al margine di fanout, i 6 strati danno a DDR e USB piani di riferimento continui e separano le alimentazioni dai segnali. Costo: scheda più cara.
 
 ## Dove sta cosa (mm dall'angolo in alto a sinistra)
 
@@ -66,7 +64,7 @@ Per alleggerire il lato DRAM ho spostato ECSPI2 sui pad UART4/UART5 (19 -> 16 se
 
 - **Passivi del bus MIKILAB lontani da J11/J12** (R401-R427, in media 12-40 mm) e pull-up/strap di U1 (R101-R109, fino a 40 mm): linee lente, ma da riavvicinare a mano.
 - **Disaccoppiamento di U1 solo sul top** (regola di Michele): i 100 nF stanno fuori dal package, con induttanza maggiore rispetto al bottom sotto le sfere. Da valutare con il primo prototipo o con la simulazione.
-- 12 V VIN_SYS da J11 a U22 percorre circa 80 mm: pista larga o isola su In2.
+- 12 V VIN_SYS da J11 a U22 percorre circa 80 mm: pista larga o isola su In3.
 - Distanza dello zoccolo M.2 dal foro H5 (41.75 mm) dedotta dai footprint: da controllare sul disegno del connettore scelto.
 - 17 passivi 0603 sotto l'SSD: altezza libera da verificare con lo zoccolo definitivo.
-- Lunghezze DDR, impedenze USB e SATA, separazione delle isole su In2 da definire in sbroglio.
+- Lunghezze DDR, impedenze USB e SATA, separazione delle isole su In3 da definire in sbroglio.

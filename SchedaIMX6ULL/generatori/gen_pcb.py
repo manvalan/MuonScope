@@ -1,7 +1,7 @@
 """Crea SchedaIMX6ULL.kicad_pcb dalla netlist (solo placement, niente piste).
 
 Uso, con il Python di KiCad:  python3 gen_pcb.py netlist.net progetto-kicad
-Scheda W x H con angoli raggiati 3 mm, 4 fori NPTH 2.2 mm con keepout, 4 strati (stackup JLC04161H-3313). Tutti i componenti sul top,
+Scheda W x H con angoli raggiati 3 mm, 4 fori NPTH 2.2 mm con keepout, 6 strati (S-GND-S-PWR-GND-S, 1.6 mm). Tutti i componenti sul top,
 tranne lo slot microSD J5. I componenti principali hanno una posizione fissa (PLACE, MED); i passivi vengono messi vicino al componente
 con cui condividono piu' net, fuori da una corona libera attorno a SoC e DDR3L che resta al fanout.
 """
@@ -29,7 +29,7 @@ V = lambda x, y: pcbnew.VECTOR2I(mm(OX + x), mm(OY + y))
 
 comps, nets = netlist.read(NET)
 board = pcbnew.NewBoard(OUT)
-board.SetCopperLayerCount(4)
+board.SetCopperLayerCount(6)
 ds = board.GetDesignSettings()
 ds.SetBoardThickness(mm(1.6))
 ds.m_TrackMinWidth = mm(0.127)        # 5 mil
@@ -446,7 +446,7 @@ def hole(ref, hx, hy, keep=True):
     z.SetDoNotAllowPads(False)
     z.SetDoNotAllowFootprints(False)
     ls = pcbnew.LSET()
-    for L in (pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu):
+    for L in (pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.In3_Cu, pcbnew.In4_Cu, pcbnew.B_Cu):
         ls.AddLayer(L)
     z.SetLayerSet(ls)
     z.SetZoneName(f"KEEPOUT_{ref}")
@@ -480,7 +480,7 @@ board.Add(t_)
 
 pcbnew.SaveBoard(OUT, board)
 
-# stackup JLC04161H-3313 nel file (il binding Python non lo espone)
+# stackup a 6 strati nel file (il binding Python non lo espone); spessori nominali, da allineare al configuratore del produttore
 STACKUP = """(stackup
 \t\t\t(layer "F.SilkS" (type "Top Silk Screen"))
 \t\t\t(layer "F.Paste" (type "Top Solder Paste"))
@@ -488,9 +488,13 @@ STACKUP = """(stackup
 \t\t\t(layer "F.Cu" (type "copper") (thickness 0.035))
 \t\t\t(layer "dielectric 1" (type "prepreg") (thickness 0.0994) (material "3313") (epsilon_r 4.1) (loss_tangent 0.02))
 \t\t\t(layer "In1.Cu" (type "copper") (thickness 0.0152))
-\t\t\t(layer "dielectric 2" (type "core") (thickness 1.265) (material "FR4") (epsilon_r 4.6) (loss_tangent 0.02))
+\t\t\t(layer "dielectric 2" (type "core") (thickness 0.5) (material "FR4") (epsilon_r 4.6) (loss_tangent 0.02))
 \t\t\t(layer "In2.Cu" (type "copper") (thickness 0.0152))
-\t\t\t(layer "dielectric 3" (type "prepreg") (thickness 0.0994) (material "3313") (epsilon_r 4.1) (loss_tangent 0.02))
+\t\t\t(layer "dielectric 3" (type "prepreg") (thickness 0.24) (material "FR4") (epsilon_r 4.4) (loss_tangent 0.02))
+\t\t\t(layer "In3.Cu" (type "copper") (thickness 0.0152))
+\t\t\t(layer "dielectric 4" (type "core") (thickness 0.5) (material "FR4") (epsilon_r 4.6) (loss_tangent 0.02))
+\t\t\t(layer "In4.Cu" (type "copper") (thickness 0.0152))
+\t\t\t(layer "dielectric 5" (type "prepreg") (thickness 0.0994) (material "3313") (epsilon_r 4.1) (loss_tangent 0.02))
 \t\t\t(layer "B.Cu" (type "copper") (thickness 0.035))
 \t\t\t(layer "B.Mask" (type "Bottom Solder Mask") (thickness 0.0152))
 \t\t\t(layer "B.Paste" (type "Bottom Solder Paste"))
@@ -502,8 +506,9 @@ STACKUP = """(stackup
 t = open(OUT).read()
 t = re.sub(r"\(stackup.*?\(pad_to_mask_clearance", STACKUP + "(pad_to_mask_clearance", t, count=1, flags=re.S) if "(stackup" in t else \
     re.sub(r"\(setup\s*", "(setup\n\t\t" + STACKUP, t, count=1)
-t = t.replace('(1 "In1.Cu" signal)', '(1 "In1.Cu" power "GND")').replace('(4 "In1.Cu" signal)', '(4 "In1.Cu" power "GND")')
-t = t.replace('(2 "In2.Cu" signal)', '(2 "In2.Cu" power "PWR")').replace('(6 "In2.Cu" signal)', '(6 "In2.Cu" power "PWR")')
+for lname, alias in (("In1.Cu", "GND"), ("In3.Cu", "PWR"), ("In4.Cu", "GND2")):   # In2.Cu resta di segnale
+    t, n_ = re.subn(r'\((\d+) "%s" signal\)' % re.escape(lname), r'(\1 "%s" power "%s")' % (lname, alias), t)
+    assert n_ == 1, lname
 open(OUT, "w").write(t)
 open(os.path.join(PRJ, f"{PROJ}.kicad_dru"), "w").write("""(version 1)
 # SMA a montaggio sul bordo
