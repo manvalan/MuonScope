@@ -188,10 +188,10 @@ Le ALT dei pad usati sono in `docs/scelte-progetto.md`. Le sfere con net `-` res
 | L11 | VDD_SOC_CAP | alimentazione | VDD_SOC_CAP |
 | L12 | VSS | alimentazione | GND_D |
 | L13 | VDDA_ADC_3P3 | alimentazione | 3V3 |
-| L14 | GPIO1_IO02 | NVCC_GPIO | I2C1_SCL |
+| L14 | GPIO1_IO02 | NVCC_GPIO | - |
 | L15 | GPIO1_IO01 | NVCC_GPIO | PHY_RST_N |
 | L16 | GPIO1_IO07 | NVCC_GPIO | PHY_MDC |
-| L17 | GPIO1_IO03 | NVCC_GPIO | I2C1_SDA |
+| L17 | GPIO1_IO03 | NVCC_GPIO | - |
 | M1 | DRAM_SDBA0 | NVCC_DRAM | DDR_BA0 |
 | M2 | DRAM_ADDR03 | NVCC_DRAM | DDR_A3 |
 | M3 | DRAM_SDCKE0 | NVCC_DRAM | DDR_CKE |
