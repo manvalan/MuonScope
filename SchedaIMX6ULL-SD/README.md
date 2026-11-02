@@ -27,5 +27,5 @@ sh SchedaIMX6ULL-SD/generatori/build_pcb.sh
 ## Stato
 
 - Schema gerarchico, **ERC 0 violazioni**.
-- PCB **80 x 100 mm, 4 strati**, solo placement, **DRC 0 violazioni, parità schema/PCB 0 problemi**. 229 componenti, di cui 176 passivi.
+- PCB **80 x 100 mm, 4 strati**, solo placement, decoupling sul bottom sotto SoC e DDR3L, **DRC 0 violazioni, parità schema/PCB 0 problemi**. 229 componenti, di cui 176 passivi.
 - **Non sbrogliato**: il fanout a 4 strati è solo stimato, con margine piccolo.

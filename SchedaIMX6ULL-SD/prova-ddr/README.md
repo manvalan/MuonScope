@@ -22,7 +22,9 @@ Finito 1.61 mm +-10%. **La richiesta era 0.5 oz interni, ma la tabella PCBWay no
 
 ## Regole
 
-Piste 5 mil (0.127 mm), 4 mil (0.1016 mm) solo dentro i courtyard di U1 e U2, distanza 0.1 mm, via 0.45/0.2 mm. Regole in `ProvaDDR.kicad_dru`.
+Piste 5 mil (0.127 mm), 4 mil (0.1016 mm) sotto il courtyard di qualsiasi componente, su entrambi i lati, distanza 0.1 mm, via 0.45/0.2 mm. Regole in `ProvaDDR.kicad_dru`.
+
+Il bottom ospita 38 componenti oltre alla microSD: decoupling sotto U1 e U2 e passivi lenti (vedi `../docs/pcb-placement.md`). 49 via di alimentazione del dogbone vanno spostati o condivisi: uno sbroglio che assume un via per sfera in quei punti non troverà posto.
 
 ## Impedenze calcolate
 

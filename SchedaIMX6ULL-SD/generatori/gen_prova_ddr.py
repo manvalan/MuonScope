@@ -46,20 +46,8 @@ assert n == 1
 assert "(segment" not in t
 open(os.path.join(DST, f"{NEW}.kicad_pcb"), "w").write(t)
 
-# Regole: 5 mil su tutta la scheda, 4 mil solo dentro i courtyard di U1 e U2; via 0.45/0.2.
-dru = open(os.path.join(SRC, f"{OLD}.kicad_dru")).read()
-dru = dru[:dru.index('# dogbone sotto le BGA')] + """# piste 5 mil su tutta la scheda; 4 mil solo nell'area delle BGA, per il fanout e i colli delle piste DDR
-(rule "Fanout BGA 4 mil"
-    (condition "A.intersectsCourtyard('U1') || A.intersectsCourtyard('U2')")
-    (constraint track_width (min 0.1016mm))
-    (constraint clearance (min 0.1mm))
-    (constraint via_diameter (min 0.45mm))
-    (constraint hole_size (min 0.2mm)))
-(rule "Piste 5 mil fuori dalle BGA"
-    (condition "!A.intersectsCourtyard('U1') && !A.intersectsCourtyard('U2')")
-    (constraint track_width (min 0.127mm)))
-"""
-open(os.path.join(DST, f"{NEW}.kicad_dru"), "w").write(dru)
+# Regole: le stesse della scheda (5 mil, 4 mil sotto i componenti, via 0.45/0.2).
+shutil.copy(os.path.join(SRC, f"{OLD}.kicad_dru"), os.path.join(DST, f"{NEW}.kicad_dru"))
 
 d = json.load(open(os.path.join(SRC, f"{OLD}.kicad_pro")))
 d["meta"]["filename"] = f"{NEW}.kicad_pro"

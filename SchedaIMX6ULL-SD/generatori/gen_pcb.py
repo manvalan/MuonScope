@@ -32,7 +32,7 @@ board = pcbnew.NewBoard(OUT)
 board.SetCopperLayerCount(4)
 ds = board.GetDesignSettings()
 ds.SetBoardThickness(mm(1.6))
-ds.m_TrackMinWidth = mm(0.127)        # 5 mil
+ds.m_TrackMinWidth = mm(0.1016)       # 4 mil sotto i componenti, 5 mil altrove (kicad_dru)
 ds.m_MinClearance = mm(0.1)
 ds.m_ViasMinSize = mm(0.45)
 ds.m_MinThroughDrill = mm(0.2)
@@ -395,6 +395,46 @@ def target(ref, a):
     return center_of(FP[a])
 
 
+# Disaccoppiamento sul bottom sotto le BGA (Michele, 2026-11-02): solo i piccoli sui rail interni di U1 e i 100 nF di U2.
+# Sotto U1 il blocco centrale, dove non ci sono segnali; sotto U2 la striscia senza sfere tra le colonne 3 e 7. Il resto del bottom resta al fanout.
+def decap_bottom(refs, slots, a):
+    libere = list(slots)
+    for ref in refs:
+        n_ = next(n for n in NET_OF[ref] if not n.endswith("GND_D"))
+        pts = [center_pad(a, p_) for r_, p_ in nets[n_] if r_ == a]
+        cx_, cy_ = sum(q[0] for q in pts) / len(pts), sum(q[1] for q in pts) / len(pts)
+        s_ = min(libere, key=lambda q: math.hypot(q[0] - cx_, q[1] - cy_))
+        libere.remove(s_)
+        put(ref, 0, "B", cx=s_[0], cy=s_[1])
+        add_occ(FP[ref])
+        placed.add(ref)
+
+
+def center_pad(a, num):
+    for pad in FP[a].Pads():
+        if pad.GetNumber() == num:
+            q = pad.GetPosition()
+            return pcbnew.ToMM(q.x) - OX, pcbnew.ToMM(q.y) - OY
+
+
+def scelti(titolo, valore, quanti=99):
+    return sorted(r for r, tt in GRUPPI.items() if tt.startswith(titolo) and comps[r]["value"] == valore)[:quanti]
+
+
+# Blocco centrale di U1: solo sopra gli anelli >= 5 (alimentazioni), i via dei segnali degli anelli fino al 4 restano scoperti.
+U1_BOT = scelti("VDD_ARM_CAP", "1uF") + scelti("VDD_SOC_IN", "100nF") + scelti("NVCC_DRAM", "100nF", 1)
+decap_bottom(U1_BOT, [(SOC_CX + dx, SOC_CY + dy) for dx in (-1.6, 1.6) for dy in (-2.4, -0.8, 0.8, 2.4)], "U1")
+ux, uy = center_of(FP["U2"])
+U2_BOT = scelti("VDD / VDDQ", "100nF", 4)
+decap_bottom(U2_BOT, [(ux + dx, uy) for dx in (-4.8, -1.6, 1.6, 4.8)], "U2")
+# Rail _CAP sul lato basso-destro di U1 (sfere N12-R15): subito fuori dal package, verso l'angolo dove i corridoi sono meno fitti.
+CAP_BOT = scelti("VDD_HIGH_CAP", "1uF")
+decap_bottom(CAP_BOT, [(SOC_CX + dx, SOC_CY + dy) for dx, dy in ((9.0, 3.4), (9.0, 5.0), (9.0, 6.6), (9.0, 8.2), (5.6, 8.8))], "U1")
+print("disaccoppiamento sul bottom:", U1_BOT, U2_BOT, CAP_BOT)
+# Il bottom attorno a U1 e U2 e tra i due resta ai canali del fanout e allo sbroglio DDR.
+for x0_, y0_, x1_, y1_ in ((SOC_CX - 12, SOC_CY - 12, SOC_CX + 12, SOC_CY + 12), (ux - 11, uy - 8, ux + 11, uy + 8)):
+    occ["B"].append((x0_, y0_, x1_, y1_))
+SUL_BOTTOM = ("Boot", "Pull-up open", "Livelli", "Serie SPI", "Disaccoppiamento", "POR_B", "EEPROM")   # passivi lenti: alleggeriscono il top
 rest = sorted((r for r in FP if r not in placed), key=lambda r: (group_anchor(r)[0], r))
 far = []
 for lontano in (False, True):
@@ -405,7 +445,8 @@ for lontano in (False, True):
         if a is None:
             continue
         GAP = 0.3 if a in ("U1", "U2") else 0.8   # il disaccoppiamento di SoC e DDR il piu' vicino possibile alle sfere
-        if try_place(ref, *target(ref, a), "T", 90 if lontano else 25):
+        lato = "B" if GRUPPI.get(ref, "").startswith(SUL_BOTTOM) else "T"
+        if try_place(ref, *target(ref, a), lato, 90 if lontano else 25):
             placed.add(ref)
             far.append((round(dist(ref, a), 1), ref, a))
 for ref in FP:
@@ -508,15 +549,18 @@ open(os.path.join(PRJ, f"{PROJ}.kicad_dru"), "w").write("""(version 1)
 (rule "Connettori a bordo scheda"
     (condition "A.memberOfFootprint('J3') || A.memberOfFootprint('J8') || A.memberOfFootprint('J5') || B.memberOfFootprint('J3') || B.memberOfFootprint('J8') || B.memberOfFootprint('J5')")
     (constraint edge_clearance (min 0mm)))
-# dogbone sotto le BGA da 0.8 mm: via 0.45/0.2, una pista da 5 mil tra due via (0.35 mm di canale, 0.127 + 2 x 0.1)
-(rule "Fanout BGA 0.8"
+# dogbone sotto le BGA: via 0.45/0.2, una pista da 5 mil tra due via (0.35 mm di canale, 0.127 + 2 x 0.1)
+(rule "Via BGA"
     (condition "A.intersectsCourtyard('U1') || A.intersectsCourtyard('U2')")
-    (constraint track_width (min 0.127mm))
-    (constraint clearance (min 0.1mm))
     (constraint via_diameter (min 0.45mm))
     (constraint hole_size (min 0.2mm)))
+# piste: 5 mil su tutta la scheda, 4 mil sotto i componenti (Michele, 2026-11-02)
 (rule "Piste 5 mil"
+    (condition "A.Type == 'Track'")
     (constraint track_width (min 0.127mm)))
+(rule "Piste 4 mil sotto i componenti"
+    (condition "A.Type == 'Track' && (A.intersectsFrontCourtyard('*') || A.intersectsBackCourtyard('*'))")
+    (constraint track_width (min 0.1016mm)))
 """)
 pro = os.path.join(PRJ, f"{PROJ}.kicad_pro")
 d = json.load(open(pro))
