@@ -19,7 +19,7 @@ from kilib import FPLIB, PROJ, LIBNAME, mik_fp_dir
 NET, PRJ = sys.argv[1], sys.argv[2]
 OUT = os.path.join(PRJ, f"{PROJ}.kicad_pcb")
 STD = FPLIB
-W, H, RAD = float(os.environ.get("BOARD_W", 100)), float(os.environ.get("BOARD_H", 125)), 3.0
+W, H, RAD = float(os.environ.get("BOARD_W", 80)), float(os.environ.get("BOARD_H", 100)), 3.0
 OX, OY = 30.0, 30.0   # la scheda deve stare nel foglio A4 dell'export PDF
 HOLES = [(4, 4), (W - 4, 4), (4, H - 4), (W - 4, H - 4)]
 HOLE_KEEP = 3.2
@@ -159,21 +159,21 @@ def facing(ref, side, want):
 # ---------------- posizioni dei componenti principali (coordinate locali, mm; y verso il basso) -------------------
 # SoC con A1 in alto a sinistra: DRAM su sinistra e in basso a sinistra, USB in basso a destra, ENET1/UART a destra, SD1/NAND/CSI in alto a sinistra.
 L_, R_, U_, D_ = (-1, 0), (1, 0), (0, -1), (0, 1)
-SOC_CX, SOC_CY = 45.0, 55.0
+SOC_CX, SOC_CY = 33.0, 38.0
 SOC_RECT = (SOC_CX - 7, SOC_CY - 7, SOC_CX + 7, SOC_CY + 7)
 PLACE = {
     "U1": dict(rot=0, cx=SOC_CX, cy=SOC_CY),                     # i.MX 6ULL, A1 in alto a sinistra
     "U2": dict(rot=270, cx=SOC_CX - 13.0, top=SOC_CY + 10.0),                      # DDR3L in basso a sinistra del SoC, 14 x 9
-    "J11": dict(face=U_, left=50.0, top=0.3),                     # BUS_POWER sul bordo alto
-    "J12": dict(face=U_, left=15.0, top=0.4),                    # MAIN sul bordo alto
-    "J5": dict(face=L_, side="B", left=0.0, top=14.0),            # microSD sul bottom, bordo sinistro
-    "J1": dict(face=R_, right=W, top=20.0),                       # RJ45 sul bordo destro
-    "J3": dict(face=D_, cx=50.0, bottom=H),                      # USB-C 1 sul bordo basso
-    "J8": dict(face=D_, cx=62.0, bottom=H),                      # USB-C 2 affiancata
-    "U11": dict(rot=0, left=4.0, top=72.0),                      # NEO-M9N in basso a sinistra, lontano da Wi-Fi e buck
-    "J4": dict(rot=180, cy=92.5, left=-1.77),                     # SMA a bordo scheda: pad a cavallo dei due lati sul bordo sinistro, corpo fuori dalla scheda (bordo a 2.7 mm dal centro dei pad)
-    "U35": dict(rot=0, left=4.0, top=15.0),                       # Wi-Fi in alto a sinistra, sopra la microSD sul bottom
-    "BT1": dict(rot=0, cx=45.0, cy=92.0),                        # CR1220
+    "J11": dict(face=U_, left=30.0, top=0.3),                     # BUS_POWER sul bordo alto
+    "J12": dict(face=U_, left=9.4, top=0.4),                    # MAIN sul bordo alto
+    "J5": dict(face=L_, side="B", left=0.0, top=9.0),            # microSD sul bottom, bordo sinistro
+    "J1": dict(face=R_, right=W, top=12.0),                       # RJ45 sul bordo destro
+    "J3": dict(face=D_, cx=36.0, bottom=H),                      # USB-C 1 sul bordo basso
+    "J8": dict(face=D_, cx=47.0, bottom=H),                      # USB-C 2 affiancata
+    "U11": dict(rot=0, left=2.0, top=64.0),                      # NEO-M9N in basso a sinistra, lontano da Wi-Fi e buck
+    "J4": dict(rot=180, cy=84.5, left=-1.77),                     # SMA a bordo scheda: pad a cavallo dei due lati sul bordo sinistro, corpo fuori dalla scheda (bordo a 2.7 mm dal centro dei pad)
+    "U35": dict(rot=0, left=2.2, top=8.5),                       # Wi-Fi in alto a sinistra, sopra la microSD sul bottom
+    "BT1": dict(rot=0, cx=38.0, cy=76.0),                        # CR1220
 }
 for ref, a in PLACE.items():
     a = dict(a)
@@ -325,22 +325,22 @@ def try_place(ref, cx, cy, side="T", maxr=30):
 placed = set(PLACE)
 MED = {  # componenti con zona preferita (cx, cy), coordinate assolute dall'angolo in alto a sinistra; ogni induttore accanto al suo buck
     # 12 -> 5 V e mux in basso a destra accanto alla USB-C 1 e lontani dal GNSS
-    "U22": (84.0, 112.0), "L1": (91.0, 112.0), "U17": (84.0, 95.0), "D1": (38.0, 118.0),
+    "U22": (62.0, 90.0), "L1": (69.0, 90.0), "U17": (66.0, 72.0), "D1": (28.0, 93.0),
     # buck dei rail: a destra del SoC, lontani dal GNSS
-    "U23": (84.0, 50.0), "L2": (90.0, 50.0), "U26": (66.0, 60.0), "L3": (66.0, 65.5), "U27": (66.0, 76.0), "L4": (66.0, 81.5), "U28": (26.0, 42.0),
+    "U23": (66.0, 38.0), "L2": (72.0, 38.0), "U26": (52.0, 42.0), "L3": (52.0, 47.5), "U27": (52.0, 58.0), "L4": (52.0, 63.5), "U28": (18.0, 27.0),
     # ESD del bus sotto i connettori: U29-U31 linee BUS_POWER, U32-U34 linee MAIN
-    "U29": (55.0, 10.0), "U30": (61.0, 10.0), "U31": (67.0, 10.0), "U32": (20.0, 10.0), "U33": (26.0, 10.0), "U34": (32.0, 10.0),
+    "U29": (34.0, 9.0), "U30": (39.0, 9.0), "U31": (44.0, 9.0), "U32": (19.0, 9.0), "U33": (23.0, 9.0), "U34": (27.0, 9.0),
     # memorie: NOR e NAND sopra il SoC, vicino alle sfere NAND; quarzi vicino alle sfere XTAL e RTC
-    "U5": (34.0, 32.0), "U40": (48.0, 32.0), "U25": (8.0, 40.0), "Y1": (SOC_CX + 11.5, SOC_CY + 6.0), "Y2": (SOC_CX + 11.5, SOC_CY + 2.0),
+    "U5": (23.0, 20.0), "U40": (38.0, 20.0), "U25": (5.0, 25.0), "Y1": (SOC_CX + 11.5, SOC_CY + 6.0), "Y2": (SOC_CX + 11.5, SOC_CY + 2.0),
     # USB
-    "U9": (50.0, 110.0), "U10": (62.0, 110.0), "U24": (72.0, 108.0), "D4": (22.0, 84.0),
+    "U9": (36.0, 88.0), "U10": (47.0, 88.0), "U24": (54.0, 87.0), "D4": (20.0, 64.0),
     # rete: PHY subito a sinistra dell'RJ45, le coppie TX/RX restano cortissime
-    "U7": (71.0, 30.0), "Y3": (71.0, 37.0), "FB1": (71.0, 23.0), "U6": (70.0, 46.0),
+    "U7": (52.0, 22.0), "Y3": (52.0, 29.0), "FB1": (52.0, 15.0), "U6": (50.0, 34.0),
     # Wi-Fi
-    "U37": (8.0, 46.0), "J14": (5.0, 41.0),
+    "U37": (5.0, 31.0), "J14": (3.0, 27.0),
     # GNSS, tasti e header
-    "U20": (9.0, 68.0), "U19": (16.0, 68.0), "D2": (20.0, 104.0), "D3": (24.0, 104.0), "L6": (14.0, 97.0), "J7": (16.0, 118.0),
-    "J6": (30.0, 110.0), "SW1": (5.0, 62.0), "SW2": (5.0, 58.0), "TP1": (22.0, 74.0), "TP2": (22.0, 78.0),
+    "U20": (5.0, 60.0), "U19": (11.0, 60.0), "D2": (15.0, 88.0), "D3": (18.0, 88.0), "L6": (10.0, 85.0), "J7": (13.0, 94.0),
+    "J6": (22.0, 90.0), "SW1": (3.0, 52.0), "SW2": (3.0, 47.0), "TP1": (19.0, 69.0), "TP2": (19.0, 73.0),
 }
 missing = []
 for ref, (cx, cy) in MED.items():

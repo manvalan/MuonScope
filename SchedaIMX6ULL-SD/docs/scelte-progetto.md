@@ -16,9 +16,11 @@ Fonti, assegnazione dei pad e punti comuni sono in `../SchedaIMX6ULL/docs/scelte
 
 NOR 16 MB per il boot + SPI NAND 512 MB per il rootfs UBIFS. Il ROM del 6ULL non avvia da SPI NAND (risposte NXP), quindi servono due chip.
 
+Ripieghi sulla stessa impronta: W25N02KV (256 MB), W25N01GV (128 MB), a 3.3 V, entrambe nei driver mainline.
+
 ## Punti da verificare
 
-1. **Driver SPI NAND**: NXP dichiara che il suo BSP non supporta SPI NAND su i.MX6. Serve il driver mainline `spi-fsl-qspi`. In U-Boot esiste una scheda i.MX6UL con SPI NAND (Kontron SL-MX6UL), ma non è stata provata questa combinazione.
+1. **Driver SPI NAND**: NXP dichiara che il suo BSP non supporta SPI NAND su i.MX6. Serve Linux e U-Boot mainline: `drivers/mtd/nand/spi/winbond.c` elenca la W25N04KV in entrambi, e `imx6ul-kontron-sl-common.dtsi` usa `spi-nand` su QSPI a 4 bit con un i.MX6UL. Letto nei sorgenti, non provato su questa scheda.
 2. **Datasheet W25N04KV non letto**: pinout dal datasheet della famiglia W25N04LW (versione 1.8 V, stesso WSON 8x6) e tensione 2.7-3.6 V dal listino LCSC C5342170. **Attenzione al codice: W25N04KW e W25N04LW sono a 1.8 V** e qui si romperebbero.
 3. **Footprint U40**: `WSON-8-1EP_8x6mm_P1.27mm_EP3.4x4.3mm` di KiCad, pad centrale a GND (ammesso dal datasheet). Quote del pad centrale da confrontare col disegno Winbond.
 4. **Boot QSPI con BOOT_CFG tutti bassi**: dedotto dalla EVK, come nella versione SSD.

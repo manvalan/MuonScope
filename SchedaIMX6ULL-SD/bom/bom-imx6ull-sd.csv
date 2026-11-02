@@ -6,7 +6,7 @@ Y2,Quarzo 32.768 kHz RTC (SNVS),Q13FC13500004,Epson,3215,1,C32346,si,,0.15
 BT1,Portabatteria CR1220 (VDD_SNVS_IN + backup GNSS),CR1220-2,Seiko,SMD,1,C70381,si,OR a diodi con il 3.3 V (BAT54C),0.30
 D4,Diodo OR SNVS / VBAT,BAT54C,,SOT-23,1,,no,,0.05
 U5,SPI NOR 16 MB boot (U-Boot + kernel + dtb),W25Q128JVSIQ,Winbond,SOIC-8 208 mil,1,C97521,da verificare,"QSPI1 porta A, SS0. Il ROM del 6ULL avvia da NOR, non da SPI NAND",0.90
-U40,SPI NAND SLC 512 MB (rootfs UBIFS),W25N04KVZEIR,Winbond,WSON-8 8x6,1,C5342170,no; prezzo da verificare,"QSPI1 porta A, SS1 (NAND_DATA07). Serve il driver spi-fsl-qspi mainline: il BSP NXP non supporta SPI NAND",4.00
+U40,SPI NAND SLC 512 MB (rootfs UBIFS),W25N04KVZEIR,Winbond,WSON-8 8x6,1,C5342170,no; prezzo da verificare,"QSPI1 porta A, SS1 (NAND_DATA07). Linux e U-Boot mainline: il BSP NXP non supporta SPI NAND. Ripieghi stessa impronta: W25N02KV 256 MB; W25N01GV 128 MB",4.00
 J5,Slot microSD push-push (sul bottom),DM3AT-SF-PEJM5,Hirose,SMD,1,C114218,si,"uSDHC1 4 bit a 3.3 V (niente UHS), dati o boot alternativo; CD su GPIO, 22R su CLK, pull-up 10k solo su CD",1.50
 U25,ESD 4 linee microSD,TPD4E05U06DQAR,TI,USON-10,1,,no,,0.40
 U7,PHY Ethernet 10/100 RMII,LAN8720A-CP-TR,Microchip,QFN-24 4x4,1,C45223,da verificare,"L'i.MX 6ULL ha solo MAC 10/100 RMII (ENET1 e ENET2), niente Gigabit. REF_CLK 50 MHz dal SoC (ENET_REF_CLK) o dal PHY",0.80
@@ -42,4 +42,4 @@ U37,LDO 3.3 V Wi-Fi,AP2112K-3.3TRG1,Diodes,SOT-23-5,1,C51118,da verificare,Rail 
 J14,U.FL antenna Wi-Fi con rete pi,U.FL-R-SMT-1,Hirose,SMD,1,,no,Aggiunto nello schema; antenna esterna,0.30
 L6,Induttore bias antenna GNSS 27 nH,,,0603,1,,no,Aggiunto nello schema,0.05
 FB1,Ferrite VDDA PHY 120R@100MHz,BLM18PG121SN1D,Murata,0603,1,,no,Aggiunto nello schema,0.05
-TOTALE,,,,,,,,"232 componenti nello schema (2 test point fuori BOM), PCB 4 strati 100 x 125 mm. MicroSD esclusa. Costi indicativi, U40, J14, L6 e FB1 stimati",66.38
+TOTALE,,,,,,,,"232 componenti nello schema (2 test point fuori BOM), PCB 4 strati 80 x 100 mm. MicroSD esclusa. Costi indicativi, U40, J14, L6 e FB1 stimati",66.38

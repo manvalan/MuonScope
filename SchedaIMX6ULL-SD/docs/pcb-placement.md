@@ -4,7 +4,7 @@ Generato da `generatori/build_pcb.sh`. Solo placement, **nessuna pista**. Immagi
 
 ## Scheda
 
-- **100 x 125 mm** (la versione SSD è 120 x 143): accorciata dove c'era la M.2. Angoli raggiati 3 mm, quattro fori NPTH da 2.2 mm a 4 mm dai bordi con keepout di raggio 3.2 mm.
+- **80 x 100 mm** (Michele, 2026-11-02; la versione SSD è 120 x 143). Angoli raggiati 3 mm, quattro fori NPTH da 2.2 mm a 4 mm dai bordi con keepout di raggio 3.2 mm.
 - **4 strati**, stackup JLC04161H-3313 da 1.6 mm: F.Cu segnali, In1 GND, In2 alimentazioni a isole, B.Cu segnali.
 - Piste minime 0.127 mm (5 mil), distanza 0.1 mm, via 0.45/0.2 mm con dogbone sotto le BGA.
 - 232 componenti: 231 sul top, la microSD J5 sul bottom. Nessun pad fuori sagoma (controllato a parte: il DRC ha regole di bordo a 0 mm per SMA, USB-C e microSD).
@@ -40,7 +40,7 @@ Sul bottom **57 segnali su 60 canali**: margine piccolo, come nella versione SSD
 | Bordo alto | J12 MAIN, J11 BUS_POWER, ESD e passivi sotto |
 | In alto a sinistra | U35 Wi-Fi + U.FL J14; sul bottom J5 microSD |
 | Bordo destro | J1 RJ45 con U7 PHY e Y3 subito a sinistra |
-| A destra del SoC | buck U26, U27, U23 |
+| A destra del SoC | buck U26, U27; U23 sotto l'RJ45 |
 | In basso a sinistra | U11 NEO-M9N, J4 SMA, J7 |
 | Bordo basso | J3 e J8 USB-C affiancate, BT1 sopra; a destra U22/L1 12 -> 5 V e U17 |
 
@@ -51,7 +51,8 @@ Sul bottom **57 segnali su 60 canali**: margine piccolo, come nella versione SSD
 ## Da rivedere in layout
 
 - Disaccoppiamento di U1 solo sul top: fuori dal package, come nella versione SSD.
-- 12 V da J11 a U22 circa 109 mm in linea d'aria: pista larga o isola su In2, oppure spostare U22.
-- RMII SoC-PHY circa 32 mm, USB2 verso U10 circa 49 mm in linea d'aria.
+- 12 V da J11 a U22 circa 87.2 mm in linea d'aria: pista larga o isola su In2.
+- Alcuni passivi del bus (R403-R408) stanno sopra l'RJ45, fino a 44 mm da J12: linee lente, ma da riavvicinare a mano se serve.
+- RMII SoC-PHY circa 21.1 mm, USB2 verso U10 circa 43.8 mm in linea d'aria.
 - Bus QSPI condiviso tra U5 e U40: tratti corti e simili verso i due chip.
 - Sotto il pad centrale di U40 niente via scoperte (datasheet Winbond).

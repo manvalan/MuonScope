@@ -7,6 +7,8 @@ Variante di `../SchedaIMX6ULL/` senza SSD: niente M.2, bridge JMS578, buck dell'
 - USB-C 1 device/download seriale e alimentazione, USB-C 2 host diretta su USB_OTG2
 - Ethernet 10/100, Wi-Fi/BT SDIO, GNSS NEO-M9N con PPS ed EXTINT su GPT1, bus MIKILAB
 
+La NAND è la W25N04KVZEIR. Ripieghi sulla stessa impronta WSON-8 8x6, se serve meno capacità o la 512 MB non si trova: W25N02KV (256 MB) e W25N01GV (128 MB), entrambe a 3.3 V. Non W25N04KW o W25N04LW, che sono a 1.8 V.
+
 | Percorso | Cosa |
 |---|---|
 | `progetto-kicad/` | Progetto KiCad 10 `SchedaIMX6ULL-SD.kicad_pro` |
@@ -25,5 +27,5 @@ sh SchedaIMX6ULL-SD/generatori/build_pcb.sh
 ## Stato
 
 - Schema gerarchico, **ERC 0 violazioni**.
-- PCB **100 x 125 mm, 4 strati**, solo placement, **DRC 0 violazioni, parità schema/PCB 0 problemi**. 232 componenti, di cui 177 passivi.
+- PCB **80 x 100 mm, 4 strati**, solo placement, **DRC 0 violazioni, parità schema/PCB 0 problemi**. 232 componenti, di cui 177 passivi.
 - **Non sbrogliato**: il fanout a 4 strati è solo stimato, con margine piccolo.
