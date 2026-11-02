@@ -69,7 +69,7 @@ Freerouting non si è potuto usare: scaricare ed eseguire Java e il router ester
 | Sotto il SoC, a sinistra | U2 DDR3L ruotata, righe dati verso il SoC. Corridoio libero per gli indirizzi |
 | Bordo alto | J12 MAIN, J11 BUS_POWER, con ESD e passivi sotto i connettori |
 | In alto a sinistra | U35 Wi-Fi + U.FL J14; sul bottom J5 microSD |
-| Bordo destro | J1 RJ45, U7 PHY e Y3 tra SoC e RJ45 |
+| Bordo destro | J1 RJ45 con U7 PHY e Y3 subito a sinistra della porta |
 | Destra | J13 M.2, SSD 2242 verso il basso (sagoma su F.Fab), foro H5 |
 | Tra SoC e M.2 | U38 JMS578, U36 hub, buck U26/U27/U39 |
 | In basso a sinistra | U11 NEO-M9N, J4 SMA, J7: lontani da Wi-Fi e buck |
@@ -84,6 +84,7 @@ Freerouting non si è potuto usare: scaricare ed eseguire Java e il router ester
 
 - **Disaccoppiamento di U1 solo sul top**: i condensatori sui rail `_CAP` restano a circa 8-12 mm dalla sfera più vicina, per le sfere al centro del package e la corona di fanout. Il bottom sotto il BGA li porterebbe molto più vicino: da valutare con Michele.
 - 12 V VIN_SYS da J11 a U22 è lungo circa 130 mm con questa disposizione: pista larga o isola su In2, oppure spostare U22 verso J11.
+- PHY accanto all'RJ45: coppie TX/RX circa 9-12 mm, ma RMII dal SoC al PHY circa 49 mm in linea d'aria, a 50 MHz: linee in gruppo e di lunghezza simile, serie sul REF_CLK vicino al PHY.
 - USB dal SoC alle USB-C circa 75 mm, più lunghe di prima con la scheda grande.
 - Distanza dello zoccolo M.2 dal foro H5 (41.75 mm) dedotta dai footprint: da controllare sul disegno del connettore scelto.
 - Lunghezze DDR, impedenze USB e SATA, separazione delle isole su In2 da definire in sbroglio.

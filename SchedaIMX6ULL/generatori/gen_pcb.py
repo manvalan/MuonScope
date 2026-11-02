@@ -346,8 +346,8 @@ MED = {  # componenti con zona preferita (cx, cy), coordinate assolute dall'ango
     "U5": (32.0, 34.0), "U25": (8.0, 40.0), "Y1": (SOC_CX + 11.5, SOC_CY + 6.0), "Y2": (SOC_CX + 11.5, SOC_CY + 2.0),
     # USB: hub e bridge tra il SoC e lo zoccolo M.2
     "U9": (50.0, 130.0), "U10": (62.0, 130.0), "U24": (72.0, 128.0), "U36": (62.0, 92.0), "Y4": (54.0, 94.0), "D4": (28.0, 95.0), "L7": (84.0, 60.0), "U38": (84.0, 66.0), "Y5": (80.0, 72.0),
-    # rete
-    "U7": (68.0, 40.0), "Y3": (68.0, 46.0), "FB1": (76.0, 34.0), "U6": (78.0, 46.0),
+    # rete: PHY subito a sinistra dell'RJ45, le coppie TX/RX restano cortissime
+    "U7": (91.0, 30.0), "Y3": (91.0, 37.0), "FB1": (91.0, 23.0), "U6": (78.0, 46.0),
     # Wi-Fi
     "U37": (8.0, 46.0), "J14": (5.0, 41.0),
     # GNSS, tasti e header
