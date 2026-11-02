@@ -10,7 +10,7 @@ Scheda Linux con NXP **i.MX 6ULL** (MCIMX6Y2CVM08AB, MAPBGA-289 14x14 passo 0.8)
 | `docs/scelte-progetto.md` | Fonti, assegnazione dei pin, differenze dalla BOM, **punti da verificare** |
 | `docs/pcb-placement.md` | Scheda, stackup, regole, stima di fanout, esito DRC |
 | `docs/pinmap-imx6ull.md` | Mappa sfera per sfera con la net |
-| `generatori/` | Script Python: `build.sh` rifà lo schema, `build_pcb.sh` il PCB, `fanout.py` la stima di fanout |
+| `generatori/` | Script Python: `build.sh` rifà lo schema, `build_pcb.sh` il PCB, `fanout.py` la stima di fanout, `prova_fanout.py` la prova con router a griglia |
 
 Servono python3, KiCad 10 e la libreria [MIKILAB](https://github.com/manvalan/mikilab-kicad-library) (variabile `MIKILAB`, o clonata in `~/Develop/mikilab-kicad-library`).
 
@@ -22,5 +22,6 @@ sh SchedaIMX6ULL/generatori/build_pcb.sh
 ## Stato
 
 - Schema: **ERC 0 violazioni** (KiCad 10.0.7), nessuna net con un solo pin.
-- PCB: **80 x 95 mm, 6 strati**, solo placement. **DRC 0 violazioni, parità schema/PCB 0 problemi**; non c'è nessuna pista.
-- **Non sbrogliato**: il fanout è solo stimato (vedi `docs/pcb-placement.md`).
+- PCB: **120 x 143 mm, 4 strati**, solo placement. **DRC 0 violazioni, parità schema/PCB 0 problemi**; non c'è nessuna pista.
+- 272 componenti, di cui 210 passivi (minimo 0603).
+- **Non sbrogliato**: i 4 strati sono una scelta di Michele; il fanout è solo stimato e il margine è piccolo (vedi `docs/pcb-placement.md`).

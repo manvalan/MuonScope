@@ -1,7 +1,7 @@
 """Crea SchedaIMX6ULL.kicad_pcb dalla netlist (solo placement, niente piste).
 
 Uso, con il Python di KiCad:  python3 gen_pcb.py netlist.net progetto-kicad
-Scheda W x H con angoli raggiati 3 mm, 4 fori NPTH 2.2 mm con keepout, 6 strati (S-GND-S-PWR-GND-S, 1.6 mm). Tutti i componenti sul top,
+Scheda W x H con angoli raggiati 3 mm, 4 fori NPTH 2.2 mm con keepout, 4 strati (stackup JLC04161H-3313). Tutti i componenti sul top,
 tranne lo slot microSD J5. I componenti principali hanno una posizione fissa (PLACE, MED); i passivi vengono messi vicino al componente
 con cui condividono piu' net, fuori da una corona libera attorno a SoC e DDR3L che resta al fanout.
 """
@@ -19,17 +19,17 @@ from kilib import FPLIB, PROJ, LIBNAME, mik_fp_dir
 NET, PRJ = sys.argv[1], sys.argv[2]
 OUT = os.path.join(PRJ, f"{PROJ}.kicad_pcb")
 STD = FPLIB
-W, H, RAD = float(os.environ.get("BOARD_W", 80)), float(os.environ.get("BOARD_H", 95)), 3.0
-OX, OY = 100.0, 100.0
+W, H, RAD = float(os.environ.get("BOARD_W", 120)), float(os.environ.get("BOARD_H", 143)), 3.0
+OX, OY = 30.0, 30.0   # la scheda deve stare nel foglio A4 dell'export PDF
 HOLES = [(4, 4), (W - 4, 4), (4, H - 4), (W - 4, H - 4)]
 HOLE_KEEP = 3.2
-FANOUT_SOC, FANOUT_DDR = 1.6, 1.0     # corona libera per il fanout sul top attorno a U1 e U2
+FANOUT_SOC, FANOUT_DDR = 2.5, 2.0     # corona libera per il fanout sul top attorno a U1 e U2
 mm = pcbnew.FromMM
 V = lambda x, y: pcbnew.VECTOR2I(mm(OX + x), mm(OY + y))
 
 comps, nets = netlist.read(NET)
 board = pcbnew.NewBoard(OUT)
-board.SetCopperLayerCount(6)
+board.SetCopperLayerCount(4)
 ds = board.GetDesignSettings()
 ds.SetBoardThickness(mm(1.6))
 ds.m_TrackMinWidth = mm(0.127)        # 5 mil
@@ -159,25 +159,25 @@ def facing(ref, side, want):
 # ---------------- posizioni dei componenti principali (coordinate locali, mm; y verso il basso) -------------------
 # SoC con A1 in alto a sinistra: DRAM su sinistra e in basso a sinistra, USB in basso a destra, ENET1/UART a destra, SD1/NAND/CSI in alto a sinistra.
 L_, R_, U_, D_ = (-1, 0), (1, 0), (0, -1), (0, 1)
-SOC_CX, SOC_CY = 29.0, 36.0
+SOC_CX, SOC_CY = 45.0, 55.0
 SOC_RECT = (SOC_CX - 7, SOC_CY - 7, SOC_CX + 7, SOC_CY + 7)
-M2_CX, M2_CY = W - 12.5, 37.0               # centro dello zoccolo J13: SSD verso il basso, foro a 41.75 mm (fine carta a 42 mm dal bordo con i contatti)
+M2_CX, M2_CY = W - 13.0, 50.0               # centro dello zoccolo J13: SSD verso il basso, foro a 41.75 mm (fine carta a 42 mm dal bordo con i contatti)
 M2_HOLE = (M2_CX, M2_CY + 41.75)
 SSD_RECT = (M2_CX - 11, M2_CY + 4, M2_CX + 11, M2_CY + 41.75 + 1.2)
 PLACE = {
     "U1": dict(rot=0, cx=SOC_CX, cy=SOC_CY),                     # i.MX 6ULL, A1 in alto a sinistra
-    "U2": dict(rot=270, cx=16.0, top=46.0),                      # DDR3L in basso a sinistra del SoC, 14 x 9
-    "J11": dict(face=U_, left=30.0, top=0.3),                     # BUS_POWER sul bordo alto
-    "J12": dict(face=U_, left=9.4, top=0.4),                    # MAIN sul bordo alto
-    "J5": dict(face=L_, side="B", left=0.0, top=9.0),            # microSD sul bottom, bordo sinistro
-    "J1": dict(face=R_, right=W, top=12.0),                       # RJ45 sul bordo destro
+    "U2": dict(rot=270, cx=SOC_CX - 13.0, top=SOC_CY + 10.0),                      # DDR3L in basso a sinistra del SoC, 14 x 9
+    "J11": dict(face=U_, left=50.0, top=0.3),                     # BUS_POWER sul bordo alto
+    "J12": dict(face=U_, left=15.0, top=0.4),                    # MAIN sul bordo alto
+    "J5": dict(face=L_, side="B", left=0.0, top=14.0),            # microSD sul bottom, bordo sinistro
+    "J1": dict(face=R_, right=W, top=20.0),                       # RJ45 sul bordo destro
     "J13": dict(rot=0, cx=M2_CX, cy=M2_CY),                      # zoccolo M.2 con l'SSD verso il basso
-    "J3": dict(face=D_, cx=25.0 + (W - 70) / 2, bottom=H),                      # USB-C 1 sul bordo basso
-    "J8": dict(face=D_, cx=36.0 + (W - 70) / 2, bottom=H),                      # USB-C 2 affiancata
-    "U11": dict(rot=0, left=2.0, top=64.0),                      # NEO-M9N in basso a sinistra, lontano da Wi-Fi e buck
-    "J4": dict(rot=180, cy=84.2, left=-1.77),                     # SMA a bordo scheda: pad a cavallo dei due lati sul bordo sinistro, corpo fuori dalla scheda (bordo a 2.7 mm dal centro dei pad)
-    "U35": dict(rot=0, left=2.2, top=9.0),                       # Wi-Fi in alto a sinistra, sopra la microSD sul bottom
-    "BT1": dict(rot=0, cx=30.0 + (W - 70) / 2, cy=H - 16.5),                        # CR1220
+    "J3": dict(face=D_, cx=50.0, bottom=H),                      # USB-C 1 sul bordo basso
+    "J8": dict(face=D_, cx=62.0, bottom=H),                      # USB-C 2 affiancata
+    "U11": dict(rot=0, left=4.0, top=100.0),                      # NEO-M9N in basso a sinistra, lontano da Wi-Fi e buck
+    "J4": dict(rot=180, cy=120.2, left=-1.77),                     # SMA a bordo scheda: pad a cavallo dei due lati sul bordo sinistro, corpo fuori dalla scheda (bordo a 2.7 mm dal centro dei pad)
+    "U35": dict(rot=0, left=4.0, top=15.0),                       # Wi-Fi in alto a sinistra, sopra la microSD sul bottom
+    "BT1": dict(rot=0, cx=45.0, cy=120.0),                        # CR1220
 }
 for ref, a in PLACE.items():
     a = dict(a)
@@ -244,8 +244,8 @@ for ref, m in (("U1", FANOUT_SOC), ("U2", FANOUT_DDR)):
     x0, y0, x1, y1 = crtyd_only(FP[ref])
     occ["T"].append((x0 - m, y0 - m, x1 + m, y1 + m))
 
-occ["T"].append((8.0, 39.0, 21.0, 46.0))    # corridoio indirizzi DRAM tra il lato sinistro del SoC e la DDR3L
-GAP = 0.2                                  # spazio tra i courtyard dei passivi, per le piste sul top
+occ["T"].append((SOC_CX - 21.0, SOC_CY + 3.0, SOC_CX - 8.0, SOC_CY + 10.0))    # corridoio indirizzi DRAM tra il lato sinistro del SoC e la DDR3L
+GAP = 1.0                                  # spazio tra i courtyard dei passivi, per le piste sul top
 
 
 
@@ -335,24 +335,24 @@ def try_place(ref, cx, cy, side="T", maxr=30):
 
 ALLOW_SSD = False
 placed = set(PLACE)
-MED = {  # componenti con zona preferita (cx, cy), coordinate assolute dall'angolo in alto a sinistra
+MED = {  # componenti con zona preferita (cx, cy), coordinate assolute dall'angolo in alto a sinistra; ogni induttore accanto al suo buck
     # 12 -> 5 V e mux in basso a destra accanto alla USB-C 1 e lontani dal GNSS; 3.3 V sopra il PHY
-    "U22": (51.0, 89.0), "L1": (57.0, 89.0), "U17": (64.0, 89.0), "U23": (41.0, 16.0), "L2": (46.0, 16.0), "D1": (21.0, 89.0),
+    "U22": (85.0, 130.0), "L1": (92.0, 130.0), "U17": (104.0, 130.0), "U23": (62.0, 25.0), "L2": (68.0, 25.0), "D1": (38.0, 134.0),
     # buck dei rail: a destra del SoC, lontani dal GNSS
-    "U26": (51.5, 45.0), "L3": (51.5, 49.5), "U27": (51.5, 54.5), "L4": (51.5, 59.0), "U39": (52.0, 66.0), "L5": (52.0, 70.5), "U28": (16.0, 26.0),
+    "U26": (75.0, 65.0), "L3": (75.0, 70.5), "U27": (75.0, 80.0), "L4": (75.0, 85.5), "U39": (82.0, 100.0), "L5": (82.0, 105.5), "U28": (26.0, 42.0),
     # ESD del bus sotto i connettori: U29-U31 linee BUS_POWER, U32-U34 linee MAIN
-    "U29": (33.0, 9.5), "U30": (38.0, 9.5), "U31": (43.0, 9.5), "U32": (19.0, 9.5), "U33": (24.0, 9.5), "U34": (28.0, 9.5),
+    "U29": (55.0, 10.0), "U30": (61.0, 10.0), "U31": (67.0, 10.0), "U32": (20.0, 10.0), "U33": (26.0, 10.0), "U34": (32.0, 10.0),
     # memorie: QSPI sopra il SoC, quarzi vicino alle sfere XTAL e RTC
-    "U5": (19.0, 22.0), "U25": (5.0, 26.0), "Y1": (39.5, 42.0), "Y2": (39.5, 38.0),
+    "U5": (32.0, 34.0), "U25": (8.0, 40.0), "Y1": (SOC_CX + 11.5, SOC_CY + 6.0), "Y2": (SOC_CX + 11.5, SOC_CY + 2.0),
     # USB: hub e bridge tra il SoC e lo zoccolo M.2
-    "U9": (30.0, 84.0), "U10": (41.0, 84.0), "U24": (50.0, 82.0), "U36": (46.0, 62.0), "Y4": (40.0, 64.0), "D4": (22.0, 66.0), "L7": (46.0, 49.0), "U38": (47.5, 54.0), "Y5": (42.0, 49.0),
+    "U9": (50.0, 130.0), "U10": (62.0, 130.0), "U24": (72.0, 128.0), "U36": (62.0, 92.0), "Y4": (54.0, 94.0), "D4": (28.0, 95.0), "L7": (84.0, 60.0), "U38": (84.0, 66.0), "Y5": (80.0, 72.0),
     # rete
-    "U7": (44.0, 26.0), "Y3": (44.0, 31.0), "FB1": (50.0, 22.0), "U6": (52.0, 30.0),
+    "U7": (68.0, 40.0), "Y3": (68.0, 46.0), "FB1": (76.0, 34.0), "U6": (78.0, 46.0),
     # Wi-Fi
-    "U37": (5.0, 32.0), "J14": (3.0, 29.0),
+    "U37": (8.0, 46.0), "J14": (5.0, 41.0),
     # GNSS, tasti e header
-    "U20": (5.0, 60.0), "U19": (10.0, 60.0), "D2": (13.5, 88.0), "D3": (16.0, 88.0), "L6": (10.0, 84.5), "J7": (13.0, 92.0),
-    "J6": (18.0, 60.0), "SW1": (3.0, 58.0), "SW2": (3.0, 54.0), "TP1": (17.0, 66.0), "TP2": (17.0, 70.0),
+    "U20": (8.0, 92.0), "U19": (16.0, 92.0), "D2": (20.0, 128.0), "D3": (24.0, 128.0), "L6": (14.0, 124.0), "J7": (16.0, 138.0),
+    "J6": (28.0, 90.0), "SW1": (5.0, 85.0), "SW2": (5.0, 80.0), "TP1": (26.0, 103.0), "TP2": (26.0, 108.0),
 }
 missing = []
 for ref, (cx, cy) in MED.items():
@@ -366,7 +366,7 @@ GRUPPI = json.load(open(os.path.join(SC, "imx6ull_gruppi.json")))
 # gruppo di passivi (inizio del titolo) -> componente vicino; l'ordine e' la priorita': prima cio' che deve stare vicino ai pin
 VICINO = [("Carico 24", "Y1"), ("Carico RTC", "Y2"), ("VDD_ARM_CAP", "U1"), ("VDD_HIGH_CAP", "U1"), ("VDD_SOC_IN", "U1"), ("NVCC_DRAM", "U1"), ("VDD_SNVS_IN", "U1"), ("VDD_HIGH_IN", "U1"), ("VREF, ZQ", "U2"), ("VDD / VDDQ", "U2"),
           ("PHY:", "U7"), ("JMS578", "U38"), ("SATA", "U38"), ("Wi-Fi", "U35"), ("QSPI", "U5"), ("microSD", "U25"), ("U26", "U26"), ("U27", "U27"), ("U23", "U23"), ("U39", "U39"), ("TPS56637", "U22"), ("TPS2121", "U17"),
-          ("Hub", "U36"), ("Bias", "U11"), ("Timing", "U19"), ("POR_B", "U28"), ("CC sink", "J3"), ("J8 host", "U24"), ("EEPROM", "U6"), ("Serie SPI", "J11"), ("Serie ADDR", "J12"), ("Livelli", "J12"), ("ID 000", "J12"),
+          ("Hub", "U36"), ("Bias", "U11"), ("Timing", "U19"), ("POR_B", "U28"), ("CC sink", "J3"), ("J8 host", "U24"), ("EEPROM", "U6"), ("Serie SPI", "J11"), ("Livelli", "J12"),
           ("Disaccoppiamento", "J11"), ("Boot", "U1"), ("Pull-up open", "U1"), ("M.2", "J13")]
 
 
@@ -384,6 +384,30 @@ def dist(ref, a):
     return math.hypot(x - ax, y - ay)
 
 
+NET_OF = {}
+for n_, nodes_ in nets.items():
+    for r_, _p in nodes_:
+        NET_OF.setdefault(r_, []).append(n_)
+TURNO = {}
+
+
+def target(ref, a):
+    """Punto di partenza del passivo: il pad del componente vicino sulla net in comune, a turno se i pad sono piu' d'uno (massa esclusa)."""
+    for n_ in NET_OF.get(ref, []):
+        if n_.endswith("GND_D"):
+            continue
+        pins_ = [p_ for r_, p_ in nets[n_] if r_ == a]
+        if pins_:
+            k_ = TURNO.get((a, n_), 0)
+            TURNO[(a, n_)] = k_ + 1
+            num = pins_[k_ % len(pins_)]
+            for pad in FP[a].Pads():
+                if pad.GetNumber() == num:
+                    q = pad.GetPosition()
+                    return pcbnew.ToMM(q.x) - OX, pcbnew.ToMM(q.y) - OY
+    return center_of(FP[a])
+
+
 rest = sorted((r for r in FP if r not in placed), key=lambda r: (group_anchor(r)[0], r))
 far = []
 for ssd_ok in (False, True):
@@ -394,7 +418,8 @@ for ssd_ok in (False, True):
         if a is None:
             continue
         ALLOW_SSD = ssd_ok or GRUPPI.get(ref, "").startswith("M.2")
-        if try_place(ref, *center_of(FP[a]), "T", 90 if ssd_ok else 25):
+        GAP = 0.3 if a in ("U1", "U2") else 0.8   # il disaccoppiamento di SoC e DDR il piu' vicino possibile alle sfere
+        if try_place(ref, *target(ref, a), "T", 90 if ssd_ok else 25):
             placed.add(ref)
             far.append((round(dist(ref, a), 1), ref, a))
 for ref in FP:
@@ -446,7 +471,7 @@ def hole(ref, hx, hy, keep=True):
     z.SetDoNotAllowPads(False)
     z.SetDoNotAllowFootprints(False)
     ls = pcbnew.LSET()
-    for L in (pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.In3_Cu, pcbnew.In4_Cu, pcbnew.B_Cu):
+    for L in (pcbnew.F_Cu, pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu):
         ls.AddLayer(L)
     z.SetLayerSet(ls)
     z.SetZoneName(f"KEEPOUT_{ref}")
@@ -480,7 +505,7 @@ board.Add(t_)
 
 pcbnew.SaveBoard(OUT, board)
 
-# stackup a 6 strati nel file (il binding Python non lo espone); spessori nominali, da allineare al configuratore del produttore
+# stackup JLC04161H-3313 nel file (il binding Python non lo espone)
 STACKUP = """(stackup
 \t\t\t(layer "F.SilkS" (type "Top Silk Screen"))
 \t\t\t(layer "F.Paste" (type "Top Solder Paste"))
@@ -488,13 +513,9 @@ STACKUP = """(stackup
 \t\t\t(layer "F.Cu" (type "copper") (thickness 0.035))
 \t\t\t(layer "dielectric 1" (type "prepreg") (thickness 0.0994) (material "3313") (epsilon_r 4.1) (loss_tangent 0.02))
 \t\t\t(layer "In1.Cu" (type "copper") (thickness 0.0152))
-\t\t\t(layer "dielectric 2" (type "core") (thickness 0.5) (material "FR4") (epsilon_r 4.6) (loss_tangent 0.02))
+\t\t\t(layer "dielectric 2" (type "core") (thickness 1.265) (material "FR4") (epsilon_r 4.6) (loss_tangent 0.02))
 \t\t\t(layer "In2.Cu" (type "copper") (thickness 0.0152))
-\t\t\t(layer "dielectric 3" (type "prepreg") (thickness 0.24) (material "FR4") (epsilon_r 4.4) (loss_tangent 0.02))
-\t\t\t(layer "In3.Cu" (type "copper") (thickness 0.0152))
-\t\t\t(layer "dielectric 4" (type "core") (thickness 0.5) (material "FR4") (epsilon_r 4.6) (loss_tangent 0.02))
-\t\t\t(layer "In4.Cu" (type "copper") (thickness 0.0152))
-\t\t\t(layer "dielectric 5" (type "prepreg") (thickness 0.0994) (material "3313") (epsilon_r 4.1) (loss_tangent 0.02))
+\t\t\t(layer "dielectric 3" (type "prepreg") (thickness 0.0994) (material "3313") (epsilon_r 4.1) (loss_tangent 0.02))
 \t\t\t(layer "B.Cu" (type "copper") (thickness 0.035))
 \t\t\t(layer "B.Mask" (type "Bottom Solder Mask") (thickness 0.0152))
 \t\t\t(layer "B.Paste" (type "Bottom Solder Paste"))
@@ -506,7 +527,7 @@ STACKUP = """(stackup
 t = open(OUT).read()
 t = re.sub(r"\(stackup.*?\(pad_to_mask_clearance", STACKUP + "(pad_to_mask_clearance", t, count=1, flags=re.S) if "(stackup" in t else \
     re.sub(r"\(setup\s*", "(setup\n\t\t" + STACKUP, t, count=1)
-for lname, alias in (("In1.Cu", "GND"), ("In3.Cu", "PWR"), ("In4.Cu", "GND2")):   # In2.Cu resta di segnale
+for lname, alias in (("In1.Cu", "GND"), ("In2.Cu", "PWR")):
     t, n_ = re.subn(r'\((\d+) "%s" signal\)' % re.escape(lname), r'(\1 "%s" power "%s")' % (lname, alias), t)
     assert n_ == 1, lname
 open(OUT, "w").write(t)

@@ -6,6 +6,17 @@ F = "(effects (font (size 1.27 1.27)) (justify {j}))"
 G = lambda v: round(v / 1.27) * 1.27
 U = lambda: str(uuid.uuid4())
 R0603, C0603 = "Resistor_SMD:R_0603_1608Metric", "Capacitor_SMD:C_0603_1608Metric"
+C0805, C1206 = "Capacitor_SMD:C_0805_2012Metric", "Capacitor_SMD:C_1206_3216Metric"
+RAIL_5V = ("5V_BUCK", "5V_SYS", "VBUS1", "VBUS2")
+
+
+def cap_fp(val, a, b):
+    """0603 e' il minimo: bulk piu' grandi, per spazio e per il DC bias (47 uF, 22 uF sui rail a 5 V e 10 uF/25 V in 1206, altri 22 uF e 10 uF in 0805)."""
+    if val.startswith(("47uF", "10uF/25V")) or (val.startswith("22uF") and (a in RAIL_5V or b in RAIL_5V)):
+        return C1206
+    if val.startswith(("22uF", "10uF")):
+        return C0805
+    return C0603
 SHEETS = []
 GROUPS = {}   # riferimento del passivo -> titolo del gruppo (per il placement)
 
@@ -172,7 +183,7 @@ class Sheet:
             if kind == "R":
                 self.place("Device:R", ref, val, R0603, px, py, {"1": a, "2": b}, dnp=dnp)
             else:
-                self.place("Device:C", ref, val, C0603, px, py, {"1": a, "2": b}, dnp=dnp)
+                self.place("Device:C", ref, val, cap_fp(val, a, b), px, py, {"1": a, "2": b}, dnp=dnp)
             out.append(ref)
         return out
 

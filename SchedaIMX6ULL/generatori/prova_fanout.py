@@ -1,6 +1,7 @@
 """Prova di fanout di U1 e DDR3L con un router a griglia (negotiated congestion). Non scrive nulla sul PCB: la scheda resta solo placement.
 
 Uso: python3 prova_fanout.py progetto-kicad/SchedaIMX6ULL.kicad_pcb F,B|F,In2,B out.json [out.png] [iterazioni]
+Eseguita sul placement 80 x 95 mm del 2026-11-02 (commit 6aba93a): zona e allineamenti sono fissati per quella posizione di U1 e U2 e vanno adattati.
 Griglia 0.1 mm allineata alle sfere di U1 (U2 spostata di 0.06 mm in y per stare in griglia). Pista 0.127, distanza 0.1, via 0.45/0.2.
 - Net DDR con pin su U1 e U2: instradate da sfera a sfera, senza accordo delle lunghezze e senza coppie differenziali accoppiate.
 - Altri segnali di U1: devono solo uscire dalla zona BGA + 3 mm (fanout), il resto dello sbroglio non e' provato.

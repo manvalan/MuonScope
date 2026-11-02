@@ -9,10 +9,10 @@ Le ALT dei pad usati sono in `docs/scelte-progetto.md`. Le sfere con net `-` res
 | A2 | SD1_DATA3 | NVCC_SD | SD1_D3 |
 | A3 | NAND_READY_B | NVCC_NAND | QSPI_D0 |
 | A4 | NAND_CLE | NVCC_NAND | QSPI_D3 |
-| A5 | NAND_DATA07 | NVCC_NAND | SOC_PREFIX_0 |
-| A6 | NAND_DATA06 | NVCC_NAND | SOC_ADDR_2 |
+| A5 | NAND_DATA07 | NVCC_NAND | MAIN_SPI_PREFIX_0 |
+| A6 | NAND_DATA06 | NVCC_NAND | MAIN_SPI_ADDR_2 |
 | A7 | NAND_DATA02 | NVCC_NAND | SD2_D2 |
-| A8 | LCD_CLK | NVCC_LCD | SOC_PREFIX_2 |
+| A8 | LCD_CLK | NVCC_LCD | MAIN_SPI_PREFIX_2 |
 | A9 | LCD_DATA01 | NVCC_LCD | - |
 | A10 | LCD_DATA06 | NVCC_LCD | BOOT_CFG1_6 |
 | A11 | LCD_DATA09 | NVCC_LCD | - |
@@ -25,9 +25,9 @@ Le ALT dei pad usati sono in `docs/scelte-progetto.md`. Le sfere con net `-` res
 | B1 | SD1_DATA2 | NVCC_SD | SD1_D2 |
 | B2 | SD1_DATA1 | NVCC_SD | SD1_D1 |
 | B3 | SD1_DATA0 | NVCC_SD | SD1_D0 |
-| B4 | NAND_ALE | NVCC_NAND | SOC_PREFIX_1 |
+| B4 | NAND_ALE | NVCC_NAND | MAIN_SPI_PREFIX_1 |
 | B5 | NAND_CE1_B | NVCC_NAND | QSPI_D2 |
-| B6 | NAND_DATA05 | NVCC_NAND | SOC_ADDR_1 |
+| B6 | NAND_DATA05 | NVCC_NAND | MAIN_SPI_ADDR_1 |
 | B7 | NAND_DATA01 | NVCC_NAND | SD2_D1 |
 | B8 | LCD_ENABLE | NVCC_LCD | MAIN_SPI_ALERT_N |
 | B9 | LCD_DATA00 | NVCC_LCD | - |
@@ -44,7 +44,7 @@ Le ALT dei pad usati sono in `docs/scelte-progetto.md`. Le sfere con net `-` res
 | C3 | VSS | alimentazione | GND_D |
 | C4 | NVCC_SD1 | alimentazione | 3V3 |
 | C5 | NAND_CE0_B | NVCC_NAND | QSPI_D1 |
-| C6 | NAND_DATA04 | NVCC_NAND | SOC_ADDR_0 |
+| C6 | NAND_DATA04 | NVCC_NAND | MAIN_SPI_ADDR_0 |
 | C7 | VSS | alimentazione | GND_D |
 | C8 | NAND_WE_B | NVCC_NAND | SD2_CMD |
 | C9 | LCD_VSYNC | NVCC_LCD | VREF_ENABLE |
@@ -56,8 +56,8 @@ Le ALT dei pad usati sono in `docs/scelte-progetto.md`. Le sfere con net `-` res
 | C15 | VSS | alimentazione | GND_D |
 | C16 | ENET2_RX_DATA1 | NVCC_ENET | BT_DIS_N |
 | C17 | ENET2_RX_DATA0 | NVCC_ENET | WL_DIS_N |
-| D1 | CSI_DATA07 | NVCC_CSI | ECSPI1_MISO |
-| D2 | CSI_DATA06 | NVCC_CSI | ECSPI1_MOSI |
+| D1 | CSI_DATA07 | NVCC_CSI | MAIN_SPI_MISO |
+| D2 | CSI_DATA06 | NVCC_CSI | MAIN_SPI_MOSI |
 | D3 | CSI_DATA05 | NVCC_CSI | MAIN_SPI_CS_MASTER |
 | D4 | CSI_DATA04 | NVCC_CSI | ECSPI1_SCLK |
 | D5 | NAND_WP_B | NVCC_NAND | QSPI_SCLK_S |
@@ -106,7 +106,7 @@ Le ALT dei pad usati sono in `docs/scelte-progetto.md`. Le sfere con net `-` res
 | F14 | ENET1_TX_CLK | NVCC_ENET | RMII_REFCLK |
 | F15 | ENET1_TX_EN | NVCC_ENET | RMII_TXEN |
 | F16 | ENET1_RX_DATA0 | NVCC_ENET | RMII_RXD0 |
-| F17 | UART5_TX_DATA | NVCC_UART | ECSPI2_MOSI |
+| F17 | UART5_TX_DATA | NVCC_UART | PWR_SPI_MOSI |
 | G1 | DRAM_ADDR14 | NVCC_DRAM | DDR_A14 |
 | G2 | DRAM_ADDR06 | NVCC_DRAM | DDR_A6 |
 | G3 | VSS | alimentazione | GND_D |
@@ -119,7 +119,7 @@ Le ALT dei pad usati sono in `docs/scelte-progetto.md`. Le sfere con net `-` res
 | G10 | VDD_ARM_CAP | alimentazione | VDD_ARM_CAP |
 | G11 | VDD_ARM_CAP | alimentazione | VDD_ARM_CAP |
 | G12 | VSS | alimentazione | GND_D |
-| G13 | UART5_RX_DATA | NVCC_UART | ECSPI2_MISO |
+| G13 | UART5_RX_DATA | NVCC_UART | PWR_SPI_MISO |
 | G14 | UART3_RTS_B | NVCC_UART | WL_WAKE_HOST |
 | G15 | VSS | alimentazione | GND_D |
 | G16 | UART4_RX_DATA | NVCC_UART | PWR_SPI_INA239A_CS |

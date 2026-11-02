@@ -37,8 +37,24 @@ Footprint di progetto in `Scheda.pretty`: BL-M8723DS1, e copie corrette di SMA, 
 - **Strap BOOT_CFG**: non ~20 resistenze. La tabella 78 dà pull-down interni da 100k, quindi tutti bassi senza componenti; solo BOOT_MODE e due pull-up DNP.
 - **Aggiunti**: J14 U.FL con rete pi, L5 (buck SSD), L7 (JMS578), L6, FB1, TP1, TP2, H5. Y5 30 MHz, come da datasheet.
 - **Bluetooth su UART8**: UART2 serve a GPT1 CAPTURE1/2.
-- **Condensatori tutti 0603**, anche 22 uF/10 V e 10 uF/25 V al posto dei 0805/1206 delle altre schede.
-- **Scheda 80 x 95**, vedi `pcb-placement.md`. BOM non modificata: va aggiornata con queste voci.
+- **Passivi 0603 come minimo**: 47 uF e 10 uF/25 V in 1206, 22 uF e 10 uF in 0805.
+- **Scheda 120 x 143**, vedi `pcb-placement.md`. BOM non modificata: va aggiornata con queste voci.
+
+## Sfoltimento dei passivi (2026-11-02): da 272 a 210
+
+| Tolti | Pezzi | Conseguenza |
+|---|---|---|
+| Pull-up CMD/DAT di microSD e Wi-Fi | 10 | **Pull-up interni del 6ULL da impostare nel device tree**. CD conservato |
+| Bulk dei buck: 14 x 22 uF in 2 x 47 uF (U22), 1 x 47 uF (U17, U23, U39), 1 x 22 uF (U26, U27) | 7 | TLV62569: 10-47 uF ammessi dal datasheet |
+| 33R su MOSI/MISO, 100R su ADDR/PREFIX | 10 | Solo i clock SPI hanno la serie |
+| Pull-up CS e FAULT del bus | 5 | **Pull-up interni da device tree; CS non definiti durante il boot** |
+| 0R SPI_ID, ponte GND_A, schermo RJ45, condensatori BUS_3V3/BUS_5V | 7 | SPI_ID e schermo a GND diretti; GND_A solo passante tra J11 e J12 |
+| DNP BUCK_MODE e BOOT_MODE | 3 | Forzare il download seriale richiede un filo; il ROM ci va da solo con QSPI vuota |
+| Disaccoppiamento: VDD_SOC_IN, VDD_HIGH_IN/NVCC, NVCC_DRAM, VDD_SNVS_IN, DDR3L | 10 | Vedi punto 10 |
+| Altri condensatori doppi (JMS578, M.2, hub, PHY, Wi-Fi, ingressi U17 e U23) | 10 | |
+
+Conservati: partitori di feedback, 49.9R Ethernet, carico dei quarzi, CC USB-C, ZQ e VREF DDR, rete pi del Wi-Fi, DNP di BOOT_CFG1[4] e [6] (lo strap QSPI non è confermato, punto 2).
+
 
 ## Punti da verificare
 
@@ -49,8 +65,8 @@ Footprint di progetto in `Scheda.pretty`: BL-M8723DS1, e copie corrette di SMA, 
 5. **JMS578 senza reference**: VCCO da AV33O, VREG_IN a 5 V, nessuna NVRAM SPI e temperatura ambiente 0-70 C (il SoC è -40..105 C). Da provare sul prototipo.
 6. **Y5, J13**: parte da scegliere; footprint J13 TE 2199119-4, Y5 3225 generico.
 7. **CR1220-2**: nel footprint di libreria non c'è il segno di polarità; assunto pad 1 = +. **Verificare sul disegno Seiko**.
-8. **22 uF 0603 a 5 V** perde gran parte della capacità (DC bias): controllare le curve per il buck 5 V. Valori di compensazione TPS56637 calcolati per i 22 uF nominali.
+8. **Bulk dei buck**: i valori di compensazione del TPS56637 sono per 4 x 22 uF nominali, ora 2 x 47 uF; controllare stabilità e range di uscita ammesso per TPS56637 e TPS563201 sui rispettivi datasheet.
 9. **Carichi dei quarzi** (18 pF, 12 pF, 15 pF) stimati, CL da confermare per ogni parte.
-10. **CK DDR 100R** differenziale: scelta da confermare in simulazione o con la Hardware Development Guide NXP, non scaricata. Capacità sui rail `_CAP` riprese dalla scheda aperta, non dalla Guide.
+10. **Hardware Development Guide NXP non trovata** (link NXP 404, forum bloccato): il disaccoppiamento non è confrontato con la sua Tabella 9. Un tecnico NXP avverte che cambiare quei valori può compromettere suspend/resume, quindi i rail `_CAP` restano ai valori della scheda aperta e i tagli sono su VDD_SOC_IN, NVCC e DDR3L. **Da confrontare con la Tabella 9**, come il CK DDR da 100R.
 11. **ESD microSD**: U25 copre solo DAT0-3.
 12. **LED di J1**: polarità da verificare; se invertita, solo i LED non si accendono.

@@ -1,7 +1,7 @@
 """Schema della scheda i.MX 6ULL: fogli CPU, DDR3L, Alimentazione, Bus MIKILAB, Storage, USB, Rete, Radio, GNSS.
 Uso: python3 gen_sch.py ../progetto-kicad
 I riferimenti dei componenti in BOM sono quelli di bom/bom-imx6ull.csv; i passivi sono numerati per foglio (R1xx CPU, R2xx DDR, ...).
-Tutte le resistenze e i condensatori sono 0603 (Sheet.group)."""
+Resistenze 0603; condensatori 0603 minimo, bulk 0805 e 1206 (kisheet.cap_fp)."""
 import json
 import os
 import re
@@ -53,12 +53,12 @@ NET = {
     # I2C1 EEPROM MAC (GPIO1_IO02/03), I2C2 bus MIKILAB (pad CSI)
     "GPIO1_IO02": "I2C1_SCL", "GPIO1_IO03": "I2C1_SDA", "CSI_HSYNC": "MAIN_I2C_SCL", "CSI_VSYNC": "MAIN_I2C_SDA",
     # BUS_POWER su ECSPI2 (pad UART4/UART5, per alleggerire il fanout del lato DRAM del BGA), MAIN su ECSPI1 (pad CSI_DATA04-07), CS extra via cs-gpios
-    "UART4_TX_DATA": "ECSPI2_SCLK", "UART4_RX_DATA": "PWR_SPI_INA239A_CS", "UART5_TX_DATA": "ECSPI2_MOSI", "UART5_RX_DATA": "ECSPI2_MISO",
+    "UART4_TX_DATA": "ECSPI2_SCLK", "UART4_RX_DATA": "PWR_SPI_INA239A_CS", "UART5_TX_DATA": "PWR_SPI_MOSI", "UART5_RX_DATA": "PWR_SPI_MISO",
     "UART2_CTS_B": "PWR_SPI_INA239B_CS", "UART2_RTS_B": "PWR_SPI_DAC_CS",
-    "CSI_DATA04": "ECSPI1_SCLK", "CSI_DATA05": "MAIN_SPI_CS_MASTER", "CSI_DATA06": "ECSPI1_MOSI", "CSI_DATA07": "ECSPI1_MISO",
+    "CSI_DATA04": "ECSPI1_SCLK", "CSI_DATA05": "MAIN_SPI_CS_MASTER", "CSI_DATA06": "MAIN_SPI_MOSI", "CSI_DATA07": "MAIN_SPI_MISO",
     # linee lente del bus su GPIO
-    "NAND_DATA04": "SOC_ADDR_0", "NAND_DATA05": "SOC_ADDR_1", "NAND_DATA06": "SOC_ADDR_2", "NAND_DATA07": "SOC_PREFIX_0",
-    "NAND_ALE": "SOC_PREFIX_1", "LCD_CLK": "SOC_PREFIX_2", "LCD_ENABLE": "MAIN_SPI_ALERT_N", "LCD_HSYNC": "MAIN_HIT_N",
+    "NAND_DATA04": "MAIN_SPI_ADDR_0", "NAND_DATA05": "MAIN_SPI_ADDR_1", "NAND_DATA06": "MAIN_SPI_ADDR_2", "NAND_DATA07": "MAIN_SPI_PREFIX_0",
+    "NAND_ALE": "MAIN_SPI_PREFIX_1", "LCD_CLK": "MAIN_SPI_PREFIX_2", "LCD_ENABLE": "MAIN_SPI_ALERT_N", "LCD_HSYNC": "MAIN_HIT_N",
     "LCD_VSYNC": "VREF_ENABLE", "LCD_RESET": "VBIAS_ENABLE", "ENET2_RX_EN": "DAC61402_FAULT",
     # controlli Wi-Fi/BT
     "ENET2_RX_DATA0": "WL_DIS_N", "ENET2_RX_DATA1": "BT_DIS_N", "UART3_RTS_B": "WL_WAKE_HOST", "UART3_CTS_B": "BT_WAKE_HOST", "UART1_CTS_B": "BT_HOST_WAKE",
@@ -115,18 +115,18 @@ s.group("VDD_ARM_CAP / VDD_SOC_CAP: uscite LDO interni, solo condensatori", [("C
         ("C", "22uF", "VDD_SOC_CAP", GND), ("C", "1uF", "VDD_SOC_CAP", GND), ("C", "1uF", "VDD_SOC_CAP", GND), ("C", "1uF", "VDD_SOC_CAP", GND)])
 s.group("VDD_HIGH_CAP (a NVCC_DRAM_2P5), NVCC_PLL, VDD_SNVS_CAP, VDD_USB_CAP", [("C", "10uF", "VDD_HIGH_CAP", GND), ("C", "1uF", "VDD_HIGH_CAP", GND), ("C", "1uF", "VDD_HIGH_CAP", GND),
         ("C", "10uF", "NVCC_PLL", GND), ("C", "1uF", "NVCC_PLL", GND), ("C", "1uF", "VDD_SNVS_CAP", GND), ("C", "10uF", "VDD_USB_CAP", GND), ("C", "1uF", "VDD_USB_CAP", GND)])
-s.group("VDD_SOC_IN 1.4 V", [("C", "22uF", V14, GND), ("C", "10uF", V14, GND)] + [("C", "100nF", V14, GND)] * 3)
-s.group("VDD_HIGH_IN e NVCC 3.3 V (una per dominio: CSI, ENET, GPIO, LCD, NAND, SD1, UART), ADC", [("C", "22uF", V33, GND), ("C", "1uF", V33, GND)] + [("C", "100nF", V33, GND)] * 8)
-s.group("NVCC_DRAM 1.35 V (lato SoC)", [("C", "22uF", V135, GND)] + [("C", "100nF", V135, GND)] * 4)
-s.group("VDD_SNVS_IN", [("C", "1uF", SNVS, GND), ("C", "100nF", SNVS, GND)])
+s.group("VDD_SOC_IN 1.4 V", [("C", "22uF", V14, GND)] + [("C", "100nF", V14, GND)] * 2)
+s.group("VDD_HIGH_IN e NVCC 3.3 V: un 100 nF per dominio (CSI, ENET, GPIO, LCD, NAND, SD1, UART)", [("C", "22uF", V33, GND)] + [("C", "100nF", V33, GND)] * 7)
+s.group("NVCC_DRAM 1.35 V (lato SoC)", [("C", "22uF", V135, GND)] + [("C", "100nF", V135, GND)] * 3)
+s.group("VDD_SNVS_IN", [("C", "1uF", SNVS, GND)])
 Y1_ID, Y1_FP = s.mik("X322524MOB4SI")
 s.ic(Y1_ID, "Y1", "24MHz", Y1_FP, {"1": "XTALI", "3": "XTALO", "2": GND, "4": GND}, mpn="X322524MOB4SI")
 s.group("Carico 24 MHz (CL da verificare sul quarzo YXC)", [("C", "18pF", "XTALI", GND), ("C", "18pF", "XTALO", GND)])
 Y2_ID, Y2_FP = s.mik("Q13FC1350000400")
 s.ic(Y2_ID, "Y2", "32.768kHz", f"{LIBNAME}:" + Y2_FP.split(":")[1], {"1": "RTC_XTALI", "2": "RTC_XTALO"}, mpn="Q13FC13500004", lcsc="C32346")
 s.group("Carico RTC: circa 2xCL meno parassite (datasheet, tabella 3)", [("C", "12pF", "RTC_XTALI", GND), ("C", "12pF", "RTC_XTALO", GND)])
-s.group("Boot: BOOT_MODE=10 (DNP per forzare 01 = download seriale); BOOT_CFG1[4] e [6] DNP; JTAG_MOD a GND con 4.7k (tabella 3); BOOT_MODE riferiti a VDD_SNVS",
-        [("R", "10k", "BOOT_MODE1", SNVS), ("R", "10k", "BOOT_MODE1", GND, True), ("R", "10k", "BOOT_MODE0", GND), ("R", "10k", "BOOT_MODE0", SNVS, True),
+s.group("Boot: BOOT_MODE=10, riferiti a VDD_SNVS; BOOT_CFG1[4] e [6] DNP finche' lo strap QSPI non e' confermato sulla fuse map; JTAG_MOD a GND con 4.7k (tabella 3)",
+        [("R", "10k", "BOOT_MODE1", SNVS), ("R", "10k", "BOOT_MODE0", GND),
          ("R", "10k", "BOOT_CFG1_4", V33, True), ("R", "10k", "BOOT_CFG1_6", V33, True), ("R", "4.7k", "JTAG_MOD", GND)])
 SW_ID, SW_FP = s.mik("TS-1088-AR02016")
 s.ic(SW_ID, "SW1", "RESET", SW_FP, {"1": "POR_B", "2": GND}, mpn="TS-1088-AR02016", lcsc="C720477")
@@ -160,47 +160,47 @@ d.ic(f"{LIBNAME}:MT41K512M16HA", "U2", "MT41K512M16HA-107:A", "Package_BGA:Micro
      {q[0]: ddr.get(q[1], "NC") for q in d.pins[f"{LIBNAME}:MT41K512M16HA"]}, mpn="MT41K512M16HA-107:A")
 d.group("VREF, ZQ, pull-down", [("R", "1k 0.5%", V135, "DDR_VREF"), ("R", "1k 0.5%", "DDR_VREF", GND), ("C", "100nF", V135, "DDR_VREF"), ("C", "100nF", "DDR_VREF", GND),
         ("R", "240R 1%", "DDR_ZQ", GND), ("R", "240R 1%", "SOC_DDR_ZQ", GND), ("R", "10k", "DDR_RESET_N", GND), ("R", "10k", "DDR_CKE", GND), ("R", "100R", "DDR_CK_P", "DDR_CK_N")])
-d.group("VDD / VDDQ 1.35 V", [("C", "22uF", V135, GND), ("C", "22uF", V135, GND)] + [("C", "100nF", V135, GND)] * 8)
+d.group("VDD / VDDQ 1.35 V", [("C", "22uF", V135, GND)] + [("C", "100nF", V135, GND)] * 5)
 d.flags(["DDR_VREF"])
 
 # ================================ Alimentazione ==========================================================================================
 p = Sheet("Alimentazione", "alimentazione.kicad_sch", 300, 4)
 p.note("VIN_SYS 12 V dal BUS_POWER -> TPS56637 5 V (U22) -> TPS2121 U17 (IN1 bus con priorita, IN2 VBUS USB-C 1) -> 5V_SYS -> buck 3.3 V (U23), 1.35 V DDR (U26), 1.4 V VDD_SOC_IN (U27), 3.3 V SSD (U39).")
 p.note("Sequenza 3.3 -> 1.35 -> 1.4 V a RC sugli EN del TLV62569 (soglia EN max 1.2 V): 100k/470nF circa 21 ms, 100k/1uF circa 45 ms. POR_B dal TPS3839K33 (2.93 V, push-pull) con 1k in serie, cosi' SW1 puo' cortocircuitare POR_B.")
-p.note("VDD_SNVS: OR a diodi BAT54C tra 3V3 e CR1220 (BT1), alimenta anche V_BCKP del GNSS. Nessuna ricarica della pila. Tutti i condensatori 0603 (22uF/10V, 10uF/25V X5R).")
+p.note("VDD_SNVS: OR a diodi BAT54C tra 3V3 e CR1220 (BT1), alimenta anche V_BCKP del GNSS. Nessuna ricarica della pila. Passivi 0603 minimo; 47 uF e 10 uF/25 V in 1206, 22 uF e 10 uF in 0805.")
 B, BF = p.mik("TPS56637RPAR")
 p.std("Device:L"), p.std("Diode:BAT54C"), p.std("Power_Supervisor:TPS3839DBZ")
-p.ic(B, "U22", "TPS56637RPAR", BF, {"8": "VIN_SYS", "1": "BUCK_EN", "2": "BUCK_FB", "10": "BUCK_MODE", "4": "BUCK_PG", "5": "NC", "7": "BUCK_BST", "6": "BUCK_SW", "3": GND, "9": GND},
+p.ic(B, "U22", "TPS56637RPAR", BF, {"8": "VIN_SYS", "1": "BUCK_EN", "2": "BUCK_FB", "10": "NC", "4": "BUCK_PG", "5": "NC", "7": "BUCK_BST", "6": "BUCK_SW", "3": GND, "9": GND},
      mpn="TPS56637RPAR", lcsc="C841386")
 p.ic("Device:L", "L1", "3.3uH/8A", "Inductor_SMD:L_Coilcraft_XAL6030-XXX", {"1": "BUCK_SW", "2": "5V_BUCK"}, mpn="XAL6030-332MEC")
-p.group("TPS56637: EN 169k/36.1k, FB 73.2k/10k = 4.99 V, FF 20k+100pF, MODE aperto = FCCM (come schede Octavo/RK3568)", [
+p.group("TPS56637: EN 169k/36.1k, FB 73.2k/10k = 4.99 V, FF 20k+100pF, MODE aperto = FCCM, 2x47 uF al posto di 4x22 uF", [
     ("C", "10uF/25V", "VIN_SYS", GND), ("C", "10uF/25V", "VIN_SYS", GND), ("C", "100nF/50V", "VIN_SYS", GND), ("R", "169k 1%", "VIN_SYS", "BUCK_EN"), ("R", "36.1k 1%", "BUCK_EN", GND),
-    ("R", "10k", "BUCK_MODE", GND, True), ("R", "100k", "5V_BUCK", "BUCK_PG"), ("C", "100nF", "BUCK_BST", "BUCK_SW"), ("R", "73.2k 1%", "5V_BUCK", "BUCK_FB"), ("R", "10k 1%", "BUCK_FB", GND),
-    ("R", "20k", "5V_BUCK", "BUCK_FF"), ("C", "100pF", "BUCK_FF", "BUCK_FB"), ("C", "22uF/10V", "5V_BUCK", GND), ("C", "22uF/10V", "5V_BUCK", GND), ("C", "22uF/10V", "5V_BUCK", GND), ("C", "22uF/10V", "5V_BUCK", GND)])
+    ("R", "100k", "5V_BUCK", "BUCK_PG"), ("C", "100nF", "BUCK_BST", "BUCK_SW"), ("R", "73.2k 1%", "5V_BUCK", "BUCK_FB"), ("R", "10k 1%", "BUCK_FB", GND),
+    ("R", "20k", "5V_BUCK", "BUCK_FF"), ("C", "100pF", "BUCK_FF", "BUCK_FB"), ("C", "47uF/10V", "5V_BUCK", GND), ("C", "47uF/10V", "5V_BUCK", GND)])
 M, MF = p.mik("TPS2121RUXR")
 p.ic(M, "U17", "TPS2121RUXR", MF, {"7": "5V_BUCK", "6": "MUX_PR1", "5": "MUX_OV1", "2": "VBUS1", "4": "MUX_OV2", "3": GND, "1": V5, "8": V5, "9": "PWR_SRC_ST", "10": "MUX_ILM", "11": "MUX_SS", "12": GND},
      mpn="TPS2121RUXR", lcsc="C485916")
 p.group("TPS2121 (come RK3568): PR1 4.49 V, OV 5.98 V, ILM 22.1k = 4-5 A, SS 100 nF", [
     ("R", "32.4k 1%", "5V_BUCK", "MUX_PR1"), ("R", "10k 1%", "MUX_PR1", GND), ("R", "46.4k 1%", "5V_BUCK", "MUX_OV1"), ("R", "10k 1%", "MUX_OV1", GND), ("R", "46.4k 1%", "VBUS1", "MUX_OV2"), ("R", "10k 1%", "MUX_OV2", GND),
-    ("R", "22.1k 1%", "MUX_ILM", GND), ("C", "100nF", "MUX_SS", GND), ("C", "1uF/10V", "5V_BUCK", GND), ("C", "1uF/10V", "VBUS1", GND), ("C", "22uF/10V", V5, GND), ("C", "22uF/10V", V5, GND), ("C", "1uF/10V", V5, GND)])
+    ("R", "22.1k 1%", "MUX_ILM", GND), ("C", "100nF", "MUX_SS", GND), ("C", "1uF/10V", "5V_BUCK", GND), ("C", "1uF/10V", "VBUS1", GND), ("C", "47uF/10V", V5, GND)])
 T, TF = p.mik("TPS563201DDCR")
 p.ic(T, "U23", "TPS563201DDCR", TF, {"VIN": V5, "EN": "U23_EN", "GND": GND, "SW": "U23_SW", "VBST": "U23_BST", "VFB": "U23_FB"}, mpn="TPS563201DDCR", lcsc="C116592")
 p.ic("Device:L", "L2", "2.2uH/4A", "Inductor_SMD:L_Coilcraft_XAL4020-XXX", {"1": "U23_SW", "2": V33}, mpn="XAL4020-222")
-p.group("U23 3.3 V / 3 A: FB 33.2k/10k = 3.32 V, primo della sequenza", [("C", "10uF/16V", V5, GND), ("C", "100nF", V5, GND), ("R", "100k", V5, "U23_EN"), ("C", "100nF", "U23_BST", "U23_SW"),
-        ("R", "33.2k 1%", V33, "U23_FB"), ("R", "10k 1%", "U23_FB", GND), ("C", "22uF/10V", V33, GND), ("C", "22uF/10V", V33, GND)])
+p.group("U23 3.3 V / 3 A: FB 33.2k/10k = 3.32 V, primo della sequenza", [("C", "10uF/16V", V5, GND), ("R", "100k", V5, "U23_EN"), ("C", "100nF", "U23_BST", "U23_SW"),
+        ("R", "33.2k 1%", V33, "U23_FB"), ("R", "10k 1%", "U23_FB", GND), ("C", "47uF/10V", V33, GND)])
 TL, TLF = p.mik("TLV62569DBVR")
 p.ic(TL, "U26", "TLV62569DBVR", TLF, {"1": "U26_EN", "2": GND, "3": "U26_SW", "4": V5, "5": "U26_FB"}, mpn="TLV62569DBVR")
 p.ic("Device:L", "L3", "2.2uH/3A", "Inductor_SMD:L_Coilcraft_XAL4020-XXX", {"1": "U26_SW", "2": V135}, mpn="XAL4020-222")
 p.group("U26 1.35 V DDR: FB 150k/120k (0.6 V x 2.25), EN 100k/470nF da 3V3", [("C", "10uF/10V", V5, GND), ("R", "100k", V33, "U26_EN"), ("C", "470nF", "U26_EN", GND), ("R", "150k 1%", V135, "U26_FB"), ("R", "120k 1%", "U26_FB", GND),
-        ("C", "22uF/10V", V135, GND), ("C", "22uF/10V", V135, GND)])
+        ("C", "22uF/10V", V135, GND)])
 p.ic(TL, "U27", "TLV62569DBVR", TLF, {"1": "U27_EN", "2": GND, "3": "U27_SW", "4": V5, "5": "U27_FB"}, mpn="TLV62569DBVR")
 p.ic("Device:L", "L4", "2.2uH/3A", "Inductor_SMD:L_Coilcraft_XAL4020-XXX", {"1": "U27_SW", "2": V14}, mpn="XAL4020-222")
 p.group("U27 1.4 V VDD_SOC_IN: FB 133k/100k = 1.398 V (min 1.375 V, 125 mV sopra VDD_ARM_CAP), EN 100k/1uF da 3V3", [("C", "10uF/10V", V5, GND), ("R", "100k", V33, "U27_EN"), ("C", "1uF", "U27_EN", GND), ("R", "133k 1%", V14, "U27_FB"), ("R", "100k 1%", "U27_FB", GND),
-        ("C", "22uF/10V", V14, GND), ("C", "22uF/10V", V14, GND)])
+        ("C", "22uF/10V", V14, GND)])
 p.ic(T, "U39", "TPS563201DDCR", TF, {"VIN": V5, "EN": "U39_EN", "GND": GND, "SW": "U39_SW", "VBST": "U39_BST", "VFB": "U39_FB"}, mpn="TPS563201DDCR", lcsc="C116592")
 p.ic("Device:L", "L5", "2.2uH/4A", "Inductor_SMD:L_Coilcraft_XAL4020-XXX", {"1": "U39_SW", "2": "3V3_SSD"}, mpn="XAL4020-222")
 p.group("U39 3.3 V SSD, sempre acceso", [("C", "10uF/16V", V5, GND), ("R", "100k", V5, "U39_EN"), ("C", "100nF", "U39_BST", "U39_SW"), ("R", "33.2k 1%", "3V3_SSD", "U39_FB"), ("R", "10k 1%", "U39_FB", GND),
-        ("C", "22uF/10V", "3V3_SSD", GND), ("C", "22uF/10V", "3V3_SSD", GND)])
+        ("C", "47uF/10V", "3V3_SSD", GND)])
 p.ic("Power_Supervisor:TPS3839DBZ", "U28", "TPS3839K33DBZR", "Package_TO_SOT_SMD:SOT-23", {"1": GND, "2": "POR_DRV", "3": V33}, mpn="TPS3839K33DBZR")
 p.group("POR_B", [("R", "1k", "POR_DRV", "POR_B"), ("C", "100nF", V33, GND)])
 BAT, BATF = p.mik("CR1220-2")
@@ -211,10 +211,10 @@ p.flags(["VIN_SYS", "5V_BUCK", V5, V33, V135, V14, "3V3_SSD", SNVS, "VBUS1", GND
 # ================================ Bus MIKILAB ===============================================================================================
 b = Sheet("Bus MIKILAB", "bus-mikilab.kicad_sch", 400, 5)
 b.note("J11 BUS_POWER 30 pin (Hirose FH12-30S) su ECSPI2, J12 MAIN 28 pin REV5.1 (XUNPU FPC-05F-28PH20, pin 28 = HIT#) su ECSPI1. Mappa dei connettori identica a SchedaA133/RK3568. Rail BUS_* passanti, non collegati ai rail della scheda.")
-b.note("Serie 33R su CLK/MOSI/MISO, 100R su ADDR/PREFIX, pull-up 10k sui CS, 4.7k su ALERT#/HIT#, 2.2k su I2C. VREF_ENABLE 10k e VBIAS_ENABLE 100k a GND. ESD TPD4E05U06DQA sulle linee logiche.")
+b.note("Serie 33R solo sui clock SPI. Pull-up 4.7k su ALERT#/HIT#, 2.2k su I2C. VREF_ENABLE 10k e VBIAS_ENABLE 100k a GND. CS e FAULT con i pull-up interni del 6ULL (pad control nel device tree). SPI_ID a GND diretti. ESD TPD4E05U06DQA sulle linee logiche.")
 MAIN = {1: GND, 2: "BUS_5V", 3: "BUS_3V3", 4: GND, 5: "BUS_2V5_REF", 6: "BUS_1V25_REF", 7: "GND_A", 8: "BUS_VBIAS_1", 9: "BUS_VBIAS_2", 10: GND, 11: "MAIN_SPI_SCLK", 12: "MAIN_SPI_MOSI",
         13: "MAIN_SPI_MISO", 14: "MAIN_I2C_SDA", 15: "MAIN_I2C_SCL", 16: GND, 17: "MAIN_SPI_CS_MASTER", 18: "MAIN_SPI_ADDR_0", 19: "MAIN_SPI_ADDR_1", 20: "MAIN_SPI_ADDR_2", 21: "MAIN_SPI_PREFIX_0",
-        22: "MAIN_SPI_PREFIX_1", 23: "MAIN_SPI_PREFIX_2", 24: "MAIN_SPI_ALERT_N", 25: "SPI_ID_0", 26: "SPI_ID_1", 27: "SPI_ID_2", 28: "MAIN_HIT_N"}
+        22: "MAIN_SPI_PREFIX_1", 23: "MAIN_SPI_PREFIX_2", 24: "MAIN_SPI_ALERT_N", 25: GND, 26: GND, 27: GND, 28: "MAIN_HIT_N"}
 PWR = {1: "GND_A", 2: "BUS_VBIAS_1", 3: "BUS_VBIAS_2", 4: "GND_A", 5: "BUS_2V5_REF", 6: "BUS_1V25_REF", 7: "GND_A", 8: "BUS_5V", 9: "BUS_3V3", 10: GND, 11: "PWR_SPI_SCLK", 12: "PWR_SPI_MOSI",
        13: "PWR_SPI_MISO", 14: GND, 15: "PWR_SPI_INA239A_CS", 16: "PWR_SPI_INA239B_CS", 17: "PWR_SPI_DAC_CS", 18: "VREF_ENABLE", 19: "VBIAS_ENABLE", 20: "DAC61402_FAULT", 21: GND,
        22: GND, 23: GND, 24: "VIN_SYS", 25: "VIN_SYS", 26: "VIN_SYS", 27: GND, 28: GND, 29: "BUS_3V3", 30: GND}
@@ -222,12 +222,8 @@ FH, FHF = b.mik("FH12-30S-0.5SH")
 FP_, FPF = b.mik("FPC-05F-28PH20")
 b.ic(FH, "J11", "BUS_POWER_MIKILAB", FHF, {str(k): (PWR[k] if k in PWR else GND) for k in range(1, 40)}, mpn="FH12-30S-0.5SH", lcsc="C506793")
 b.ic(FP_, "J12", "BUS_MIKILAB_MAIN", FPF, {str(k): (MAIN[k] if k in MAIN else GND) for k in range(1, 40)}, mpn="FPC-05F-28PH20", lcsc="C2856807")
-ser = [("ECSPI2_SCLK", "PWR_SPI_SCLK"), ("ECSPI2_MOSI", "PWR_SPI_MOSI"), ("ECSPI2_MISO", "PWR_SPI_MISO"), ("ECSPI1_SCLK", "MAIN_SPI_SCLK"), ("ECSPI1_MOSI", "MAIN_SPI_MOSI"), ("ECSPI1_MISO", "MAIN_SPI_MISO")]
-b.group("Serie SPI 33R", [("R", "33R", x, y) for x, y in ser])
-b.group("Serie ADDR/PREFIX 100R", [("R", "100R", f"SOC_ADDR_{i}", f"MAIN_SPI_ADDR_{i}") for i in range(3)] + [("R", "100R", f"SOC_PREFIX_{i}", f"MAIN_SPI_PREFIX_{i}") for i in range(3)])
-b.group("Livelli di riposo", [("R", "10k", V33, "PWR_SPI_INA239A_CS"), ("R", "10k", V33, "PWR_SPI_INA239B_CS"), ("R", "10k", V33, "PWR_SPI_DAC_CS"), ("R", "10k", V33, "MAIN_SPI_CS_MASTER"), ("R", "10k", "VREF_ENABLE", GND), ("R", "100k", "VBIAS_ENABLE", GND),
-        ("R", "10k", V33, "DAC61402_FAULT"), ("R", "4.7k", V33, "MAIN_SPI_ALERT_N"), ("R", "4.7k", V33, "MAIN_HIT_N"), ("R", "2.2k", V33, "MAIN_I2C_SCL"), ("R", "2.2k", V33, "MAIN_I2C_SDA")])
-b.group("ID 000 su J_OUT (testa della catena); GND_A-GND_D ponte apribile, DNP", [("R", "0R", "SPI_ID_0", GND), ("R", "0R", "SPI_ID_1", GND), ("R", "0R", "SPI_ID_2", GND), ("R", "0R", "GND_A", GND, True)])
+b.group("Serie SPI 33R, solo clock", [("R", "33R", "ECSPI2_SCLK", "PWR_SPI_SCLK"), ("R", "33R", "ECSPI1_SCLK", "MAIN_SPI_SCLK")])
+b.group("Livelli di riposo", [("R", "10k", "VREF_ENABLE", GND), ("R", "100k", "VBIAS_ENABLE", GND), ("R", "4.7k", V33, "MAIN_SPI_ALERT_N"), ("R", "4.7k", V33, "MAIN_HIT_N"), ("R", "2.2k", V33, "MAIN_I2C_SCL"), ("R", "2.2k", V33, "MAIN_I2C_SDA")])
 BUSNETS = ["PWR_SPI_SCLK", "PWR_SPI_MOSI", "PWR_SPI_MISO", "PWR_SPI_INA239A_CS", "PWR_SPI_INA239B_CS", "PWR_SPI_DAC_CS", "VREF_ENABLE", "VBIAS_ENABLE", "DAC61402_FAULT", "MAIN_SPI_SCLK", "MAIN_SPI_MOSI", "MAIN_SPI_MISO",
            "MAIN_I2C_SDA", "MAIN_I2C_SCL", "MAIN_SPI_CS_MASTER", "MAIN_SPI_ADDR_0", "MAIN_SPI_ADDR_1", "MAIN_SPI_ADDR_2", "MAIN_SPI_PREFIX_0", "MAIN_SPI_PREFIX_1", "MAIN_SPI_PREFIX_2", "MAIN_SPI_ALERT_N", "MAIN_HIT_N"]
 b.std("Power_Protection:TPD4E05U06DQA")
@@ -235,7 +231,7 @@ for k in range(6):
     g_ = BUSNETS[4 * k: 4 * k + 4]
     b.ic("Power_Protection:TPD4E05U06DQA", f"U{29 + k}", "TPD4E05U06DQAR", "Package_SON:USON-10_2.5x1.0mm_P0.5mm",
          {"1": g_[0], "2": g_[1], "4": g_[2] if len(g_) > 2 else "NC", "5": g_[3] if len(g_) > 3 else "NC", "3": GND, "8": GND}, mpn="TPD4E05U06DQAR")
-b.group("Disaccoppiamento connettori", [("C", "100nF", "VIN_SYS", GND), ("C", "100nF", "BUS_3V3", GND), ("C", "100nF", "BUS_5V", GND)])
+b.group("Disaccoppiamento connettori", [("C", "100nF", "VIN_SYS", GND)])
 b.flags(["GND_A", "BUS_3V3", "BUS_5V"])
 
 # ================================ Storage: QSPI, microSD, JMS578, M.2 =====================================================================
@@ -248,7 +244,7 @@ m.ic("Memory_Flash:W25Q128JVS", "U5", "W25Q128JVSIQ", "Package_SO:SOIC-8_5.3x5.3
 m.group("QSPI: 22R su SCLK, pull-up 10k su CS/IO2/IO3", [("R", "22R", "QSPI_SCLK_S", "QSPI_SCLK"), ("R", "10k", V33, "QSPI_CS_N"), ("R", "10k", V33, "QSPI_D2"), ("R", "10k", V33, "QSPI_D3"), ("C", "100nF", V33, GND)])
 SD, SDF = m.mik("DM3AT-SF-PEJM5")
 m.ic(SD, "J5", "DM3AT-SF-PEJM5", SDF, {"1": "SD1_D2", "2": "SD1_D3", "3": "SD1_CMD", "4": V33, "5": "SD1_CLK", "6": GND, "7": "SD1_D0", "8": "SD1_D1", "9": "SD1_CD_N", "11": GND, "10": GND, "12": GND, "13": GND, "14": GND}, mpn="DM3AT-SF-PEJM5", lcsc="C114218")
-m.group("microSD: 22R su CLK, pull-up 10k", [("R", "22R", "SD1_CLK_S", "SD1_CLK")] + [("R", "10k", V33, n_) for n_ in ("SD1_CMD", "SD1_D0", "SD1_D1", "SD1_D2", "SD1_D3", "SD1_CD_N")] + [("C", "10uF", V33, GND), ("C", "100nF", V33, GND)])
+m.group("microSD: 22R su CLK, pull-up 10k su CD; CMD e DAT con i pull-up interni del 6ULL", [("R", "22R", "SD1_CLK_S", "SD1_CLK"), ("R", "10k", V33, "SD1_CD_N")] + [("C", "10uF", V33, GND), ("C", "100nF", V33, GND)])
 m.std("Power_Protection:TPD4E05U06DQA")
 m.ic("Power_Protection:TPD4E05U06DQA", "U25", "TPD4E05U06DQAR", "Package_SON:USON-10_2.5x1.0mm_P0.5mm", {"1": "SD1_D0", "2": "SD1_D1", "4": "SD1_D2", "5": "SD1_D3", "3": GND, "8": GND}, mpn="TPD4E05U06DQAR")
 J = [("1", "TME", "L"), ("2", "GPIO0", "L"), ("3", "GPIO1", "L"), ("4", "VCCK", "L"), ("5", "GPIO2", "L"), ("6", "GPIO3", "L"), ("7", "VCCO", "L"), ("8", "GPIO4", "L"), ("9", "GPIO5", "L"), ("10", "VCCK", "L"), ("11", "GPIO6", "L"), ("12", "VBUS", "L"),
@@ -263,7 +259,7 @@ m.std("Device:L"), m.std("Device:Crystal_GND24")
 m.ic("Device:L", "L7", "4.7uH", "Inductor_SMD:L_Coilcraft_XAL4020-XXX", {"1": "JMS_LX", "2": "JMS_1V2"})
 m.ic("Device:Crystal_GND24", "Y5", "30MHz", "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", {"1": "JMS_XIN", "3": "JMS_XOUT", "2": GND, "4": GND}, mpn="da scegliere: 3225 30 MHz +-30 ppm")
 m.group("JMS578", [("R", "12k 1%", "JMS_REXT", GND), ("R", "10k", "JMS_TME", GND), ("R", "10k", "JMS_MODE1", GND), ("R", "10k", "JMS_3V3", "JMS_MODE0"), ("R", "10k", "JMS_3V3", "JMS_RST_N"), ("C", "1uF", "JMS_RST_N", GND),
-        ("C", "10uF", V5, GND), ("C", "1uF", "JMS_3V3", GND), ("C", "100nF", "JMS_3V3", GND), ("C", "100nF", "JMS_3V3", GND), ("C", "10uF", "JMS_1V2", GND), ("C", "10uF", "JMS_1V2", GND)] + [("C", "100nF", "JMS_1V2", GND)] * 4 + [("C", "18pF", "JMS_XIN", GND), ("C", "18pF", "JMS_XOUT", GND)])
+        ("C", "10uF", V5, GND), ("C", "1uF", "JMS_3V3", GND), ("C", "100nF", "JMS_3V3", GND), ("C", "10uF", "JMS_1V2", GND), ("C", "10uF", "JMS_1V2", GND)] + [("C", "100nF", "JMS_1V2", GND)] * 2 + [("C", "18pF", "JMS_XIN", GND), ("C", "18pF", "JMS_XOUT", GND)])
 m.group("SATA: 10 nF serie (datasheet)", [("C", "10nF", "JMS_TXP", "SATA_TXP"), ("C", "10nF", "JMS_TXN", "SATA_TXN"), ("C", "10nF", "JMS_RXP", "SATA_RXP"), ("C", "10nF", "JMS_RXN", "SATA_RXN")])
 M2_NUM = list(range(1, 59)) + list(range(67, 76))
 M2_NAME = {41: "SATA_B+", 43: "SATA_B-", 47: "SATA_A-", 49: "SATA_A+", 38: "DEVSLP", 69: "PEDET", 10: "DAS"}
@@ -275,7 +271,7 @@ M2P = [(str(n_), M2_NAME.get(n_, f"NC{n_}"), "L" if n_ % 2 else "R") for n_ in M
 m.add_sym(f"{LIBNAME}:M.2_Key_M", box_symbol(LIBNAME, "M.2_Key_M", M2P, "Zoccolo M.2 key M, solo SSD SATA"))
 M2N = {"GND": GND, "MP": GND, "3V3": "3V3_SSD", "SATA_B+": "SATA_RXP", "SATA_B-": "SATA_RXN", "SATA_A+": "SATA_TXP", "SATA_A-": "SATA_TXN", "DEVSLP": "SATA_DEVSLP"}
 m.ic(f"{LIBNAME}:M.2_Key_M", "J13", "M.2 key M", "Connector_PCBEdge:TE_M.2_M_2x38-1MP_P0.5mm", M2N, mpn="da scegliere: M.2 M-key H 4.2 mm")
-m.group("M.2", [("R", "10k", "SATA_DEVSLP", GND), ("C", "22uF/10V", "3V3_SSD", GND), ("C", "22uF/10V", "3V3_SSD", GND), ("C", "100nF", "3V3_SSD", GND), ("C", "100nF", "3V3_SSD", GND)])
+m.group("M.2", [("R", "10k", "SATA_DEVSLP", GND), ("C", "47uF/10V", "3V3_SSD", GND), ("C", "100nF", "3V3_SSD", GND)])
 m.flags(["JMS_3V3", "JMS_1V2"])
 
 # ================================ USB =======================================================================================================
@@ -301,7 +297,7 @@ u.ic(f"{LIBNAME}:FE1.1s_RevB", "U36", "FE1.1s", "Package_SO:SSOP-28_3.9x9.9mm_P0
       "VBUSM": V33, "BUSJ": V33, "VD33F": V33, "DRV": "HUB_DRV", "OVCJ": "USB2_OC_N"}, mpn="FE1.1s-BSOP28BCN")
 u.std("Device:Crystal_GND24")
 u.ic("Device:Crystal_GND24", "Y4", "12MHz", "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", {"1": "HUB_XIN", "3": "HUB_XOUT", "2": GND, "4": GND}, mpn="X322512MSB4SI")
-u.group("Hub: REXT 2.7k, XRSTJ 10k, DRV basso = hub normale", [("R", "2.7k 1%", "HUB_REXT", GND), ("R", "10k", V33, "HUB_RST_N"), ("R", "10k", "HUB_DRV", GND), ("C", "18pF", "HUB_XIN", GND), ("C", "18pF", "HUB_XOUT", GND), ("C", "10uF", V33, GND), ("C", "100nF", V33, GND), ("C", "100nF", V33, GND)])
+u.group("Hub: REXT 2.7k, XRSTJ 10k, DRV basso = hub normale", [("R", "2.7k 1%", "HUB_REXT", GND), ("R", "10k", V33, "HUB_RST_N"), ("R", "10k", "HUB_DRV", GND), ("C", "18pF", "HUB_XIN", GND), ("C", "18pF", "HUB_XOUT", GND), ("C", "10uF", V33, GND), ("C", "100nF", V33, GND)])
 u.flags(["VBUS2"])
 
 # ================================ Rete ======================================================================================================
@@ -318,11 +314,11 @@ n.ic("Device:FerriteBead", "FB1", "120R@100MHz", "Inductor_SMD:L_0603_1608Metric
 RJ = [("1", "TD+", "L"), ("2", "TD-", "L"), ("3", "RD+", "L"), ("4", "TCT", "L"), ("5", "RCT", "L"), ("6", "RD-", "L"), ("7", "NC", "L"), ("8", "CHS_GND", "L"), ("9", "LEDY_A", "R"), ("10", "LEDY_K", "R"), ("11", "LEDG_K", "R"), ("12", "LEDG_A", "R"), ("SH", "SHIELD", "R")]
 n.add_sym(f"{LIBNAME}:HR911105A", box_symbol(LIBNAME, "HR911105A", RJ, "HanRun HR911105A, RJ45 10/100 con magnetici e LED"))
 n.ic(f"{LIBNAME}:HR911105A", "J1", "HR911105A", "Connector_RJ:RJ45_Hanrun_HR911105A_Horizontal",
-     {"1": "ETH_TXP", "2": "ETH_TXN", "3": "ETH_RXP", "4": "PHY_VDDA", "5": "PHY_VDDA", "6": "ETH_RXN", "8": "ETH_SHIELD", "9": "LED1_R", "10": GND, "11": GND, "12": "LED2_R", "SH": "ETH_SHIELD"}, mpn="HR911105A", lcsc="C12074")
+     {"1": "ETH_TXP", "2": "ETH_TXN", "3": "ETH_RXP", "4": "PHY_VDDA", "5": "PHY_VDDA", "6": "ETH_RXN", "8": GND, "9": "LED1_R", "10": GND, "11": GND, "12": "LED2_R", "SH": GND}, mpn="HR911105A", lcsc="C12074")
 n.group("PHY: terminazioni, RBIAS 12.1k, VDDCR 1uF+470pF, straps, REFCLK 22R", [("R", "49.9R 1%", "PHY_VDDA", "ETH_TXP"), ("R", "49.9R 1%", "PHY_VDDA", "ETH_TXN"), ("R", "49.9R 1%", "PHY_VDDA", "ETH_RXP"), ("R", "49.9R 1%", "PHY_VDDA", "ETH_RXN"),
-        ("C", "22nF", "PHY_VDDA", GND), ("C", "22nF", "PHY_VDDA", GND), ("C", "10uF", "PHY_VDDA", GND), ("C", "100nF", "PHY_VDDA", GND), ("R", "12.1k 1%", "PHY_RBIAS", GND), ("C", "1uF", "PHY_VDDCR", GND), ("C", "470pF", "PHY_VDDCR", GND),
+        ("C", "22nF", "PHY_VDDA", GND), ("C", "10uF", "PHY_VDDA", GND), ("C", "100nF", "PHY_VDDA", GND), ("R", "12.1k 1%", "PHY_RBIAS", GND), ("C", "1uF", "PHY_VDDCR", GND), ("C", "470pF", "PHY_VDDCR", GND),
         ("R", "10k", V33, "RMII_RXD0"), ("R", "10k", V33, "RMII_RXD1"), ("R", "10k", V33, "RMII_CRSDV"), ("R", "10k", "PHY_LED2", GND), ("R", "10k", V33, "PHY_RST_N"), ("R", "1.5k", V33, "PHY_MDIO"), ("R", "22R", "PHY_REFCLK_S", "RMII_REFCLK"),
-        ("C", "100nF", V33, GND), ("C", "15pF", "PHY_XTAL1", GND), ("C", "15pF", "PHY_XTAL2", GND), ("R", "330R", "PHY_LED1", "LED1_R"), ("R", "330R", "PHY_LED2", "LED2_R"), ("R", "0R", "ETH_SHIELD", GND)])
+        ("C", "100nF", V33, GND), ("C", "15pF", "PHY_XTAL1", GND), ("C", "15pF", "PHY_XTAL2", GND), ("R", "330R", "PHY_LED1", "LED1_R"), ("R", "330R", "PHY_LED2", "LED2_R")])
 n.ic("Memory_EEPROM:24AA02E-OT", "U6", "24AA02E48T-I/OT", "Package_TO_SOT_SMD:SOT-23-5", {"1": "I2C1_SCL", "2": GND, "3": "I2C1_SDA", "4": V33}, mpn="24AA02E48T-I/OT", lcsc="C38987")
 n.group("EEPROM MAC: I2C1", [("R", "2.2k", V33, "I2C1_SCL"), ("R", "2.2k", V33, "I2C1_SDA"), ("C", "100nF", V33, GND)])
 n.flags(["PHY_VDDA", "PHY_VDDCR"])
@@ -330,7 +326,7 @@ n.flags(["PHY_VDDA", "PHY_VDDCR"])
 # ================================ Radio =====================================================================================================
 r = Sheet("Radio", "radio.kicad_sch", 800, 9)
 r.note("U35 LB-LINK BL-M8723DS1 (RTL8723DS, 12x12 mm, datasheet V1.0.1.3): Wi-Fi su uSDHC2 (pad NAND), BT su UART8 (pad ENET2). VDD33 e VDIO da U37 (3.3 V dedicati ai picchi TX). WL_DIS# e BT_DIS# senza pull-up nel modulo: 10k a GND, li alza Linux.")
-r.note("Antenna su U.FL J14 (scelta del placement: la BOM lasciava u.FL o PCB) con rete pi 0R + 2 DNP da tarare. UART_CTS del modulo da UART8_RTS, il modulo non ha RTS (pin 41 = GND): H5 a 3 fili. PCM non usata: PCM_OUT libero (strap da non alzare).")
+r.note("SDIO con i pull-up interni del 6ULL. Antenna su U.FL J14 (scelta del placement: la BOM lasciava u.FL o PCB) con rete pi 0R + 2 DNP da tarare. UART_CTS del modulo da UART8_RTS, il modulo non ha RTS (pin 41 = GND): H5 a 3 fili. PCM non usata: PCM_OUT libero (strap da non alzare).")
 WN = {1: "GND", 2: "ANT", 3: "GND", 6: "BT_HOST_WAKE", 7: "BT_WAKE_HOST", 9: "VDD33", 12: "WL_DIS_N", 13: "WL_WAKE_HOST", 14: "SD_D2", 15: "SD_D3", 16: "SD_CMD", 17: "SD_CLK", 18: "SD_D0", 19: "SD_D1", 20: "GND", 22: "VDIO", 24: "GPIO8", 25: "PCM_OUT", 26: "PCM_CLK", 27: "PCM_IN", 28: "PCM_SYNC",
       31: "GND", 33: "GND", 34: "BT_DIS_N", 36: "GND", 41: "GND", 42: "UART_TX", 43: "UART_RX", 44: "UART_CTS"}
 WIFI = [(str(k), WN.get(k, f"NC{k}"), "L" if k <= 22 else "R") for k in range(1, 45)]
@@ -342,8 +338,8 @@ LD, LDF = r.mik("AP2112K-3.3TRG1")
 r.ic(LD, "U37", "AP2112K-3.3TRG1", LDF, {"1": V5, "2": GND, "3": V5, "5": "3V3_WIFI"}, mpn="AP2112K-3.3TRG1", lcsc="C51118")
 r.std("Connector:Conn_Coaxial")
 r.ic("Connector:Conn_Coaxial", "J14", "U.FL", "Connector_Coaxial:U.FL_Hirose_U.FL-R-SMT-1_Vertical", {"1": "WL_ANT_C", "2": GND})
-r.group("Wi-Fi: 22R su CLK, pull-up 10k SDIO, enable a GND, rete pi antenna", [("R", "22R", "SD2_CLK_S", "SD2_CLK")] + [("R", "10k", "3V3_WIFI", k_) for k_ in ("SD2_CMD", "SD2_D0", "SD2_D1", "SD2_D2", "SD2_D3")] + [("R", "10k", "WL_DIS_N", GND), ("R", "10k", "BT_DIS_N", GND),
-        ("R", "0R", "WL_ANT", "WL_ANT_C"), ("C", "DNP", "WL_ANT", GND, True), ("C", "DNP", "WL_ANT_C", GND, True), ("C", "10uF", "3V3_WIFI", GND), ("C", "22uF/10V", "3V3_WIFI", GND), ("C", "100nF", "3V3_WIFI", GND), ("C", "1uF", V5, GND)])
+r.group("Wi-Fi: 22R su CLK, enable a GND, rete pi antenna", [("R", "22R", "SD2_CLK_S", "SD2_CLK"), ("R", "10k", "WL_DIS_N", GND), ("R", "10k", "BT_DIS_N", GND),
+        ("R", "0R", "WL_ANT", "WL_ANT_C"), ("C", "DNP", "WL_ANT", GND, True), ("C", "DNP", "WL_ANT_C", GND, True), ("C", "22uF/10V", "3V3_WIFI", GND), ("C", "100nF", "3V3_WIFI", GND), ("C", "1uF", V5, GND)])
 r.flags(["3V3_WIFI"])
 
 # ================================ GNSS =====================================================================================================
