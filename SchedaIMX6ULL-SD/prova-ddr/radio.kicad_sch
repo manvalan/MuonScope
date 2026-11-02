@@ -1,0 +1,673 @@
+(kicad_sch (version 20260306) (generator "eeschema") (generator_version "10.0") (uuid "fc61baf0-4f60-476a-992a-3c5e735963c1") (paper "A1") (lib_symbols (symbol "Scheda:BL-M8723DS1" (pin_names (offset 0.762)) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (duplicate_pin_numbers_are_jumpers no) (property "Reference" "U" (at 0 31.75 0) (effects (font (size 1.27 1.27)))) (property "Value" "BL-M8723DS1" (at 0 -34.29 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "LB-LINK BL-M8723DS1 Wi-Fi 802.11n + BT 4.2, SDIO/UART, 12x12 mm" (at 0 0 0) (hide yes) (effects (font (size 1.27 1.27)))) (symbol "BL-M8723DS1_1_1" (rectangle (start -15.24 29.21) (end 15.24 -31.75) (stroke (width 0.254) (type default)) (fill (type background))) (pin passive line (at -17.78 26.67 0) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "1" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 24.13 0) (length 2.54) (name "ANT" (effects (font (size 1.016 1.016)))) (number "2" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 21.59 0) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "3" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 19.05 0) (length 2.54) (name "NC4" (effects (font (size 1.016 1.016)))) (number "4" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 16.51 0) (length 2.54) (name "NC5" (effects (font (size 1.016 1.016)))) (number "5" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 13.97 0) (length 2.54) (name "BT_HOST_WAKE" (effects (font (size 1.016 1.016)))) (number "6" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 11.43 0) (length 2.54) (name "BT_WAKE_HOST" (effects (font (size 1.016 1.016)))) (number "7" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 8.89 0) (length 2.54) (name "NC8" (effects (font (size 1.016 1.016)))) (number "8" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 6.35 0) (length 2.54) (name "VDD33" (effects (font (size 1.016 1.016)))) (number "9" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 3.81 0) (length 2.54) (name "NC10" (effects (font (size 1.016 1.016)))) (number "10" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 1.27 0) (length 2.54) (name "NC11" (effects (font (size 1.016 1.016)))) (number "11" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -1.27 0) (length 2.54) (name "WL_DIS_N" (effects (font (size 1.016 1.016)))) (number "12" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -3.81 0) (length 2.54) (name "WL_WAKE_HOST" (effects (font (size 1.016 1.016)))) (number "13" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -6.35 0) (length 2.54) (name "SD_D2" (effects (font (size 1.016 1.016)))) (number "14" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -8.89 0) (length 2.54) (name "SD_D3" (effects (font (size 1.016 1.016)))) (number "15" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -11.43 0) (length 2.54) (name "SD_CMD" (effects (font (size 1.016 1.016)))) (number "16" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -13.97 0) (length 2.54) (name "SD_CLK" (effects (font (size 1.016 1.016)))) (number "17" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -16.51 0) (length 2.54) (name "SD_D0" (effects (font (size 1.016 1.016)))) (number "18" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -19.05 0) (length 2.54) (name "SD_D1" (effects (font (size 1.016 1.016)))) (number "19" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -21.59 0) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "20" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -24.13 0) (length 2.54) (name "NC21" (effects (font (size 1.016 1.016)))) (number "21" (effects (font (size 1.016 1.016))))) (pin passive line (at -17.78 -26.67 0) (length 2.54) (name "VDIO" (effects (font (size 1.016 1.016)))) (number "22" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 26.67 180) (length 2.54) (name "NC23" (effects (font (size 1.016 1.016)))) (number "23" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 24.13 180) (length 2.54) (name "GPIO8" (effects (font (size 1.016 1.016)))) (number "24" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 21.59 180) (length 2.54) (name "PCM_OUT" (effects (font (size 1.016 1.016)))) (number "25" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 19.05 180) (length 2.54) (name "PCM_CLK" (effects (font (size 1.016 1.016)))) (number "26" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 16.51 180) (length 2.54) (name "PCM_IN" (effects (font (size 1.016 1.016)))) (number "27" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 13.97 180) (length 2.54) (name "PCM_SYNC" (effects (font (size 1.016 1.016)))) (number "28" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 11.43 180) (length 2.54) (name "NC29" (effects (font (size 1.016 1.016)))) (number "29" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 8.89 180) (length 2.54) (name "NC30" (effects (font (size 1.016 1.016)))) (number "30" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 6.35 180) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "31" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 3.81 180) (length 2.54) (name "NC32" (effects (font (size 1.016 1.016)))) (number "32" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 1.27 180) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "33" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -1.27 180) (length 2.54) (name "BT_DIS_N" (effects (font (size 1.016 1.016)))) (number "34" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -3.81 180) (length 2.54) (name "NC35" (effects (font (size 1.016 1.016)))) (number "35" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -6.35 180) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "36" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -8.89 180) (length 2.54) (name "NC37" (effects (font (size 1.016 1.016)))) (number "37" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -11.43 180) (length 2.54) (name "NC38" (effects (font (size 1.016 1.016)))) (number "38" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -13.97 180) (length 2.54) (name "NC39" (effects (font (size 1.016 1.016)))) (number "39" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -16.51 180) (length 2.54) (name "NC40" (effects (font (size 1.016 1.016)))) (number "40" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -19.05 180) (length 2.54) (name "GND" (effects (font (size 1.016 1.016)))) (number "41" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -21.59 180) (length 2.54) (name "UART_TX" (effects (font (size 1.016 1.016)))) (number "42" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -24.13 180) (length 2.54) (name "UART_RX" (effects (font (size 1.016 1.016)))) (number "43" (effects (font (size 1.016 1.016))))) (pin passive line (at 17.78 -26.67 180) (length 2.54) (name "UART_CTS" (effects (font (size 1.016 1.016)))) (number "44" (effects (font (size 1.016 1.016))))) ) (embedded_fonts no)) (symbol "MIKILAB_AP2112K_3_3TRG1:AP2112K-3.3TRG1" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+    (property "Reference" "U" (id 0) (at -7.66295 8.64761 0.0)
+      (effects (font (size 1.27 1.27)) (justify bottom left))
+    )
+    (property "Value" "AP2112K-3.3TRG1" (id 1) (at -7.6489 -11.6507 0.0)
+      (effects (font (size 1.27 1.27)) (justify bottom left))
+    )
+    (property "Footprint" "MIKILAB_AP2112K_3_3TRG1:SOT95P285X140-5N" (id 2) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MF" "Diodes Zetex" (id 4) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Description" "\n                        \n                            Linear Voltage Regulator IC Positive Fixed 1 Output 600mA SOT-25\n                        \n" (id 5) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Package" "None" (id 6) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Price" "None" (id 7) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Check_prices" "https://www.snapeda.com/parts/AP2112K-3.3TRG1/Diodes+Inc./view-part/?ref=eda" (id 8) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "PARTREV" "2-2" (id 9) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "SnapEDA_Link" "https://www.snapeda.com/parts/AP2112K-3.3TRG1/Diodes+Inc./view-part/?ref=snap" (id 10) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MP" "AP2112K-3.3TRG1" (id 11) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Purchase-URL" "https://www.snapeda.com/api/url_track_click_mouser/?unipart_id=4816701&manufacturer=Diodes Zetex&part_name=AP2112K-3.3TRG1&search_term=ap2112k" (id 12) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "Availability" "In Stock" (id 13) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (property "MANUFACTURER" "Diodes Inc." (id 14) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) (justify bottom) hide)
+    )
+    (symbol "AP2112K-3.3TRG1_0_0"
+      (rectangle (start -7.62 -7.62) (end 7.62 7.62)
+        (stroke (width 0.41)) (fill (type background))
+      )
+      (pin power_in line (at 12.7 -5.08 180.0) (length 5.08)
+        (name "GND"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "2"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at -12.7 5.08 0) (length 5.08)
+        (name "VIN"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "1"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin power_in line (at 12.7 5.08 180.0) (length 5.08)
+        (name "VOUT"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "5"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+      (pin input line (at -12.7 0.0 0) (length 5.08)
+        (name "EN"
+          (effects (font (size 1.016 1.016)))
+        )
+        (number "3"
+          (effects (font (size 1.016 1.016)))
+        )
+      )
+    )
+  ) (symbol "Connector:Conn_Coaxial"
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 0.254 3.048 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_Coaxial"
+			(at 2.921 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "BNC SMA SMB SMC LEMO coaxial connector CINCH RCA MCX MMCX U.FL UMRF"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO* *UMRF* *MCX* *U.FL*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Conn_Coaxial_0_1"
+			(polyline
+				(pts
+					(xy -2.54 0) (xy -0.508 0)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(arc
+				(start 1.778 0)
+				(mid 0.222 -1.8079)
+				(end -1.778 -0.508)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(arc
+				(start -1.778 0.508)
+				(mid 0.2221 1.8084)
+				(end 1.778 0)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(circle
+				(center 0 0)
+				(radius 0.508)
+				(stroke
+					(width 0.2032)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 -2.54) (xy 0 -1.778)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "Conn_Coaxial_1_1"
+			(pin passive line
+				(at -5.08 0 0)
+				(length 2.54)
+				(name "In"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -5.08 90)
+				(length 2.54)
+				(name "Ext"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "Device:R"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "R"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "R res resistor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "Device:C"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0.254)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "C"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 0.9652 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "cap capacitor"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "C_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "C_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762) (xy 2.032 0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -2.032 -0.762) (xy 2.032 -0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "C_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 2.794)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "power:PWR_FLAG"
+		(power global)
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "#FLG"
+			(at 0 1.905 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_keywords" "flag power"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "PWR_FLAG_0_0"
+			(pin power_out line
+				(at 0 0 90)
+				(length 0)
+				(name ""
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(symbol "PWR_FLAG_0_1"
+			(polyline
+				(pts
+					(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+				)
+				(stroke
+					(width 0)
+					(type default)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)) (text "U35 LB-LINK BL-M8723DS1 (RTL8723DS, 12x12 mm, datasheet V1.0.1.3): Wi-Fi su uSDHC2 (pad NAND), BT su UART8 (pad ENET2). VDD33 e VDIO da U37 (3.3 V dedicati ai picchi TX). WL_DIS# e BT_DIS# senza pull-up nel modulo: 10k a GND, li alza Linux." (exclude_from_sim no) (at 20.00 17.00 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "ffb89efa-d0bf-448d-b712-29a437dce401")) (text "SDIO con i pull-up interni del 6ULL. Antenna su U.FL J14 (scelta del placement: la BOM lasciava u.FL o PCB) con rete pi 0R + 2 DNP da tarare. UART_CTS del modulo da UART8_RTS, il modulo non ha RTS (pin 41 = GND): H5 a 3 fili. PCM non usata: PCM_OUT libero (strap da non alzare)." (exclude_from_sim no) (at 20.00 22.00 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "e29f1ee3-1d86-4711-9a99-48517c288415")) (wire (pts (xy 54.61 48.26) (xy 49.53 48.26)) (stroke (width 0) (type default)) (uuid "fa6b6888-5052-4e88-8ac0-e6f01444e3d8")) (global_label "GND_D" (shape passive) (at 49.53 48.26 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "31f4844a-a325-4373-b713-9c3ae31775c7")) (wire (pts (xy 54.61 50.80) (xy 49.53 50.80)) (stroke (width 0) (type default)) (uuid "0722b34d-4a4c-4d80-a895-c7b16f8504d2")) (label "WL_ANT" (at 49.53 50.80 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "7a0b2896-6ea7-4609-8066-1f2aa04d2470")) (wire (pts (xy 54.61 53.34) (xy 49.53 53.34)) (stroke (width 0) (type default)) (uuid "faf0a551-ffd0-4d95-90d8-788e465fd8d6")) (global_label "GND_D" (shape passive) (at 49.53 53.34 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ddac389a-49a4-4bd9-b26a-dc11765038bc")) (no_connect (at 54.61 55.88) (uuid "9d7cb2ad-80f6-4ac2-8e1c-fe1ebe3039cc")) (no_connect (at 54.61 58.42) (uuid "5819cc5a-7f43-4e97-829b-f4b5e677cc53")) (wire (pts (xy 54.61 60.96) (xy 49.53 60.96)) (stroke (width 0) (type default)) (uuid "8e1c0443-a929-4dd3-9111-0bddb47b05af")) (hierarchical_label "BT_HOST_WAKE" (shape passive) (at 49.53 60.96 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9143a9fc-8f39-4b17-9104-ac4ced0b0204")) (wire (pts (xy 54.61 63.50) (xy 49.53 63.50)) (stroke (width 0) (type default)) (uuid "825890d9-c490-4fde-a24a-0b9b4e1ef6c9")) (hierarchical_label "BT_WAKE_HOST" (shape passive) (at 49.53 63.50 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d9841ed2-480d-4708-8df3-a7da6e3ff97a")) (no_connect (at 54.61 66.04) (uuid "a86ff05b-a5a7-4c95-9350-830da0b7b4d7")) (wire (pts (xy 54.61 68.58) (xy 49.53 68.58)) (stroke (width 0) (type default)) (uuid "cf1071b2-a702-4f6e-a8db-83bd7601fde9")) (label "3V3_WIFI" (at 49.53 68.58 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "7419fdcf-c339-4d79-a899-50301652a0c6")) (no_connect (at 54.61 71.12) (uuid "ecedacc0-f682-44a9-a27c-e0093d902699")) (no_connect (at 54.61 73.66) (uuid "813bcd51-7365-4bc6-930f-bd13e80229d8")) (wire (pts (xy 54.61 76.20) (xy 49.53 76.20)) (stroke (width 0) (type default)) (uuid "f3c1ba22-3c1e-4458-a266-b15c4da60813")) (hierarchical_label "WL_DIS_N" (shape passive) (at 49.53 76.20 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2e2775c7-7c13-4bfe-8af3-3d3cf405bf84")) (wire (pts (xy 54.61 78.74) (xy 49.53 78.74)) (stroke (width 0) (type default)) (uuid "b57fb5a6-0bd0-46f8-bd5d-22bdd22fdd33")) (hierarchical_label "WL_WAKE_HOST" (shape passive) (at 49.53 78.74 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "b209ae99-6faf-4ae7-8628-40099c336a98")) (wire (pts (xy 54.61 81.28) (xy 49.53 81.28)) (stroke (width 0) (type default)) (uuid "1dca1675-fa2b-43a9-9ae5-6b108fe615ee")) (hierarchical_label "SD2_D2" (shape passive) (at 49.53 81.28 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "880f69b5-4f0d-472d-929d-30cdc3189972")) (wire (pts (xy 54.61 83.82) (xy 49.53 83.82)) (stroke (width 0) (type default)) (uuid "b8727d69-dfbd-4915-b56d-7ee9ca95f2bf")) (hierarchical_label "SD2_D3" (shape passive) (at 49.53 83.82 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "caadcfa7-f15f-40e3-9fb0-30c06d090672")) (wire (pts (xy 54.61 86.36) (xy 49.53 86.36)) (stroke (width 0) (type default)) (uuid "25a37875-e120-46c9-a81a-ce5a32cab6f0")) (hierarchical_label "SD2_CMD" (shape passive) (at 49.53 86.36 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5d23af15-cf2f-475f-8761-c06139b0056b")) (wire (pts (xy 54.61 88.90) (xy 49.53 88.90)) (stroke (width 0) (type default)) (uuid "5121c857-e6b1-48e1-9a58-50a4b26e1d2e")) (label "SD2_CLK" (at 49.53 88.90 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "a5704c5c-7335-4ccc-b7b5-663420cca1d6")) (wire (pts (xy 54.61 91.44) (xy 49.53 91.44)) (stroke (width 0) (type default)) (uuid "3918993a-a8eb-4f2b-ab65-8052888eabdd")) (hierarchical_label "SD2_D0" (shape passive) (at 49.53 91.44 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "daec5ce3-469e-4f3b-b082-00a39020ff26")) (wire (pts (xy 54.61 93.98) (xy 49.53 93.98)) (stroke (width 0) (type default)) (uuid "563479ce-006f-407f-9d51-459b740331c1")) (hierarchical_label "SD2_D1" (shape passive) (at 49.53 93.98 180) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c1369a7a-3ede-4be7-8658-10a9debddf36")) (wire (pts (xy 54.61 96.52) (xy 49.53 96.52)) (stroke (width 0) (type default)) (uuid "fbba0003-aba9-4e88-983d-d356a05d2f03")) (global_label "GND_D" (shape passive) (at 49.53 96.52 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "44944496-6ccd-4119-9794-da1e74f31c6b")) (no_connect (at 54.61 99.06) (uuid "8edbfb7e-4e70-4b81-b5a3-cce6e9ded336")) (wire (pts (xy 54.61 101.60) (xy 49.53 101.60)) (stroke (width 0) (type default)) (uuid "ad2f3661-c1f6-49bb-8f9d-5d9281d44d07")) (label "3V3_WIFI" (at 49.53 101.60 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "a37d6f05-0e65-47d6-a2bb-79032fef39fa")) (no_connect (at 90.17 48.26) (uuid "b6032856-d70d-4462-9d83-d3dfd792fc46")) (no_connect (at 90.17 50.80) (uuid "9c338dc3-688d-495e-8df0-bf8cc727488a")) (no_connect (at 90.17 53.34) (uuid "f176f0ad-9fda-4a85-9bdd-b181251e615e")) (no_connect (at 90.17 55.88) (uuid "3cc58b8d-2cdb-4f20-bfaf-435575c587f7")) (no_connect (at 90.17 58.42) (uuid "aece57c0-887d-4a09-a06b-b39fcc0744a3")) (no_connect (at 90.17 60.96) (uuid "92a2df27-1b20-4821-a362-fdacaecbbf06")) (no_connect (at 90.17 63.50) (uuid "9ac7061d-b43e-4a71-8b62-0ac0007716eb")) (no_connect (at 90.17 66.04) (uuid "b7c8d867-e987-4842-a17e-10e833aba98b")) (wire (pts (xy 90.17 68.58) (xy 95.25 68.58)) (stroke (width 0) (type default)) (uuid "04175039-4167-42c1-89c1-3a44a3c0cdd4")) (global_label "GND_D" (shape passive) (at 95.25 68.58 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f22aa000-333f-4d51-abe3-a436830215e0")) (no_connect (at 90.17 71.12) (uuid "b4bdb6db-933e-49f3-bdb0-e5aee21a0c74")) (wire (pts (xy 90.17 73.66) (xy 95.25 73.66)) (stroke (width 0) (type default)) (uuid "e54b5a80-5ddd-4472-bfeb-d601d73581f6")) (global_label "GND_D" (shape passive) (at 95.25 73.66 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a2bbae1f-33f1-4e4a-8f45-a2f2a6cdd058")) (wire (pts (xy 90.17 76.20) (xy 95.25 76.20)) (stroke (width 0) (type default)) (uuid "30a504f8-3712-4e38-946c-581553c98da6")) (hierarchical_label "BT_DIS_N" (shape passive) (at 95.25 76.20 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a9158728-280d-4aa8-b9cf-afce6a231794")) (no_connect (at 90.17 78.74) (uuid "c371b3df-2807-4009-b193-82372d602a80")) (wire (pts (xy 90.17 81.28) (xy 95.25 81.28)) (stroke (width 0) (type default)) (uuid "46dc50ba-451e-42dc-8b65-a981cf72de0d")) (global_label "GND_D" (shape passive) (at 95.25 81.28 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f24328e2-68b6-4aba-96a1-a9dff563cc0e")) (no_connect (at 90.17 83.82) (uuid "e8a9a0f5-a43c-4432-b0ae-f94c1bb76f5e")) (no_connect (at 90.17 86.36) (uuid "b016f394-1a86-4413-aa26-dc2b2bd1b653")) (no_connect (at 90.17 88.90) (uuid "7191b8ba-364c-44df-89af-1b654e2fdcc8")) (no_connect (at 90.17 91.44) (uuid "dff2792b-d352-40d2-bafb-9360eae4ad66")) (wire (pts (xy 90.17 93.98) (xy 95.25 93.98)) (stroke (width 0) (type default)) (uuid "1fcab9a1-d8a5-462d-b25f-713e0ccee3c1")) (global_label "GND_D" (shape passive) (at 95.25 93.98 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4f76d074-8935-4cbb-83c3-e304ce2537ff")) (wire (pts (xy 90.17 96.52) (xy 95.25 96.52)) (stroke (width 0) (type default)) (uuid "42be4550-8554-41d5-90dd-139827346969")) (hierarchical_label "BT_UART_TX" (shape passive) (at 95.25 96.52 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "07fc0265-da75-4bf4-9cdc-d3ece21e8ad2")) (wire (pts (xy 90.17 99.06) (xy 95.25 99.06)) (stroke (width 0) (type default)) (uuid "bdb57f00-ba00-4f13-b494-0d72de69003f")) (hierarchical_label "BT_UART_RX" (shape passive) (at 95.25 99.06 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c70bd83f-9a20-4c02-b39b-d65e524f2889")) (wire (pts (xy 90.17 101.60) (xy 95.25 101.60)) (stroke (width 0) (type default)) (uuid "f66dab3e-0a49-4e2d-9172-657fd882a504")) (hierarchical_label "BT_UART_CTS" (shape passive) (at 95.25 101.60 0) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7df1ea9f-c8b2-45f4-9712-3850a67d31d0")) (symbol (lib_id "Scheda:BL-M8723DS1") (at 72.39 74.93 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "395be198-7ed6-4e76-9b50-9e47e72423b5") (property "Reference" "U35" (at 64.77 40.64 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "BL-M8723DS1" (at 64.77 43.18 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Scheda:LB-LINK_BL-M8723DS1_LGA-44_12x12mm" (at 72.39 74.93 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 72.39 74.93 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 72.39 74.93 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "MPN" "BL-M8723DS1" (at 72.39 74.93 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "932ea54a-cc00-4e95-8625-d86c9a7eb802")) (pin "2" (uuid "68d6d443-25ae-4c24-9983-678a86a52ecb")) (pin "3" (uuid "57b8ce4a-9251-4221-9551-d1777cad08e5")) (pin "4" (uuid "ae0cc9e3-35a4-4948-8fdd-a702954601ac")) (pin "5" (uuid "2813353a-866a-4158-adef-b1f636cd9e97")) (pin "6" (uuid "242c6d94-6ea0-4cc0-9b86-1131dff247f1")) (pin "7" (uuid "b776c4c3-8441-4836-a8ac-a3f594c16d6d")) (pin "8" (uuid "fa898429-9f00-4e8f-9804-1fc9388bf84a")) (pin "9" (uuid "7d7bdab1-0613-4d0b-9cd3-f5ca1f7b934a")) (pin "10" (uuid "58512574-6b1a-4815-8bbb-c3f10cd78bf9")) (pin "11" (uuid "52821072-725d-4285-9844-e65ade8250bd")) (pin "12" (uuid "9a2b7d7b-92ed-4012-9c7e-12f49e2b8388")) (pin "13" (uuid "ac6cfd95-10c9-41b1-b74b-7fb59742cd70")) (pin "14" (uuid "0e76c220-d4ed-4883-a15d-f5b7d735f94c")) (pin "15" (uuid "2d1262b9-9ea5-4e88-93b5-ac9a93fe26c6")) (pin "16" (uuid "53e15eba-8117-4326-9f1a-f647ac57f056")) (pin "17" (uuid "5b4ae77d-c165-4e32-9701-26997092958f")) (pin "18" (uuid "2db7deca-ccc4-4a1e-b0c9-160f9fffc9eb")) (pin "19" (uuid "a704d3da-3e29-47e9-8aeb-93c5e9da9177")) (pin "20" (uuid "0966b1ba-8f77-4fff-9274-54b3b9ce5f59")) (pin "21" (uuid "f682147a-3f39-4129-9539-2d55361188c1")) (pin "22" (uuid "82be128f-0353-4c8c-b7c9-3e87bb7b3feb")) (pin "23" (uuid "a51a3371-45ab-4611-a23c-601a16b9999d")) (pin "24" (uuid "ca2ce107-8913-4351-8c5b-e0376c1de4ba")) (pin "25" (uuid "42ec16bf-e7c7-4461-bd93-dd01ec375ad5")) (pin "26" (uuid "90439a16-15e4-4e8b-9e59-d0c40903f56d")) (pin "27" (uuid "e3b9e570-208c-465f-8cdb-4265d3493a20")) (pin "28" (uuid "7a4e3369-27ed-4991-a9f7-4aebe6b06ed7")) (pin "29" (uuid "cf258caf-f193-45fb-bc16-b38ba751ffdc")) (pin "30" (uuid "7e7bd663-7be3-491a-b59a-47c5f6cc537e")) (pin "31" (uuid "88dc69e4-3845-4079-b938-18696ebdcb02")) (pin "32" (uuid "5d1894cc-4751-46ad-bb93-5af2b7f1e5b4")) (pin "33" (uuid "cbc7079a-1959-4253-8660-f80d33dfc287")) (pin "34" (uuid "cae4375d-9950-44a4-80da-dc86a9e76f65")) (pin "35" (uuid "1d1336ef-a0a2-4dae-aca2-311bf62e79cf")) (pin "36" (uuid "d9329b2c-f4db-4e4e-a3be-e5f6599dcf1d")) (pin "37" (uuid "422d9e47-8fc1-4cea-b3fe-75b3dcb78069")) (pin "38" (uuid "044409ce-2745-405b-bfe8-a0c9da282118")) (pin "39" (uuid "f0f3f380-69c6-40fe-b06e-c8aee7ab038c")) (pin "40" (uuid "1896c750-3bf4-4690-86da-75ba47083e31")) (pin "41" (uuid "69d6d97d-f390-460f-9813-8555247ffac2")) (pin "42" (uuid "5c7eb869-39ef-4899-a831-1f25fe5a21ce")) (pin "43" (uuid "b9709ec7-fa0b-4316-9768-e917b755cee1")) (pin "44" (uuid "f23b2140-0472-4df8-b473-c47d48fed0bb")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "U35") (unit 1))))) (wire (pts (xy 184.15 58.42) (xy 189.23 58.42)) (stroke (width 0) (type default)) (uuid "1d6a0839-3145-46f6-bc9c-202ca1310953")) (global_label "GND_D" (shape passive) (at 189.23 58.42 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "b93e4e79-20bb-41f6-9e0c-4480657e8ce5")) (wire (pts (xy 158.75 48.26) (xy 153.67 48.26)) (stroke (width 0) (type default)) (uuid "408d2a12-8f50-4dd7-a100-54ab50de8b60")) (global_label "5V_SYS" (shape passive) (at 153.67 48.26 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "342cb29d-3eb2-4a06-9017-2f7cf7aafc88")) (wire (pts (xy 184.15 48.26) (xy 189.23 48.26)) (stroke (width 0) (type default)) (uuid "9c7850ab-cb49-4d55-b694-e25a34224de9")) (label "3V3_WIFI" (at 189.23 48.26 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "f8a0ab31-7a25-4918-a540-39ce0c452d32")) (wire (pts (xy 158.75 53.34) (xy 153.67 53.34)) (stroke (width 0) (type default)) (uuid "744120d7-de3e-44ca-8718-0f8e0d0c6ce9")) (global_label "5V_SYS" (shape passive) (at 153.67 53.34 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "2afa2abe-e29e-4615-a6c3-e3f9177dae9b")) (symbol (lib_id "MIKILAB_AP2112K_3_3TRG1:AP2112K-3.3TRG1") (at 171.45 53.34 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "76d6eed7-47ff-4db4-96f8-89c394b35fa2") (property "Reference" "U37" (at 163.83 40.64 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "AP2112K-3.3TRG1" (at 163.83 43.18 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "MIKILAB_AP2112K_3_3TRG1:SOT95P285X140-5N" (at 171.45 53.34 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 171.45 53.34 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 171.45 53.34 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "MPN" "AP2112K-3.3TRG1" (at 171.45 53.34 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "LCSC" "C51118" (at 171.45 53.34 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "2" (uuid "04fef0dc-7db3-4d33-99f7-61fa7ad908ae")) (pin "1" (uuid "96001abb-57ad-467b-a18c-dfb6a1f66b7c")) (pin "5" (uuid "0b5eff5b-c4a5-46ca-841c-ec79c30b6843")) (pin "3" (uuid "8e15f391-28ee-41c0-9d9f-5ba76ccb159a")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "U37") (unit 1))))) (wire (pts (xy 251.46 48.26) (xy 246.38 48.26)) (stroke (width 0) (type default)) (uuid "1b6a8471-3338-4673-9dda-9254f0540894")) (label "WL_ANT_C" (at 246.38 48.26 180) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "1f338833-e42f-4dc4-8895-40d4a883dc4f")) (wire (pts (xy 256.54 53.34) (xy 256.54 58.42)) (stroke (width 0) (type default)) (uuid "745c2c5b-95d1-499d-a83d-19b6fbfbb32c")) (global_label "GND_D" (shape passive) (at 256.54 58.42 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "4a40def6-859c-4b41-9aa8-086c2dfb15e0")) (symbol (lib_id "Connector:Conn_Coaxial") (at 256.54 48.26 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "bdaf929b-8d24-4b32-839a-1ab550574dff") (property "Reference" "J14" (at 248.92 40.64 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "U.FL" (at 248.92 43.18 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Connector_Coaxial:U.FL_Hirose_U.FL-R-SMT-1_Vertical" (at 256.54 48.26 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 256.54 48.26 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 256.54 48.26 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "2f956f76-a73b-472e-aa83-dc3e8b75c148")) (pin "2" (uuid "280623b6-8bd4-43a9-aeea-86c5945816ae")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "J14") (unit 1))))) (text "Wi-Fi: 22R su CLK, enable a GND, rete pi antenna" (exclude_from_sim no) (at 295.04 35.00 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "041194b4-542b-43bd-8a80-d21d9a3eb07a")) (wire (pts (xy 300.99 62.23) (xy 300.99 59.69)) (stroke (width 0) (type default)) (uuid "c5432c45-555d-4aba-be6d-fef75ffcde55")) (hierarchical_label "SD2_CLK_S" (shape passive) (at 300.99 59.69 90) (effects (font (size 1.27 1.27)) (justify left)) (uuid "6c14924e-0fce-4b70-9674-c3523d1e6c04")) (wire (pts (xy 300.99 69.85) (xy 300.99 72.39)) (stroke (width 0) (type default)) (uuid "f7e88da9-c5fe-436d-9f76-096e3be2ec76")) (label "SD2_CLK" (at 300.99 72.39 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "570404dc-5925-4a84-9fc8-b6a596d50d9e")) (symbol (lib_id "Device:R") (at 300.99 66.04 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "ef05f026-6eb0-4348-ba01-ab6a8957eaa8") (property "Reference" "R801" (at 303.53 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "22R" (at 303.53 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 300.99 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 300.99 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 300.99 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "81caec12-92c1-4238-8db3-d7299c08a2a4")) (pin "2" (uuid "232f180d-c13c-42ca-b566-d72ffadb2b65")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "R801") (unit 1))))) (wire (pts (xy 313.69 62.23) (xy 313.69 59.69)) (stroke (width 0) (type default)) (uuid "23580693-3da0-49e6-b07d-80339d70c3e0")) (hierarchical_label "WL_DIS_N" (shape passive) (at 313.69 59.69 90) (effects (font (size 1.27 1.27)) (justify left)) (uuid "83a777e8-b355-4f65-a781-3887ac8034c3")) (wire (pts (xy 313.69 69.85) (xy 313.69 72.39)) (stroke (width 0) (type default)) (uuid "c7ec0a57-08d7-45d7-87df-b65223481a2b")) (global_label "GND_D" (shape passive) (at 313.69 72.39 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1504e601-71c6-46c2-84fe-860f348e4663")) (symbol (lib_id "Device:R") (at 313.69 66.04 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "593687dd-c033-4b59-8fb7-e6f6ac2b8fe2") (property "Reference" "R802" (at 316.23 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "10k" (at 316.23 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 313.69 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 313.69 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 313.69 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "b295e5f8-1a35-4631-a75c-d9bc5cd1570e")) (pin "2" (uuid "d4e29777-c6e0-40ac-8240-614c16b4a185")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "R802") (unit 1))))) (wire (pts (xy 326.39 62.23) (xy 326.39 59.69)) (stroke (width 0) (type default)) (uuid "657595c2-63a6-4dd4-a30f-0606c93d25b3")) (hierarchical_label "BT_DIS_N" (shape passive) (at 326.39 59.69 90) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ad9ba1a2-f8eb-4fff-aa5c-6c482adf18be")) (wire (pts (xy 326.39 69.85) (xy 326.39 72.39)) (stroke (width 0) (type default)) (uuid "7ab3ae04-1f97-4df9-bd50-99d8311ab4d0")) (global_label "GND_D" (shape passive) (at 326.39 72.39 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "07a91cc1-891f-47cd-ad6d-3de5bf853653")) (symbol (lib_id "Device:R") (at 326.39 66.04 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "875774b6-25e5-4d40-9855-43d270d3b182") (property "Reference" "R803" (at 328.93 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "10k" (at 328.93 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 326.39 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 326.39 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 326.39 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "3db98745-8bed-41d7-a0f0-6b148d2e92e1")) (pin "2" (uuid "9914f721-fb8f-4542-a45e-2db883102c9e")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "R803") (unit 1))))) (wire (pts (xy 339.09 62.23) (xy 339.09 59.69)) (stroke (width 0) (type default)) (uuid "895290dd-b55b-46dc-88d0-0fc5f06f05c3")) (label "WL_ANT" (at 339.09 59.69 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "169193c8-29be-491d-adef-18e11f0c26a2")) (wire (pts (xy 339.09 69.85) (xy 339.09 72.39)) (stroke (width 0) (type default)) (uuid "d7a9a87d-8721-4697-b66b-455cd81d055e")) (label "WL_ANT_C" (at 339.09 72.39 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "8027beb8-a8bf-44e0-a777-acb71593f15c")) (symbol (lib_id "Device:R") (at 339.09 66.04 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "32be4e7f-12a0-4b50-8ddd-4867b0756f30") (property "Reference" "R804" (at 341.63 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "0R" (at 341.63 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Resistor_SMD:R_0603_1608Metric" (at 339.09 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 339.09 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 339.09 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "30ff9f16-5f87-4f7e-a9e8-30c8bbcad1d5")) (pin "2" (uuid "c3709f3d-801b-4075-ba07-d0615f933674")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "R804") (unit 1))))) (wire (pts (xy 351.79 62.23) (xy 351.79 59.69)) (stroke (width 0) (type default)) (uuid "ec718b40-81b4-4035-8bad-f2cad9daaaa6")) (label "WL_ANT" (at 351.79 59.69 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c81cbd11-2285-4a9a-a0fe-75cb152d3459")) (wire (pts (xy 351.79 69.85) (xy 351.79 72.39)) (stroke (width 0) (type default)) (uuid "7de56221-40a9-42c6-8cd6-2a00121d7755")) (global_label "GND_D" (shape passive) (at 351.79 72.39 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "8a017d64-24a7-4f1e-a5ab-6dc3e0863604")) (symbol (lib_id "Device:C") (at 351.79 66.04 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp yes) (uuid "d5ee93a2-922e-4920-80d7-e44a6439da24") (property "Reference" "C801" (at 354.33 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "DNP" (at 354.33 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 351.79 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 351.79 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 351.79 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "e71004d1-6fa1-4f78-89f8-602df809b362")) (pin "2" (uuid "77e4aa4c-5314-4e0e-bd2d-75f230c5f71f")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "C801") (unit 1))))) (wire (pts (xy 364.49 62.23) (xy 364.49 59.69)) (stroke (width 0) (type default)) (uuid "58f76a1d-74c9-423d-b53d-429323c6b9f5")) (label "WL_ANT_C" (at 364.49 59.69 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "f7cb5806-6cc0-4d05-b2c9-07d72da480d9")) (wire (pts (xy 364.49 69.85) (xy 364.49 72.39)) (stroke (width 0) (type default)) (uuid "dbfc8bda-8704-4d94-841e-e6606b7490cd")) (global_label "GND_D" (shape passive) (at 364.49 72.39 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "4b31ba61-5468-4b77-8af3-b7ae0010a737")) (symbol (lib_id "Device:C") (at 364.49 66.04 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp yes) (uuid "0eafaa72-b61b-4665-8f13-cc82e208c732") (property "Reference" "C802" (at 367.03 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "DNP" (at 367.03 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 364.49 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 364.49 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 364.49 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "09d22370-71bb-43d0-ae76-9dbcc015b537")) (pin "2" (uuid "093892ae-29cc-48f6-aa09-b016e0bc2038")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "C802") (unit 1))))) (wire (pts (xy 377.19 62.23) (xy 377.19 59.69)) (stroke (width 0) (type default)) (uuid "a76e3441-bfc4-456c-a6fc-c9aa3f396910")) (label "3V3_WIFI" (at 377.19 59.69 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "4c0f5667-50f4-4383-8e1f-ec9f0baaec25")) (wire (pts (xy 377.19 69.85) (xy 377.19 72.39)) (stroke (width 0) (type default)) (uuid "8a213859-ebf8-4027-a137-d003009e65b0")) (global_label "GND_D" (shape passive) (at 377.19 72.39 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c5779dd8-3bf6-4b66-b29f-9d006a9414df")) (symbol (lib_id "Device:C") (at 377.19 66.04 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "c1eb5e0e-14d0-498e-a21b-fb2b209d71c7") (property "Reference" "C803" (at 379.73 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "22uF/10V" (at 379.73 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 377.19 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 377.19 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 377.19 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "2a794172-23ce-4e6d-bea8-c971ef027b85")) (pin "2" (uuid "e36ad549-52b9-4e45-9f82-0f7c38a5cb46")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "C803") (unit 1))))) (wire (pts (xy 389.89 62.23) (xy 389.89 59.69)) (stroke (width 0) (type default)) (uuid "0dec622e-ab0c-4e67-8254-6584639caed6")) (label "3V3_WIFI" (at 389.89 59.69 90) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "b238c861-a8c5-43a8-8f04-e25182666670")) (wire (pts (xy 389.89 69.85) (xy 389.89 72.39)) (stroke (width 0) (type default)) (uuid "020e0f48-d56f-4a4d-b8b4-d507d176f217")) (global_label "GND_D" (shape passive) (at 389.89 72.39 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "68e8cee7-8ba0-404e-9734-fb10f0e79769")) (symbol (lib_id "Device:C") (at 389.89 66.04 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "175d1f13-aaa9-4820-a521-ac90022db2c1") (property "Reference" "C804" (at 392.43 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100nF" (at 392.43 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 389.89 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 389.89 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 389.89 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "db4a1adb-8621-401b-bc5b-7c413e5250be")) (pin "2" (uuid "b6b8047e-be15-4aee-830d-6db360d5dbf6")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "C804") (unit 1))))) (wire (pts (xy 402.59 62.23) (xy 402.59 59.69)) (stroke (width 0) (type default)) (uuid "61ebd229-4af1-4928-a8db-610e4f23ff31")) (global_label "5V_SYS" (shape passive) (at 402.59 59.69 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "49866135-d66c-49a7-93a2-0ddca45ec313")) (wire (pts (xy 402.59 69.85) (xy 402.59 72.39)) (stroke (width 0) (type default)) (uuid "e0a7fd93-309c-412d-95d1-41a4afcc763e")) (global_label "GND_D" (shape passive) (at 402.59 72.39 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "398ca95a-2dfe-40bc-9838-8130eeaa1227")) (symbol (lib_id "Device:C") (at 402.59 66.04 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "f17c2599-51af-44fa-81ae-8b7ec803d591") (property "Reference" "C805" (at 405.13 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "1uF" (at 405.13 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 402.59 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 402.59 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 402.59 66.04 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "c1967222-de1e-4b28-b429-6a5941050868")) (pin "2" (uuid "14d98985-83ae-450c-97d6-0d42e6a35627")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "C805") (unit 1))))) (wire (pts (xy 422.91 44.45) (xy 422.91 49.53)) (stroke (width 0) (type default)) (uuid "8f095063-ffd1-4b2d-aec7-e1e32c10dcc2")) (label "3V3_WIFI" (at 422.91 49.53 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "7c7e24b4-a458-47c8-aa6e-7b857741e886")) (symbol (lib_id "power:PWR_FLAG") (at 422.91 44.45 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom no) (on_board yes) (in_pos_files yes) (dnp no) (uuid "0f00b571-f3dd-4136-8678-8091b0b8044c") (property "Reference" "#FLG850" (at 415.29 36.83 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "PWR_FLAG" (at 415.29 39.37 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "" (at 422.91 44.45 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 422.91 44.45 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 422.91 44.45 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "55edae50-4c53-4afe-bfc0-2a5c5b878959")) (instances (project "ProvaDDR" (path "/b3f27a10-58c6-4d19-8e74-2c91d06ae4f7/fc61baf0-4f60-476a-992a-3c5e735963c1" (reference "#FLG850") (unit 1))))) (embedded_fonts no))

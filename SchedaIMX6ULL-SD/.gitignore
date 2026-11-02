@@ -1,4 +1,9 @@
 progetto-kicad/drc.rpt
+prova-ddr/drc.rpt
+prova-ddr/erc.rpt
+prova-ddr/*.kicad_prl
+prova-ddr/fp-info-cache
+prova-ddr/*-backups/
 progetto-kicad/*.kicad_prl
 progetto-kicad/fp-info-cache
 progetto-kicad/*-backups/
