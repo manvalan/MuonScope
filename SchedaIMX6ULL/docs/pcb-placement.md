@@ -6,16 +6,16 @@ Generato da `generatori/build_pcb.sh`. Solo placement, **nessuna pista**. Immagi
 
 - **120 x 143 mm** (Michele, 2026-11-02: almeno 150% per lato rispetto ai precedenti 80 x 95), angoli raggiati 3 mm, quattro fori NPTH da 2.2 mm a 4 mm dai bordi con keepout di raggio 3.2 mm. Quinto foro H5 per il dado M2 dell'SSD.
 - **4 strati**, scelta di Michele.
-- 268 componenti: 267 sul top, la microSD J5 sul bottom.
+- 272 componenti: 271 sul top, la microSD J5 sul bottom.
 
 ## Passivi
 
-Lo 0603 è il minimo, non una misura obbligata. **207 passivi, 65 in meno dei 272 iniziali.** Impronte standard KiCad:
+Lo 0603 è il minimo, non una misura obbligata. **210 passivi, 62 in meno dei 272 precedenti.** Impronte standard KiCad:
 
 | Impronta | Pezzi | Pad (mm) | Uso |
 |---|---|---|---|
-| `Resistor_SMD:R_0603_1608Metric` | 93 | 0.80 x 0.95 | tutte le resistenze |
-| `Capacitor_SMD:C_0603_1608Metric` | 81 | 0.90 x 0.95 | fino a 1 uF |
+| `Resistor_SMD:R_0603_1608Metric` | 95 | 0.80 x 0.95 | tutte le resistenze |
+| `Capacitor_SMD:C_0603_1608Metric` | 82 | 0.90 x 0.95 | fino a 1 uF |
 | `Capacitor_SMD:C_0805_2012Metric` | 24 | 1.00 x 1.45 | 22 uF e 10 uF |
 | `Capacitor_SMD:C_1206_3216Metric` | 9 | 1.15 x 1.80 | 47 uF, 10 uF/25 V, 22 uF sui rail a 5 V |
 
@@ -39,16 +39,16 @@ JLC04161H-3313, 1.6 mm. Piste minime 0.127 mm (5 mil), distanza 0.1 mm, via 0.45
 
 ## Fanout a 4 strati: stima, non sbroglio
 
-La scheda più grande non aiuta il fanout sotto il BGA: quel limite dipende da passo e strati. `generatori/fanout.py` sulla netlist reale: 143 sfere di segnale su 289. Un canale tra due via 0.45 su passo 0.8 è 0.35 mm e contiene una pista da 5 mil (0.327 mm).
+La scheda più grande non aiuta il fanout sotto il BGA: quel limite dipende da passo e strati. `generatori/fanout.py` sulla netlist reale: 145 sfere di segnale su 289. Un canale tra due via 0.45 su passo 0.8 è 0.35 mm e contiene una pista da 5 mil (0.327 mm).
 
 | Lato | Anelli 0-1 sul top (canali 33) | Anelli >= 2 sul bottom (canali 15) |
 |---|---|---|
 | Alto | 17 | 13 |
 | Basso | 24 | 11 |
 | Sinistra (DRAM) | 25 | 16 |
-| Destra | 21 | 16 |
+| Destra | 22 | 17 |
 
-Sul bottom sono **56 segnali su 60 canali**: ci stanno solo usando i canali liberi di alto e basso. Margine piccolo. Precedente: [cebrax/iMX6ULL_tryout](https://github.com/cebrax/iMX6ULL_tryout) è sbrogliata su 4 strati con lo stesso package e DDR3L, ma con piste da 4 mil e 512 MB. Il bottom è libero da componenti, salvo J5 e i pin THT.
+Sul bottom sono **57 segnali su 60 canali**: ci stanno solo usando i canali liberi di alto e basso. Margine piccolo. Precedente: [cebrax/iMX6ULL_tryout](https://github.com/cebrax/iMX6ULL_tryout) è sbrogliata su 4 strati con lo stesso package e DDR3L, ma con piste da 4 mil e 512 MB. Il bottom è libero da componenti, salvo J5 e i pin THT.
 
 ## Prova con router a griglia (placement 80 x 95, 2026-11-02)
 

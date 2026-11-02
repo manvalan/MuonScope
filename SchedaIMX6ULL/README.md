@@ -23,5 +23,5 @@ sh SchedaIMX6ULL/generatori/build_pcb.sh
 
 - Schema: **ERC 0 violazioni** (KiCad 10.0.7), nessuna net con un solo pin.
 - PCB: **120 x 143 mm, 4 strati**, solo placement. **DRC 0 violazioni, parità schema/PCB 0 problemi**; non c'è nessuna pista.
-- 268 componenti, di cui 207 passivi (minimo 0603).
+- 272 componenti, di cui 210 passivi (minimo 0603).
 - **Non sbrogliato**: i 4 strati sono una scelta di Michele; il fanout è solo stimato e il margine è piccolo (vedi `docs/pcb-placement.md`).

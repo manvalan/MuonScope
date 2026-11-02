@@ -347,7 +347,7 @@ MED = {  # componenti con zona preferita (cx, cy), coordinate assolute dall'ango
     # USB: hub e bridge tra il SoC e lo zoccolo M.2
     "U9": (50.0, 130.0), "U10": (62.0, 130.0), "U24": (72.0, 128.0), "U36": (62.0, 92.0), "Y4": (54.0, 94.0), "D4": (28.0, 95.0), "L7": (84.0, 60.0), "U38": (84.0, 66.0), "Y5": (80.0, 72.0),
     # rete
-    "U7": (68.0, 40.0), "Y3": (68.0, 46.0), "FB1": (76.0, 34.0),
+    "U7": (68.0, 40.0), "Y3": (68.0, 46.0), "FB1": (76.0, 34.0), "U6": (78.0, 46.0),
     # Wi-Fi
     "U37": (8.0, 46.0), "J14": (5.0, 41.0),
     # GNSS, tasti e header
@@ -366,7 +366,7 @@ GRUPPI = json.load(open(os.path.join(SC, "imx6ull_gruppi.json")))
 # gruppo di passivi (inizio del titolo) -> componente vicino; l'ordine e' la priorita': prima cio' che deve stare vicino ai pin
 VICINO = [("Carico 24", "Y1"), ("Carico RTC", "Y2"), ("VDD_ARM_CAP", "U1"), ("VDD_HIGH_CAP", "U1"), ("VDD_SOC_IN", "U1"), ("NVCC_DRAM", "U1"), ("VDD_SNVS_IN", "U1"), ("VDD_HIGH_IN", "U1"), ("VREF, ZQ", "U2"), ("VDD / VDDQ", "U2"),
           ("PHY:", "U7"), ("JMS578", "U38"), ("SATA", "U38"), ("Wi-Fi", "U35"), ("QSPI", "U5"), ("microSD", "U25"), ("U26", "U26"), ("U27", "U27"), ("U23", "U23"), ("U39", "U39"), ("TPS56637", "U22"), ("TPS2121", "U17"),
-          ("Hub", "U36"), ("Bias", "U11"), ("Timing", "U19"), ("POR_B", "U28"), ("CC sink", "J3"), ("J8 host", "U24"), ("Serie SPI", "J11"), ("Livelli", "J12"),
+          ("Hub", "U36"), ("Bias", "U11"), ("Timing", "U19"), ("POR_B", "U28"), ("CC sink", "J3"), ("J8 host", "U24"), ("EEPROM", "U6"), ("Serie SPI", "J11"), ("Livelli", "J12"),
           ("Disaccoppiamento", "J11"), ("Boot", "U1"), ("Pull-up open", "U1"), ("M.2", "J13")]
 
 

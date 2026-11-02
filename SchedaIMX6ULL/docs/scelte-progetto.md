@@ -21,7 +21,7 @@ Footprint di progetto in `Scheda.pretty`: BL-M8723DS1, e copie corrette di SMA, 
 |---|---|
 | BUS_POWER ECSPI2 | UART4_TX SCLK, UART5_TX MOSI, UART5_RX MISO, UART4_RX SS0 (INA239A); CS INA239B su UART2_CTS, DAC su UART2_RTS con cs-gpios |
 | MAIN ECSPI1 | CSI_DATA04 SCLK, 05 SS0 (CS_MASTER), 06 MOSI, 07 MISO |
-| I2C bus (I2C2) | CSI_HSYNC/VSYNC |
+| I2C bus (I2C2), EEPROM MAC (I2C1) | CSI_HSYNC/VSYNC; GPIO1_IO02/03 |
 | ADDR, PREFIX, ALERT#, HIT# | NAND_DATA04-07, NAND_ALE, LCD_CLK, LCD_ENABLE, LCD_HSYNC |
 | VREF_ENABLE, VBIAS_ENABLE, FAULT | LCD_VSYNC, LCD_RESET, ENET2_RX_EN |
 | QSPI boot | NAND_WP_B, DQS, READY_B, CE0, CE1, CLE |
@@ -40,7 +40,7 @@ Footprint di progetto in `Scheda.pretty`: BL-M8723DS1, e copie corrette di SMA, 
 - **Passivi 0603 come minimo**: 47 uF e 10 uF/25 V in 1206, 22 uF e 10 uF in 0805.
 - **Scheda 120 x 143**, vedi `pcb-placement.md`. BOM non modificata: va aggiornata con queste voci.
 
-## Sfoltimento dei passivi (2026-11-02): da 272 a 207
+## Sfoltimento dei passivi (2026-11-02): da 272 a 210
 
 | Tolti | Pezzi | Conseguenza |
 |---|---|---|
@@ -52,8 +52,6 @@ Footprint di progetto in `Scheda.pretty`: BL-M8723DS1, e copie corrette di SMA, 
 | DNP BUCK_MODE e BOOT_MODE | 3 | Forzare il download seriale richiede un filo; il ROM ci va da solo con QSPI vuota |
 | Disaccoppiamento: VDD_SOC_IN, VDD_HIGH_IN/NVCC, NVCC_DRAM, VDD_SNVS_IN, DDR3L | 10 | Vedi punto 10 |
 | Altri condensatori doppi (JMS578, M.2, hub, PHY, Wi-Fi, ingressi U17 e U23) | 10 | |
-
-**EEPROM MAC tolta** (Michele, 2026-11-02): U6 e 3 passivi. Il MAC va scritto nelle eFuse OCOTP del 6ULL, una sola volta per scheda; serve un indirizzo per ogni scheda. In BOM U6 va eliminato.
 
 Conservati: partitori di feedback, 49.9R Ethernet, carico dei quarzi, CC USB-C, ZQ e VREF DDR, rete pi del Wi-Fi, DNP di BOOT_CFG1[4] e [6] (lo strap QSPI non è confermato, punto 2).
 

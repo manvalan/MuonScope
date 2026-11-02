@@ -50,8 +50,8 @@ NET = {
     "ENET1_TX_DATA0": "RMII_TXD0", "ENET1_TX_DATA1": "RMII_TXD1", "ENET1_TX_EN": "RMII_TXEN", "ENET1_TX_CLK": "RMII_REFCLK",
     "ENET1_RX_DATA0": "RMII_RXD0", "ENET1_RX_DATA1": "RMII_RXD1", "ENET1_RX_EN": "RMII_CRSDV", "ENET1_RX_ER": "RMII_RXER",
     "GPIO1_IO06": "PHY_MDIO", "GPIO1_IO07": "PHY_MDC", "GPIO1_IO01": "PHY_RST_N",
-    # I2C2 bus MIKILAB (pad CSI)
-    "CSI_HSYNC": "MAIN_I2C_SCL", "CSI_VSYNC": "MAIN_I2C_SDA",
+    # I2C1 EEPROM MAC (GPIO1_IO02/03), I2C2 bus MIKILAB (pad CSI)
+    "GPIO1_IO02": "I2C1_SCL", "GPIO1_IO03": "I2C1_SDA", "CSI_HSYNC": "MAIN_I2C_SCL", "CSI_VSYNC": "MAIN_I2C_SDA",
     # BUS_POWER su ECSPI2 (pad UART4/UART5, per alleggerire il fanout del lato DRAM del BGA), MAIN su ECSPI1 (pad CSI_DATA04-07), CS extra via cs-gpios
     "UART4_TX_DATA": "ECSPI2_SCLK", "UART4_RX_DATA": "PWR_SPI_INA239A_CS", "UART5_TX_DATA": "PWR_SPI_MOSI", "UART5_RX_DATA": "PWR_SPI_MISO",
     "UART2_CTS_B": "PWR_SPI_INA239B_CS", "UART2_RTS_B": "PWR_SPI_DAC_CS",
@@ -99,7 +99,7 @@ SYM, PM = multi_symbol(LIBNAME, "MCIMX6Y2CVM08AB", unit_pins, "NXP i.MX 6ULL, MA
 s.add_sym(f"{LIBNAME}:MCIMX6Y2CVM08AB", SYM)
 s.note("U1 NXP MCIMX6Y2CVM08AB (i.MX 6ULL full feature, 792 MHz, -40..105 C, MAPBGA-289 14x14 mm passo 0.8). Sfere: IMX6ULLCEC Rev 1.2 tabelle 90/91, confrontate con la netlist di una scheda KiCad aperta: 289/289.")
 s.note("Boot: BOOT_MODE[1:0]=10 (boot interno) e BOOT_CFG tutti bassi con i pull-down interni da 100k (tabella 78) = QSPI, come SW601 tutto OFF sulla EVK NXP. Pull-up DNP su LCD_DATA04 e LCD_DATA06 (microSD). Se QSPI e' vuota il ROM va in download seriale su USB_OTG1.")
-s.note("Assegnazione: ECSPI2=BUS_POWER, ECSPI1=MAIN, I2C2=bus MIKILAB, UART1=console, UART3=GNSS, UART8=BT, GPT1 CAPTURE1=PPS (UART2_TX), CAPTURE2=EXTINT (UART2_RX). Elenco completo in docs/pinmap-imx6ull.md.")
+s.note("Assegnazione: ECSPI2=BUS_POWER, ECSPI1=MAIN, I2C2=bus MIKILAB, I2C1=EEPROM MAC, UART1=console, UART3=GNSS, UART8=BT, GPT1 CAPTURE1=PPS (UART2_TX), CAPTURE2=EXTINT (UART2_RX). Elenco completo in docs/pinmap-imx6ull.md.")
 pos, X, Y = {}, 75.0, 60.0
 for uu, lst in enumerate(unit_pins, start=1):
     half = (len(lst) + 1) // 2
@@ -303,8 +303,8 @@ u.flags(["VBUS2"])
 # ================================ Rete ======================================================================================================
 n = Sheet("Rete", "rete.kicad_sch", 700, 8)
 n.note("U7 LAN8720A su ENET1 RMII. Y3 25 MHz montato: il PHY genera i 50 MHz (nINTSEL basso) su REFCLKO verso ENET1_TX_CLK (REF_CLK in ingresso, SION). nINT quindi non disponibile. Strap MODE=111 (10k su RXD0/RXD1/CRS_DV), PHYAD0=0.")
-n.note("J1 HR911105A: magnetici e LED integrati. TX/RX con 49.9R a VDDA, CT a VDDA con 22 nF. Polarita' dei LED dal disegno Hanrun: da verificare (solo indicazione, non blocca il link). MAC nelle eFuse OCOTP del 6ULL: niente EEPROM.")
-n.std("Interface_Ethernet:LAN8720A"), n.std("Device:FerriteBead")
+n.note("J1 HR911105A: magnetici e LED integrati. TX/RX con 49.9R a VDDA, CT a VDDA con 22 nF. Polarita' dei LED dal disegno Hanrun: da verificare (solo indicazione, non blocca il link). U6 24AA02E48 su I2C1 con il MAC EUI-48.")
+n.std("Interface_Ethernet:LAN8720A"), n.std("Memory_EEPROM:24AA02E-OT"), n.std("Device:FerriteBead")
 n.ic("Interface_Ethernet:LAN8720A", "U7", "LAN8720A-CP-TR", "Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.6x2.6mm",
      {"1": "PHY_VDDA", "19": "PHY_VDDA", "2": "PHY_LED2", "3": "PHY_LED1", "4": "PHY_XTAL2", "5": "PHY_XTAL1", "6": "PHY_VDDCR", "7": "RMII_RXD1", "8": "RMII_RXD0", "9": V33, "10": "RMII_RXER", "11": "RMII_CRSDV", "12": "PHY_MDIO", "13": "PHY_MDC",
       "14": "PHY_REFCLK_S", "15": "PHY_RST_N", "16": "RMII_TXEN", "17": "RMII_TXD0", "18": "RMII_TXD1", "20": "ETH_TXN", "21": "ETH_TXP", "22": "ETH_RXN", "23": "ETH_RXP", "24": "PHY_RBIAS", "25": GND}, mpn="LAN8720A-CP-TR", lcsc="C45223")
@@ -319,6 +319,8 @@ n.group("PHY: terminazioni, RBIAS 12.1k, VDDCR 1uF+470pF, straps, REFCLK 22R", [
         ("C", "22nF", "PHY_VDDA", GND), ("C", "10uF", "PHY_VDDA", GND), ("C", "100nF", "PHY_VDDA", GND), ("R", "12.1k 1%", "PHY_RBIAS", GND), ("C", "1uF", "PHY_VDDCR", GND), ("C", "470pF", "PHY_VDDCR", GND),
         ("R", "10k", V33, "RMII_RXD0"), ("R", "10k", V33, "RMII_RXD1"), ("R", "10k", V33, "RMII_CRSDV"), ("R", "10k", "PHY_LED2", GND), ("R", "10k", V33, "PHY_RST_N"), ("R", "1.5k", V33, "PHY_MDIO"), ("R", "22R", "PHY_REFCLK_S", "RMII_REFCLK"),
         ("C", "100nF", V33, GND), ("C", "15pF", "PHY_XTAL1", GND), ("C", "15pF", "PHY_XTAL2", GND), ("R", "330R", "PHY_LED1", "LED1_R"), ("R", "330R", "PHY_LED2", "LED2_R")])
+n.ic("Memory_EEPROM:24AA02E-OT", "U6", "24AA02E48T-I/OT", "Package_TO_SOT_SMD:SOT-23-5", {"1": "I2C1_SCL", "2": GND, "3": "I2C1_SDA", "4": V33}, mpn="24AA02E48T-I/OT", lcsc="C38987")
+n.group("EEPROM MAC: I2C1", [("R", "2.2k", V33, "I2C1_SCL"), ("R", "2.2k", V33, "I2C1_SDA"), ("C", "100nF", V33, GND)])
 n.flags(["PHY_VDDA", "PHY_VDDCR"])
 
 # ================================ Radio =====================================================================================================
