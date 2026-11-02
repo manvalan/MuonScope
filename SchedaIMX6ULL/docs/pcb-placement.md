@@ -41,6 +41,21 @@ Michele aveva chiesto 6 strati, o 4 se si riesce, e ha giudicato difficile farla
 
 Oltre al margine di fanout, i 6 strati danno a DDR e USB piani di riferimento continui e separano le alimentazioni dai segnali. Costo: scheda più cara.
 
+## Prova a 4 strati (2026-11-02)
+
+Michele ha chiesto di provare anche a 4 strati. Freerouting non si è potuto usare: scaricare ed eseguire Java e il router esterno è stato bloccato dai permessi di questa macchina. Ho scritto `generatori/prova_fanout.py`, un router a griglia 0.1 mm sul placement reale con piste 5 mil e via 0.45/0.2. Non scrive sul PCB. Limiti: griglia fissa, niente accordo delle lunghezze, niente coppie accoppiate, isole di alimentazione non verificate; i segnali non DDR devono solo uscire dalla zona BGA + 3 mm.
+
+**Esito: non conclusivo per la DDR, a 4 come a 6 strati.** Il router non risolve gli incroci DDR nemmeno con uno strato in più, e i conflitti cadono soprattutto fuori dal BGA, nel tratto aperto verso la RAM: è un limite del router, non una misura del numero di strati. Sul campione dei punti di conflitto, 322 su 344 a 4 strati e 279 su 308 a 6 strati sono fuori dal BGA.
+
+| Dopo 6 iterazioni | 4 strati (F, B) | 6 strati (F, In2, B) |
+|---|---|---|
+| Net DDR senza conflitti | 0 su 51 | 2 su 51 |
+| Altri segnali usciti puliti | 83 su 94 | 90 su 94 |
+
+Lasciando girare di più non migliora: 51 net in conflitto dopo 38 iterazioni a 4 strati (fermato dal limite di 25 minuti), circa 50 dopo 40 a 6 strati. L'unico confronto utile è sugli altri segnali, a favore dei 6 strati.
+
+Resta quindi la scelta di 6 strati. Una verifica vera richiede uno sbroglio con Freerouting o a mano.
+
 ## Dove sta cosa (mm dall'angolo in alto a sinistra)
 
 | Zona | Componenti |
