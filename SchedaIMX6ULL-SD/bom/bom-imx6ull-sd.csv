@@ -3,8 +3,6 @@ U1,SoC NXP i.MX 6ULL (Cortex-A7 800 MHz; full feature Y2; industriale -40..105 C
 U2,RAM DDR3L 8 Gb x16 = 1 GB,MT41K512M16HA-107:A,Micron,FBGA-96 9x14 passo 0.8 mm,1,,no,"Richiesta Michele 2026-11-02: 1 GB. Bus DDR 16 bit (massimo dell'i.MX 6ULL), DDR3-800. Un solo chip punto-punto: niente VTT, solo VREF a partitore. Alternativa Samsung K4B8G1646D-MYK0",8.00
 Y1,Quarzo 24 MHz principale (XTALI/XTALO),X322524MOB4SI,YXC,3225,1,,no,2x C carico C0G da CL,0.15
 Y2,Quarzo 32.768 kHz RTC (SNVS),Q13FC13500004,Epson,3215,1,C32346,si,,0.15
-BT1,Portabatteria CR1220 (VDD_SNVS_IN + backup GNSS),CR1220-2,Seiko,SMD,1,C70381,si,OR a diodi con il 3.3 V (BAT54C),0.30
-D4,Diodo OR SNVS / VBAT,BAT54C,,SOT-23,1,,no,,0.05
 U5,SPI NOR 16 MB boot (U-Boot + kernel + dtb),W25Q128JVSIQ,Winbond,SOIC-8 208 mil,1,C97521,da verificare,"QSPI1 porta A, SS0. Il ROM del 6ULL avvia da NOR, non da SPI NAND",0.90
 U40,SPI NAND SLC 512 MB (rootfs UBIFS),W25N04KVZEIR,Winbond,WSON-8 8x6,1,C5342170,no; prezzo da verificare,"QSPI1 porta A, SS1 (NAND_DATA07). Linux e U-Boot mainline: il BSP NXP non supporta SPI NAND. Ripieghi stessa impronta: W25N02KV 256 MB; W25N01GV 128 MB",4.00
 J5,Slot microSD push-push (sul bottom),DM3AT-SF-PEJM5,Hirose,SMD,1,C114218,si,"uSDHC1 4 bit a 3.3 V (niente UHS), dati o boot alternativo; CD su GPIO, 22R su CLK, pull-up 10k solo su CD",1.50
@@ -36,10 +34,10 @@ J12,Connettore bus MIKILAB MAIN 28 pin (espansione),FPC-05F-28PH20,XUNPU,SMD,1,C
 U29-U34,ESD 4 linee bus,TPD4E05U06DQAR,TI,USON-10,6,,no,,1.80
 SW1;SW2,Pulsanti reset (POR_B) e ONOFF/utente,TS-1088-AR02016,,SMD 3x4,2,C720477,si,,0.15
 J6,Header console UART 1x3,2.54-1*3P,,2.54 mm,1,C49257,si,UART1 console,0.04
-R/C,"Passivi: 0603 come minimo, 47 uF e 10 uF/25 V in 1206, 22 uF e 10 uF in 0805",,,"0603, 0805, 1206",177 (4 DNP),,generici,"84 R 0603, 67 C 0603, 19 C 0805, 7 C 1206",2.80
+R/C,"Passivi: 0603 come minimo, 47 uF e 10 uF/25 V in 1206, 22 uF e 10 uF in 0805",,,"0603, 0805, 1206",176 (4 DNP),,generici,"84 R 0603, 66 C 0603, 19 C 0805, 7 C 1206",2.80
 U35,Modulo Wi-Fi 2.4 GHz 802.11n + Bluetooth 4.2 su SDIO,BL-M8723DS1,LB-LINK,modulo stamp 12x12,1,,no,"uSDHC2 è libero senza eMMC: Wi-Fi su SDIO, così l'hub USB resta all'SSD. RTL8723DS, driver mainline rtw88_8723ds. Antenna u.FL o PCB da decidere",3.50
 U37,LDO 3.3 V Wi-Fi,AP2112K-3.3TRG1,Diodes,SOT-23-5,1,C51118,da verificare,Rail separato per i picchi TX del Wi-Fi,0.10
 J14,U.FL antenna Wi-Fi con rete pi,U.FL-R-SMT-1,Hirose,SMD,1,,no,Aggiunto nello schema; antenna esterna,0.30
 L6,Induttore bias antenna GNSS 27 nH,,,0603,1,,no,Aggiunto nello schema,0.05
 FB1,Ferrite VDDA PHY 120R@100MHz,BLM18PG121SN1D,Murata,0603,1,,no,Aggiunto nello schema,0.05
-TOTALE,,,,,,,,"232 componenti nello schema (2 test point fuori BOM), PCB 4 strati 80 x 100 mm. MicroSD esclusa. Costi indicativi, U40, J14, L6 e FB1 stimati",66.38
+TOTALE,,,,,,,,"229 componenti nello schema (2 test point fuori BOM), PCB 4 strati 80 x 100 mm. MicroSD esclusa. Costi indicativi, U40, J14, L6 e FB1 stimati",66.03

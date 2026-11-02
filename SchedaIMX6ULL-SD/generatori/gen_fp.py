@@ -48,9 +48,8 @@ open(os.path.join(OUT, NAME + ".kicad_mod"), "w").write("\n".join(items) + "\n")
 assert len(pads) == 44
 
 
-# Copie di progetto di tre footprint EasyEDA della libreria MIKILAB, con le correzioni per questa scheda:
-# SMA: tolti bordo scheda e serigrafia del footprint (la scheda ha il suo bordo); quarzo 32.768 kHz: tolta la serigrafia sul pad;
-# portapila: i due fori di centraggio senza rame diventano NPTH.
+# Copie di progetto di due footprint EasyEDA della libreria MIKILAB, con le correzioni per questa scheda:
+# SMA: tolti bordo scheda e serigrafia del footprint (la scheda ha il suo bordo); quarzo 32.768 kHz: tolta la serigrafia sul pad.
 def local_copy(nick, name, drop_layers=(), npth=False):
     txt = open(os.path.join(mik_fp_dir(nick), name + ".kicad_mod")).read()
     for m in reversed(list(re.finditer(r"\(fp_(?:line|arc|circle|rect|poly)\b", txt))):
@@ -64,4 +63,3 @@ def local_copy(nick, name, drop_layers=(), npth=False):
 
 local_copy("MIKILAB_BWSMA_KE_P001", "SMA-SMD_BWSMA-KE-P001", ("Edge.Cuts", "F.SilkS"))
 local_copy("MIKILAB_Q13FC1350000400", "FC-135R_L3.2-W1.5", ("F.SilkS",))
-local_copy("MIKILAB_CR1220_2", "BAT-SMD_CR1220-2", npth=True)

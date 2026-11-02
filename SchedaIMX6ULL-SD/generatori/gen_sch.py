@@ -19,7 +19,7 @@ V33 = "3V3"
 V135 = "V1P35"
 V14 = "V1P4"
 V5 = "5V_SYS"
-SNVS = "VDD_SNVS"
+SNVS = V33   # niente pila: VDD_SNVS_IN e V_BCKP del GNSS direttamente al 3.3 V, insieme a VDD_HIGH_IN
 
 # ================================ mappa funzionale delle sfere del 6ULL ==========================================================
 # Nome della sfera -> net. Funzioni e ALT: linux imx6ul-pinfunc.h; sfere: tabelle 90/91 di IMX6ULLCEC Rev 1.2.
@@ -125,7 +125,7 @@ s.group("Carico 24 MHz (CL da verificare sul quarzo YXC)", [("C", "18pF", "XTALI
 Y2_ID, Y2_FP = s.mik("Q13FC1350000400")
 s.ic(Y2_ID, "Y2", "32.768kHz", f"{LIBNAME}:" + Y2_FP.split(":")[1], {"1": "RTC_XTALI", "2": "RTC_XTALO"}, mpn="Q13FC13500004", lcsc="C32346")
 s.group("Carico RTC: circa 2xCL meno parassite (datasheet, tabella 3)", [("C", "12pF", "RTC_XTALI", GND), ("C", "12pF", "RTC_XTALO", GND)])
-s.group("Boot: BOOT_MODE=10, riferiti a VDD_SNVS; BOOT_CFG1[4] e [6] DNP finche' lo strap QSPI non e' confermato sulla fuse map; JTAG_MOD a GND con 4.7k (tabella 3)",
+s.group("Boot: BOOT_MODE=10; BOOT_CFG1[4] e [6] DNP finche' lo strap QSPI non e' confermato sulla fuse map; JTAG_MOD a GND con 4.7k (tabella 3)",
         [("R", "10k", "BOOT_MODE1", SNVS), ("R", "10k", "BOOT_MODE0", GND),
          ("R", "10k", "BOOT_CFG1_4", V33, True), ("R", "10k", "BOOT_CFG1_6", V33, True), ("R", "4.7k", "JTAG_MOD", GND)])
 SW_ID, SW_FP = s.mik("TS-1088-AR02016")
@@ -167,9 +167,9 @@ d.flags(["DDR_VREF"])
 p = Sheet("Alimentazione", "alimentazione.kicad_sch", 300, 4)
 p.note("VIN_SYS 12 V dal BUS_POWER -> TPS56637 5 V (U22) -> TPS2121 U17 (IN1 bus con priorita, IN2 VBUS USB-C 1) -> 5V_SYS -> buck 3.3 V (U23), 1.35 V DDR (U26), 1.4 V VDD_SOC_IN (U27).")
 p.note("Sequenza 3.3 -> 1.35 -> 1.4 V a RC sugli EN del TLV62569 (soglia EN max 1.2 V): 100k/470nF circa 21 ms, 100k/1uF circa 45 ms. POR_B dal TPS3839K33 (2.93 V, push-pull) con 1k in serie, cosi' SW1 puo' cortocircuitare POR_B.")
-p.note("VDD_SNVS: OR a diodi BAT54C tra 3V3 e CR1220 (BT1), alimenta anche V_BCKP del GNSS. Nessuna ricarica della pila. Passivi 0603 minimo; 47 uF e 10 uF/25 V in 1206, 22 uF e 10 uF in 0805.")
+p.note("Niente pila di backup: VDD_SNVS_IN e V_BCKP del GNSS direttamente al 3.3 V. RTC e dati GNSS si perdono a ogni spegnimento. Passivi 0603 minimo; 47 uF e 10 uF/25 V in 1206, 22 uF e 10 uF in 0805.")
 B, BF = p.mik("TPS56637RPAR")
-p.std("Device:L"), p.std("Diode:BAT54C"), p.std("Power_Supervisor:TPS3839DBZ")
+p.std("Device:L"), p.std("Power_Supervisor:TPS3839DBZ")
 p.ic(B, "U22", "TPS56637RPAR", BF, {"8": "VIN_SYS", "1": "BUCK_EN", "2": "BUCK_FB", "10": "NC", "4": "BUCK_PG", "5": "NC", "7": "BUCK_BST", "6": "BUCK_SW", "3": GND, "9": GND},
      mpn="TPS56637RPAR", lcsc="C841386")
 p.ic("Device:L", "L1", "3.3uH/8A", "Inductor_SMD:L_Coilcraft_XAL6030-XXX", {"1": "BUCK_SW", "2": "5V_BUCK"}, mpn="XAL6030-332MEC")
@@ -199,10 +199,7 @@ p.group("U27 1.4 V VDD_SOC_IN: FB 133k/100k = 1.398 V (min 1.375 V, 125 mV sopra
         ("C", "22uF/10V", V14, GND)])
 p.ic("Power_Supervisor:TPS3839DBZ", "U28", "TPS3839K33DBZR", "Package_TO_SOT_SMD:SOT-23", {"1": GND, "2": "POR_DRV", "3": V33}, mpn="TPS3839K33DBZR")
 p.group("POR_B", [("R", "1k", "POR_DRV", "POR_B"), ("C", "100nF", V33, GND)])
-BAT, BATF = p.mik("CR1220-2")
-p.ic(BAT, "BT1", "CR1220", f"{LIBNAME}:" + BATF.split(":")[1], {"1": "VBAT", "2": GND}, mpn="CR1220-2", lcsc="C70381")
-p.ic("Diode:BAT54C", "D4", "BAT54C", "Package_TO_SOT_SMD:SOT-23", {"1": V33, "2": "VBAT", "3": SNVS}, mpn="BAT54C")
-p.flags(["VIN_SYS", "5V_BUCK", V5, V33, V135, V14, SNVS, "VBUS1", GND])
+p.flags(["VIN_SYS", "5V_BUCK", V5, V33, V135, V14, "VBUS1", GND])
 
 # ================================ Bus MIKILAB ===============================================================================================
 b = Sheet("Bus MIKILAB", "bus-mikilab.kicad_sch", 400, 5)
@@ -307,7 +304,7 @@ r.flags(["3V3_WIFI"])
 # ================================ GNSS =====================================================================================================
 g = Sheet("GNSS", "gnss.kicad_sch", 900, 10)
 g.note("U11 u-blox NEO-M9N-00B su UART3. TIMEPULSE -> 33R -> GNSS_PPS su GPT1_CAPTURE1 (UART2_TX) e buffer U20 -> 33R -> header J7. EXTINT IN da J7 -> ESD + 100R -> buffer U19 -> GNSS_EXTINT su NEO e GPT1_CAPTURE2 (UART2_RX): evento marcato da entrambi.")
-g.note("J4 SMA antenna, bias 3.3 V attiva: VCC_RF -> 10R -> 27 nH (0603) -> RF_IN, 10 nF. Linea 50 ohm corta. V_BCKP da VDD_SNVS (CR1220 via BAT54C). J7: PPS OUT, EXTINT IN, GND (come scheda Tibbo).")
+g.note("J4 SMA antenna, bias 3.3 V attiva: VCC_RF -> 10R -> 27 nH (0603) -> RF_IN, 10 nF. Linea 50 ohm corta. V_BCKP al 3.3 V, niente pila: partenza a freddo a ogni accensione. J7: PPS OUT, EXTINT IN, GND (come scheda Tibbo).")
 g.std("RF_GPS:NEO-M9N"), g.std("Device:L"), g.std("Connector_Generic:Conn_01x03"), g.std("Connector:TestPoint")
 g.ic("RF_GPS:NEO-M9N", "U11", "NEO-M9N-00B", "RF_GPS:ublox_NEO", {"1": "GNSS_SAFEBOOT_N", "2": "NC", "3": "GNSS_TP", "4": "GNSS_EXTINT", "5": "NC", "6": "NC", "7": GND, "8": "GNSS_RESET_N", "9": "GNSS_VCC_RF", "10": GND, "11": "GNSS_RF_IN", "12": GND, "13": GND,
      "20": "GNSS_UART_RX", "21": "GNSS_UART_TX", "22": SNVS, "23": V33, "24": GND}, mpn="NEO-M9N-00B")
@@ -316,7 +313,7 @@ g.ic("Connector:TestPoint", "TP2", "RESET_N", "TestPoint:TestPoint_Pad_D1.0mm", 
 SM, SMF = g.mik("BWSMA-KE-P001")
 g.ic(SM, "J4", "SMA antenna", f"{LIBNAME}:" + SMF.split(":")[1], {"5": "GNSS_RF_IN", "1": GND, "2": GND, "3": GND, "4": GND}, mpn="BWSMA-KE-P001", lcsc="C496550")
 g.ic("Device:L", "L6", "27nH", "Inductor_SMD:L_0603_1608Metric", {"1": "GNSS_ANT_BIAS", "2": "GNSS_RF_IN"})
-g.group("Bias antenna e alimentazione", [("R", "10R", "GNSS_VCC_RF", "GNSS_ANT_BIAS"), ("C", "10nF", "GNSS_ANT_BIAS", GND), ("C", "10uF", V33, GND), ("C", "100nF", V33, GND), ("C", "1uF", SNVS, GND)])
+g.group("Bias antenna e alimentazione", [("R", "10R", "GNSS_VCC_RF", "GNSS_ANT_BIAS"), ("C", "10nF", "GNSS_ANT_BIAS", GND), ("C", "10uF", V33, GND), ("C", "100nF", V33, GND)])
 B1, B1F = g.mik("SN74LVC1G17DBVR")
 g.ic(B1, "U20", "SN74LVC1G17DBVR", B1F, {"2": "GNSS_TP", "4": "GNSS_PPS_BUF", "5": V33, "3": GND}, mpn="SN74LVC1G17DBVR", lcsc="C7836")
 g.ic(B1, "U19", "SN74LVC1G17DBVR", B1F, {"2": "EXTINT_R", "4": "GNSS_EXTINT", "5": V33, "3": GND}, mpn="SN74LVC1G17DBVR", lcsc="C7836")

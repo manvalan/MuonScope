@@ -10,6 +10,7 @@ Fonti, assegnazione dei pad e punti comuni sono in `../SchedaIMX6ULL/docs/scelte
 | USB | USB_OTG2 diretto sulla USB-C 2 host, via U10 ESD. Unica porta host |
 | Aggiunto | U40 W25N04KVZEIR su QSPI SS1 (NAND_DATA07, ALT2) |
 | PREFIX_0 | Da NAND_DATA07 a CSI_DATA03 (GPIO4_IO24), per liberare SS1 |
+| Pila | Tolti BT1 e D4 (Michele, 2026-11-02): VDD_SNVS_IN e V_BCKP del NEO-M9N direttamente al 3.3 V |
 | Liberi | GPIO1_IO04, ex reset dell'hub |
 
 ## Scelta della memoria (Michele, 2026-11-02)
@@ -19,6 +20,8 @@ NOR 16 MB per il boot + SPI NAND 512 MB per il rootfs UBIFS. Il ROM del 6ULL non
 Ripieghi sulla stessa impronta: W25N02KV (256 MB), W25N01GV (128 MB), a 3.3 V, entrambe nei driver mainline.
 
 ## Punti da verificare
+
+0. **Senza pila**: ora e dati GNSS si perdono a ogni spegnimento, e il GNSS riparte a freddo; il salvataggio su flash del NEO-M9N (Save-on-Shutdown) conserva configurazione e orbite ma non l'ora. V_BCKP al VCC: il manuale u-blox della serie 5 ammette GND o VCC, il manuale del NEO-M9N non è stato letto su questo punto. VDD_SNVS_IN sale insieme a VDD_HIGH_IN (il datasheet chiede prima di ogni altro rail: scelta comune, come sulla scheda aperta di riferimento).
 
 1. **Driver SPI NAND**: NXP dichiara che il suo BSP non supporta SPI NAND su i.MX6. Serve Linux e U-Boot mainline: `drivers/mtd/nand/spi/winbond.c` elenca la W25N04KV in entrambi, e `imx6ul-kontron-sl-common.dtsi` usa `spi-nand` su QSPI a 4 bit con un i.MX6UL. Letto nei sorgenti, non provato su questa scheda.
 2. **Datasheet W25N04KV non letto**: pinout dal datasheet della famiglia W25N04LW (versione 1.8 V, stesso WSON 8x6) e tensione 2.7-3.6 V dal listino LCSC C5342170. **Attenzione al codice: W25N04KW e W25N04LW sono a 1.8 V** e qui si romperebbero.

@@ -237,7 +237,7 @@ Le ALT dei pad usati sono in `docs/scelte-progetto.md`. Le sfere con net `-` res
 | P9 | SNVS_TAMPER4 | VDD_SNVS_IN | - |
 | P10 | SNVS_TAMPER3 | VDD_SNVS_IN | - |
 | P11 | SNVS_TAMPER2 | VDD_SNVS_IN | - |
-| P12 | VDD_SNVS_IN | alimentazione | VDD_SNVS |
+| P12 | VDD_SNVS_IN | alimentazione | 3V3 |
 | P13 | NVCC_PLL | alimentazione | NVCC_PLL |
 | P14 | JTAG_TMS | NVCC_GPIO | - |
 | P15 | JTAG_MOD | NVCC_GPIO | JTAG_MOD |

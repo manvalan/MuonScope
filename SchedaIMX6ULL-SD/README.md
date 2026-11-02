@@ -1,6 +1,6 @@
 # Scheda i.MX 6ULL con sola microSD (MuonScope)
 
-Variante di `../SchedaIMX6ULL/` senza SSD: niente M.2, bridge JMS578, buck dell'SSD e hub FE1.1s. BOM in `bom/bom-imx6ull-sd.csv`.
+Variante di `../SchedaIMX6ULL/` senza SSD: niente M.2, bridge JMS578, buck dell'SSD, hub FE1.1s e pila di backup. BOM in `bom/bom-imx6ull-sd.csv`.
 
 - SoC NXP i.MX 6ULL (MCIMX6Y2CVM08AB), DDR3L 1 GB
 - **Boot da NOR QSPI 16 MB** (W25Q128JV, SS0), **rootfs UBIFS su SPI NAND SLC 512 MB** (W25N04KV, SS1), microSD per dati o boot alternativo
@@ -27,5 +27,5 @@ sh SchedaIMX6ULL-SD/generatori/build_pcb.sh
 ## Stato
 
 - Schema gerarchico, **ERC 0 violazioni**.
-- PCB **80 x 100 mm, 4 strati**, solo placement, **DRC 0 violazioni, parità schema/PCB 0 problemi**. 232 componenti, di cui 177 passivi.
+- PCB **80 x 100 mm, 4 strati**, solo placement, **DRC 0 violazioni, parità schema/PCB 0 problemi**. 229 componenti, di cui 176 passivi.
 - **Non sbrogliato**: il fanout a 4 strati è solo stimato, con margine piccolo.
