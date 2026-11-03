@@ -1,0 +1,7 @@
+progetto-kicad/*.kicad_prl
+progetto-kicad/fp-info-cache
+progetto-kicad/*-backups/
+progetto-kicad/erc.rpt
+progetto-kicad/drc.rpt
+__pycache__/
+nanoberry-originale/fp-info-cache

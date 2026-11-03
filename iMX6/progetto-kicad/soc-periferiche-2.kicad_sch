@@ -1,0 +1,542 @@
+(kicad_sch (version 20260306) (generator "eeschema") (generator_version "10.0") (uuid "d57363e1-0dc7-49de-a580-9abed603c399") (paper "A1") (lib_symbols (symbol "iMX6:Device_Polyfuse"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "F"
+			(at -2.54 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Device_Polyfuse"
+			(at 2.54 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 1.27 -5.08 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "*polyfuse* *PTC*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Device_Polyfuse_0_1"
+			(polyline
+				(pts
+					(xy -1.524 2.54) (xy -1.524 1.524) (xy 1.524 -1.524) (xy 1.524 -2.54)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -0.762 2.54)
+				(end 0.762 -2.54)
+				(stroke
+					(width 0.254)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 2.54) (xy 0 -2.54)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "Device_Polyfuse_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "iMX6:custom_components_W25M512JV"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at 0 1.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Value" "custom_components_W25M512JV"
+			(at 0 -1.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "custom_components_W25M512JV_0_1"
+			(rectangle
+				(start -15.24 6.35)
+				(end 15.24 -6.35)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "custom_components_W25M512JV_1_1"
+			(pin passive inverted
+				(at -20.32 3.81 0)
+				(length 5.08)
+				(name "#CS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -20.32 1.27 0)
+				(length 5.08)
+				(name "DO/IO1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at -20.32 -1.27 0)
+				(length 5.08)
+				(name "IO2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -20.32 -3.81 0)
+				(length 5.08)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 20.32 -3.81 180)
+				(length 5.08)
+				(name "DI/IO0"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive clock
+				(at 20.32 -1.27 180)
+				(length 5.08)
+				(name "CLK"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
+				(at 20.32 1.27 180)
+				(length 5.08)
+				(name "IO3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 20.32 3.81 180)
+				(length 5.08)
+				(name "VCC"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "iMX6:Device_CP1"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0.254)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Device_CP1"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "CP_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Device_CP1_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762) (xy 2.032 0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.778 2.286) (xy -0.762 2.286)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.27 1.778) (xy -1.27 2.794)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(arc
+				(start -2.032 -1.27)
+				(mid 0 -0.5572)
+				(end 2.032 -1.27)
+				(stroke
+					(width 0.508)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "Device_CP1_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 3.302)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)) (wire (pts (xy 54.61 36.83) (xy 54.61 31.75)) (stroke (width 0) (type default)) (uuid "97433708-047d-4989-9b91-e9ee801f2e0f")) (global_label "VBUS1" (shape passive) (at 54.61 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ed2f124c-b0b3-406a-a4dd-d98ab0db04cb")) (wire (pts (xy 54.61 44.45) (xy 54.61 49.53)) (stroke (width 0) (type default)) (uuid "8cc8abf0-12a6-48c1-a0e3-2bb2ffd2333a")) (global_label "OTG_VBUS" (shape passive) (at 54.61 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "8f2b0cc5-3228-46c6-b994-e79fe9c30646")) (symbol (lib_id "iMX6:Device_Polyfuse") (at 54.61 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "b1e10409-9122-415c-b2c7-9d61b6bd0175") (property "Reference" "F2" (at 46.99 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "Polyfuse" (at 46.99 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Diode_SMD:D_0805_2012Metric" (at 54.61 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 54.61 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 54.61 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "b5360a2d-6df8-4018-8559-197b52818b9e")) (pin "2" (uuid "50c0c0c0-8cff-4528-96a7-0b51e0fb117f")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/d57363e1-0dc7-49de-a580-9abed603c399" (reference "F2") (unit 1))))) (wire (pts (xy 123.19 36.83) (xy 118.11 36.83)) (stroke (width 0) (type default)) (uuid "4cc56c46-7b83-4b4e-91cc-aa5cb9defb5a")) (global_label "QA_CS" (shape passive) (at 118.11 36.83 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a3d38e67-9ccc-45b5-9e2b-309b9454cbd0")) (wire (pts (xy 123.19 39.37) (xy 118.11 39.37)) (stroke (width 0) (type default)) (uuid "8e480f07-0a15-4c7a-ac4a-dbb92703d3d8")) (global_label "QA_D1" (shape passive) (at 118.11 39.37 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "0b7dfb64-c821-4b62-9b4e-7a25f86ba77d")) (wire (pts (xy 123.19 41.91) (xy 118.11 41.91)) (stroke (width 0) (type default)) (uuid "87139a28-7a2d-45d6-a941-488757e263f8")) (global_label "QA_D2" (shape passive) (at 118.11 41.91 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "63920e74-1a24-4fbf-998b-7a5ae5754916")) (wire (pts (xy 123.19 44.45) (xy 118.11 44.45)) (stroke (width 0) (type default)) (uuid "e97dce03-67dc-4c89-b8bb-9a2f1b044b77")) (global_label "GND" (shape passive) (at 118.11 44.45 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "8c140a2c-db3f-4bb2-b8dc-1278f4587c84")) (wire (pts (xy 163.83 44.45) (xy 168.91 44.45)) (stroke (width 0) (type default)) (uuid "49dc8ab5-7906-40cf-85e2-73596f9eb49a")) (global_label "QA_D0" (shape passive) (at 168.91 44.45 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "50c4a339-fd3c-4146-bf6b-11503034af7f")) (wire (pts (xy 163.83 41.91) (xy 168.91 41.91)) (stroke (width 0) (type default)) (uuid "6f8227e0-7732-44c5-8228-4f0c92c8e9d6")) (global_label "QA_CLK" (shape passive) (at 168.91 41.91 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "391a0e03-823a-4253-a5a8-3792808167f9")) (wire (pts (xy 163.83 39.37) (xy 168.91 39.37)) (stroke (width 0) (type default)) (uuid "b4131094-1f0b-46bb-afc2-5841ccaca07f")) (global_label "QA_D3" (shape passive) (at 168.91 39.37 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7f9c7c72-912d-4426-ae76-dd736c3aea83")) (wire (pts (xy 163.83 36.83) (xy 168.91 36.83)) (stroke (width 0) (type default)) (uuid "3fbb12d0-76ca-4e2e-b94d-0d09a6c81d35")) (global_label "DCDC_3V3" (shape passive) (at 168.91 36.83 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "66811164-89c3-4e37-943a-ee2cebf78e91")) (symbol (lib_id "iMX6:custom_components_W25M512JV") (at 143.51 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "2231633c-76d6-4afb-b272-1ddcea9a0fd2") (property "Reference" "U4" (at 135.89 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "W25M512JV" (at 135.89 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:WSON8_8x6mm" (at 143.51 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 143.51 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 143.51 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "cb7a0c9d-b1ea-45ae-87d8-47ebcbb4a6d8")) (pin "2" (uuid "db69b4df-1dde-45a1-a14a-19af3a441a43")) (pin "3" (uuid "1c57e7e3-45c2-466d-8705-5a5b5cff8390")) (pin "4" (uuid "437ba81a-96ae-427c-9af5-362d771ad22e")) (pin "5" (uuid "65da72dc-f673-44a1-a167-ada860ad2d43")) (pin "6" (uuid "b53597c7-d574-4cd5-9172-d1e65b79a478")) (pin "7" (uuid "9b1430ed-ba1f-492d-941a-cc50fcdcba99")) (pin "8" (uuid "7085d34f-843d-4f88-b8ca-fceaf25177a1")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/d57363e1-0dc7-49de-a580-9abed603c399" (reference "U4") (unit 1))))) (wire (pts (xy 231.14 36.83) (xy 226.06 36.83)) (stroke (width 0) (type default)) (uuid "8868d41b-cd00-46c3-b6bf-1479b2ba4626")) (global_label "QB_CS" (shape passive) (at 226.06 36.83 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "d0606861-d045-4cde-ae5c-92ab7a781e7c")) (wire (pts (xy 231.14 39.37) (xy 226.06 39.37)) (stroke (width 0) (type default)) (uuid "5f322353-e44e-44a3-ad2a-058568a4eb8a")) (global_label "QB_D1" (shape passive) (at 226.06 39.37 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "84864aa5-229c-4444-9725-687e3c06d070")) (wire (pts (xy 231.14 41.91) (xy 226.06 41.91)) (stroke (width 0) (type default)) (uuid "cce50733-4946-460b-926a-9b6e10728a2e")) (global_label "QB_D2" (shape passive) (at 226.06 41.91 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6b8cf3d9-3c58-4787-b138-34f2facf3ae2")) (wire (pts (xy 231.14 44.45) (xy 226.06 44.45)) (stroke (width 0) (type default)) (uuid "fd557340-6d48-48f2-8685-3467c7889f94")) (global_label "GND" (shape passive) (at 226.06 44.45 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5668df99-5ee4-46b5-a9ab-1f951045d5dd")) (wire (pts (xy 271.78 44.45) (xy 276.86 44.45)) (stroke (width 0) (type default)) (uuid "54c1b4f1-18f5-4f5e-a300-296d4cedfd13")) (global_label "QB_D0" (shape passive) (at 276.86 44.45 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7582c089-fbfe-45d8-aaa8-9d3edcfba43e")) (wire (pts (xy 271.78 41.91) (xy 276.86 41.91)) (stroke (width 0) (type default)) (uuid "3e5e70f5-cffd-41c3-a334-0c21d9d99c98")) (global_label "QB_CLK" (shape passive) (at 276.86 41.91 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "dc3cf08a-04ad-4fe9-ba39-5cb1781ab2b3")) (wire (pts (xy 271.78 39.37) (xy 276.86 39.37)) (stroke (width 0) (type default)) (uuid "cb66fd63-ec54-4a6c-999a-a44bc592edf2")) (global_label "QB_D3" (shape passive) (at 276.86 39.37 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "57f0f1b6-c41b-4d3b-8b12-c6c2919c0436")) (wire (pts (xy 271.78 36.83) (xy 276.86 36.83)) (stroke (width 0) (type default)) (uuid "989f7065-5b42-44f8-8351-12b0d2984dd3")) (global_label "DCDC_3V3" (shape passive) (at 276.86 36.83 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "5b894201-dae5-49cf-91c8-b7b5994ea844")) (symbol (lib_id "iMX6:custom_components_W25M512JV") (at 251.46 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "b2836afb-dd67-4e33-a4f8-777184f4cd27") (property "Reference" "U5" (at 243.84 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "W25M512JV" (at 243.84 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:WSON8_8x6mm" (at 251.46 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 251.46 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 251.46 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "38c165d4-2ff1-462d-9064-db86c4d4842a")) (pin "2" (uuid "10aa5597-6484-4c05-b38f-15b28af3b072")) (pin "3" (uuid "207872f0-3de5-487c-bc26-4b049716bafe")) (pin "4" (uuid "0fab3f65-49eb-4513-ac5d-9d7d41c7bce5")) (pin "5" (uuid "2eafddb1-3e5d-4e89-a941-9e2339171428")) (pin "6" (uuid "7bb55161-7ac7-407a-aed6-2510fc824ff9")) (pin "7" (uuid "378524c8-e9b8-40bf-b8a5-9b13ea02159d")) (pin "8" (uuid "9e0bf0f0-637c-436e-9cb1-391ddfd5e4de")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/d57363e1-0dc7-49de-a580-9abed603c399" (reference "U5") (unit 1))))) (wire (pts (xy 340.36 36.83) (xy 340.36 31.75)) (stroke (width 0) (type default)) (uuid "3aea4eb9-af12-45c8-a370-2bfe5b0837a3")) (global_label "VDDUSB_CAP" (shape passive) (at 340.36 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c48b7865-16a3-4362-9bca-2b9f7ab32670")) (wire (pts (xy 340.36 44.45) (xy 340.36 49.53)) (stroke (width 0) (type default)) (uuid "691cffd3-9e24-4293-a7b2-d04cd9564bc3")) (global_label "GND" (shape passive) (at 340.36 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "acac43ca-643b-4eed-90d1-899a0d2e29db")) (symbol (lib_id "iMX6:Device_CP1") (at 340.36 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "cfe1be47-cf45-49ca-88bf-3208ec7547cd") (property "Reference" "C103" (at 332.74 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "0.1uF" (at 332.74 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0402_narrow" (at 340.36 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 340.36 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 340.36 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "19d1d3b5-9e1f-4f39-9b20-36aa25877929")) (pin "2" (uuid "aa407124-3c62-45d7-bbf8-0b8517bb94b3")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/d57363e1-0dc7-49de-a580-9abed603c399" (reference "C103") (unit 1))))) (wire (pts (xy 407.67 36.83) (xy 407.67 31.75)) (stroke (width 0) (type default)) (uuid "f3bfd5b4-9d1e-4868-afbf-ad7a8c35175a")) (global_label "VDDUSB_CAP" (shape passive) (at 407.67 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "cdab6778-6bcd-4a09-a69a-39d3889ed3bb")) (wire (pts (xy 407.67 44.45) (xy 407.67 49.53)) (stroke (width 0) (type default)) (uuid "635ae1c5-3f8c-46a8-9df9-17ba1b5316cc")) (global_label "GND" (shape passive) (at 407.67 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ece5da79-5e92-4118-a2ca-b07b85c1ef00")) (symbol (lib_id "iMX6:Device_CP1") (at 407.67 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "7c3ac97a-d8f3-4ab1-af4b-9166c7ee23d0") (property "Reference" "C104" (at 400.05 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "10uF" (at 400.05 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0603_narrow" (at 407.67 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 407.67 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 407.67 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "52333f89-9f1f-469a-8b3b-294ee5e7d197")) (pin "2" (uuid "4ecc22f1-649a-4f14-9c6b-a67471d2b43e")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/d57363e1-0dc7-49de-a580-9abed603c399" (reference "C104") (unit 1))))) (wire (pts (xy 476.25 36.83) (xy 476.25 31.75)) (stroke (width 0) (type default)) (uuid "55757e7a-b7e0-4b7f-9391-d7b000a57671")) (global_label "DCDC_3V3" (shape passive) (at 476.25 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "67c52e85-1cff-4fbb-a954-50b2be0858f2")) (wire (pts (xy 476.25 44.45) (xy 476.25 49.53)) (stroke (width 0) (type default)) (uuid "7618e18b-e9db-4b5f-b357-f9bbcbb138d2")) (global_label "GND" (shape passive) (at 476.25 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "28edf2a3-4d59-484f-8d56-6ce43f5693f1")) (symbol (lib_id "iMX6:Device_CP1") (at 476.25 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "a383fd2a-034f-4f40-b692-4527f7dca348") (property "Reference" "C112" (at 468.63 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "0.1uF" (at 468.63 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0402_narrow" (at 476.25 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 476.25 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 476.25 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "dd5cf1cd-3fee-4f4c-9c2e-8f22c469760b")) (pin "2" (uuid "1a649fd0-7afe-4b96-ae73-740174127ca7")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/d57363e1-0dc7-49de-a580-9abed603c399" (reference "C112") (unit 1))))) (wire (pts (xy 544.83 36.83) (xy 544.83 31.75)) (stroke (width 0) (type default)) (uuid "cac9346a-bb1a-456b-983d-e773e16a85e9")) (global_label "DCDC_3V3" (shape passive) (at 544.83 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a1caec6a-19a5-4ebb-947d-9cb156ea9e37")) (wire (pts (xy 544.83 44.45) (xy 544.83 49.53)) (stroke (width 0) (type default)) (uuid "8aafbd08-ff73-4659-9089-f11ee6d01d1f")) (global_label "GND" (shape passive) (at 544.83 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "6a9ba0ee-d5bc-4f17-a978-0683c8072284")) (symbol (lib_id "iMX6:Device_CP1") (at 544.83 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "6a2effea-125e-4ef3-80e7-eb21cb19162e") (property "Reference" "C113" (at 537.21 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "0.1uF" (at 537.21 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0402_narrow" (at 544.83 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 544.83 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 544.83 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "e46de832-014c-4dbd-b8ed-8880ba23d4e5")) (pin "2" (uuid "759c37ed-4018-4e21-8b49-a468350ebf19")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/d57363e1-0dc7-49de-a580-9abed603c399" (reference "C113") (unit 1))))) (embedded_fonts no))

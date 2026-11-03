@@ -1,0 +1,1544 @@
+(kicad_sch (version 20260306) (generator "eeschema") (generator_version "10.0") (uuid "a51f5ee2-55ab-433b-8179-f0c6ddf2a852") (paper "A1") (lib_symbols (symbol "iMX6:Connector_Generic_Conn_02x05_Odd_Even"
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "J"
+			(at 1.27 7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Connector_Generic_Conn_02x05_Odd_Even"
+			(at 1.27 -7.62 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Connector*:*_2x??_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Connector_Generic_Conn_02x05_Odd_Even_1_1"
+			(rectangle
+				(start -1.27 6.35)
+				(end 3.81 -6.35)
+				(stroke
+					(width 0.254)
+					(type solid)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(rectangle
+				(start -1.27 5.207)
+				(end 0 4.953)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 2.667)
+				(end 0 2.413)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 0.127)
+				(end 0 -0.127)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -2.413)
+				(end 0 -2.667)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -4.953)
+				(end 0 -5.207)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start 3.81 5.207)
+				(end 2.54 4.953)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start 3.81 2.667)
+				(end 2.54 2.413)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start 3.81 0.127)
+				(end 2.54 -0.127)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start 3.81 -2.413)
+				(end 2.54 -2.667)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start 3.81 -4.953)
+				(end 2.54 -5.207)
+				(stroke
+					(width 0.1524)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(pin passive line
+				(at -5.08 5.08 0)
+				(length 3.81)
+				(name "Pin_1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 5.08 180)
+				(length 3.81)
+				(name "Pin_2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 2.54 0)
+				(length 3.81)
+				(name "Pin_3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 2.54 180)
+				(length 3.81)
+				(name "Pin_4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 0 0)
+				(length 3.81)
+				(name "Pin_5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 0 180)
+				(length 3.81)
+				(name "Pin_6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 -2.54 0)
+				(length 3.81)
+				(name "Pin_7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -2.54 180)
+				(length 3.81)
+				(name "Pin_8"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -5.08 -5.08 0)
+				(length 3.81)
+				(name "Pin_9"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "9"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -5.08 180)
+				(length 3.81)
+				(name "Pin_10"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "10"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "iMX6:custom_components_XTAL"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "XTAL"
+			(at -6.35 6.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "custom_components_XTAL"
+			(at 6.35 -6.35 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0.762 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 2.54 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "XTAL*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "custom_components_XTAL_0_0"
+			(text "GND"
+				(at -3.81 2.54 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(text "GND"
+				(at 3.81 -2.54 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+		)
+		(symbol "custom_components_XTAL_0_1"
+			(polyline
+				(pts
+					(xy -6.35 -2.54) (xy 0 -2.54) (xy 0 -1.27) (xy 1.27 -1.27)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.27 -0.635)
+				(end 1.27 0.635)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type outline)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 1.27) (xy -1.27 1.27)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 -1.27) (xy -1.27 -1.27)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start 6.35 5.08)
+				(end -6.35 -5.08)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(polyline
+				(pts
+					(xy 6.35 2.54) (xy 0 2.54) (xy 0 1.27) (xy 1.27 1.27)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "custom_components_XTAL_1_1"
+			(pin passive line
+				(at -7.62 -2.54 0)
+				(length 1.27)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 -2.54 180)
+				(length 1.27)
+				(name "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 7.62 2.54 180)
+				(length 1.27)
+				(name "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -7.62 2.54 0)
+				(length 1.27)
+				(name "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "iMX6:Device_Crystal"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 1.016)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "Y"
+			(at 0 3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Device_Crystal"
+			(at 0 -3.81 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Crystal*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Device_Crystal_0_1"
+			(polyline
+				(pts
+					(xy -2.54 0) (xy -1.905 0)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.905 -1.27) (xy -1.905 1.27)
+				)
+				(stroke
+					(width 0.508)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(rectangle
+				(start -1.143 2.54)
+				(end 1.143 -2.54)
+				(stroke
+					(width 0.3048)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 1.905 -1.27) (xy 1.905 1.27)
+				)
+				(stroke
+					(width 0.508)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 2.54 0) (xy 1.905 0)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "Device_Crystal_1_1"
+			(pin passive line
+				(at -3.81 0 0)
+				(length 1.27)
+				(name "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 3.81 0 180)
+				(length 1.27)
+				(name "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "iMX6:nano-rescue_CP1"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0.254)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "nano-rescue_CP1"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "CP_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "nano-rescue_CP1_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762) (xy 2.032 0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.778 2.286) (xy -0.762 2.286)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.27 1.778) (xy -1.27 2.794)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(arc
+				(start -2.032 -1.27)
+				(mid 0 -0.5572)
+				(end 2.032 -1.27)
+				(stroke
+					(width 0.508)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "nano-rescue_CP1_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 3.302)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "iMX6:Device_CP1"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0.254)
+			(hide yes)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "C"
+			(at 0.635 2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Device_CP1"
+			(at 0.635 -2.54 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "CP_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Device_CP1_0_1"
+			(polyline
+				(pts
+					(xy -2.032 0.762) (xy 2.032 0.762)
+				)
+				(stroke
+					(width 0.508)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.778 2.286) (xy -0.762 2.286)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy -1.27 1.778) (xy -1.27 2.794)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(arc
+				(start -2.032 -1.27)
+				(mid 0 -0.5572)
+				(end 2.032 -1.27)
+				(stroke
+					(width 0.508)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "Device_CP1_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 2.794)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 3.302)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "iMX6:Device_Ferrite_Bead_Small"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "FB"
+			(at 1.905 1.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Device_Ferrite_Bead_Small"
+			(at 1.905 -1.27 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "Inductor_* L_* *Ferrite*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Device_Ferrite_Bead_Small_0_1"
+			(polyline
+				(pts
+					(xy -1.8288 0.2794) (xy -1.1176 1.4986) (xy 1.8288 -0.2032) (xy 1.1176 -1.4224) (xy -1.8288 0.2794)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 0.889) (xy 0 1.2954)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+			(polyline
+				(pts
+					(xy 0 -1.27) (xy 0 -0.7874)
+				)
+				(stroke
+					(width 0)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "Device_Ferrite_Bead_Small_1_1"
+			(pin passive line
+				(at 0 2.54 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -2.54 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "iMX6:Device_R"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Device_R"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "Device_R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "Device_R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	) (symbol "iMX6:nano-rescue_R"
+		(pin_numbers
+			(hide yes)
+		)
+		(pin_names
+			(offset 0)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "R"
+			(at 2.032 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "nano-rescue_R"
+			(at 0 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at -1.778 0 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "ki_fp_filters" "R_* R_*"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "nano-rescue_R_0_1"
+			(rectangle
+				(start -1.016 -2.54)
+				(end 1.016 2.54)
+				(stroke
+					(width 0.254)
+					(type solid)
+				)
+				(fill
+					(type none)
+				)
+			)
+		)
+		(symbol "nano-rescue_R_1_1"
+			(pin passive line
+				(at 0 3.81 270)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 0 -3.81 90)
+				(length 1.27)
+				(name "~"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)) (wire (pts (xy 54.61 36.83) (xy 49.53 36.83)) (stroke (width 0) (type default)) (uuid "cfa38d95-b471-41f8-a713-ae9329d6ac63")) (global_label "DCDC_3V3" (shape passive) (at 49.53 36.83 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ba20ee91-d5b3-4f69-9a21-befe5b93dfb4")) (wire (pts (xy 67.31 36.83) (xy 72.39 36.83)) (stroke (width 0) (type default)) (uuid "f4d5a811-7635-4712-a217-05ce44494baa")) (global_label "JTAG_TMS" (shape passive) (at 72.39 36.83 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "c260e309-7974-40ac-95f1-da626ec71bcd")) (wire (pts (xy 54.61 39.37) (xy 49.53 39.37)) (stroke (width 0) (type default)) (uuid "539e7785-3b9e-49b3-b046-fe127a8b5ffa")) (global_label "GND" (shape passive) (at 49.53 39.37 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a2b4d215-cb89-47bc-b847-d79ee5d75442")) (wire (pts (xy 67.31 39.37) (xy 72.39 39.37)) (stroke (width 0) (type default)) (uuid "51ff7c68-af67-4380-8125-47aada539edc")) (global_label "JTAG_TCK" (shape passive) (at 72.39 39.37 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "af2b9bef-dfb4-4eff-9f37-dbfb2d8f6f51")) (wire (pts (xy 54.61 41.91) (xy 49.53 41.91)) (stroke (width 0) (type default)) (uuid "b04b5540-7301-461b-af10-ce5e796f6dab")) (global_label "GND" (shape passive) (at 49.53 41.91 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "68425f2a-0b57-446f-a44b-17f5df26f9d4")) (wire (pts (xy 67.31 41.91) (xy 72.39 41.91)) (stroke (width 0) (type default)) (uuid "2aefc498-85a3-47e1-b238-a1bc9f21f464")) (global_label "JTAG_TDO" (shape passive) (at 72.39 41.91 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "615f4528-2b49-4009-8982-7e03216bc43b")) (wire (pts (xy 54.61 44.45) (xy 49.53 44.45)) (stroke (width 0) (type default)) (uuid "56907fb3-b3bb-4d5c-8183-fe80b4f92054")) (global_label "JTAG_TRST_B" (shape passive) (at 49.53 44.45 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5d55fb8f-bc1c-41f7-a3c5-ff8b813d752c")) (wire (pts (xy 67.31 44.45) (xy 72.39 44.45)) (stroke (width 0) (type default)) (uuid "770b1e25-d093-4048-80de-059de01c8429")) (global_label "JTAG_TDI" (shape passive) (at 72.39 44.45 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "8dff1562-5424-4836-a712-bf94711d37e9")) (wire (pts (xy 54.61 46.99) (xy 49.53 46.99)) (stroke (width 0) (type default)) (uuid "87b6c1bb-29bc-49b3-aa28-b397c1ac5e93")) (global_label "GND" (shape passive) (at 49.53 46.99 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "df95a409-b0cc-4e58-b34d-226acba07a42")) (wire (pts (xy 67.31 46.99) (xy 72.39 46.99)) (stroke (width 0) (type default)) (uuid "f910545a-94c0-4750-a8a0-d18d4986261c")) (global_label "POR_B" (shape passive) (at 72.39 46.99 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "eff6648d-b21b-49f9-a84e-eb153b4353ed")) (symbol (lib_id "iMX6:Connector_Generic_Conn_02x05_Odd_Even") (at 59.69 41.91 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "438ece31-6f76-43cb-977d-c0c222c3d52f") (property "Reference" "J5" (at 52.07 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "JTAG" (at 52.07 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_2x05_P1.00mm_Vertical_SMD" (at 59.69 41.91 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 59.69 41.91 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 59.69 41.91 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "e4d4132f-d6e3-427a-b7b3-f52c022e582d")) (pin "2" (uuid "5f5b164e-abea-4f11-b2ec-8476614aac2f")) (pin "3" (uuid "30f43655-9a4e-44dc-afb9-4a8dfc6a8524")) (pin "4" (uuid "fe6b5eeb-cd89-49c9-9f27-b65c6ac12c5d")) (pin "5" (uuid "fb8a13ee-f8c8-4532-8c2f-6976928d224a")) (pin "6" (uuid "25945a31-bf77-4d7d-ae09-76dca02c6e82")) (pin "7" (uuid "67e87d76-27ed-48e2-8d23-a2edfe2debcd")) (pin "8" (uuid "63a6716b-1051-405b-9f7f-f327ee15cc21")) (pin "9" (uuid "2837b607-5345-492a-9df7-20f6fd2ae3ec")) (pin "10" (uuid "c85ef1d2-a76c-4fe2-aba6-73114eaf8dad")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "J5") (unit 1))))) (wire (pts (xy 135.89 41.91) (xy 130.81 41.91)) (stroke (width 0) (type default)) (uuid "6944ab4a-b640-4dce-aa6f-fc84995f9c31")) (global_label "IMX_XTALO" (shape passive) (at 130.81 41.91 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3db4e6f9-9e11-4648-abcc-795583ed795d")) (wire (pts (xy 151.13 41.91) (xy 156.21 41.91)) (stroke (width 0) (type default)) (uuid "ca5be326-5d21-485e-a693-4045c01b7dce")) (global_label "GND" (shape passive) (at 156.21 41.91 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "625e62bc-cf1d-4288-8fcf-903a8875e60b")) (wire (pts (xy 151.13 36.83) (xy 156.21 36.83)) (stroke (width 0) (type default)) (uuid "1f401a98-e7af-4552-b24a-516760a80794")) (global_label "IMX_XTALI" (shape passive) (at 156.21 36.83 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4c4228b5-28a1-46a0-a48f-fc45078688c6")) (wire (pts (xy 135.89 36.83) (xy 130.81 36.83)) (stroke (width 0) (type default)) (uuid "a191ef82-dd8e-4ae4-b8ff-79b8929a1394")) (global_label "GND" (shape passive) (at 130.81 36.83 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "08a75c1e-e74b-49a7-b4f9-b8662e40a9da")) (symbol (lib_id "iMX6:custom_components_XTAL") (at 143.51 39.37 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "3b17b79c-911b-4720-b795-453970c98d56") (property "Reference" "XTAL2" (at 135.89 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "24MHz 50ppm" (at 135.89 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Oscillator:Oscillator_SMD_EuroQuartz_XO32-4Pin_3.2x2.5mm" (at 143.51 39.37 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 143.51 39.37 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 143.51 39.37 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "cd93cae4-f249-46fe-ae8c-7ea6142c2220")) (pin "2" (uuid "6ac9bed1-51f4-42bf-b927-259014c59b7e")) (pin "3" (uuid "83326b6e-ee9c-44af-aba7-2d6e62bbd47a")) (pin "4" (uuid "ca92c2d5-c631-431e-80bd-84978dc21ec0")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "XTAL2") (unit 1))))) (wire (pts (xy 218.44 36.83) (xy 213.36 36.83)) (stroke (width 0) (type default)) (uuid "6b359a4f-a93e-4136-9f3b-7695c9bdbac6")) (global_label "RTC_XTALO" (shape passive) (at 213.36 36.83 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c4c8528f-7c2d-46fa-a627-0b9630fffd43")) (wire (pts (xy 226.06 36.83) (xy 231.14 36.83)) (stroke (width 0) (type default)) (uuid "25ff098a-0b9e-4ef6-b9d1-b495f75edac7")) (global_label "RTC_XTALI" (shape passive) (at 231.14 36.83 0) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "01713192-4055-4e99-a361-4e195ae55179")) (symbol (lib_id "iMX6:Device_Crystal") (at 222.25 36.83 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "e923b228-5e25-41ff-ba3f-dea408ec8009") (property "Reference" "Y1" (at 214.63 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "32.768 kHz" (at 214.63 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Crystal:Crystal_SMD_3215-2Pin_3.2x1.5mm" (at 222.25 36.83 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 222.25 36.83 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 222.25 36.83 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "9eee8a82-3d0e-49cf-a859-f31474503d79")) (pin "2" (uuid "044a6d92-c74b-48af-8eff-b487b15fcd0a")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "Y1") (unit 1))))) (wire (pts (xy 294.64 36.83) (xy 294.64 31.75)) (stroke (width 0) (type default)) (uuid "396a343b-62e6-49d0-87a8-f1364abcad5f")) (global_label "RTC_XTALO" (shape passive) (at 294.64 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "df01900e-da78-46c9-852d-c7af37a2d568")) (wire (pts (xy 294.64 44.45) (xy 294.64 49.53)) (stroke (width 0) (type default)) (uuid "c05fc3cf-ffa9-4cc4-883d-0c2a54348162")) (global_label "GND" (shape passive) (at 294.64 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "47416cdc-db17-4f56-a644-9aca16923985")) (symbol (lib_id "iMX6:nano-rescue_CP1") (at 294.64 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "776dcdd3-d963-4ef9-bc28-fabaf379a0a9") (property "Reference" "C96" (at 287.02 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "18p" (at 287.02 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0402_narrow" (at 294.64 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 294.64 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 294.64 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "ef1289d1-81f4-494c-8031-f7b421f50efb")) (pin "2" (uuid "75fe1fba-00bb-4aff-8a0b-36d4b7430f2f")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "C96") (unit 1))))) (wire (pts (xy 361.95 36.83) (xy 361.95 31.75)) (stroke (width 0) (type default)) (uuid "51f3801f-69ed-4b6e-99a5-162807f84fca")) (global_label "RTC_XTALI" (shape passive) (at 361.95 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "ab1bd607-434a-4509-8e64-554baea4fe05")) (wire (pts (xy 361.95 44.45) (xy 361.95 49.53)) (stroke (width 0) (type default)) (uuid "2710d6cd-1f90-45d4-918d-569bd6f9cf6e")) (global_label "GND" (shape passive) (at 361.95 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1638c6ad-9cf1-44b1-84ec-de0e086c9b30")) (symbol (lib_id "iMX6:nano-rescue_CP1") (at 361.95 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "a8f9573d-8cc2-47c1-9777-87a82bf23d4a") (property "Reference" "C97" (at 354.33 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "18p" (at 354.33 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0402_narrow" (at 361.95 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 361.95 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 361.95 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "df4bbc5c-3706-43b3-8ba4-7e5fb575b200")) (pin "2" (uuid "7ac483cc-2da7-4a8e-9dde-5bc2387bb203")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "C97") (unit 1))))) (wire (pts (xy 430.53 36.83) (xy 430.53 31.75)) (stroke (width 0) (type default)) (uuid "9ebc653b-4a90-427c-8bdb-8bfc29760274")) (global_label "IMX_XTALO" (shape passive) (at 430.53 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "46cd57eb-3b98-45fd-ba79-9c63613161c9")) (wire (pts (xy 430.53 44.45) (xy 430.53 49.53)) (stroke (width 0) (type default)) (uuid "76bdb0fb-08c5-4799-9eaf-7c20181be1b2")) (global_label "GND" (shape passive) (at 430.53 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5846cc5e-f13a-4808-b95a-34ad9039ccdc")) (symbol (lib_id "iMX6:nano-rescue_CP1") (at 430.53 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "ae2e7ff5-5d1d-47d2-9227-f2f531ad823b") (property "Reference" "C98" (at 422.91 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "18pF" (at 422.91 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0402_narrow" (at 430.53 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 430.53 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 430.53 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "26815d17-7e5e-4454-974c-f66520ac424b")) (pin "2" (uuid "3c58f1f1-d6c3-4ef2-8c6c-66fcf810e046")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "C98") (unit 1))))) (wire (pts (xy 499.11 36.83) (xy 499.11 31.75)) (stroke (width 0) (type default)) (uuid "13610324-17f0-476b-b139-354f0643321f")) (global_label "IMX_XTALI" (shape passive) (at 499.11 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "4396d260-17f0-4f45-bf8c-56fb5671ae76")) (wire (pts (xy 499.11 44.45) (xy 499.11 49.53)) (stroke (width 0) (type default)) (uuid "dc604c1f-f613-42af-8a16-14d45a720991")) (global_label "GND" (shape passive) (at 499.11 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1b1a8938-725b-4639-b021-4a6ccd92f6a5")) (symbol (lib_id "iMX6:nano-rescue_CP1") (at 499.11 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "a75ab00a-d3c5-4266-b204-c1bc637cedbe") (property "Reference" "C99" (at 491.49 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "18pF" (at 491.49 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0402_narrow" (at 499.11 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 499.11 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 499.11 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "48443e6b-1b1b-4d90-a7d7-fad4d8bc36fe")) (pin "2" (uuid "a0495736-e925-4721-967b-ae0f0d8ac438")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "C99") (unit 1))))) (wire (pts (xy 566.42 36.83) (xy 566.42 31.75)) (stroke (width 0) (type default)) (uuid "bd2d3d42-5161-4c13-b028-d44248558b01")) (global_label "VDDA_ADC" (shape passive) (at 566.42 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "7e8d94c7-141a-44c9-bf02-36305d7992eb")) (wire (pts (xy 566.42 44.45) (xy 566.42 49.53)) (stroke (width 0) (type default)) (uuid "a5531d97-1b3c-4644-bee2-02c69565de32")) (global_label "GND" (shape passive) (at 566.42 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "5946e1e8-5a96-4732-a770-5f71679426f0")) (symbol (lib_id "iMX6:Device_CP1") (at 566.42 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "f59b6134-ee5d-47d7-917f-00dbebcace96") (property "Reference" "C100" (at 558.80 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "0.1uF" (at 558.80 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0402_narrow" (at 566.42 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 566.42 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 566.42 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "9766ffec-e02a-46bb-80a1-b71ad268417f")) (pin "2" (uuid "41836c53-c29b-4bd0-a36a-efe3049f1315")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "C100") (unit 1))))) (wire (pts (xy 635.00 36.83) (xy 635.00 31.75)) (stroke (width 0) (type default)) (uuid "33be6ccd-f713-435e-af9f-909bccd8ee1c")) (global_label "VDDA_ADC" (shape passive) (at 635.00 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "78145b48-2f40-4674-ac01-5d40768ffc6b")) (wire (pts (xy 635.00 44.45) (xy 635.00 49.53)) (stroke (width 0) (type default)) (uuid "ae9ef245-cbe8-45de-b6f2-5306590edd8f")) (global_label "GND" (shape passive) (at 635.00 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "9ab060dd-b3bd-4c51-aeb4-b6c5d1c12b95")) (symbol (lib_id "iMX6:Device_CP1") (at 635.00 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "58517ec0-aff4-49bc-a5f4-912242d8add4") (property "Reference" "C101" (at 627.38 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "1.0uF" (at 627.38 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:C_0402_narrow" (at 635.00 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 635.00 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 635.00 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "1b86bffd-d6dd-4093-9412-d47d63337e57")) (pin "2" (uuid "163342f0-081b-4147-a3c1-687c9e5fe8db")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "C101") (unit 1))))) (wire (pts (xy 702.31 36.83) (xy 702.31 31.75)) (stroke (width 0) (type default)) (uuid "96168bae-5228-49a5-b9c9-a7c4ae74b2e8")) (global_label "VDD_HIGH_IN" (shape passive) (at 702.31 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "94cac934-c056-4c9d-9b9a-5e9127c6ea57")) (wire (pts (xy 702.31 41.91) (xy 702.31 46.99)) (stroke (width 0) (type default)) (uuid "fc2d3754-6ac1-44e9-9910-60b4ccd7e385")) (global_label "VDDA_ADC" (shape passive) (at 702.31 46.99 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "a9f8f996-4120-4172-9425-299596425723")) (symbol (lib_id "iMX6:Device_Ferrite_Bead_Small") (at 702.31 39.37 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "9fbf811a-a858-45d8-8f71-9917e5bccb17") (property "Reference" "FB1" (at 694.69 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "Bead" (at 694.69 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:R_0402_narrow" (at 702.31 39.37 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 702.31 39.37 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 702.31 39.37 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "2790a3c8-ea19-419c-a4ab-9cbee985044e")) (pin "2" (uuid "4e92622c-6564-46bb-a757-5b7830640dfb")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "FB1") (unit 1))))) (wire (pts (xy 770.89 36.83) (xy 770.89 31.75)) (stroke (width 0) (type default)) (uuid "5e217891-9305-47e1-95eb-a3923bca6159")) (global_label "GND" (shape passive) (at 770.89 31.75 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "69ab8e2f-01cc-428e-905a-e339e82bca75")) (wire (pts (xy 770.89 44.45) (xy 770.89 49.53)) (stroke (width 0) (type default)) (uuid "dec249ae-354c-4b30-80eb-bbd2dfb7eb06")) (global_label "JTAG_MOD" (shape passive) (at 770.89 49.53 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "99faae17-a5c4-40c5-bbeb-c5da66b29987")) (symbol (lib_id "iMX6:Device_R") (at 770.89 40.64 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "267397d5-3f54-4e89-8520-e8161571a83f") (property "Reference" "R52" (at 763.27 29.21 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "4.7k" (at 763.27 31.75 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:R_0402_narrow" (at 770.89 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 770.89 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 770.89 40.64 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "f30365c1-e66e-412e-be8a-b627cdceebda")) (pin "2" (uuid "0895c38c-8510-4e11-b17f-d9c404182697")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "R52") (unit 1))))) (wire (pts (xy 54.61 85.09) (xy 54.61 80.01)) (stroke (width 0) (type default)) (uuid "e00b1025-30f5-44f2-ad15-6136515e0186")) (global_label "IMX_XTALI" (shape passive) (at 54.61 80.01 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "d1be2b7d-a131-402b-a2ec-171c571bea93")) (wire (pts (xy 54.61 92.71) (xy 54.61 97.79)) (stroke (width 0) (type default)) (uuid "f779b7e1-4fa5-4c1d-be5c-049d8f9c75b2")) (global_label "IMX_XTALO" (shape passive) (at 54.61 97.79 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "97e96fec-2f90-4c8f-94f8-c40837b2e786")) (symbol (lib_id "iMX6:nano-rescue_R") (at 54.61 88.90 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "011b57a4-5e29-440a-82d3-e3d0f1d97cac") (property "Reference" "R53" (at 46.99 77.47 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "1M" (at 46.99 80.01 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:R_0402_narrow" (at 54.61 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 54.61 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 54.61 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "a9a412b5-fcd4-41db-bda9-cf364fbd73c8")) (pin "2" (uuid "e9b3ea34-d2ed-46c0-ba97-c5d986bc2525")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "R53") (unit 1))))) (wire (pts (xy 123.19 85.09) (xy 123.19 80.01)) (stroke (width 0) (type default)) (uuid "19983256-bc58-4780-85cb-68127ae12f1a")) (global_label "IMX_XTALO" (shape passive) (at 123.19 80.01 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f0fb22d1-adc0-433b-9207-0b2b2647cc97")) (wire (pts (xy 123.19 92.71) (xy 123.19 97.79)) (stroke (width 0) (type default)) (uuid "f48d9117-f025-4be0-9f49-a12b3dcff845")) (global_label "GND" (shape passive) (at 123.19 97.79 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "33a5738f-4d64-4770-89d1-db2b9e9808ea")) (symbol (lib_id "iMX6:nano-rescue_R") (at 123.19 88.90 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "43d6bfe5-da97-4dce-9ec3-6218b686d106") (property "Reference" "R54" (at 115.57 77.47 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "499" (at 115.57 80.01 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:R_0402_narrow" (at 123.19 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 123.19 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 123.19 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "32ea9aa0-c399-4523-8de9-fc88bfbd0f6d")) (pin "2" (uuid "fb0f637b-f720-4b1a-a189-740f300dcc30")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "R54") (unit 1))))) (wire (pts (xy 190.50 85.09) (xy 190.50 80.01)) (stroke (width 0) (type default)) (uuid "69f0335a-776b-474b-aa68-e7ac5d4b96c5")) (global_label "IMX_XTALI" (shape passive) (at 190.50 80.01 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f459d23b-2724-42d3-925f-5beac1ab2c82")) (wire (pts (xy 190.50 92.71) (xy 190.50 97.79)) (stroke (width 0) (type default)) (uuid "62ddd669-30ef-482d-b11e-3e62c6881ce9")) (global_label "GND" (shape passive) (at 190.50 97.79 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "ff1b8b3e-23d9-4cb0-aa6f-f4f88de35918")) (symbol (lib_id "iMX6:nano-rescue_R") (at 190.50 88.90 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "727f670f-134b-473f-bf3c-7a4695449abe") (property "Reference" "R55" (at 182.88 77.47 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "2.2M" (at 182.88 80.01 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:R_0402_narrow" (at 190.50 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 190.50 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 190.50 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "8f564260-14b6-40b4-809d-562937de053b")) (pin "2" (uuid "5ec6573d-8254-4690-aa58-53da1bb45ae3")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "R55") (unit 1))))) (wire (pts (xy 259.08 85.09) (xy 259.08 80.01)) (stroke (width 0) (type default)) (uuid "afbb5ce7-e33e-41bd-ad45-d5c6482375d7")) (global_label "BOOT1" (shape passive) (at 259.08 80.01 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "a28c923a-6800-48b2-86e9-6cf43900867d")) (wire (pts (xy 259.08 92.71) (xy 259.08 97.79)) (stroke (width 0) (type default)) (uuid "61b1c7b0-dbfe-4e47-aca9-b784385f744c")) (global_label "VDD_SNVS" (shape passive) (at 259.08 97.79 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f172dd8d-1761-4483-b1ef-a089413cc532")) (symbol (lib_id "iMX6:nano-rescue_R") (at 259.08 88.90 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "4ecd90da-faa6-4259-ba28-7f12255b891e") (property "Reference" "SB1" (at 251.46 77.47 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "4.7K" (at 251.46 80.01 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:R_0402_narrow" (at 259.08 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 259.08 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 259.08 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "680100c2-7822-434d-9fdd-084d43752d2a")) (pin "2" (uuid "2b1963cc-8434-4353-8912-b46180de3d4e")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "SB1") (unit 1))))) (wire (pts (xy 326.39 85.09) (xy 326.39 80.01)) (stroke (width 0) (type default)) (uuid "a66bdf86-96ea-4e7a-88da-1229efbc3ba7")) (global_label "BOOT1" (shape passive) (at 326.39 80.01 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "f75fa79a-4435-4407-96e2-98f481aa81e1")) (wire (pts (xy 326.39 92.71) (xy 326.39 97.79)) (stroke (width 0) (type default)) (uuid "ed1d6284-6bc8-4991-b1ee-33bef9b979fd")) (global_label "GND" (shape passive) (at 326.39 97.79 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "c92c7af9-6802-443c-8c83-0c7319be0b09")) (symbol (lib_id "iMX6:nano-rescue_R") (at 326.39 88.90 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "4458f906-df90-4856-bfcf-4f8b06de6b23") (property "Reference" "SB2" (at 318.77 77.47 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "4.7K" (at 318.77 80.01 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:R_0402_narrow" (at 326.39 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 326.39 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 326.39 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "f8a2926a-54c7-4c3b-bbc8-b65de52857c6")) (pin "2" (uuid "3901d4b0-5eb5-4941-ba62-b9d2e420f1a1")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "SB2") (unit 1))))) (wire (pts (xy 394.97 85.09) (xy 394.97 80.01)) (stroke (width 0) (type default)) (uuid "7cf832e4-587e-423a-99e3-f19da20a0fff")) (global_label "BOOT0" (shape passive) (at 394.97 80.01 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "715c1351-aa98-49d4-8798-e8af398da63a")) (wire (pts (xy 394.97 92.71) (xy 394.97 97.79)) (stroke (width 0) (type default)) (uuid "06519309-2deb-400f-9373-fe26822d85e4")) (global_label "VDD_SNVS" (shape passive) (at 394.97 97.79 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "73c1de1f-bd4d-4bf2-9392-422ac2c40055")) (symbol (lib_id "iMX6:nano-rescue_R") (at 394.97 88.90 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "a03bd434-ec18-4140-8914-8a24f1a331f4") (property "Reference" "SB3" (at 387.35 77.47 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "4.7K" (at 387.35 80.01 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:R_0402_narrow" (at 394.97 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 394.97 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 394.97 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "cd6ff0c1-b429-4be3-81fa-0e9e17f938f0")) (pin "2" (uuid "b0c81e4b-3a25-4a78-a6df-1823a27e07da")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "SB3") (unit 1))))) (wire (pts (xy 463.55 85.09) (xy 463.55 80.01)) (stroke (width 0) (type default)) (uuid "a58977cb-9b62-4ea9-9126-1c06d00e7e09")) (global_label "BOOT0" (shape passive) (at 463.55 80.01 90) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify left)) (uuid "2865fe1e-de5e-477b-8ffd-ba5b78764814")) (wire (pts (xy 463.55 92.71) (xy 463.55 97.79)) (stroke (width 0) (type default)) (uuid "39580a58-569d-4dd7-a8fd-32cff3edfd17")) (global_label "GND" (shape passive) (at 463.55 97.79 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "3b741581-9c13-4349-a4de-09276483d47d")) (symbol (lib_id "iMX6:nano-rescue_R") (at 463.55 88.90 0) (unit 1) (body_style 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (in_pos_files yes) (dnp no) (uuid "d3d658ed-a7e4-4eac-b34a-b3fc409a5b7b") (property "Reference" "SB4" (at 455.93 77.47 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "4.7K" (at 455.93 80.01 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "Custom Components:R_0402_narrow" (at 463.55 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Datasheet" "" (at 463.55 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (property "Description" "" (at 463.55 88.90 0) (hide yes) (effects (font (size 1.27 1.27)))) (pin "1" (uuid "95e0989e-6f8c-416e-89b6-755469671c7f")) (pin "2" (uuid "7b950293-3b4b-4125-a10b-a3240e033942")) (instances (project "iMX6" (path "/0c5e2f84-7a41-4b9d-a3e6-5f1d82b7c690/a51f5ee2-55ab-433b-8179-f0c6ddf2a852" (reference "SB4") (unit 1))))) (embedded_fonts no))
