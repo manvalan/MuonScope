@@ -1,0 +1,13 @@
+(version 1)
+# dogbone sotto le BGA: via 0.45/0.2, una pista da 5 mil tra due via (0.35 mm di canale, 0.127 + 2 x 0.1)
+(rule "Via BGA"
+    (condition "A.intersectsCourtyard('U1') || A.intersectsCourtyard('U2')")
+    (constraint via_diameter (min 0.45mm))
+    (constraint hole_size (min 0.2mm)))
+# piste: 5 mil fuori dai componenti, 4 mil sotto i componenti (courtyard di qualsiasi componente, top o bottom)
+(rule "Piste 5 mil"
+    (condition "A.Type == 'Track'")
+    (constraint track_width (min 0.127mm)))
+(rule "Piste 4 mil sotto i componenti"
+    (condition "A.Type == 'Track' && (A.intersectsFrontCourtyard('*') || A.intersectsBackCourtyard('*'))")
+    (constraint track_width (min 0.1016mm)))
